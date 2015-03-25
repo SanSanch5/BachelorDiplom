@@ -1,0 +1,590 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Course_DB</name>
+    </assembly>
+    <members>
+        <member name="T:Course_DB.QueriesHandler">
+            <summary>
+            Исполняет прецеденты, используя функционал, предоставляемый интерфейсами IDataHandler и IMap
+            </summary>
+        </member>
+        <member name="M:Course_DB.QueriesHandler.#ctor(Course_DB.Data.IDataHandler,Course_DB.RoadsMap.IMap)">
+            <summary>
+            Конструктор
+            </summary>
+            <param name="dh">Реализация интерфейса IDataHandler</param>
+            <param name="m">Реализация интерфейса IMap</param>
+        </member>
+        <member name="M:Course_DB.QueriesHandler.AddNewDriver(System.String,System.String,System.String,System.String,System.String)">
+            <summary>
+            Добавление нового водителя
+            Проверка на номер телефона: если такой уже зарегистрирован, то выдаётся соответствующее сообщение
+            Проверка на наличие водителей с таким же именем, выводятся их номера в отдельном окне,   
+            Пользователь решает, нужно ли создать нового водителя или же добавить контакты к какому-то из уже зарегистрированных
+            </summary>
+            <param name="lName">Фамилия</param>
+            <param name="name">Имя</param>
+            <param name="mName">Отчество</param>
+            <param name="num1">Основной номер телефона</param>
+            <param name="num2">Дополнительный номер</param>
+        </member>
+        <member name="M:Course_DB.QueriesHandler.CheckDriver(System.String)">
+            <summary>
+            Возвращает ФИО водителя по заданному номеру
+            </summary>
+            <param name="number"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Course_DB.QueriesHandler.DelDriver(System.String)">
+            <summary>
+            Удаляет записи о водителе вместе со всеми зарегистрированными на него перевозками
+            </summary>
+            <param name="number"></param>
+        </member>
+        <member name="M:Course_DB.QueriesHandler.AddNewConsignment(System.String,System.Int32,System.String)">
+            <summary>
+            Добавить новый тип груза
+            Если груз с таким именем уже есть в базе, то обновить действие при аварии и уровень опасности
+            </summary>
+            <param name="name">Название</param>
+            <param name="dangerDegree">Класс опасности</param>
+            <param name="afterCrash">Действия при аварии</param>
+        </member>
+        <member name="M:Course_DB.QueriesHandler.AddNewTransit(System.Int32,System.Int32,System.DateTime,System.Collections.Generic.List{System.String})">
+            <summary>
+            Добавляем новую перевозку
+            Рассчитывается маршрут перевозки.
+            Рассчитывается время, которое необходимо водителю
+            для переезда в каждый город из начального.
+            Полученная информация регистрируется в специальной таблице.
+            </summary>
+            <param name="driverID"></param>
+            <param name="consID"></param>
+            <param name="start"></param>
+            <param name="citiesLst"></param>
+        </member>
+        <member name="M:Course_DB.QueriesHandler.DelTransitsBefore(System.DateTime)">
+            <summary>
+            Удалить все перевозки, зарегистрированные ранее заданного времени
+            </summary>
+            <param name="time"></param>
+        </member>
+        <member name="M:Course_DB.QueriesHandler.DelEndedTransits">
+            <summary>
+            Удалить все завершённые перевозки
+            </summary>
+        </member>
+        <member name="M:Course_DB.QueriesHandler.AddNewWaybill(System.String,System.String,System.Collections.Generic.List{System.String},System.DateTime)">
+            <summary>
+            Добавление нового путевого листа
+            Не производится добавление водителя! 
+            Если водитель ранее не был зарегистрирован в базе, необходимо зарегистрировать его,
+            воспользовавшись формой добавления водителя.
+            Удаляются все стадии предыдущих перевозок, зарегистрированных на этого водителя, 
+            но сами перевозки не отмечаются, как завершённые. Для этого необходимо воспользоваться
+            специально предназначенной для этого формой.
+            </summary>
+            <param name="num"></param>
+            <param name="consName"></param>
+            <param name="citiesLst"></param>
+            <param name="start"></param>
+        </member>
+        <member name="M:Course_DB.QueriesHandler.SetEndingStatus(System.String,System.DateTime,System.DateTime)">
+            <summary>
+            Установить статус завершения для перевозки.
+            </summary>
+            <param name="num"></param>
+            <param name="start"></param>
+            <param name="arr"></param>
+        </member>
+        <member name="M:Course_DB.QueriesHandler.AnalyseDanger(System.DateTime,System.DateTime,System.String)">
+            <summary>
+            Анализ опасности.
+            Производится выборка по по промежутку времени по каждой перевозке
+            для каждого города из указанного региона
+            </summary>
+            <param name="since">Начало временного интервала</param>
+            <param name="until">Конец временного интервала</param>
+            <param name="place">Место аварии (город или регион)</param>
+            <returns>Список найденных опасных грузов, водителей и мест с подробной информацией о них.</returns>
+        </member>
+        <member name="M:Course_DB.QueriesHandler.GetComboBoxedDriverID(System.Int32)">
+            <summary>
+            Специальный метод для пользователей, которые в ComboBox загрузили весь список водителей (ФИО)
+            В любом другом случае не использовать!!!
+            </summary>
+            <param name="driverID">Индекс водителя в ComboBox</param>
+            <returns>Индекс водителя в базе данных</returns>
+        </member>
+        <member name="M:Course_DB.QueriesHandler.GetComboBoxedDriverInfo(System.Int32)">
+            <summary>
+            Специальный метод для пользователей, которые в ComboBox загрузили весь список водителей (ФИО)
+            В любом другом случае не использовать!!!
+            </summary>
+            <param name="index">Индекс водителя в ComboBox</param>
+            <returns>Информацию о водителе</returns>
+        </member>
+        <member name="M:Course_DB.QueriesHandler.GetDriverNumbers(System.Int32)">
+            <summary>
+            Получить все номера водителя
+            </summary>
+            <param name="driverID">ID водителя</param>
+            <returns></returns>
+        </member>
+        <member name="M:Course_DB.QueriesHandler.GetDriverInfo(System.Int32)">
+            <summary>
+            Получить информацию о каждом водителе и о его последней перевозке
+            </summary>
+            <param name="driverID">ID водителя</param>
+            <returns></returns>
+        </member>
+        <member name="M:Course_DB.QueriesHandler.GetDriversFullNames">
+            <summary>
+            Получить полный список ФИО всех водителей
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Course_DB.QueriesHandler.GetCitiesNames">
+            <summary>
+            Получить полный список названий городов
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Course_DB.QueriesHandler.GetConsignmentsNames">
+            <summary>
+            Получить полный список названий грузов
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Course_DB.QueriesHandler.GetNumbers">
+            <summary>
+            получить полный список всех имеющихся в базе контактных номеров
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Course_DB.QueriesHandler.GetRegionsNames">
+            <summary>
+            Получить полный список названий регионов
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Course_DB.QueriesHandler.HasPhoneNumber(System.String)">
+            <summary>
+            Узнать, зарегистрирован ли на кого-либо номер
+            </summary>
+            <param name="num">Проверяемый номер</param>
+            <returns></returns>
+        </member>
+        <member name="P:Course_DB.QueriesHandler.AnalyseProgress">
+            <summary>
+            Свойство устанавливает, какую полосу загрузки использовать при анализе
+            </summary>
+        </member>
+        <member name="P:Course_DB.QueriesHandler.DataHandler">
+            <summary>
+            Свойство устанавливает новую реализацию интерфейса IDataHandler и возвращает текущуюю
+            </summary>
+        </member>
+        <member name="P:Course_DB.QueriesHandler.Map">
+            <summary>
+            Свойство устанавливает новую реализацию интерфейса IMap и возвращает текущуюю
+            </summary>
+        </member>
+        <member name="T:Course_DB.Data.Course_DB.DataHandler">
+            <summary>
+            Реализация интерфейса IDataHandler. Данные хранятся в базе данных Course_DB, созданной в Sql Server 2008
+            </summary>
+        </member>
+        <member name="T:Course_DB.Data.IDataHandler">
+            <summary>
+            Предоставляет необходимый функционал для работы с данными, абстрагируясь от способа их хранения
+            </summary>
+        </member>
+        <member name="M:Course_DB.Data.IDataHandler.AddNewContact(System.Int32,System.String)">
+            <summary>
+            Добавляет новый контакт
+            </summary>
+            <param name="driverID">Идентификатор владельца контакта</param>
+            <param name="contact">Номер телефона</param>
+        </member>
+        <member name="M:Course_DB.Data.IDataHandler.DelContacts(System.Int32)">
+            <summary>
+            Удалить все контакты, записанные за водителя
+            </summary>
+            <param name="driverID">ID водителя</param>
+        </member>
+        <member name="M:Course_DB.Data.IDataHandler.AddNewDriver(System.String,System.String,System.String)">
+            <summary>
+            Добавить нового водителя
+            </summary>
+            <param name="lName">Фамилия</param>
+            <param name="name">Имя</param>
+            <param name="mName">Отчество, если есть</param>
+            <returns>ID добавленного водителя</returns>
+        </member>
+        <member name="M:Course_DB.Data.IDataHandler.DelDriver(System.Int32)">
+            <summary>
+            Удалить водителя
+            </summary>
+            <param name="driverID"></param>
+        </member>
+        <member name="M:Course_DB.Data.IDataHandler.AddNewConsignment(System.String,System.Int32,System.String)">
+            <summary>
+             Добавить новый груз
+            </summary>
+            <param name="name">Наименование</param>
+            <param name="dangerDegree">Уровень опасности</param>
+            <param name="afterCrash">Действия при аварии</param>
+            <returns>ID добавленного груза</returns>
+        </member>
+        <member name="M:Course_DB.Data.IDataHandler.AddNewTransit(System.Int32,System.Int32)">
+            <summary>
+            Добавить новую перевозку
+            </summary>
+            <param name="driverID"></param>
+            <param name="consignmentID"></param>
+            <returns>ID добавленной перевозки</returns>
+        </member>
+        <member name="M:Course_DB.Data.IDataHandler.DelTransit(System.Int32)">
+            <summary>
+            Удалить перевозку
+            </summary>
+            <param name="transID"></param>
+        </member>
+        <member name="M:Course_DB.Data.IDataHandler.AddNewRoute(System.Int32,System.DateTime,System.DateTime,System.String,System.Boolean)">
+            <summary>
+            Добавить новый маршрут
+            </summary>
+            <param name="transitID"></param>
+            <param name="startTime">Время отправления</param>
+            <param name="arrTime">Время прибытия (отмечается по прибытии)</param>
+            <param name="cities">Список проезжаемых городов</param>
+            <param name="status">Завершена ли перевозка</param>
+        </member>
+        <member name="M:Course_DB.Data.IDataHandler.DelRoute(System.Int32)">
+            <summary>
+            Удалить информацию о маршруте
+            </summary>
+            <param name="transID">ID перевозки</param>
+        </member>
+        <member name="M:Course_DB.Data.IDataHandler.AddNewCity(System.String,System.Int32,System.Int32)">
+            <summary>
+            Добавить новый населённый пункт
+            </summary>
+            <param name="name">Название</param>
+            <param name="parkingTime">Время стоянки</param>
+            <param name="regionID">ID региона</param>
+            <returns>ID добавленного населённого пункта</returns>
+        </member>
+        <member name="M:Course_DB.Data.IDataHandler.AddNewRegion(System.String)">
+            <summary>
+            Добавить регион
+            </summary>
+            <param name="name">Название региона</param>
+            <returns>ID добавленного региона</returns>
+        </member>
+        <member name="M:Course_DB.Data.IDataHandler.AddNewTransitStady(System.Int32,System.Int32,System.DateTime)">
+            <summary>
+            Добавить новую стадию перевозки. Стадии перевозки нужны для быстрого поиска информации обо всех водителях в конкретном месте в конкретное время.
+            </summary>
+            <param name="transitID">ID перевозки</param>
+            <param name="cityID">ID населённого пункта</param>
+            <param name="noticedTime">Время нахождения</param>
+        </member>
+        <member name="M:Course_DB.Data.IDataHandler.SetConsignmentParameters(System.Int32,System.Int32,System.String)">
+            <summary>
+            Обновляет уровень опасности и действия после аварии.
+            </summary>
+            <param name="consID"></param>
+            <param name="dangerDegree"></param>
+            <param name="afterCrash"></param>
+        </member>
+        <member name="M:Course_DB.Data.IDataHandler.SetEndingStatus(System.Int32,System.DateTime,System.DateTime)">
+            <summary>
+            Устанавливает время прибытия и статус завершения для перевозки.
+            </summary>
+            <param name="transID"></param>
+            <param name="start"></param>
+            <param name="arr"></param>
+        </member>
+        <member name="M:Course_DB.Data.IDataHandler.DeleteStadiesByTransitID(System.Int32)">
+            <summary>
+            Удалить все стадии перевозки с ID этой перевозки
+            </summary>
+            <param name="transID"></param>
+        </member>
+        <member name="M:Course_DB.Data.IDataHandler.GetLastInTable``1">
+            <summary>
+            Возвращает полденюю запись в таблице
+            </summary>
+            <typeparam name="T">Типом должен являться пользовательский класс, описывающий таблицу БД</typeparam>
+            <returns></returns>
+        </member>
+        <member name="M:Course_DB.Data.IDataHandler.GetTableLength``1">
+            <summary>
+            
+            </summary>
+            <typeparam name="T"></typeparam>
+            <returns>Количество записей в таблице</returns>
+        </member>
+        <member name="M:Course_DB.Data.IDataHandler.HasPhoneNumber(System.String)">
+            <summary>
+            Существует ли в базе данных такой номер телефона
+            </summary>
+        </member>
+        <member name="M:Course_DB.Data.IDataHandler.FindDrivers(System.String,System.String,System.String)">
+            <summary>
+            Возвращает массив идентификаторов водителей с заданными ФИО
+            </summary>
+        </member>
+        <member name="M:Course_DB.Data.IDataHandler.DriverWithPhoneNumber(System.String)">
+            <summary>
+            Возвращает ID водителя по его номеру телефона
+            </summary>
+        </member>
+        <member name="M:Course_DB.Data.IDataHandler.GetCityID(System.String)">
+            <summary>
+            Возвращает номер населённого пункта по его названию.
+            </summary>
+            <param name="name"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Course_DB.Data.IDataHandler.GetRegionID(System.String)">
+            <summary>
+            
+            </summary>
+            <param name="name"></param>
+            <returns>Номер региона (или округа, если быть точным)</returns>
+        </member>
+        <member name="M:Course_DB.Data.IDataHandler.GetConsignmentID(System.String)">
+            <summary>
+            Найти идентификатор груза по названию груза.
+            </summary>
+            <param name="name"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Course_DB.Data.IDataHandler.GetTransitID(System.Int32,System.DateTime)">
+            <summary>
+            Найти ID перевозки по ID водителя и времени отправления
+            </summary>
+            <param name="driverID"></param>
+            <param name="start"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Course_DB.Data.IDataHandler.GetTransitIDs(System.DateTime,System.DateTime,System.Int32)">
+            <summary>
+            Найти ID всех первозок в заданный промежуток времени в заданном городе
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Course_DB.Data.IDataHandler.GetTransitIDs(System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="start"></param>
+            <param name="until"></param>
+            <param name="placeID"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Course_DB.Data.IDataHandler.TransitsBefore(System.DateTime)">
+            <summary>
+            Получить список из ID первозок, зарегистрированных ранее указанного времени 
+            </summary>
+            <param name="time">"Верхнее" время регистрации</param>
+            <returns></returns>
+        </member>
+        <member name="M:Course_DB.Data.IDataHandler.EndedTransits">
+            <summary>
+            Получить список из ID завершённых перевозок
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Course_DB.Data.IDataHandler.GetCitiesNames">
+            <summary>
+            
+            </summary>
+            <returns>Список названий всех городов</returns>
+        </member>
+        <member name="M:Course_DB.Data.IDataHandler.GetCitiesInRegion(System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="regionID"></param>
+            <returns>Список идентификаторов городов в регионе (округе)</returns>
+        </member>
+        <member name="M:Course_DB.Data.IDataHandler.GetConsignmentsNames">
+            <summary>
+            
+            </summary>
+            <returns>Список названий всех грузов</returns>
+        </member>
+        <member name="M:Course_DB.Data.IDataHandler.GetNumbers">
+            <summary>
+            
+            </summary>
+            <returns>Список всех контактов</returns>
+        </member>
+        <member name="M:Course_DB.Data.IDataHandler.GetRegionsNames">
+            <summary>
+            
+            </summary>
+            <returns>Список названий всех регионов</returns>
+        </member>
+        <member name="M:Course_DB.Data.IDataHandler.GetParkingMinutesOfTheCity(System.Int32)">
+            <summary>
+            Позволяет узнать продолжительность остановки/стоянки в минутах в заданном городе
+            </summary>
+            <param name="cityID"></param>
+            <returns>Количество минут стоянки</returns>
+        </member>
+        <member name="M:Course_DB.Data.IDataHandler.GetDriverID(System.Int32)">
+            <summary>
+            Определить водителя по номеру первозки
+            </summary>
+            <param name="transID">ID перевозки</param>
+            <returns>ID водителя</returns>
+        </member>
+        <member name="M:Course_DB.Data.IDataHandler.GetConsignmentID(System.Int32)">
+            <summary>
+            Определить груз по номеру перевозки
+            </summary>
+            <param name="transID"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Course_DB.Data.IDataHandler.GetDriverName(System.Int32)">
+            <summary>
+            Получить имя водителя
+            </summary>
+            <param name="driverID">ID водителя</param>
+            <returns></returns>
+        </member>
+        <member name="M:Course_DB.Data.IDataHandler.GetDriverSurname(System.Int32)">
+            <summary>
+            Получить фамилию водителя
+            </summary>
+            <param name="driverID">ID водителя</param>
+            <returns></returns>
+        </member>
+        <member name="M:Course_DB.Data.IDataHandler.GetDriverNumbers(System.Int32)">
+            <summary>
+            Получить контактные номера водителя
+            </summary>
+            <param name="driverID">ID водителя</param>
+            <returns>Список номеров</returns>
+        </member>
+        <member name="M:Course_DB.Data.IDataHandler.GetConsignmentName(System.Int32)">
+            <summary>
+            Получить название груза
+            </summary>
+            <param name="consID">ID груза</param>
+            <returns></returns>
+        </member>
+        <member name="M:Course_DB.Data.IDataHandler.GetAfterCrashInfo(System.Int32)">
+            <summary>
+            Получить описание действий при аварии
+            </summary>
+            <param name="consID">ID груза</param>
+            <returns></returns>
+        </member>
+        <member name="M:Course_DB.Data.IDataHandler.GetDangerDegree(System.Int32)">
+            <summary>
+            Получить уровень опасности груза
+            </summary>
+            <param name="consID">ID груза</param>
+            <returns></returns>
+        </member>
+        <member name="M:Course_DB.Data.IDataHandler.GetLocationTime(System.Int32,System.Int32)">
+            <summary>
+            Получить время нахождения водителя в городе в рамках перевозки
+            </summary>
+            <param name="transID">ID перевозки</param>
+            <param name="cityID">ID города</param>
+            <returns>Оцененное время, когда водитель будет в этом городе</returns>
+        </member>
+        <member name="M:Course_DB.Data.IDataHandler.GetArrival(System.Int32)">
+            <summary>
+            Получить время окончания завершённой перевозки
+            </summary>
+            <param name="transID">ID перевозки</param>
+            <returns></returns>
+        </member>
+        <member name="M:Course_DB.Data.IDataHandler.GetVisitsCities(System.Int32)">
+            <summary>
+            Узнать города, посещаемые водителем в рамках данной перевозки
+            </summary>
+            <param name="transID">ID перевозки</param>
+            <returns>Строка, в которой через пробел записаны ID городов в порядке их посещения</returns>
+        </member>
+        <member name="M:Course_DB.Data.IDataHandler.GetCurrentLocation(System.Int32)">
+            <summary>
+            Получить текущее местонахождение водителя
+            </summary>
+            <param name="transID">ID перевозки</param>
+            <returns></returns>
+        </member>
+        <member name="M:Course_DB.Data.IDataHandler.GetStatus(System.Int32)">
+            <summary>
+            Получить статус перевозки
+            </summary>
+            <param name="transID">ID перевозки</param>
+            <returns></returns>
+        </member>
+        <member name="P:Course_DB.Data.Course_DB.DataHandler.Routes.CitiesList">
+            <summary>
+            Хранит строку id городов через пробел
+            </summary>
+        </member>
+        <member name="F:Course_DB.Forms.MainForm._queriesHandler">
+            <summary>
+            Предусмотрена возможность расширения: привязка к другой карте и к другой базе данных.
+            Обработчик запросов отвечает за логику запросов: проверки, исключения, ошибки и т.п.
+            </summary>
+        </member>
+        <member name="T:Course_DB.RoadsMap.IMap">
+            <summary>
+            Интерфейс для карты. Классы-реализации должны предоставлять пользователю структуру карты, возможность её обновить
+            и возможность находить кратчайшие пути с возможным объездом множества населённых пунктов.
+            </summary>
+        </member>
+        <member name="M:Course_DB.RoadsMap.IMap.Reload">
+            <summary>
+            Перезагрузить карту
+            </summary>
+        </member>
+        <member name="M:Course_DB.RoadsMap.IMap.GetShortTrack(System.Int32,System.Int32,System.Int32)">
+            <summary>
+            Ключ записи словаря - идентификационный номер города в базе данных, 
+            значение записи словаря - время поездки из пункта отправления 
+            </summary>
+            <param name="start">ID начального пункта</param>
+            <param name="goal">ID конечного пункта</param>
+            <param name="startValue">Время, которое автомобиль был в пути до прибытия в начальный пункт (по умолчанию 0)</param>
+            <returns></returns>
+        </member>
+        <member name="M:Course_DB.RoadsMap.IMap.GetShortTrackWithoutPoints(System.Int32,System.Int32,System.Double[],System.Int32)">
+            <summary>
+            Ключ записи словаря - идентификационный номер города в базе данных, 
+            значение записи словаря - время поездки из пункта отправления 
+            </summary>
+            <param name="start">ID начального пункта</param>
+            <param name="goal">ID конечного пункта</param>
+            <param name="dont_drive">Вектор городов, которые нужно объехать</param>
+            <param name="startValue">Время, которое автомобиль был в пути до прибытия в начальный пункт (по умолчанию 0)</param>
+            <returns></returns>
+        </member>
+        <member name="P:Course_DB.RoadsMap.IMap.RoadMap">
+            <summary>
+            Ключ - ID основного города
+            Значение - ассоциативный массив, ключ которого - ID города, смежного с основным,
+            а значение - время в минутах, необходимое для переезда в город из основного
+            </summary>
+        </member>
+        <member name="T:Course_DB.RoadsMap.Graph">
+            <summary>
+            Реализация интерфейса карты. Структура заполняется из файла, лежащего в папке с программой.
+            При изменении структуры файл необходимо обновлять.
+            </summary>
+        </member>
+    </members>
+</doc>

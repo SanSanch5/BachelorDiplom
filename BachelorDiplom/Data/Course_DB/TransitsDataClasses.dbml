@@ -1,0 +1,76 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="Course_DB" Class="TransitsDataClassesDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="AppSettings" ConnectionString="Data Source=ALEX-PC\sqlexpress;Initial Catalog=Course_DB;Integrated Security=True" SettingsObjectName="BachelorLibAPI.Properties.Settings" SettingsPropertyName="Course_DBConnectionString2" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.Cities" Member="City">
+    <Type Name="City">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="RegionID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="ParkingTime" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="City_TransitStady" Member="TransitStady" ThisKey="ID" OtherKey="CityID" Type="TransitStady" />
+      <Association Name="Region_City" Member="Region" ThisKey="RegionID" OtherKey="ID" Type="Region" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.TransitStadies" Member="TransitStady">
+    <Type Name="TransitStady">
+      <Column Name="TransID" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="CityID" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="LocationTime" Type="System.DateTime" DbType="DateTime2 NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Association Name="City_TransitStady" Member="City" ThisKey="CityID" OtherKey="ID" Type="City" IsForeignKey="true" />
+      <Association Name="Transit_TransitStady" Member="Transit" ThisKey="TransID" OtherKey="ID" Type="Transit" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Consignments" Member="Consignment">
+    <Type Name="Consignment">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Danger_degree" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="After_crash" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Association Name="Consignment_Transit" Member="Transit" ThisKey="ID" OtherKey="ConsID" Type="Transit" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Contacts" Member="Contact">
+    <Type Name="Contact">
+      <Column Name="DriverID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="ContactNumber" Type="System.String" DbType="NVarChar(50) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Association Name="Driver_Contact" Member="Driver" ThisKey="DriverID" OtherKey="ID" Type="Driver" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Drivers" Member="Driver">
+    <Type Name="Driver">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="LName" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="MName" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Association Name="Driver_Contact" Member="Contact" ThisKey="ID" OtherKey="DriverID" Type="Contact" />
+      <Association Name="Driver_Transit" Member="Transit" ThisKey="ID" OtherKey="DriverID" Type="Transit" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Regions" Member="Region">
+    <Type Name="Region">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Association Name="Region_City" Member="City" ThisKey="ID" OtherKey="RegionID" Type="City" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Routes" Member="Route">
+    <Type Name="Route">
+      <Column Name="TransID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="StartTime" Type="System.DateTime" DbType="DateTime2 NOT NULL" CanBeNull="false" />
+      <Column Name="ArrTime" Type="System.DateTime" DbType="DateTime2" CanBeNull="true" />
+      <Column Name="CitiesList" Type="System.String" DbType="NVarChar(MAX) NOT NULL" CanBeNull="false" />
+      <Column Name="Status" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Association Name="Transit_Route" Member="Transit" ThisKey="TransID" OtherKey="ID" Type="Transit" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Transits" Member="Transit">
+    <Type Name="Transit">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="DriverID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="ConsID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="Transit_TransitStady" Member="TransitStady" ThisKey="ID" OtherKey="TransID" Type="TransitStady" />
+      <Association Name="Transit_Route" Member="Route" ThisKey="ID" OtherKey="TransID" Type="Route" />
+      <Association Name="Consignment_Transit" Member="Consignment" ThisKey="ConsID" OtherKey="ID" Type="Consignment" IsForeignKey="true" />
+      <Association Name="Driver_Transit" Member="Driver" ThisKey="DriverID" OtherKey="ID" Type="Driver" IsForeignKey="true" />
+    </Type>
+  </Table>
+</Database>
