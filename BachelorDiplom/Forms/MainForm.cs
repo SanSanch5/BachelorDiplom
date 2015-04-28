@@ -320,12 +320,6 @@ namespace BachelorLibAPI.Forms
 
             if (openStreetMapToolStripMenuItem.Checked)
                 plc = ((OpenStreetMapProvider)gmap.MapProvider).GetPlacemark(pnt, out st);
-            else if (googleMapToolStripMenuItem.Checked)
-                plc = ((GoogleMapProvider)gmap.MapProvider).GetPlacemark(pnt, out st);
-            else if (bingSatelliteMapToolStripMenuItem.Checked)
-                plc = ((BingSatelliteMapProvider)gmap.MapProvider).GetPlacemark(pnt, out st);
-            else if (openCycleTransportMapToolStripMenuItem.Checked)
-                plc = ((OpenCycleTransportMapProvider)gmap.MapProvider).GetPlacemark(pnt, out st);
             
             return plc;
         }
@@ -346,35 +340,6 @@ namespace BachelorLibAPI.Forms
             gmap.MapProvider = GMap.NET.MapProviders.OpenStreetMapProvider.Instance;
             GMap.NET.GMaps.Instance.Mode = GMap.NET.AccessMode.ServerAndCache;
             gmap.Zoom = 10;
-            googleMapToolStripMenuItem.Checked = bingSatelliteMapToolStripMenuItem.Checked =
-                openCycleTransportMapToolStripMenuItem.Checked = false;
-        }
-
-        private void googleMapToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            gmap.MapProvider = GMap.NET.MapProviders.GoogleMapProvider.Instance;
-            GMap.NET.GMaps.Instance.Mode = GMap.NET.AccessMode.ServerAndCache;
-            gmap.Zoom = 10;
-            openStreetMapToolStripMenuItem.Checked = bingSatelliteMapToolStripMenuItem.Checked =
-                openCycleTransportMapToolStripMenuItem.Checked = false;
-        }
-
-        private void bingSatelliteMapToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            gmap.MapProvider = GMap.NET.MapProviders.BingSatelliteMapProvider.Instance;
-            GMap.NET.GMaps.Instance.Mode = GMap.NET.AccessMode.ServerAndCache;
-            gmap.Zoom = 13;
-            googleMapToolStripMenuItem.Checked = openStreetMapToolStripMenuItem.Checked =
-                openCycleTransportMapToolStripMenuItem.Checked = false;
-        }
-
-        private void openCycleTransportMapToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            gmap.MapProvider = GMap.NET.MapProviders.OpenCycleTransportMapProvider.Instance;
-            GMap.NET.GMaps.Instance.Mode = GMap.NET.AccessMode.ServerAndCache;
-            gmap.Zoom = 10;
-            bingSatelliteMapToolStripMenuItem.Checked = googleMapToolStripMenuItem.Checked 
-                = openStreetMapToolStripMenuItem.Checked = false;
         }
     }
 }

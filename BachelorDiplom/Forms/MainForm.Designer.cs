@@ -36,6 +36,8 @@
             this.установитьСтатусЗавершенияToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.картаToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.загрузитьВнутреннююКартупоУмолчаниюToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.видToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.openStreetMapToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.базаДанныхToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.добавитьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.водителяToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -67,11 +69,6 @@
             this.pbAnalyse = new System.Windows.Forms.ProgressBar();
             this.gmap = new GMap.NET.WindowsForms.GMapControl();
             this.ltMapPanel = new System.Windows.Forms.TableLayoutPanel();
-            this.видToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.openStreetMapToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.googleMapToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.bingSatelliteMapToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.openCycleTransportMapToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuMain.SuspendLayout();
             this.ltMainOptions.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -146,6 +143,24 @@
             this.загрузитьВнутреннююКартупоУмолчаниюToolStripMenuItem.Size = new System.Drawing.Size(374, 22);
             this.загрузитьВнутреннююКартупоУмолчаниюToolStripMenuItem.Text = "Загрузить внутреннюю карту (по умолчанию)";
             this.загрузитьВнутреннююКартупоУмолчаниюToolStripMenuItem.Click += new System.EventHandler(this.LoadBuildInMapClick);
+            // 
+            // видToolStripMenuItem
+            // 
+            this.видToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.openStreetMapToolStripMenuItem});
+            this.видToolStripMenuItem.Name = "видToolStripMenuItem";
+            this.видToolStripMenuItem.Size = new System.Drawing.Size(374, 22);
+            this.видToolStripMenuItem.Text = "Вид";
+            // 
+            // openStreetMapToolStripMenuItem
+            // 
+            this.openStreetMapToolStripMenuItem.Checked = true;
+            this.openStreetMapToolStripMenuItem.CheckOnClick = true;
+            this.openStreetMapToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.openStreetMapToolStripMenuItem.Name = "openStreetMapToolStripMenuItem";
+            this.openStreetMapToolStripMenuItem.Size = new System.Drawing.Size(157, 22);
+            this.openStreetMapToolStripMenuItem.Text = "OpenStreetMap";
+            this.openStreetMapToolStripMenuItem.Click += new System.EventHandler(this.openStreetMapToolStripMenuItem_Click);
             // 
             // базаДанныхToolStripMenuItem
             // 
@@ -502,51 +517,6 @@
             this.ltMapPanel.Size = new System.Drawing.Size(914, 496);
             this.ltMapPanel.TabIndex = 7;
             // 
-            // видToolStripMenuItem
-            // 
-            this.видToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.openStreetMapToolStripMenuItem,
-            this.openCycleTransportMapToolStripMenuItem,
-            this.googleMapToolStripMenuItem,
-            this.bingSatelliteMapToolStripMenuItem});
-            this.видToolStripMenuItem.Name = "видToolStripMenuItem";
-            this.видToolStripMenuItem.Size = new System.Drawing.Size(374, 22);
-            this.видToolStripMenuItem.Text = "Вид";
-            // 
-            // openStreetMapToolStripMenuItem
-            // 
-            this.openStreetMapToolStripMenuItem.Checked = true;
-            this.openStreetMapToolStripMenuItem.CheckOnClick = true;
-            this.openStreetMapToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.openStreetMapToolStripMenuItem.Name = "openStreetMapToolStripMenuItem";
-            this.openStreetMapToolStripMenuItem.Size = new System.Drawing.Size(163, 22);
-            this.openStreetMapToolStripMenuItem.Text = "OpenStreetMap";
-            this.openStreetMapToolStripMenuItem.Click += new System.EventHandler(this.openStreetMapToolStripMenuItem_Click);
-            // 
-            // googleMapToolStripMenuItem
-            // 
-            this.googleMapToolStripMenuItem.CheckOnClick = true;
-            this.googleMapToolStripMenuItem.Name = "googleMapToolStripMenuItem";
-            this.googleMapToolStripMenuItem.Size = new System.Drawing.Size(163, 22);
-            this.googleMapToolStripMenuItem.Text = "GoogleMap";
-            this.googleMapToolStripMenuItem.Click += new System.EventHandler(this.googleMapToolStripMenuItem_Click);
-            // 
-            // bingSatelliteMapToolStripMenuItem
-            // 
-            this.bingSatelliteMapToolStripMenuItem.CheckOnClick = true;
-            this.bingSatelliteMapToolStripMenuItem.Name = "bingSatelliteMapToolStripMenuItem";
-            this.bingSatelliteMapToolStripMenuItem.Size = new System.Drawing.Size(163, 22);
-            this.bingSatelliteMapToolStripMenuItem.Text = "BingSatelliteMap";
-            this.bingSatelliteMapToolStripMenuItem.Click += new System.EventHandler(this.bingSatelliteMapToolStripMenuItem_Click);
-            // 
-            // openCycleTransportMapToolStripMenuItem
-            // 
-            this.openCycleTransportMapToolStripMenuItem.CheckOnClick = true;
-            this.openCycleTransportMapToolStripMenuItem.Name = "openCycleTransportMapToolStripMenuItem";
-            this.openCycleTransportMapToolStripMenuItem.Size = new System.Drawing.Size(207, 22);
-            this.openCycleTransportMapToolStripMenuItem.Text = "OpenCycleTransportMap";
-            this.openCycleTransportMapToolStripMenuItem.Click += new System.EventHandler(this.openCycleTransportMapToolStripMenuItem_Click);
-            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -616,9 +586,6 @@
         private System.Windows.Forms.TableLayoutPanel ltMapPanel;
         private System.Windows.Forms.ToolStripMenuItem видToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem openStreetMapToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem googleMapToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem1;
-        private System.Windows.Forms.ToolStripMenuItem bingSatelliteMapToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem openCycleTransportMapToolStripMenuItem;
     }
 }
