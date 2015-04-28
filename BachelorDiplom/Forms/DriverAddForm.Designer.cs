@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.ltpNewDriver = new System.Windows.Forms.TableLayoutPanel();
             this.lblDriverMidName = new System.Windows.Forms.Label();
             this.lblTelephoneNumber = new System.Windows.Forms.Label();
@@ -40,6 +41,7 @@
             this.edtMainPhoneNumber = new System.Windows.Forms.MaskedTextBox();
             this.edtAddPhoneNumber = new System.Windows.Forms.MaskedTextBox();
             this.btnNewDriver = new System.Windows.Forms.Button();
+            this.tmrForGreatFocus = new System.Windows.Forms.Timer(this.components);
             this.ltpNewDriver.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -187,6 +189,10 @@
             this.btnNewDriver.UseVisualStyleBackColor = true;
             this.btnNewDriver.Click += new System.EventHandler(this.AddDriverBtnClick);
             // 
+            // tmrForGreatFocus
+            // 
+            this.tmrForGreatFocus.Tick += new System.EventHandler(this.tmrForGreatFocus_Tick);
+            // 
             // DriverAddForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -216,5 +222,6 @@
         private System.Windows.Forms.MaskedTextBox edtMainPhoneNumber;
         private System.Windows.Forms.MaskedTextBox edtAddPhoneNumber;
         private System.Windows.Forms.Button btnNewDriver;
+        private System.Windows.Forms.Timer tmrForGreatFocus;
     }
 }

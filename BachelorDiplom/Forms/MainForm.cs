@@ -6,6 +6,10 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using System.Diagnostics;
+
+using GMap.NET;
+using GMap.NET.MapProviders;
 
 using BachelorLibAPI.RoadsMap;
 using BachelorLibAPI.Data;
@@ -51,6 +55,7 @@ namespace BachelorLibAPI.Forms
         {
             DriverAddForm driverAddingForm = new DriverAddForm(_queriesHandler);
             driverAddingForm.Show();
+            driverAddingForm.TopMost = true;
         }
 
         private void AddConsignmentClick(object sender, EventArgs e)
@@ -279,9 +284,6 @@ namespace BachelorLibAPI.Forms
 
         private void rbtCity_Click(object sender, EventArgs e)
         {
-            rbtCity.Checked = true;
-            rbtRegion.Checked = false;
-
             cmbCrashPlace.Items.Clear();
             List<string> cities = _queriesHandler.GetCitiesNames();
             foreach (var city in cities)
@@ -291,9 +293,6 @@ namespace BachelorLibAPI.Forms
 
         private void rbtRegion_Click(object sender, EventArgs e)
         {
-            rbtCity.Checked = false;
-            rbtRegion.Checked = true;
-
             cmbCrashPlace.Items.Clear();
             List<string> regions = _queriesHandler.GetRegionsNames();
             foreach (var reg in regions)
@@ -308,10 +307,74 @@ namespace BachelorLibAPI.Forms
 
         private void MainForm_Load(object sender, EventArgs e)
         {
-            gmap.MapProvider = GMap.NET.MapProviders.OpenStreetMapProvider.Instance;
-            GMap.NET.GMaps.Instance.Mode = GMap.NET.AccessMode.ServerOnly;
+            openStreetMapToolStripMenuItem_Click(sender, e);
             gmap.SetPositionByKeywords("Moscow, Russian");
+            gmap.DragButton = MouseButtons.Left;
+            gmap.DisableFocusOnMouseEnter = true;
+        }
+
+        private Placemark? getPlacemark(PointLatLng pnt, out GeoCoderStatusCode st)
+        {
+            Placemark? plc = null;
+            st = GeoCoderStatusCode.G_GEO_BAD_KEY;
+
+            if (openStreetMapToolStripMenuItem.Checked)
+                plc = ((OpenStreetMapProvider)gmap.MapProvider).GetPlacemark(pnt, out st);
+            else if (googleMapToolStripMenuItem.Checked)
+                plc = ((GoogleMapProvider)gmap.MapProvider).GetPlacemark(pnt, out st);
+            else if (bingSatelliteMapToolStripMenuItem.Checked)
+                plc = ((BingSatelliteMapProvider)gmap.MapProvider).GetPlacemark(pnt, out st);
+            else if (openCycleTransportMapToolStripMenuItem.Checked)
+                plc = ((OpenCycleTransportMapProvider)gmap.MapProvider).GetPlacemark(pnt, out st);
+            
+            return plc;
+        }
+
+        private void gmap_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            GeoCoderStatusCode st;
+            Placemark? plc = getPlacemark(gmap.FromLocalToLatLng(e.X, e.Y), out st);
+            if (st == GeoCoderStatusCode.G_GEO_SUCCESS && plc != null)
+            {
+                Debug.WriteLine("Accuracy: " + plc.Value.Accuracy + ", " + plc.Value.ThoroughfareName + ", " + plc.Value.Neighborhood + ", " + plc.Value.HouseNo 
+                    + ", PostalCodeNumber: " + plc.Value.PostalCodeNumber);
+            }
+        }
+
+        private void openStreetMapToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            gmap.MapProvider = GMap.NET.MapProviders.OpenStreetMapProvider.Instance;
+            GMap.NET.GMaps.Instance.Mode = GMap.NET.AccessMode.ServerAndCache;
             gmap.Zoom = 10;
+            googleMapToolStripMenuItem.Checked = bingSatelliteMapToolStripMenuItem.Checked =
+                openCycleTransportMapToolStripMenuItem.Checked = false;
+        }
+
+        private void googleMapToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            gmap.MapProvider = GMap.NET.MapProviders.GoogleMapProvider.Instance;
+            GMap.NET.GMaps.Instance.Mode = GMap.NET.AccessMode.ServerAndCache;
+            gmap.Zoom = 10;
+            openStreetMapToolStripMenuItem.Checked = bingSatelliteMapToolStripMenuItem.Checked =
+                openCycleTransportMapToolStripMenuItem.Checked = false;
+        }
+
+        private void bingSatelliteMapToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            gmap.MapProvider = GMap.NET.MapProviders.BingSatelliteMapProvider.Instance;
+            GMap.NET.GMaps.Instance.Mode = GMap.NET.AccessMode.ServerAndCache;
+            gmap.Zoom = 13;
+            googleMapToolStripMenuItem.Checked = openStreetMapToolStripMenuItem.Checked =
+                openCycleTransportMapToolStripMenuItem.Checked = false;
+        }
+
+        private void openCycleTransportMapToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            gmap.MapProvider = GMap.NET.MapProviders.OpenCycleTransportMapProvider.Instance;
+            GMap.NET.GMaps.Instance.Mode = GMap.NET.AccessMode.ServerAndCache;
+            gmap.Zoom = 10;
+            bingSatelliteMapToolStripMenuItem.Checked = googleMapToolStripMenuItem.Checked 
+                = openStreetMapToolStripMenuItem.Checked = false;
         }
     }
 }

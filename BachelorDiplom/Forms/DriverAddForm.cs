@@ -17,6 +17,8 @@ namespace BachelorLibAPI.Forms
         {
             InitializeComponent();
             _queriesHandler = qh;
+            tmrForGreatFocus.Enabled = true;
+            tmrForGreatFocus.Interval = 200;
         }
 
         private void AddDriverBtnClick(object sender, EventArgs e)
@@ -42,6 +44,14 @@ namespace BachelorLibAPI.Forms
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, "Предупреждение");
+            }
+        }
+
+        private void tmrForGreatFocus_Tick(object sender, EventArgs e)
+        {
+            if(!this.Focused)
+            {
+                this.Activate();
             }
         }
     }
