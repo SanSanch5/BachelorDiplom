@@ -10,6 +10,8 @@ using System.Diagnostics;
 
 using GMap.NET;
 using GMap.NET.MapProviders;
+using GMap.NET.WindowsForms;
+using GMap.NET.WindowsForms.Markers;
 
 using BachelorLibAPI.RoadsMap;
 using BachelorLibAPI.Data;
@@ -62,11 +64,6 @@ namespace BachelorLibAPI.Forms
         {
             ConsignmentAddForm consAddingForm = new ConsignmentAddForm(_queriesHandler);
             consAddingForm.Show();
-        }
-
-        private void AddTransitClick(object sender, EventArgs e)
-        {
-
         }
 
         private void AddRegionClick(object sender, EventArgs e)
@@ -311,6 +308,11 @@ namespace BachelorLibAPI.Forms
             gmap.SetPositionByKeywords("Moscow, Russian");
             gmap.DragButton = MouseButtons.Left;
             gmap.DisableFocusOnMouseEnter = true;
+            gmap.RoutesEnabled = true;
+            gmap.Overlays.Clear();
+            gmap.Overlays.Add(routesOverlay);
+            gmap.Overlays.Add(startMarkerOverlay);
+            gmap.Overlays.Add(endMarkerOverlay);
         }
 
         private Placemark? getPlacemark(PointLatLng pnt, out GeoCoderStatusCode st)
@@ -339,7 +341,71 @@ namespace BachelorLibAPI.Forms
         {
             gmap.MapProvider = GMap.NET.MapProviders.OpenStreetMapProvider.Instance;
             GMap.NET.GMaps.Instance.Mode = GMap.NET.AccessMode.ServerAndCache;
-            gmap.Zoom = 10;
+            gmap.Zoom = 11;
+        }
+
+        private PointLatLng start, end;
+        private Point menuClickPos;
+        private GMapOverlay startMarkerOverlay = new GMapOverlay("startMarkers");
+        private GMapOverlay endMarkerOverlay = new GMapOverlay("endMarkers");
+        private GMapOverlay routesOverlay = new GMapOverlay("routes");
+
+        private void markStartPointClick(object sender, EventArgs e)
+        {
+            start = gmap.FromLocalToLatLng(gmap.PointToClient(menuClickPos).X, gmap.PointToClient(menuClickPos).Y);
+            Bitmap pic = new Bitmap("..\\..\\Map\\Resources\\truckyellow.png");
+            GMarkerGoogle marker = new GMarkerGoogle(start, new Bitmap(pic, new Size(32, 32)));
+            startMarkerOverlay.Clear();
+            startMarkerOverlay.Markers.Add(marker);
+        }
+
+        private void markEndPointClick(object sender, EventArgs e)
+        {
+            end = gmap.FromLocalToLatLng(gmap.PointToClient(menuClickPos).X, gmap.PointToClient(menuClickPos).Y);
+            Bitmap pic = new Bitmap("..\\..\\Map\\Resources\\tractorunitblack.png");
+            GMarkerGoogle marker = new GMarkerGoogle(end, new Bitmap(pic, new Size(32, 32)));
+            endMarkerOverlay.Clear();
+            endMarkerOverlay.Markers.Add(marker);
+            
+        }
+
+        private void getRouteClick(object sender, EventArgs e)
+        {
+            MapRoute route = ((OpenStreetMapProvider)gmap.MapProvider).GetRoute(start, end, false, false, 11);
+            if(route == null || route.Points.Count == 0)
+            {
+                MessageBox.Show("Не удалось построить маршрут.");
+                return;
+            }
+
+            GMapRoute r = new GMapRoute(route.Points, "My route");
+            r.Stroke.Width = 5;
+            r.Stroke.Color = Color.Black;
+
+            routesOverlay.Routes.Add(r);
+            gmap.ZoomAndCenterRoute(r);
+
+            ltMainOptions.Visible = false;
+            if(MessageBox.Show("Использовать этот маршрут? Вы можете добавить промежуточные точки для уточнения", "Внимание!", MessageBoxButtons.YesNo) == DialogResult.Yes)
+            {
+                startMarkerOverlay.Clear();
+                endMarkerOverlay.Clear();
+                // сохранить
+            }
+            
+            ltMainOptions.Visible = true;
+            routesOverlay.Clear();
+        }
+
+        private void mapMenu_Opening(object sender, CancelEventArgs e)
+        {
+            menuClickPos = Cursor.Position;
+        }
+
+        private void MainForm_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            Application.Exit();
+            Environment.Exit(0);
         }
     }
 }

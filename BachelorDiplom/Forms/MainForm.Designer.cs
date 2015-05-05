@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.menuMain = new System.Windows.Forms.MenuStrip();
             this.программаToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.анализОпасностиToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -68,10 +69,16 @@
             this.btnAnalyse = new System.Windows.Forms.Button();
             this.pbAnalyse = new System.Windows.Forms.ProgressBar();
             this.gmap = new GMap.NET.WindowsForms.GMapControl();
+            this.mapMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem3 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem4 = new System.Windows.Forms.ToolStripMenuItem();
+            this.построитьМаршрутToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ltMapPanel = new System.Windows.Forms.TableLayoutPanel();
             this.menuMain.SuspendLayout();
             this.ltMainOptions.SuspendLayout();
             this.groupBox1.SuspendLayout();
+            this.mapMenu.SuspendLayout();
             this.ltMapPanel.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -479,6 +486,7 @@
             // 
             this.gmap.Bearing = 0F;
             this.gmap.CanDragMap = true;
+            this.gmap.ContextMenuStrip = this.mapMenu;
             this.gmap.Dock = System.Windows.Forms.DockStyle.Fill;
             this.gmap.EmptyTileColor = System.Drawing.Color.Navy;
             this.gmap.GrayScaleMode = false;
@@ -501,6 +509,45 @@
             this.gmap.TabIndex = 13;
             this.gmap.Zoom = 0D;
             this.gmap.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.gmap_MouseDoubleClick);
+            // 
+            // mapMenu
+            // 
+            this.mapMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripMenuItem2,
+            this.toolStripMenuItem3,
+            this.toolStripMenuItem4,
+            this.построитьМаршрутToolStripMenuItem});
+            this.mapMenu.Name = "mapMenu";
+            this.mapMenu.Size = new System.Drawing.Size(256, 92);
+            this.mapMenu.Opening += new System.ComponentModel.CancelEventHandler(this.mapMenu_Opening);
+            // 
+            // toolStripMenuItem2
+            // 
+            this.toolStripMenuItem2.Name = "toolStripMenuItem2";
+            this.toolStripMenuItem2.Size = new System.Drawing.Size(255, 22);
+            this.toolStripMenuItem2.Text = "Добавить перевозку";
+            this.toolStripMenuItem2.Click += new System.EventHandler(this.NewWaybillClick);
+            // 
+            // toolStripMenuItem3
+            // 
+            this.toolStripMenuItem3.Name = "toolStripMenuItem3";
+            this.toolStripMenuItem3.Size = new System.Drawing.Size(255, 22);
+            this.toolStripMenuItem3.Text = "Отметить как пункт отправления";
+            this.toolStripMenuItem3.Click += new System.EventHandler(this.markStartPointClick);
+            // 
+            // toolStripMenuItem4
+            // 
+            this.toolStripMenuItem4.Name = "toolStripMenuItem4";
+            this.toolStripMenuItem4.Size = new System.Drawing.Size(255, 22);
+            this.toolStripMenuItem4.Text = "Отметить как пункт назначения";
+            this.toolStripMenuItem4.Click += new System.EventHandler(this.markEndPointClick);
+            // 
+            // построитьМаршрутToolStripMenuItem
+            // 
+            this.построитьМаршрутToolStripMenuItem.Name = "построитьМаршрутToolStripMenuItem";
+            this.построитьМаршрутToolStripMenuItem.Size = new System.Drawing.Size(255, 22);
+            this.построитьМаршрутToolStripMenuItem.Text = "Построить маршрут";
+            this.построитьМаршрутToolStripMenuItem.Click += new System.EventHandler(this.getRouteClick);
             // 
             // ltMapPanel
             // 
@@ -530,6 +577,7 @@
             this.Text = "Анализ опасности при ЧП";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.Activated += new System.EventHandler(this.fMain_Activated);
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.MainForm_FormClosed);
             this.Load += new System.EventHandler(this.MainForm_Load);
             this.menuMain.ResumeLayout(false);
             this.menuMain.PerformLayout();
@@ -537,6 +585,7 @@
             this.ltMainOptions.PerformLayout();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
+            this.mapMenu.ResumeLayout(false);
             this.ltMapPanel.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -587,5 +636,10 @@
         private System.Windows.Forms.ToolStripMenuItem видToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem openStreetMapToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem1;
+        private System.Windows.Forms.ContextMenuStrip mapMenu;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem2;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem3;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem4;
+        private System.Windows.Forms.ToolStripMenuItem построитьМаршрутToolStripMenuItem;
     }
 }
