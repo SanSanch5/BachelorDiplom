@@ -8,6 +8,9 @@ using System.Text;
 using System.Windows.Forms;
 using System.Diagnostics;
 
+using GMap.NET;
+using GMap.NET.MapProviders;
+
 using BachelorLibAPI.RoadsMap;
 using BachelorLibAPI.Data;
 using BachelorLibAPI.Data.Course_DB;
@@ -304,35 +307,39 @@ namespace BachelorLibAPI.Forms
 
         private void MainForm_Load(object sender, EventArgs e)
         {
-            // Connectionstring
-            string connStr = "Server=localhost;Port=5432;User Id=postgres;password=4;Database=routing";
-            // Name of table in database, you may prepend the schema (e.g. \"public\".\"Roads\")
-            string tablename = "at_2po_4pgr";
-            // Name of object ID column - MUST be integer and unique!
-            string idColumn = "id";
+            openStreetMapToolStripMenuItem_Click(sender, e);
+            gmap.SetPositionByKeywords("Moscow, Russian");
+            gmap.DragButton = MouseButtons.Left;
+            gmap.DisableFocusOnMouseEnter = true;
+        }
 
-            // Initialize map object
-            sharpMap.Map = new SharpMap.Map(new System.Drawing.Size(500, 250));
+        private Placemark? getPlacemark(PointLatLng pnt, out GeoCoderStatusCode st)
+        {
+            Placemark? plc = null;
+            st = GeoCoderStatusCode.G_GEO_BAD_KEY;
 
-            //Create layer
-            SharpMap.Layers.VectorLayer layRoads = new SharpMap.Layers.VectorLayer("RF map");
-            //Set the datasource to the PostgreSQL table
-            layRoads.DataSource = new SharpMap.Data.Providers.PostGIS(connStr, tablename, "geom_way", idColumn);
-            //layRoads.DataSource = new SharpMap.Data.Providers.ShapeFile("P:\\Downloads\\states_ugl\\states_ugl.shp", true);
-            /*
-             * Note: Additionally you can specifiy the name of the geometry column to use, in case you 
-             * have more than one.
-             * layRoads.DataSource = 
-                   new SharpMap.Providers.PostGis(connStr, tablename, "geom3857", idColumn); 
-             */
-
+            if (openStreetMapToolStripMenuItem.Checked)
+                plc = ((OpenStreetMapProvider)gmap.MapProvider).GetPlacemark(pnt, out st);
             
-            //Render map
-            //Image img = myMap.GetMap();
-            sharpMap.Map.Layers.Add(layRoads);
-            sharpMap.Map.ZoomToExtents();
-            sharpMap.ActiveTool = SharpMap.Forms.MapBox.Tools.Pan;
-            sharpMap.Refresh();
+            return plc;
+        }
+
+        private void gmap_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            GeoCoderStatusCode st;
+            Placemark? plc = getPlacemark(gmap.FromLocalToLatLng(e.X, e.Y), out st);
+            if (st == GeoCoderStatusCode.G_GEO_SUCCESS && plc != null)
+            {
+                Debug.WriteLine("Accuracy: " + plc.Value.Accuracy + ", " + plc.Value.ThoroughfareName + ", " + plc.Value.Neighborhood + ", " + plc.Value.HouseNo 
+                    + ", PostalCodeNumber: " + plc.Value.PostalCodeNumber);
+            }
+        }
+
+        private void openStreetMapToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            gmap.MapProvider = GMap.NET.MapProviders.OpenStreetMapProvider.Instance;
+            GMap.NET.GMaps.Instance.Mode = GMap.NET.AccessMode.ServerAndCache;
+            gmap.Zoom = 10;
         }
     }
 }

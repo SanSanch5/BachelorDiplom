@@ -36,45 +36,11 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="BruTile">
-      <HintPath>Map\SharpMap\BruTile.dll</HintPath>
+    <Reference Include="GMap.NET.Core">
+      <HintPath>Map\NETv4.0\GMap.NET.Core.dll</HintPath>
     </Reference>
-    <Reference Include="BruTile.Desktop">
-      <HintPath>Map\SharpMap\BruTile.Desktop.dll</HintPath>
-    </Reference>
-    <Reference Include="Common.Logging">
-      <HintPath>Map\SharpMap\Common.Logging.dll</HintPath>
-    </Reference>
-    <Reference Include="GeoAPI">
-      <HintPath>Map\SharpMap\GeoAPI.dll</HintPath>
-    </Reference>
-    <Reference Include="Mono.Security">
-      <HintPath>Map\SharpMap\Mono.Security.dll</HintPath>
-    </Reference>
-    <Reference Include="NetTopologySuite">
-      <HintPath>Map\SharpMap\NetTopologySuite.dll</HintPath>
-    </Reference>
-    <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>Map\SharpMap\Newtonsoft.Json.dll</HintPath>
-    </Reference>
-    <Reference Include="Npgsql">
-      <HintPath>Map\SharpMap\Npgsql.dll</HintPath>
-    </Reference>
-    <Reference Include="PowerCollections">
-      <HintPath>Map\SharpMap\PowerCollections.dll</HintPath>
-    </Reference>
-    <Reference Include="ProjNet">
-      <HintPath>Map\SharpMap\ProjNet.dll</HintPath>
-    </Reference>
-    <Reference Include="SharpMap">
-      <HintPath>Map\SharpMap\SharpMap.dll</HintPath>
-    </Reference>
-    <Reference Include="SharpMap.Extensions">
-      <HintPath>Map\SharpMap\SharpMap.Extensions.dll</HintPath>
-    </Reference>
-    <Reference Include="SharpMap.UI">
-      <HintPath>Map\SharpMap\SharpMap.UI.dll</HintPath>
+    <Reference Include="GMap.NET.WindowsForms">
+      <HintPath>Map\NETv4.0\GMap.NET.WindowsForms.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />

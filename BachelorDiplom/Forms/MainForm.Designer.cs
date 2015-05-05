@@ -37,6 +37,7 @@
             this.картаToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.загрузитьВнутреннююКартупоУмолчаниюToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.видToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.openStreetMapToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.базаДанныхToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.добавитьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.водителяToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -66,8 +67,8 @@
             this.cmbCrashPlace = new System.Windows.Forms.ComboBox();
             this.btnAnalyse = new System.Windows.Forms.Button();
             this.pbAnalyse = new System.Windows.Forms.ProgressBar();
+            this.gmap = new GMap.NET.WindowsForms.GMapControl();
             this.ltMapPanel = new System.Windows.Forms.TableLayoutPanel();
-            this.sharpMap = new SharpMap.Forms.MapBox();
             this.menuMain.SuspendLayout();
             this.ltMainOptions.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -145,9 +146,21 @@
             // 
             // видToolStripMenuItem
             // 
+            this.видToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.openStreetMapToolStripMenuItem});
             this.видToolStripMenuItem.Name = "видToolStripMenuItem";
             this.видToolStripMenuItem.Size = new System.Drawing.Size(374, 22);
             this.видToolStripMenuItem.Text = "Вид";
+            // 
+            // openStreetMapToolStripMenuItem
+            // 
+            this.openStreetMapToolStripMenuItem.Checked = true;
+            this.openStreetMapToolStripMenuItem.CheckOnClick = true;
+            this.openStreetMapToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.openStreetMapToolStripMenuItem.Name = "openStreetMapToolStripMenuItem";
+            this.openStreetMapToolStripMenuItem.Size = new System.Drawing.Size(157, 22);
+            this.openStreetMapToolStripMenuItem.Text = "OpenStreetMap";
+            this.openStreetMapToolStripMenuItem.Click += new System.EventHandler(this.openStreetMapToolStripMenuItem_Click);
             // 
             // базаДанныхToolStripMenuItem
             // 
@@ -462,12 +475,39 @@
             this.pbAnalyse.TabIndex = 11;
             this.pbAnalyse.Visible = false;
             // 
+            // gmap
+            // 
+            this.gmap.Bearing = 0F;
+            this.gmap.CanDragMap = true;
+            this.gmap.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.gmap.EmptyTileColor = System.Drawing.Color.Navy;
+            this.gmap.GrayScaleMode = false;
+            this.gmap.HelperLineOption = GMap.NET.WindowsForms.HelperLineOptions.DontShow;
+            this.gmap.LevelsKeepInMemmory = 5;
+            this.gmap.Location = new System.Drawing.Point(3, 3);
+            this.gmap.MarkersEnabled = true;
+            this.gmap.MaxZoom = 18;
+            this.gmap.MinZoom = 2;
+            this.gmap.MouseWheelZoomType = GMap.NET.MouseWheelZoomType.MousePositionAndCenter;
+            this.gmap.Name = "gmap";
+            this.gmap.NegativeMode = false;
+            this.gmap.PolygonsEnabled = true;
+            this.gmap.RetryLoadTile = 0;
+            this.gmap.RoutesEnabled = true;
+            this.gmap.ScaleMode = GMap.NET.WindowsForms.ScaleModes.Integer;
+            this.gmap.SelectedAreaFillColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(65)))), ((int)(((byte)(105)))), ((int)(((byte)(225)))));
+            this.gmap.ShowTileGridLines = false;
+            this.gmap.Size = new System.Drawing.Size(908, 490);
+            this.gmap.TabIndex = 13;
+            this.gmap.Zoom = 0D;
+            this.gmap.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.gmap_MouseDoubleClick);
+            // 
             // ltMapPanel
             // 
             this.ltMapPanel.ColumnCount = 1;
             this.ltMapPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.ltMapPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.ltMapPanel.Controls.Add(this.sharpMap, 0, 0);
+            this.ltMapPanel.Controls.Add(this.gmap, 0, 0);
             this.ltMapPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.ltMapPanel.Location = new System.Drawing.Point(0, 24);
             this.ltMapPanel.Name = "ltMapPanel";
@@ -476,25 +516,6 @@
             this.ltMapPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 391F));
             this.ltMapPanel.Size = new System.Drawing.Size(914, 496);
             this.ltMapPanel.TabIndex = 7;
-            // 
-            // sharpMap
-            // 
-            this.sharpMap.ActiveTool = SharpMap.Forms.MapBox.Tools.None;
-            this.sharpMap.BackColor = System.Drawing.Color.White;
-            this.sharpMap.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.sharpMap.FineZoomFactor = 10D;
-            this.sharpMap.Location = new System.Drawing.Point(3, 3);
-            this.sharpMap.MapQueryMode = SharpMap.Forms.MapBox.MapQueryType.LayerByIndex;
-            this.sharpMap.Name = "sharpMap";
-            this.sharpMap.QueryGrowFactor = 5F;
-            this.sharpMap.QueryLayerIndex = 0;
-            this.sharpMap.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(210)))), ((int)(((byte)(244)))), ((int)(((byte)(244)))), ((int)(((byte)(244)))));
-            this.sharpMap.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(244)))), ((int)(((byte)(244)))), ((int)(((byte)(244)))));
-            this.sharpMap.ShowProgressUpdate = false;
-            this.sharpMap.Size = new System.Drawing.Size(908, 490);
-            this.sharpMap.TabIndex = 0;
-            this.sharpMap.Text = "mapBox1";
-            this.sharpMap.WheelZoomMagnitude = -2D;
             // 
             // MainForm
             // 
@@ -561,9 +582,10 @@
         private System.Windows.Forms.ComboBox cmbCrashPlace;
         private System.Windows.Forms.Button btnAnalyse;
         private System.Windows.Forms.ProgressBar pbAnalyse;
+        private GMap.NET.WindowsForms.GMapControl gmap;
         private System.Windows.Forms.TableLayoutPanel ltMapPanel;
         private System.Windows.Forms.ToolStripMenuItem видToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem openStreetMapToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem1;
-        private SharpMap.Forms.MapBox sharpMap;
     }
 }
