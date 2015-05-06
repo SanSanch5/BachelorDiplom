@@ -8,11 +8,6 @@ using System.Text;
 using System.Windows.Forms;
 using System.Diagnostics;
 
-using GMap.NET;
-using GMap.NET.MapProviders;
-using GMap.NET.WindowsForms;
-using GMap.NET.WindowsForms.Markers;
-
 using BachelorLibAPI.RoadsMap;
 using BachelorLibAPI.Data;
 using BachelorLibAPI.Data.Course_DB;
@@ -26,43 +21,35 @@ namespace BachelorLibAPI.Forms
         /// Предусмотрена возможность расширения: привязка к другой карте и к другой базе данных.
         /// Обработчик запросов отвечает за логику запросов: проверки, исключения, ошибки и т.п.
         /// </summary>
-        private QueriesHandler _queriesHandler;
+        private QueriesHandler m_queriesHandler;
 
         public MainForm()
         {
             InitializeComponent();
 
-            //_dataHandler = DataHandler.Instance;
-            //_map = Graph.Instance;
-            _queriesHandler = new QueriesHandler(DataHandler.Instance, Graph.Instance);
-            _queriesHandler.AnalyseProgress = pbAnalyse;
+            m_queriesHandler = new QueriesHandler(DataHandler.Instance, new OpenStreetGreatMap(ref gmap));
+            m_queriesHandler.AnalyseProgress = pbAnalyse;
             FillMainForm();
         }
 
         void FillMainForm()
         {
-            foreach (var city in _queriesHandler.GetCitiesNames())
+            foreach (var city in m_queriesHandler.GetCitiesNames())
             {
                 cmbCrashPlace.Items.Add(city);
             }
         }
 
-        private void LoadBuildInMapClick(object sender, EventArgs e)
-        {
-            _queriesHandler.Map = Graph.Instance;
-            MessageBox.Show("Карта успешно загружена. Продолжайте работу.", "Информация");
-        }
-
         private void AddDriverClick(object sender, EventArgs e)
         {
-            DriverAddForm driverAddingForm = new DriverAddForm(_queriesHandler);
+            DriverAddForm driverAddingForm = new DriverAddForm(m_queriesHandler);
             driverAddingForm.Show();
             driverAddingForm.TopMost = true;
         }
 
         private void AddConsignmentClick(object sender, EventArgs e)
         {
-            ConsignmentAddForm consAddingForm = new ConsignmentAddForm(_queriesHandler);
+            ConsignmentAddForm consAddingForm = new ConsignmentAddForm(m_queriesHandler);
             consAddingForm.Show();
         }
 
@@ -88,7 +75,7 @@ namespace BachelorLibAPI.Forms
                     if (passwordBox.Password == password)
                     {
                         passwordBox.Close();
-                        DriverDelForm driverDelForm = new DriverDelForm(_queriesHandler);
+                        DriverDelForm driverDelForm = new DriverDelForm(m_queriesHandler);
                         driverDelForm.Show();
                     }
                     else
@@ -125,7 +112,7 @@ namespace BachelorLibAPI.Forms
                         passwordBox.Close();
                         DialogResult dr = MessageBox.Show("Вы действительно хотите удалить все завершённые перевозки?", "Предупреждение", MessageBoxButtons.YesNo);
                         if (dr == DialogResult.Yes)
-                            _queriesHandler.DelEndedTransits();
+                            m_queriesHandler.DelEndedTransits();
                     }
                     else
                         throw new InvalidExpressionException("Неверный пароль!");
@@ -149,7 +136,7 @@ namespace BachelorLibAPI.Forms
                     if (passwordBox.Password == password)
                     {
                         passwordBox.Close();
-                        TransitsDelBeforeForm transitsDelBeforeForm = new TransitsDelBeforeForm(_queriesHandler);
+                        TransitsDelBeforeForm transitsDelBeforeForm = new TransitsDelBeforeForm(m_queriesHandler);
                         transitsDelBeforeForm.Show();
                     }
                     else
@@ -174,7 +161,7 @@ namespace BachelorLibAPI.Forms
 
         private void FindDriverInfoClick(object sender, EventArgs e)
         {
-            DriverInfoForm driverInfoForm = new DriverInfoForm(_queriesHandler);
+            DriverInfoForm driverInfoForm = new DriverInfoForm(m_queriesHandler);
             driverInfoForm.Show();
         }
 
@@ -200,13 +187,13 @@ namespace BachelorLibAPI.Forms
 
         private void NewWaybillClick(object sender, EventArgs e)
         {
-            WaybillForm waybillForm = new WaybillForm(_queriesHandler);
+            WaybillForm waybillForm = new WaybillForm(m_queriesHandler);
             waybillForm.Show();
         }
 
         private void EndingStatusClick(object sender, EventArgs e)
         {
-            EndingStatusForm endingStatusForm = new EndingStatusForm(_queriesHandler);
+            EndingStatusForm endingStatusForm = new EndingStatusForm(m_queriesHandler);
             endingStatusForm.Show();
         }
 
@@ -232,7 +219,7 @@ namespace BachelorLibAPI.Forms
                     throw new FormatException("Укажите место аварии!");
 
                 AnalyseResultsForm analyseReturnForm = 
-                    new AnalyseResultsForm(_queriesHandler.AnalyseDanger(since, until, place));
+                    new AnalyseResultsForm(m_queriesHandler.AnalyseDanger(since, until, place));
             }
             catch (FormatException ex)
             {
@@ -257,7 +244,7 @@ namespace BachelorLibAPI.Forms
                     if (passwordBox.Password == password)
                     {
                         passwordBox.Close();
-                        TestsGeneratorForm testsGeneratorForm = new TestsGeneratorForm(_queriesHandler);
+                        TestsGeneratorForm testsGeneratorForm = new TestsGeneratorForm(m_queriesHandler);
                         testsGeneratorForm.Show();
                     }
                     else
@@ -282,7 +269,7 @@ namespace BachelorLibAPI.Forms
         private void rbtCity_Click(object sender, EventArgs e)
         {
             cmbCrashPlace.Items.Clear();
-            List<string> cities = _queriesHandler.GetCitiesNames();
+            List<string> cities = m_queriesHandler.GetCitiesNames();
             foreach (var city in cities)
                 cmbCrashPlace.Items.Add(city);
             cmbCrashPlace.Text = "";
@@ -291,7 +278,7 @@ namespace BachelorLibAPI.Forms
         private void rbtRegion_Click(object sender, EventArgs e)
         {
             cmbCrashPlace.Items.Clear();
-            List<string> regions = _queriesHandler.GetRegionsNames();
+            List<string> regions = m_queriesHandler.GetRegionsNames();
             foreach (var reg in regions)
                 cmbCrashPlace.Items.Add(reg);
             cmbCrashPlace.Text = "";
@@ -302,99 +289,30 @@ namespace BachelorLibAPI.Forms
             pbAnalyse.Visible = false;
         }
 
-        private void MainForm_Load(object sender, EventArgs e)
-        {
-            openStreetMapToolStripMenuItem_Click(sender, e);
-            gmap.SetPositionByKeywords("Moscow, Russian");
-            gmap.DragButton = MouseButtons.Left;
-            gmap.DisableFocusOnMouseEnter = true;
-            gmap.RoutesEnabled = true;
-            gmap.Overlays.Clear();
-            gmap.Overlays.Add(routesOverlay);
-            gmap.Overlays.Add(startMarkerOverlay);
-            gmap.Overlays.Add(endMarkerOverlay);
-        }
-
-        private Placemark? getPlacemark(PointLatLng pnt, out GeoCoderStatusCode st)
-        {
-            Placemark? plc = null;
-            st = GeoCoderStatusCode.G_GEO_BAD_KEY;
-
-            if (openStreetMapToolStripMenuItem.Checked)
-                plc = ((OpenStreetMapProvider)gmap.MapProvider).GetPlacemark(pnt, out st);
-            
-            return plc;
-        }
+        private Point menuClickPos;
 
         private void gmap_MouseDoubleClick(object sender, MouseEventArgs e)
         {
-            GeoCoderStatusCode st;
-            Placemark? plc = getPlacemark(gmap.FromLocalToLatLng(e.X, e.Y), out st);
-            if (st == GeoCoderStatusCode.G_GEO_SUCCESS && plc != null)
-            {
-                Debug.WriteLine("Accuracy: " + plc.Value.Accuracy + ", " + plc.Value.ThoroughfareName + ", " + plc.Value.Neighborhood + ", " + plc.Value.HouseNo 
-                    + ", PostalCodeNumber: " + plc.Value.PostalCodeNumber);
-            }
+            string adress = m_queriesHandler.Map.getPlacemark(e.X, e.Y);
+            MessageBox.Show(adress);
         }
 
-        private void openStreetMapToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            gmap.MapProvider = GMap.NET.MapProviders.OpenStreetMapProvider.Instance;
-            GMap.NET.GMaps.Instance.Mode = GMap.NET.AccessMode.ServerAndCache;
-            gmap.Zoom = 11;
-        }
-
-        private PointLatLng start, end;
-        private Point menuClickPos;
-        private GMapOverlay startMarkerOverlay = new GMapOverlay("startMarkers");
-        private GMapOverlay endMarkerOverlay = new GMapOverlay("endMarkers");
-        private GMapOverlay routesOverlay = new GMapOverlay("routes");
 
         private void markStartPointClick(object sender, EventArgs e)
         {
-            start = gmap.FromLocalToLatLng(gmap.PointToClient(menuClickPos).X, gmap.PointToClient(menuClickPos).Y);
-            Bitmap pic = new Bitmap("..\\..\\Map\\Resources\\truckyellow.png");
-            GMarkerGoogle marker = new GMarkerGoogle(start, new Bitmap(pic, new Size(32, 32)));
-            startMarkerOverlay.Clear();
-            startMarkerOverlay.Markers.Add(marker);
+            m_queriesHandler.Map.setStartPoint(gmap.FromLocalToLatLng(gmap.PointToClient(menuClickPos).X, gmap.PointToClient(menuClickPos).Y));
         }
 
         private void markEndPointClick(object sender, EventArgs e)
         {
-            end = gmap.FromLocalToLatLng(gmap.PointToClient(menuClickPos).X, gmap.PointToClient(menuClickPos).Y);
-            Bitmap pic = new Bitmap("..\\..\\Map\\Resources\\tractorunitblack.png");
-            GMarkerGoogle marker = new GMarkerGoogle(end, new Bitmap(pic, new Size(32, 32)));
-            endMarkerOverlay.Clear();
-            endMarkerOverlay.Markers.Add(marker);
-            
+            m_queriesHandler.Map.setEndPoint(gmap.FromLocalToLatLng(gmap.PointToClient(menuClickPos).X, gmap.PointToClient(menuClickPos).Y));       
         }
 
         private void getRouteClick(object sender, EventArgs e)
         {
-            MapRoute route = ((OpenStreetMapProvider)gmap.MapProvider).GetRoute(start, end, false, false, 11);
-            if(route == null || route.Points.Count == 0)
-            {
-                MessageBox.Show("Не удалось построить маршрут.");
-                return;
-            }
-
-            GMapRoute r = new GMapRoute(route.Points, "My route");
-            r.Stroke.Width = 5;
-            r.Stroke.Color = Color.Black;
-
-            routesOverlay.Routes.Add(r);
-            gmap.ZoomAndCenterRoute(r);
-
             ltMainOptions.Visible = false;
-            if(MessageBox.Show("Использовать этот маршрут? Вы можете добавить промежуточные точки для уточнения", "Внимание!", MessageBoxButtons.YesNo) == DialogResult.Yes)
-            {
-                startMarkerOverlay.Clear();
-                endMarkerOverlay.Clear();
-                // сохранить
-            }
-            
+            m_queriesHandler.Map.constructShortTrack();
             ltMainOptions.Visible = true;
-            routesOverlay.Clear();
         }
 
         private void mapMenu_Opening(object sender, CancelEventArgs e)

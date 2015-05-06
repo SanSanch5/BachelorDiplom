@@ -35,10 +35,6 @@
             this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
             this.новыйПутевойЛистToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.установитьСтатусЗавершенияToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.картаToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.загрузитьВнутреннююКартупоУмолчаниюToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.видToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.openStreetMapToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.базаДанныхToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.добавитьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.водителяToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -86,7 +82,6 @@
             // 
             this.menuMain.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.программаToolStripMenuItem,
-            this.картаToolStripMenuItem,
             this.базаДанныхToolStripMenuItem});
             this.menuMain.Location = new System.Drawing.Point(0, 0);
             this.menuMain.Name = "menuMain";
@@ -133,41 +128,6 @@
             this.установитьСтатусЗавершенияToolStripMenuItem.Size = new System.Drawing.Size(283, 22);
             this.установитьСтатусЗавершенияToolStripMenuItem.Text = "Установить статус завершения";
             this.установитьСтатусЗавершенияToolStripMenuItem.Click += new System.EventHandler(this.EndingStatusClick);
-            // 
-            // картаToolStripMenuItem
-            // 
-            this.картаToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.загрузитьВнутреннююКартупоУмолчаниюToolStripMenuItem,
-            this.видToolStripMenuItem});
-            this.картаToolStripMenuItem.Name = "картаToolStripMenuItem";
-            this.картаToolStripMenuItem.Size = new System.Drawing.Size(50, 20);
-            this.картаToolStripMenuItem.Text = "&Карта";
-            // 
-            // загрузитьВнутреннююКартупоУмолчаниюToolStripMenuItem
-            // 
-            this.загрузитьВнутреннююКартупоУмолчаниюToolStripMenuItem.Name = "загрузитьВнутреннююКартупоУмолчаниюToolStripMenuItem";
-            this.загрузитьВнутреннююКартупоУмолчаниюToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.M)));
-            this.загрузитьВнутреннююКартупоУмолчаниюToolStripMenuItem.Size = new System.Drawing.Size(374, 22);
-            this.загрузитьВнутреннююКартупоУмолчаниюToolStripMenuItem.Text = "Загрузить внутреннюю карту (по умолчанию)";
-            this.загрузитьВнутреннююКартупоУмолчаниюToolStripMenuItem.Click += new System.EventHandler(this.LoadBuildInMapClick);
-            // 
-            // видToolStripMenuItem
-            // 
-            this.видToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.openStreetMapToolStripMenuItem});
-            this.видToolStripMenuItem.Name = "видToolStripMenuItem";
-            this.видToolStripMenuItem.Size = new System.Drawing.Size(374, 22);
-            this.видToolStripMenuItem.Text = "Вид";
-            // 
-            // openStreetMapToolStripMenuItem
-            // 
-            this.openStreetMapToolStripMenuItem.Checked = true;
-            this.openStreetMapToolStripMenuItem.CheckOnClick = true;
-            this.openStreetMapToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.openStreetMapToolStripMenuItem.Name = "openStreetMapToolStripMenuItem";
-            this.openStreetMapToolStripMenuItem.Size = new System.Drawing.Size(157, 22);
-            this.openStreetMapToolStripMenuItem.Text = "OpenStreetMap";
-            this.openStreetMapToolStripMenuItem.Click += new System.EventHandler(this.openStreetMapToolStripMenuItem_Click);
             // 
             // базаДанныхToolStripMenuItem
             // 
@@ -578,7 +538,6 @@
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.Activated += new System.EventHandler(this.fMain_Activated);
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.MainForm_FormClosed);
-            this.Load += new System.EventHandler(this.MainForm_Load);
             this.menuMain.ResumeLayout(false);
             this.menuMain.PerformLayout();
             this.ltMainOptions.ResumeLayout(false);
@@ -600,8 +559,6 @@
         private System.Windows.Forms.ToolStripMenuItem установитьСтатусЗавершенияToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator5;
         private System.Windows.Forms.ToolStripMenuItem анализОпасностиToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem картаToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem загрузитьВнутреннююКартупоУмолчаниюToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem базаДанныхToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem добавитьToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem водителяToolStripMenuItem;
@@ -633,8 +590,6 @@
         private System.Windows.Forms.ProgressBar pbAnalyse;
         private GMap.NET.WindowsForms.GMapControl gmap;
         private System.Windows.Forms.TableLayoutPanel ltMapPanel;
-        private System.Windows.Forms.ToolStripMenuItem видToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem openStreetMapToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem1;
         private System.Windows.Forms.ContextMenuStrip mapMenu;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem2;

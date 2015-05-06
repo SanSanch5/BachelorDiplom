@@ -216,35 +216,35 @@ namespace BachelorLibAPI
         /// <param name="citiesLst"></param>
         public void AddNewTransit(int driverID, int consID, DateTime start, List<string> citiesLst)
         {
-            int citiesCount = citiesLst.Count;
-            if (citiesLst.Count < 2)
-                throw new Exception("Как минимум водитель посетит 2 города: начальный и конечный!");
+            //int citiesCount = citiesLst.Count;
+            //if (citiesLst.Count < 2)
+            //    throw new Exception("Как минимум водитель посетит 2 города: начальный и конечный!");
 
-            var fullCitiesList = _map.GetShortTrack(_dataHandler.GetCityID(citiesLst[0]), _dataHandler.GetCityID(citiesLst[1]));
+            //var fullCitiesList = _map.getShortTrack(_dataHandler.GetCityID(citiesLst[0]), _dataHandler.GetCityID(citiesLst[1]));
 
-            for (int i = 1; i < citiesCount - 1; ++i)
-            {
-                int correction = fullCitiesList.Last().Value;
-                var localCitiesList = _map.GetShortTrack(_dataHandler.GetCityID(citiesLst[i]), _dataHandler.GetCityID(citiesLst[i+1]), correction);
-                localCitiesList.Remove(localCitiesList.First());
+            //for (int i = 1; i < citiesCount - 1; ++i)
+            //{
+            //    int correction = fullCitiesList.Last().Value;
+            //    var localCitiesList = _map.getShortTrack(_dataHandler.GetCityID(citiesLst[i]), _dataHandler.GetCityID(citiesLst[i+1]), correction);
+            //    localCitiesList.Remove(localCitiesList.First());
 
-                fullCitiesList.AddRange(localCitiesList);
-            }
+            //    fullCitiesList.AddRange(localCitiesList);
+            //}
 
-            string fullCitiesIDsString = "";
-            foreach (var id in fullCitiesList)
-                fullCitiesIDsString += id.Key.ToString() + " ";
+            //string fullCitiesIDsString = "";
+            //foreach (var id in fullCitiesList)
+            //    fullCitiesIDsString += id.Key.ToString() + " ";
 
-            int transID = _dataHandler.AddNewTransit(driverID, consID);
-            _dataHandler.AddNewRoute(transID, start, DateTime.MinValue, fullCitiesIDsString, false);
+            //int transID = _dataHandler.AddNewTransit(driverID, consID);
+            //_dataHandler.AddNewRoute(transID, start, DateTime.MinValue, fullCitiesIDsString, false);
 
-            citiesCount = fullCitiesList.Count;
-            for (int i = 0; i < citiesCount; ++i)
-            {
-                int currentCityID = fullCitiesList[i].Key;
-                DateTime noticedTime = start.AddMinutes(fullCitiesList[i].Value + _dataHandler.GetParkingMinutesOfTheCity(currentCityID));
-                _dataHandler.AddNewTransitStady(transID, currentCityID, noticedTime);
-            }
+            //citiesCount = fullCitiesList.Count;
+            //for (int i = 0; i < citiesCount; ++i)
+            //{
+            //    int currentCityID = fullCitiesList[i].Key;
+            //    DateTime noticedTime = start.AddMinutes(fullCitiesList[i].Value + _dataHandler.GetParkingMinutesOfTheCity(currentCityID));
+            //    _dataHandler.AddNewTransitStady(transID, currentCityID, noticedTime);
+            //}
         }
 
         /// <summary>

@@ -136,7 +136,8 @@
     <Compile Include="Forms\WaybillForm.Designer.cs">
       <DependentUpon>WaybillForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Map\Graph.cs" />
+    <Compile Include="Map\GreatMap.cs" />
+    <Compile Include="Map\IMap.cs" />
     <Compile Include="Program\Exceptions.cs" />
     <Compile Include="Program\Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
