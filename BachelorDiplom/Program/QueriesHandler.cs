@@ -61,6 +61,11 @@ namespace BachelorLibAPI
             set { _map = value; }
         }
 
+        public List<string> GetConsignmentsNames()
+        {
+            return new List<string>();
+        }
+
         private void AddDriver(string lName, string name, string mName, string num1, string num2)
         {
             int newID = _dataHandler.AddNewDriver(lName, name, mName);
@@ -162,8 +167,6 @@ namespace BachelorLibAPI
             foreach (int transID in transIDs)
             {
                 _dataHandler.DelTransit(transID);
-                _dataHandler.DelRoute(transID);
-                _dataHandler.DeleteStadiesByTransitID(transID);
             }
         }
 
@@ -179,28 +182,6 @@ namespace BachelorLibAPI
             DelTransits(_dataHandler.GetTransitIDs(driverID));
 
             _dataHandler.SubmitChanges();
-        }
-
-        /// <summary>
-        /// Добавить новый тип груза
-        /// Если груз с таким именем уже есть в базе, то обновить действие при аварии и уровень опасности
-        /// </summary>
-        /// <param name="name">Название</param>
-        /// <param name="dangerDegree">Класс опасности</param>
-        /// <param name="afterCrash">Действия при аварии</param>
-        public void AddNewConsignment(string name, int dangerDegree, string afterCrash)
-        {
-            int consID = _dataHandler.GetConsignmentID(name);
-            if (consID == -1)
-            {
-                _dataHandler.AddNewConsignment(name, dangerDegree, afterCrash);
-                MessageBox.Show("Груз успешно добавлен", "Информация");                
-            }
-            else
-            {
-                _dataHandler.SetConsignmentParameters(consID, dangerDegree, afterCrash);
-                MessageBox.Show("Груз успешно обновлён", "Информация");
-            }
         }
 
         /// <summary>
@@ -259,16 +240,6 @@ namespace BachelorLibAPI
         }
 
         /// <summary>
-        /// Удалить все завершённые перевозки
-        /// </summary>
-        public void DelEndedTransits()
-        {
-            DelTransits(_dataHandler.EndedTransits());
-
-            _dataHandler.SubmitChanges();
-        }
-
-        /// <summary>
         /// Добавление нового путевого листа
         /// Не производится добавление водителя! 
         /// Если водитель ранее не был зарегистрирован в базе, необходимо зарегистрировать его,
@@ -283,57 +254,29 @@ namespace BachelorLibAPI
         /// <param name="start"></param>
         public void AddNewWaybill(string num, string consName, List<string> citiesLst, DateTime start)
         {
-            int driverID = _dataHandler.DriverWithPhoneNumber(num);
+            //int driverID = _dataHandler.DriverWithPhoneNumber(num);
             
-            if (driverID == -1)
-                throw new Exception("Нет водителя с таким номером телефона");
+            //if (driverID == -1)
+            //    throw new Exception("Нет водителя с таким номером телефона");
             
-            int consID = _dataHandler.GetConsignmentID(consName);
+            //int consID = _dataHandler.GetConsignmentID(consName);
             
-            if (consID == -1)
-                throw new Exception("Нет груза с таким именем");
+            //if (consID == -1)
+            //    throw new Exception("Нет груза с таким именем");
             
-            List<string> cities = _dataHandler.GetCitiesNames();
-            foreach (var city in citiesLst)
-                if (!cities.Contains(city))
-                    throw new Exception("Нет города под названием " + city);
+            //List<string> cities = _dataHandler.GetCitiesNames();
+            //foreach (var city in citiesLst)
+            //    if (!cities.Contains(city))
+            //        throw new Exception("Нет города под названием " + city);
 
-            List<int> transitIDs = _dataHandler.GetTransitIDs(driverID);
-            foreach (int transID in transitIDs)
-            {
-                _dataHandler.DeleteStadiesByTransitID(transID);
-            }
-            _dataHandler.SubmitChanges();
+            //List<int> transitIDs = _dataHandler.GetTransitIDs(driverID);
+            //foreach (int transID in transitIDs)
+            //{
+            //    _dataHandler.DeleteStadiesByTransitID(transID);
+            //}
+            //_dataHandler.SubmitChanges();
 
-            AddNewTransit(driverID, consID, start, citiesLst);
-        }
-
-        /// <summary>
-        /// Установить статус завершения для перевозки.
-        /// </summary>
-        /// <param name="num"></param>
-        /// <param name="start"></param>
-        /// <param name="arr"></param>
-        public void SetEndingStatus(string num, DateTime start, DateTime arr)
-        {
-            /*
-             * Устанавливаем завершённость поездки
-             * Удаляем все строки из стадий перевозки с ID этой перевозки
-             */
-            int driverID = _dataHandler.DriverWithPhoneNumber(num);
-
-            if (driverID == -1)
-                throw new Exception("Нет водителя с таким номером телефона");
-
-            int transitID = _dataHandler.GetTransitID(driverID, start);
-            
-            if (transitID == -1)
-                throw new Exception("Не было зафиксированно такой перевозки");
-
-            _dataHandler.SetEndingStatus(transitID, start, arr);
-
-            _dataHandler.DeleteStadiesByTransitID(transitID);
-            _dataHandler.SubmitChanges();
+            //AddNewTransit(driverID, consID, start, citiesLst);
         }
 
         private void SetProgressParameters(List<int> citiesIDs, DateTime since, DateTime until)
@@ -363,54 +306,54 @@ namespace BachelorLibAPI
         public List<AnalyseReturnType> AnalyseDanger(DateTime since, DateTime until, string place)
         {
             List<AnalyseReturnType> res = new List<AnalyseReturnType>();
-            List<int> citiesIDs = new List<int>();
-            int cityPlaceID = _dataHandler.GetCityID(place);
-            if (cityPlaceID != -1)
-                citiesIDs.Add(cityPlaceID);
-            else
-            {
-                int regionPlaceID = _dataHandler.GetRegionID(place);
+            //List<int> citiesIDs = new List<int>();
+            //int cityPlaceID = _dataHandler.GetCityID(place);
+            //if (cityPlaceID != -1)
+            //    citiesIDs.Add(cityPlaceID);
+            //else
+            //{
+            //    int regionPlaceID = _dataHandler.GetRegionID(place);
 
-                if(regionPlaceID == -1)
-                    throw new Exception("Не удалось идентифицировать место аварии.");
+            //    if(regionPlaceID == -1)
+            //        throw new Exception("Не удалось идентифицировать место аварии.");
 
-                citiesIDs.AddRange(_dataHandler.GetCitiesInRegion(regionPlaceID));
-            }
+            //    citiesIDs.AddRange(_dataHandler.GetCitiesInRegion(regionPlaceID));
+            //}
 
-            since = since.AddMinutes(-_timeCorrection);
-            until = until.AddMinutes(_timeCorrection);
-            SetProgressParameters(citiesIDs, since, until);
+            //since = since.AddMinutes(-_timeCorrection);
+            //until = until.AddMinutes(_timeCorrection);
+            //SetProgressParameters(citiesIDs, since, until);
 
-            foreach (var cityID in citiesIDs)
-            {
-                List<int> transIDs = _dataHandler.GetTransitIDs(since, until, cityID);
-                foreach (int transID in transIDs)
-                {
-                    AnalyseReturnType foundTrans = new AnalyseReturnType();
-                    int driverID = _dataHandler.GetDriverID(transID);
-                    int consID = _dataHandler.GetConsignmentID(transID);
+            //foreach (var cityID in citiesIDs)
+            //{
+            //    List<int> transIDs = _dataHandler.GetTransitIDs(since, until, cityID);
+            //    foreach (int transID in transIDs)
+            //    {
+            //        AnalyseReturnType foundTrans = new AnalyseReturnType();
+            //        int driverID = _dataHandler.GetDriverID(transID);
+            //        int consID = _dataHandler.GetConsignmentID(transID);
 
-                    foundTrans.afterCrash = _dataHandler.GetAfterCrashInfo(consID);
-                    foundTrans.consName = _dataHandler.GetConsignmentName(consID);
-                    foundTrans.dangerDegree = _dataHandler.GetDangerDegree(consID);
-                    foundTrans.driversName = _dataHandler.GetDriverName(driverID);
-                    foundTrans.driversNumbers = _dataHandler.GetDriverNumbers(driverID);
-                    foundTrans.driversSurname = _dataHandler.GetDriverSurname(driverID);
-                    foundTrans.city = _dataHandler.GetCityName(cityID);
-                    List<DateTime> locations = new List<DateTime>(_dataHandler.GetLocationTime(transID, cityID));
+            //        foundTrans.afterCrash = _dataHandler.GetAfterCrashInfo(consID);
+            //        foundTrans.consName = _dataHandler.GetConsignmentName(consID);
+            //        foundTrans.dangerDegree = _dataHandler.GetDangerDegree(consID);
+            //        foundTrans.driversName = _dataHandler.GetDriverName(driverID);
+            //        foundTrans.driversNumbers = _dataHandler.GetDriverNumbers(driverID);
+            //        foundTrans.driversSurname = _dataHandler.GetDriverSurname(driverID);
+            //        foundTrans.city = _dataHandler.GetCityName(cityID);
+            //        List<DateTime> locations = new List<DateTime>(_dataHandler.GetLocationTime(transID, cityID));
 
-                    var samePlace = res.Where(x => x.city == foundTrans.city 
-                        && x.driversNumbers.First() == foundTrans.driversNumbers.First()).ToList<AnalyseReturnType>();
-                    foreach(var v in samePlace)
-                        locations.Remove(v.location);
+            //        var samePlace = res.Where(x => x.city == foundTrans.city 
+            //            && x.driversNumbers.First() == foundTrans.driversNumbers.First()).ToList<AnalyseReturnType>();
+            //        foreach(var v in samePlace)
+            //            locations.Remove(v.location);
 
-                    foundTrans.location = locations.First();
+            //        foundTrans.location = locations.First();
 
-                    res.Add(foundTrans);
+            //        res.Add(foundTrans);
 
-                    ++_analyseProgress.Value;
-                }
-            }
+            //        ++_analyseProgress.Value;
+            //    }
+            //}
 
             return res;
         }
@@ -424,11 +367,11 @@ namespace BachelorLibAPI
         public int GetComboBoxedDriverID(int index)
         {
             int driverID = index + 1;
-            foreach (int missedID in _dataHandler.MissedDriverIDs)
-            {
-                if (missedID <= driverID)
-                    driverID++;
-            }
+            //foreach (int missedID in _dataHandler.MissedDriverIDs)
+            //{
+            //    if (missedID <= driverID)
+            //        driverID++;
+            //}
             return driverID;
         }
 
@@ -462,34 +405,34 @@ namespace BachelorLibAPI
         {
             DriverInfoType driverInfo = new DriverInfoType();
 
-            var transIDs = _dataHandler.GetTransitIDs(driverID);
-            if(transIDs.Count() == 0)
-                throw new NullReferenceException("Не найдено ни одной перевозки, зарегистрированной на этого водителя.");
+            //var transIDs = _dataHandler.GetTransitIDs(driverID);
+            //if(transIDs.Count() == 0)
+            //    throw new NullReferenceException("Не найдено ни одной перевозки, зарегистрированной на этого водителя.");
 
-            int lastTransID = transIDs.Last();
-            int consID = _dataHandler.GetConsignmentID(lastTransID);
-            driverInfo.ID = driverID;
-            driverInfo.consName = _dataHandler.GetConsignmentName(consID);
-            driverInfo.dangerDegree = _dataHandler.GetDangerDegree(consID);
+            //int lastTransID = transIDs.Last();
+            //int consID = _dataHandler.GetConsignmentID(lastTransID);
+            //driverInfo.ID = driverID;
+            //driverInfo.consName = _dataHandler.GetConsignmentName(consID);
+            //driverInfo.dangerDegree = _dataHandler.GetDangerDegree(consID);
 
-            string cities = _dataHandler.GetVisitsCities(lastTransID);
-            int[] cityIDs = cities.Split(new char[] { ' ', ',' }).Where(x => x != "").Select(x => int.Parse(x)).ToArray();
-            int lastCityID = cityIDs[cityIDs.Length - 1];
-            driverInfo.goalLocation = _dataHandler.GetCityName(lastCityID);
-            driverInfo.startLocation = _dataHandler.GetCityName(cityIDs[0]);
-            driverInfo.numbers = _dataHandler.GetDriverNumbers(driverID);
+            //string cities = _dataHandler.GetVisitsCities(lastTransID);
+            //int[] cityIDs = cities.Split(new char[] { ' ', ',' }).Where(x => x != "").Select(x => int.Parse(x)).ToArray();
+            //int lastCityID = cityIDs[cityIDs.Length - 1];
+            //driverInfo.goalLocation = _dataHandler.GetCityName(lastCityID);
+            //driverInfo.startLocation = _dataHandler.GetCityName(cityIDs[0]);
+            //driverInfo.numbers = _dataHandler.GetDriverNumbers(driverID);
 
-            if (driverInfo.status = _dataHandler.GetStatus(lastTransID))
-                driverInfo.arrival = _dataHandler.GetArrival(lastTransID);
-            else
-            {
-                driverInfo.start = _dataHandler.GetLocationTime(lastTransID, cityIDs[0]).First();
-                if (driverInfo.start > DateTime.Now)
-                    driverInfo.probableLocation = driverInfo.startLocation;
-                else
-                    driverInfo.probableLocation = _dataHandler.GetCityName(_dataHandler.GetCurrentLocation(lastTransID));
-                driverInfo.probableArrival = _dataHandler.GetLocationTime(lastTransID, lastCityID).Last();
-            }
+            //if (driverInfo.status = _dataHandler.GetStatus(lastTransID))
+            //    driverInfo.arrival = _dataHandler.GetArrival(lastTransID);
+            //else
+            //{
+            //    driverInfo.start = _dataHandler.GetLocationTime(lastTransID, cityIDs[0]).First();
+            //    if (driverInfo.start > DateTime.Now)
+            //        driverInfo.probableLocation = driverInfo.startLocation;
+            //    else
+            //        driverInfo.probableLocation = _dataHandler.GetCityName(_dataHandler.GetCurrentLocation(lastTransID));
+            //    driverInfo.probableArrival = _dataHandler.GetLocationTime(lastTransID, lastCityID).Last();
+            //}
 
             return driverInfo;
         }
@@ -504,39 +447,12 @@ namespace BachelorLibAPI
         }
 
         /// <summary>
-        /// Получить полный список названий городов
-        /// </summary>
-        /// <returns></returns>
-        public List<string> GetCitiesNames()
-        {
-            return _dataHandler.GetCitiesNames();
-        }
-
-        /// <summary>
-        /// Получить полный список названий грузов
-        /// </summary>
-        /// <returns></returns>
-        public List<string> GetConsignmentsNames()
-        {
-            return _dataHandler.GetConsignmentsNames();
-        }
-
-        /// <summary>
         /// получить полный список всех имеющихся в базе контактных номеров
         /// </summary>
         /// <returns></returns>
         public List<string> GetNumbers()
         {
             return _dataHandler.GetNumbers();
-        }
-
-        /// <summary>
-        /// Получить полный список названий регионов
-        /// </summary>
-        /// <returns></returns>
-        public List<string> GetRegionsNames()
-        {
-            return _dataHandler.GetRegionsNames();
         }
 
         /// <summary>

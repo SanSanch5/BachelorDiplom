@@ -31,7 +31,7 @@ namespace BachelorLibAPI.TestsGenerator
             _data = new MyDataReader();
             _data.LoadFromFiles();
 
-            cities = _queriesHandler.GetCitiesNames();
+            //cities = _queriesHandler.GetCitiesNames();
             consignments = _queriesHandler.GetConsignmentsNames();
             numbers = _queriesHandler.GetNumbers();
             dates = new List<string>();

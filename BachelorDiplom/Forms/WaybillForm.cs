@@ -22,7 +22,7 @@ namespace BachelorLibAPI.Forms
             _queriesHandler = qh;
 
             midCities = new List<string>();
-            citiesNamesList = _queriesHandler.GetCitiesNames();
+            citiesNamesList = new List<string>();
             consNames = _queriesHandler.GetConsignmentsNames();
 
             FillCombos();

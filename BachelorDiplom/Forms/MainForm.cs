@@ -10,7 +10,6 @@ using System.Diagnostics;
 
 using BachelorLibAPI.RoadsMap;
 using BachelorLibAPI.Data;
-using BachelorLibAPI.Data.Course_DB;
 using BachelorLibAPI.TestsGenerator;
 
 namespace BachelorLibAPI.Forms
@@ -27,17 +26,17 @@ namespace BachelorLibAPI.Forms
         {
             InitializeComponent();
 
-            m_queriesHandler = new QueriesHandler(DataHandler.Instance, new OpenStreetGreatMap(ref gmap));
+            m_queriesHandler = new QueriesHandler(PgSqlDataHandler.Instance, new OpenStreetGreatMap(ref gmap));
             m_queriesHandler.AnalyseProgress = pbAnalyse;
             FillMainForm();
         }
 
         void FillMainForm()
         {
-            foreach (var city in m_queriesHandler.GetCitiesNames())
-            {
-                cmbCrashPlace.Items.Add(city);
-            }
+            //foreach (var city in m_queriesHandler.GetCitiesNames())
+            //{
+            //    cmbCrashPlace.Items.Add(city);
+            //}
         }
 
         private void AddDriverClick(object sender, EventArgs e)
@@ -100,28 +99,7 @@ namespace BachelorLibAPI.Forms
 
         private void DelEndedTransits(object sender, EventArgs e)
         {
-            string password = "admin";
-            try
-            {
-                PasswordBox passwordBox = new PasswordBox();
-                passwordBox.ShowDialog();
-                if (passwordBox.DialogResult == DialogResult.OK)
-                {
-                    if (passwordBox.Password == password)
-                    {
-                        passwordBox.Close();
-                        DialogResult dr = MessageBox.Show("Вы действительно хотите удалить все завершённые перевозки?", "Предупреждение", MessageBoxButtons.YesNo);
-                        if (dr == DialogResult.Yes)
-                            m_queriesHandler.DelEndedTransits();
-                    }
-                    else
-                        throw new InvalidExpressionException("Неверный пароль!");
-                }
-            }
-            catch (InvalidExpressionException ex)
-            {
-                MessageBox.Show(ex.Message, "Отказано в доступе.");
-            }
+            
         }
 
         private void DelTransitsBefore(object sender, EventArgs e)
@@ -193,8 +171,7 @@ namespace BachelorLibAPI.Forms
 
         private void EndingStatusClick(object sender, EventArgs e)
         {
-            EndingStatusForm endingStatusForm = new EndingStatusForm(m_queriesHandler);
-            endingStatusForm.Show();
+            
         }
 
         private void DangerAnalyseClick(object sender, EventArgs e)
@@ -268,20 +245,12 @@ namespace BachelorLibAPI.Forms
 
         private void rbtCity_Click(object sender, EventArgs e)
         {
-            cmbCrashPlace.Items.Clear();
-            List<string> cities = m_queriesHandler.GetCitiesNames();
-            foreach (var city in cities)
-                cmbCrashPlace.Items.Add(city);
-            cmbCrashPlace.Text = "";
+            
         }
 
         private void rbtRegion_Click(object sender, EventArgs e)
         {
-            cmbCrashPlace.Items.Clear();
-            List<string> regions = m_queriesHandler.GetRegionsNames();
-            foreach (var reg in regions)
-                cmbCrashPlace.Items.Add(reg);
-            cmbCrashPlace.Text = "";
+            
         }
 
         private void fMain_Activated(object sender, EventArgs e)

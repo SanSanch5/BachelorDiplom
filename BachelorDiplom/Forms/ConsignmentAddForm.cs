@@ -21,20 +21,7 @@ namespace BachelorLibAPI.Forms
 
         private void AddNewConsignmentClick(object sender, EventArgs e)
         {
-            try
-            {
-                string name = edtDriverLastName.Text;
-                int dangerDegree = cmbDangerDegrees.SelectedIndex;
-                string afterCrash = edtCrashActions.Text;
-                if (name == "" || dangerDegree < 0 || afterCrash == "")
-                    throw new FormatException("Звёздочкой (*) отмечены поля для обязательного заполнения!");
-
-                _queriesHandler.AddNewConsignment(name, dangerDegree, afterCrash);
-            }
-            catch (FormatException ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
+            
         }
     }
 }

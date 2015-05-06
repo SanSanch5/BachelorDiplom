@@ -61,6 +61,15 @@ namespace BachelorLibAPI.Properties {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Server=localhost;Port=5432;User=Alex;Database=cars_tracking;.
+        /// </summary>
+        internal static string CarsTrackingDBConnectionString {
+            get {
+                return ResourceManager.GetString("CarsTrackingDBConnectionString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Data Source=alex-pc\alexsql;Initial Catalog=Course_DB;Integrated Security=True.
         /// </summary>
         internal static string String1 {
