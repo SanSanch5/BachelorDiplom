@@ -11,6 +11,7 @@ using System.Diagnostics;
 using BachelorLibAPI.RoadsMap;
 using BachelorLibAPI.Data;
 using BachelorLibAPI.TestsGenerator;
+using BachelorLibAPI.Reports;
 
 namespace BachelorLibAPI.Forms
 {
@@ -29,6 +30,7 @@ namespace BachelorLibAPI.Forms
             m_queriesHandler = new QueriesHandler(PgSqlDataHandler.Instance, new OpenStreetGreatMap(ref gmap));
             m_queriesHandler.AnalyseProgress = pbAnalyse;
             FillMainForm();
+            ExcelReportsGenerator.generateReport();
         }
 
         void FillMainForm()
