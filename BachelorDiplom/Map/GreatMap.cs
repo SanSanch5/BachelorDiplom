@@ -4,7 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Drawing;
 using System.Windows.Forms;
+
+using System.Threading;
 using System.Threading.Tasks;
+using System.Diagnostics;
 
 using GMap.NET;
 using GMap.NET.MapProviders;
@@ -32,6 +35,34 @@ namespace BachelorLibAPI.RoadsMap
             m_gmap.Overlays.Add(m_markersOverlay);
             m_gmap.Overlays.Add(m_startMarkerOverlay);
             m_gmap.Overlays.Add(m_endMarkerOverlay);
+
+            m_stadiesGenerationAction = (object _route) =>
+                {
+                    m_stadiesGenerationThread = Thread.CurrentThread;
+
+                    m_detailedRoute = new List<KeyValuePair<PointLatLng, int>>();
+                    List<PointLatLng> route = ((MapRoute)_route).Points;
+
+                    PointLatLng start = route[0];
+                    m_detailedRoute.Add(new KeyValuePair<PointLatLng, int>(start, 0));
+                    Debug.WriteLine("Добавлено: {0} - {1}", start, 0);
+
+                    for(int i = 100; i < route.Count; i += 100)
+                    {
+                        MapRoute r = ((OpenStreetMapProvider)m_gmap.MapProvider).GetRoute(/*route[i-10]*/start, route[i], false, false, 11);
+                        m_detailedRoute.Add(new KeyValuePair<PointLatLng, int>(route[i], (int)(60 * r.Distance / Properties.Settings.Default.AvegareVelocity)));
+                            /*m_detailedRoute.Last().Value + (int)(60*r.Distance / Properties.Settings.Default.AvegareVelocity)));*/
+                    }
+                    
+                    int ost = (route.Count-1) % 100;
+                    if(ost != 0)
+                        m_detailedRoute.Add(new KeyValuePair<PointLatLng, int>(route.Last(), (int)((MapRoute)_route).Distance));
+                            //m_detailedRoute.Last().Value + (int)(60 * (
+                            //(OpenStreetMapProvider)m_gmap.MapProvider).GetRoute(route[route.Count - ost], route.Last(), false, false, 11)
+                            //.Distance / Properties.Settings.Default.AvegareVelocity)));
+                    
+                    Debug.WriteLine("Обработано {0} объектов через каждые 100. Итоговое время: {1} минут", route.Count, (int)((MapRoute)_route).Distance);
+                };
         }
 
         public string getPlacemark(int x, int y)
@@ -64,6 +95,9 @@ namespace BachelorLibAPI.RoadsMap
 
         public void constructShortTrack()
         {
+            if (m_stadiesGeneration != null)
+                m_stadiesGenerationThread.Abort();
+
             MapRoute route = ((OpenStreetMapProvider)m_gmap.MapProvider).GetRoute(m_start, m_end, false, false, 11);
             if (route == null || route.Points.Count == 0)
             {
@@ -72,19 +106,22 @@ namespace BachelorLibAPI.RoadsMap
             }
 
             GMapRoute r = new GMapRoute(route.Points, "My route");
-            m_route = route.Points;
+            //m_route = route.Points;
             r.Stroke.Width = 5;
             r.Stroke.Color = Color.Black;
 
             m_routesOverlay.Routes.Add(r);
             m_gmap.ZoomAndCenterRoute(r);
 
-            if (MessageBox.Show("Использовать этот маршрут для новой перевозки?\nВы можете добавить промежуточные точки для уточнения", "Внимание!", MessageBoxButtons.YesNo) == DialogResult.Yes)
+            if (MessageBox.Show(route.Distance.ToString("N2") + " км.\n" + "Использовать этот маршрут для новой перевозки?\nВы можете добавить промежуточные точки для уточнения", 
+                "Внимание!", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
                 m_startMarkerOverlay.Clear();
                 m_endMarkerOverlay.Clear();
-                // сохранить
-                // запустить таском генерацию всех подмаршрутов...
+                    // сохранить
+                    // запустить таском генерацию всех подмаршрутов...
+                m_stadiesGeneration = new Task(m_stadiesGenerationAction, route);
+                m_stadiesGeneration.Start();
             }
 
             m_routesOverlay.Clear();
@@ -92,11 +129,8 @@ namespace BachelorLibAPI.RoadsMap
 
         public List<KeyValuePair<PointLatLng, int>> getShortTrack(PointLatLng start, PointLatLng goal, int startValue = 0)
         {
-            List<KeyValuePair<PointLatLng, int>> res = new List<KeyValuePair<PointLatLng,int>>();
-
-
-
-            return res;
+            m_stadiesGeneration.Wait();
+            return m_detailedRoute;
         }
 
         private Placemark? getPlacemark(PointLatLng pnt, out GeoCoderStatusCode st)
@@ -115,6 +149,10 @@ namespace BachelorLibAPI.RoadsMap
         private GMapOverlay m_routesOverlay = new GMapOverlay("routes");
         private GMapOverlay m_markersOverlay = new GMapOverlay("markers");
         private PointLatLng m_start, m_end;
-        private List<PointLatLng> m_route;
+        List<KeyValuePair<PointLatLng, int>> m_detailedRoute;
+
+        private Task m_stadiesGeneration;
+        private Action<object> m_stadiesGenerationAction;
+        private Thread m_stadiesGenerationThread;
     }
 }

@@ -30,7 +30,6 @@ namespace BachelorLibAPI.Forms
             m_queriesHandler = new QueriesHandler(PgSqlDataHandler.Instance, new OpenStreetGreatMap(ref gmap));
             m_queriesHandler.AnalyseProgress = pbAnalyse;
             FillMainForm();
-            ExcelReportsGenerator.generateReport();
         }
 
         void FillMainForm()

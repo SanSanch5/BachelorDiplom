@@ -2,8 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Diagnostics;
 
 using Npgsql;
+
 
 namespace BachelorLibAPI.Data
 {
@@ -14,8 +16,11 @@ namespace BachelorLibAPI.Data
     
         public static PgSqlDataHandler Instance { get { return lazy.Value; } }
 
+        private NpgsqlConnection npgsqlConnection;
+
         private PgSqlDataHandler()
         {
+             npgsqlConnection = new NpgsqlConnection(Properties.Settings.Default.CarsTrackingDBConnectionString);
         }
 
         public void AddNewContact(int driverID, string contact)

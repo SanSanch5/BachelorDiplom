@@ -117,9 +117,6 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="CarsTrackingDBConnectionString" xml:space="preserve">
-    <value>Server=localhost;Port=5432;User=Alex;Database=cars_tracking;</value>
-  </data>
   <data name="String1" xml:space="preserve">
     <value>Data Source=alex-pc\alexsql;Initial Catalog=Course_DB;Integrated Security=True</value>
   </data>

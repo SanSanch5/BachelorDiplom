@@ -13,16 +13,16 @@ namespace BachelorLibAPI
         [STAThread]
         static void Main()
         {
-            try
-            {
+            //try
+            //{
                 Application.EnableVisualStyles();
                 Application.SetCompatibleTextRenderingDefault(false);
                 Application.Run(new BachelorLibAPI.Forms.MainForm());
-            }
-            catch(Exception ex)
-            {
-                MessageBox.Show("Необработанное исключение: " + ex.Message);
-            }
+            //}
+            //catch(Exception ex)
+            //{
+            //    MessageBox.Show("Необработанное исключение: " + ex.Message);
+            //}
         }
     }
 }

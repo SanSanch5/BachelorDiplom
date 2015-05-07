@@ -54,5 +54,24 @@ namespace BachelorLibAPI.Properties {
                 return ((string)(this["Course_DBConnectionString2"]));
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("60")]
+        public double AvegareVelocity {
+            get {
+                return ((double)(this["AvegareVelocity"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
+        [global::System.Configuration.DefaultSettingValueAttribute("Server=localhost;Port=5432;User=Alex;Database=cars_tracking;")]
+        public string CarsTrackingDBConnectionString {
+            get {
+                return ((string)(this["CarsTrackingDBConnectionString"]));
+            }
+        }
     }
 }
