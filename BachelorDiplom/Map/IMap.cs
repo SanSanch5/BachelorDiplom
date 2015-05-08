@@ -28,6 +28,8 @@ namespace BachelorLibAPI.RoadsMap
         void setStartPoint(PointLatLng _start);
         void setEndPoint(PointLatLng _end);
         void constructShortTrack();
+        void addTransitMarker(int _transitID);
+        void removeTransitMarker(int _transitID);
 
         /// <summary>
         /// Ключ записи словаря - положение промежуточной точки на карте, 

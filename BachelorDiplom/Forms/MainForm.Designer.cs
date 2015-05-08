@@ -478,7 +478,7 @@
             this.toolStripMenuItem4,
             this.построитьМаршрутToolStripMenuItem});
             this.mapMenu.Name = "mapMenu";
-            this.mapMenu.Size = new System.Drawing.Size(256, 92);
+            this.mapMenu.Size = new System.Drawing.Size(256, 114);
             this.mapMenu.Opening += new System.ComponentModel.CancelEventHandler(this.mapMenu_Opening);
             // 
             // toolStripMenuItem2

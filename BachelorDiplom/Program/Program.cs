@@ -19,7 +19,7 @@ namespace BachelorLibAPI
                 Application.SetCompatibleTextRenderingDefault(false);
                 Application.Run(new BachelorLibAPI.Forms.MainForm());
             //}
-            //catch(Exception ex)
+            //catch (Exception ex)
             //{
             //    MessageBox.Show("Необработанное исключение: " + ex.Message);
             //}

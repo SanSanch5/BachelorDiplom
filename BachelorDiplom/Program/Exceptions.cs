@@ -15,4 +15,15 @@ namespace BachelorLibAPI.Exceptions
             }
         }
     }
+
+    class RouteBuilderLogicException : Exception
+    {
+        public override string Message
+        {
+            get
+            {
+                return "Вознилка ошибка в ходе обработки данных";
+            }
+        }
+    }
 }
