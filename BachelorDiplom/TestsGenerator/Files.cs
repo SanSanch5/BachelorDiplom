@@ -2,10 +2,10 @@
 {
     public enum Files
     {
-        NUMBERS,
-        NAMES,
-        MIDNAMES,
-        LASTNAMES,
-        DATES
+        Numbers,
+        Names,
+        Midnames,
+        Lastnames,
+        Dates
     }
 }

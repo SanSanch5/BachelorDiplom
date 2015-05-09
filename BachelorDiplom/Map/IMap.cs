@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.IO;
-
+﻿using System.Collections.Generic;
 using GMap.NET;
 
-namespace BachelorLibAPI.RoadsMap
+namespace BachelorLibAPI.Map
 {
     /// <summary>
     /// Интерфейс для карты. Классы-реализации должны предоставлять пользователю структуру карты, возможность её обновить
@@ -22,14 +17,14 @@ namespace BachelorLibAPI.RoadsMap
         /// <param name="goal">положение конечного пункта</param>
         /// <param name="startValue">Время, которое автомобиль был в пути до прибытия в начальный пункт (по умолчанию 0)</param>
         /// <returns></returns>
-        List<KeyValuePair<PointLatLng, int>> getShortTrack(PointLatLng start, PointLatLng goal, int startValue = 0);
+        List<KeyValuePair<PointLatLng, int>> GetShortTrack(PointLatLng start, PointLatLng goal, int startValue = 0);
 
-        string getPlacemark(int x, int y);
-        void setStartPoint(PointLatLng _start);
-        void setEndPoint(PointLatLng _end);
-        void constructShortTrack();
-        void addTransitMarker(int _transitID);
-        void removeTransitMarker(int _transitID);
+        string GetPlacemark(int x, int y);
+        void SetStartPoint(PointLatLng start);
+        void SetEndPoint(PointLatLng end);
+        void ConstructShortTrack();
+        void AddTransitMarker(int transitId);
+        void RemoveTransitMarker(int transitId);
 
         /// <summary>
         /// Ключ записи словаря - положение промежуточной точки на карте, 

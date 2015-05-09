@@ -1,11 +1,14 @@
-﻿namespace BachelorLibAPI.Forms
+﻿using System.ComponentModel;
+using System.Windows.Forms;
+
+namespace BachelorLibAPI.Forms
 {
     partial class PasswordBox
     {
         /// <summary>
         /// Required designer variable.
         /// </summary>
-        private System.ComponentModel.IContainer components = null;
+        private IContainer components = null;
 
         /// <summary>
         /// Clean up any resources being used.
@@ -82,8 +85,8 @@
 
         #endregion
 
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.TextBox edtPassword;
-        private System.Windows.Forms.Button btnOK;
+        private Label label1;
+        private TextBox edtPassword;
+        private Button btnOK;
     }
 }

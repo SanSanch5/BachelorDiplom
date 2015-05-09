@@ -1,11 +1,14 @@
-﻿namespace BachelorLibAPI.Forms
+﻿using System.ComponentModel;
+using System.Windows.Forms;
+
+namespace BachelorLibAPI.Forms
 {
     partial class NamesakesBox
     {
         /// <summary>
         /// Required designer variable.
         /// </summary>
-        private System.ComponentModel.IContainer components = null;
+        private IContainer components = null;
 
         /// <summary>
         /// Clean up any resources being used.
@@ -96,10 +99,10 @@
 
         #endregion
 
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Button btnShow;
-        private System.Windows.Forms.Button btnAdd;
-        private System.Windows.Forms.Label lblName;
+        private Label label1;
+        private Button btnShow;
+        private Button btnAdd;
+        private Label lblName;
 
     }
 }

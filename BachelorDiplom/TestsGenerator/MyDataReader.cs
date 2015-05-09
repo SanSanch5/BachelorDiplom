@@ -6,27 +6,27 @@ namespace BachelorLibAPI.TestsGenerator
 {
     public class MyDataReader
     {
-        public List<string> Numbers { get; private set; }
+        private List<string> Numbers { get; set; }
         public List<string> Names { get; private set; }
         public List<string> Midnames { get; private set; }
         public List<string> Lastnames { get; private set; }
         public List<string> Dates { get; private set; }
 
-        private readonly Dictionary<Files, string> Filenames = new Dictionary<Files, string>()
+        private readonly Dictionary<Files, string> _filenames = new Dictionary<Files, string>()
         {
-            {Files.NUMBERS, @"..\..\TestsGenerator\Source\Numbers.txt"},
-            {Files.NAMES, @"..\..\TestsGenerator\Source\Names.txt"},
-            {Files.MIDNAMES, @"..\..\TestsGenerator\Source\Midnames.txt"},
-            {Files.LASTNAMES, @"..\..\TestsGenerator\Source\Lastnames.txt"},
-            {Files.DATES, @"..\..\TestsGenerator\Source\Dates.txt"}
+            {Files.Numbers, @"..\..\TestsGenerator\Source\Numbers.txt"},
+            {Files.Names, @"..\..\TestsGenerator\Source\Names.txt"},
+            {Files.Midnames, @"..\..\TestsGenerator\Source\Midnames.txt"},
+            {Files.Lastnames, @"..\..\TestsGenerator\Source\Lastnames.txt"},
+            {Files.Dates, @"..\..\TestsGenerator\Source\Dates.txt"}
         };
 
         public void LoadFromFiles()
         {
             //Numbers = ReadFile(Filenames[Files.NUMBERS]);
-            Names = ReadFile(Filenames[Files.NAMES]);
-            Midnames = ReadFile(Filenames[Files.MIDNAMES]);
-            Lastnames = ReadFile(Filenames[Files.LASTNAMES]);
+            Names = ReadFile(_filenames[Files.Names]);
+            Midnames = ReadFile(_filenames[Files.Midnames]);
+            Lastnames = ReadFile(_filenames[Files.Lastnames]);
             //Dates = ReadFile(Filenames[Files.DATES]);
         }
 

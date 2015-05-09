@@ -1,11 +1,14 @@
-﻿namespace BachelorLibAPI.Forms
+﻿using System.ComponentModel;
+using System.Windows.Forms;
+
+namespace BachelorLibAPI.Forms
 {
     partial class DriverAddForm
     {
         /// <summary>
         /// Required designer variable.
         /// </summary>
-        private System.ComponentModel.IContainer components = null;
+        private IContainer components = null;
 
         /// <summary>
         /// Clean up any resources being used.
@@ -210,18 +213,18 @@
 
         #endregion
 
-        private System.Windows.Forms.TableLayoutPanel ltpNewDriver;
-        private System.Windows.Forms.Label lblDriverMidName;
-        private System.Windows.Forms.Label lblTelephoneNumber;
-        private System.Windows.Forms.Label lblAddTN;
-        private System.Windows.Forms.Label lblDriverName;
-        private System.Windows.Forms.Label lblDriverLastName;
-        private System.Windows.Forms.TextBox edtDriverLastName;
-        private System.Windows.Forms.TextBox edtDriverName;
-        private System.Windows.Forms.TextBox edtDriverMidName;
-        private System.Windows.Forms.MaskedTextBox edtMainPhoneNumber;
-        private System.Windows.Forms.MaskedTextBox edtAddPhoneNumber;
-        private System.Windows.Forms.Button btnNewDriver;
-        private System.Windows.Forms.Timer tmrForGreatFocus;
+        private TableLayoutPanel ltpNewDriver;
+        private Label lblDriverMidName;
+        private Label lblTelephoneNumber;
+        private Label lblAddTN;
+        private Label lblDriverName;
+        private Label lblDriverLastName;
+        private TextBox edtDriverLastName;
+        private TextBox edtDriverName;
+        private TextBox edtDriverMidName;
+        private MaskedTextBox edtMainPhoneNumber;
+        private MaskedTextBox edtAddPhoneNumber;
+        private Button btnNewDriver;
+        private Timer tmrForGreatFocus;
     }
 }

@@ -1,11 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
+using System.Text.RegularExpressions;
 using System.Windows.Forms;
+using BachelorLibAPI.Program;
 
 namespace BachelorLibAPI.Forms
 {
@@ -25,11 +21,11 @@ namespace BachelorLibAPI.Forms
         {
             try
             {
-                string lName = edtDriverLastName.Text;
-                string name = edtDriverName.Text;
-                string mName = edtDriverMidName.Text;
-                string num1 = System.Text.RegularExpressions.Regex.Replace(edtMainPhoneNumber.Text, "[^0-9]", "");
-                string num2 = System.Text.RegularExpressions.Regex.Replace(edtAddPhoneNumber.Text, "[^0-9]", ""); 
+                var lName = edtDriverLastName.Text;
+                var name = edtDriverName.Text;
+                var mName = edtDriverMidName.Text;
+                var num1 = Regex.Replace(edtMainPhoneNumber.Text, "[^0-9]", "");
+                var num2 = Regex.Replace(edtAddPhoneNumber.Text, "[^0-9]", ""); 
                 if (lName == "" || name == "" || num1 == "")
                     throw new FormatException("Звёздочкой (*) отмечены поля для обязательного заполнения!");
                 if (!(num1.Length == 10 && (num2.Length == 10 || num2.Length == 0)))

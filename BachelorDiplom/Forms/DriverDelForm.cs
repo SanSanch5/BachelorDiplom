@@ -1,11 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.Linq;
-using System.Text;
 using System.Windows.Forms;
+using BachelorLibAPI.Program;
 
 namespace BachelorLibAPI.Forms
 {
@@ -27,8 +24,8 @@ namespace BachelorLibAPI.Forms
         {
             try
             {
-                string contact = cmbNumbers.Text;
-                DriverDelBox driverDelBox = new DriverDelBox(_queriesHandler.CheckDriver(contact));
+                var contact = cmbNumbers.Text;
+                var driverDelBox = new DriverDelBox(_queriesHandler.CheckDriver(contact));
                 driverDelBox.ShowDialog();
 
                 if (driverDelBox.DialogResult == DialogResult.OK)

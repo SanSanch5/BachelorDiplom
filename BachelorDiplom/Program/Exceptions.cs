@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
-namespace BachelorLibAPI.Exceptions
+namespace BachelorLibAPI.Program
 {
     class PlacemarkGettingException : Exception
     {

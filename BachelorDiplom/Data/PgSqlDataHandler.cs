@@ -1,34 +1,31 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Diagnostics;
-
+using BachelorLibAPI.Properties;
+using GMap.NET;
 using Npgsql;
-
 
 namespace BachelorLibAPI.Data
 {
     public sealed class PgSqlDataHandler : IDataHandler
     {
-        private static readonly Lazy<PgSqlDataHandler> lazy =
+        private static readonly Lazy<PgSqlDataHandler> Lazy =
         new Lazy<PgSqlDataHandler>(() => new PgSqlDataHandler());
     
-        public static PgSqlDataHandler Instance { get { return lazy.Value; } }
+        public static PgSqlDataHandler Instance { get { return Lazy.Value; } }
 
-        private NpgsqlConnection npgsqlConnection;
+        private NpgsqlConnection _npgsqlConnection;
 
         private PgSqlDataHandler()
         {
-             npgsqlConnection = new NpgsqlConnection(Properties.Settings.Default.CarsTrackingDBConnectionString);
+             _npgsqlConnection = new NpgsqlConnection(Settings.Default.CarsTrackingDBConnectionString);
         }
 
-        public void AddNewContact(int driverID, string contact)
+        public void AddNewContact(int driverId, string contact)
         {
 
         }
 
-        public void DelContacts(int driverID)
+        public void DelContacts(int driverId)
         {
 
         }
@@ -38,17 +35,17 @@ namespace BachelorLibAPI.Data
             return 0;
         }
 
-        public void DelDriver(int driverID)
+        public void DelDriver(int driverId)
         {
 
         }
 
-        public int AddNewTransit(int driverID, int consignmentID)
+        public int AddNewTransit(int driverId, int consignmentId)
         {
             return 0;
         }
 
-        public void DelTransit(int transID)
+        public void DelTransit(int transId)
         {
 
         }
@@ -73,7 +70,7 @@ namespace BachelorLibAPI.Data
             return 0;
         }
 
-        public string GetDriversFullName(int driverID)
+        public string GetDriversFullName(int driverId)
         {
             return "";
         }
@@ -83,17 +80,17 @@ namespace BachelorLibAPI.Data
             return new List<string>();
         }
 
-        public int GetTransitID(int driverID, DateTime start)
+        public int GetTransitId(int driverId, DateTime start)
         {
             return 0;
         }
 
-        public List<int> GetTransitIDs(DateTime start, DateTime until, int placeID)
+        public List<int> GetTransitIDs(DateTime start, DateTime until, int placeId)
         {
             return new List<int>();
         }
 
-        public List<int> GetTransitIDs(int driverID)
+        public List<int> GetTransitIDs(int driverId)
         {
             return new List<int>();
         }
@@ -108,39 +105,39 @@ namespace BachelorLibAPI.Data
             return new List<string>();
         }
 
-        public int GetDriverID(int transID)
+        public int GetDriverId(int transId)
         {
             return 0;
         }
 
-        public string GetConsignmentName(int transID)
+        public string GetConsignmentName(int transId)
         {
             return "";
         }
 
-        public string GetDriverName(int driverID)
+        public string GetDriverName(int driverId)
         {
             return "";
         }
 
-        public string GetDriverSurname(int driverID)
+        public string GetDriverSurname(int driverId)
         {
             return "";
         }
 
-        public List<string> GetDriverNumbers(int driverID)
+        public List<string> GetDriverNumbers(int driverId)
         {
             return new List<string>();
         }
 
-        public List<DateTime> GetLocationTime(int transID, GMap.NET.PointLatLng pnt)
+        public List<DateTime> GetLocationTime(int transId, PointLatLng pnt)
         {
             return new List<DateTime>();
         }
 
-        public GMap.NET.PointLatLng GetCurrentLocation(int transID)
+        public PointLatLng GetCurrentLocation(int transId)
         {
-            return new GMap.NET.PointLatLng();
+            return new PointLatLng();
         }
 
         public void SubmitChanges() 

@@ -1,19 +1,19 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using System.Runtime.InteropServices;
 using System.Windows.Forms;
+using Microsoft.Office.Interop.Excel;
+using Application = Microsoft.Office.Interop.Excel.Application;
 
 //using Microsoft.Office.Interop.Excel;
 
-namespace BachelorLibAPI.Reports
+namespace BachelorLibAPI.Program
 {
     public class ExcelReportsGenerator
     {
-        public static void generateReport()
+        public static void GenerateReport()
         {
-            var xlApp = new Microsoft.Office.Interop.Excel.Application();
-            Microsoft.Office.Interop.Excel.Workbook xlWorkBook = null;
+            var xlApp = new Application();
+            Workbook xlWorkBook = null;
             
             try
             {
@@ -31,22 +31,22 @@ namespace BachelorLibAPI.Reports
                 xlWorkBook.SaveAs(@"P:\Study\sem8\diploma\project\BachelorDiplom\BachelorDiplom\Reports\test.xlsx");
                 MessageBox.Show("Отчёт сгенерирован в файл" + @"P:\Study\sem8\diploma\project\BachelorDiplom\BachelorDiplom\Reports\test.xlsx");
 
-                releaseObject(xlWorkBook);
-                releaseObject(xlApp);
+                ReleaseObject(xlWorkBook);
+                ReleaseObject(xlApp);
             }
             catch(Exception ex)
             {
-                releaseObject(xlWorkBook);
-                releaseObject(xlApp);
+                ReleaseObject(xlWorkBook);
+                ReleaseObject(xlApp);
                 throw ex;
             }
         }
 
-        private static void releaseObject(object obj)
+        private static void ReleaseObject(object obj)
         {
             try
             {
-                System.Runtime.InteropServices.Marshal.ReleaseComObject(obj);
+                Marshal.ReleaseComObject(obj);
                 obj = null;
             }
             catch (Exception ex)

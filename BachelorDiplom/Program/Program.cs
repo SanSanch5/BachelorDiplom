@@ -1,9 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Windows.Forms;
+using BachelorLibAPI.Forms;
 
-namespace BachelorLibAPI
+namespace BachelorLibAPI.Program
 {
     static class Program
     {
@@ -17,7 +16,7 @@ namespace BachelorLibAPI
             //{
                 Application.EnableVisualStyles();
                 Application.SetCompatibleTextRenderingDefault(false);
-                Application.Run(new BachelorLibAPI.Forms.MainForm());
+                Application.Run(new MainForm());
             //}
             //catch (Exception ex)
             //{

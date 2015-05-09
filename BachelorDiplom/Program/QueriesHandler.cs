@@ -1,17 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Text.RegularExpressions;
 using System.Windows.Forms;
+using BachelorLibAPI.Data;
+using BachelorLibAPI.Forms;
+using BachelorLibAPI.Map;
 
 //using System.Transactions;
 
-using BachelorLibAPI.Data;
-using BachelorLibAPI.RoadsMap;
-using BachelorLibAPI.Forms;
-
-namespace BachelorLibAPI
+namespace BachelorLibAPI.Program
 {
     /// <summary>
     /// Исполняет прецеденты, используя функционал, предоставляемый интерфейсами IDataHandler и IMap
@@ -19,10 +16,9 @@ namespace BachelorLibAPI
     public class QueriesHandler
     {
         private IDataHandler _dataHandler;
-        private IMap _map;
         private ProgressBar _analyseProgress;
 
-        private const int _timeCorrection = 20;
+        private const int TimeCorrection = 20;
 
         /// <summary>
         /// Конструктор
@@ -32,7 +28,7 @@ namespace BachelorLibAPI
         public QueriesHandler(IDataHandler dh, IMap m)
         {
             _dataHandler = dh;
-            _map = m;
+            Map = m;
         }
 
         /// <summary>
@@ -55,44 +51,40 @@ namespace BachelorLibAPI
         /// <summary>
         /// Свойство устанавливает новую реализацию интерфейса IMap и возвращает текущуюю
         /// </summary>
-        public IMap Map
-        {
-            get { return _map; }
-            set { _map = value; }
-        }
+        public IMap Map { get; private set; }
 
-        public List<string> GetConsignmentsNames()
+        public static List<string> GetConsignmentsNames()
         {
             return new List<string>();
         }
 
         private void AddDriver(string lName, string name, string mName, string num1, string num2)
         {
-            int newID = _dataHandler.AddNewDriver(lName, name, mName);
-            AddContactsToDriver(newID, num1, num2);
-            MessageBox.Show("Водитель успешно добавлен", "Информация");
+            var newId = _dataHandler.AddNewDriver(lName, name, mName);
+            AddContactsToDriver(newId, num1, num2);
+            MessageBox.Show(@"Водитель успешно добавлен", @"Информация");
         }
 
-        private void AddContactsToDriver(int driverID, string num1, string num2)
+        private void AddContactsToDriver(int driverId, string num1, string num2)
         {
-            _dataHandler.AddNewContact(driverID, num1);
+            _dataHandler.AddNewContact(driverId, num1);
             if (num1 != num2 && num2 != "")
-                _dataHandler.AddNewContact(driverID, num2);
+                _dataHandler.AddNewContact(driverId, num2);
         }
 
-        private void NamesakesWork(int [] IDs, string num1, string num2)
+        private void NamesakesWork(int [] ds, string num1, string num2)
         {
-            List<string> numbers = new List<string>();
-            foreach (int ID in IDs)            
-                numbers.AddRange(_dataHandler.GetDriverNumbers(ID));
+            var numbers = new List<string>();
+            foreach (var id in ds)            
+                numbers.AddRange(_dataHandler.GetDriverNumbers(id));
 
-            NamesakesForm namesakesForm = new NamesakesForm(numbers);
+            var namesakesForm = new NamesakesForm(numbers);
             namesakesForm.ShowDialog();
             if(namesakesForm.DialogResult == DialogResult.OK)
             {
-                string number = namesakesForm.Number;
-                int driverID = _dataHandler.DriverWithPhoneNumber(number);
-                AddContactsToDriver(driverID, num1, num2);
+                var number = namesakesForm.Number;
+                var driverId = _dataHandler.DriverWithPhoneNumber(number);
+                AddContactsToDriver(driverId, num1, num2);
             }
         }
 
@@ -123,7 +115,7 @@ namespace BachelorLibAPI
             if (namesakes.Length != 0)
             {
                 // обработать ситуацию с полными тёзками
-                NamesakesBox namesakesBox = new NamesakesBox(lName, name, mName);
+                var namesakesBox = new NamesakesBox(lName, name, mName);
                 namesakesBox.ShowDialog();
                 switch (namesakesBox.DialogResult)
                 {
@@ -164,9 +156,9 @@ namespace BachelorLibAPI
 
         private void DelTransits(List<int> transIDs)
         {
-            foreach (int transID in transIDs)
+            foreach (var transId in transIDs)
             {
-                _dataHandler.DelTransit(transID);
+                _dataHandler.DelTransit(transId);
             }
         }
 
@@ -176,10 +168,10 @@ namespace BachelorLibAPI
         /// <param name="number"></param>
         public void DelDriver(string number)
         {
-            int driverID = _dataHandler.DriverWithPhoneNumber(number);
-            _dataHandler.DelDriver(driverID);
-            _dataHandler.DelContacts(driverID);
-            DelTransits(_dataHandler.GetTransitIDs(driverID));
+            var driverId = _dataHandler.DriverWithPhoneNumber(number);
+            _dataHandler.DelDriver(driverId);
+            _dataHandler.DelContacts(driverId);
+            DelTransits(_dataHandler.GetTransitIDs(driverId));
 
             _dataHandler.SubmitChanges();
         }
@@ -191,11 +183,11 @@ namespace BachelorLibAPI
         /// для переезда в каждый город из начального.
         /// Полученная информация регистрируется в специальной таблице.
         /// </summary>
-        /// <param name="driverID"></param>
-        /// <param name="consID"></param>
+        /// <param name="driverId"></param>
+        /// <param name="consId"></param>
         /// <param name="start"></param>
         /// <param name="citiesLst"></param>
-        public void AddNewTransit(int driverID, int consID, DateTime start, List<string> citiesLst)
+        public void AddNewTransit(int driverId, int consId, DateTime start, List<string> citiesLst)
         {
             //int citiesCount = citiesLst.Count;
             //if (citiesLst.Count < 2)
@@ -279,18 +271,13 @@ namespace BachelorLibAPI
             //AddNewTransit(driverID, consID, start, citiesLst);
         }
 
-        private void SetProgressParameters(List<int> citiesIDs, DateTime since, DateTime until)
+        private void SetProgressParameters(IEnumerable<int> citiesIDs, DateTime since, DateTime until)
         {
             _analyseProgress.Visible = true;
             _analyseProgress.Minimum = 0;
             _analyseProgress.Value = 0;
             
-            int max = 0;
-            foreach (var cityID in citiesIDs)
-            {
-                List<int> transIDs = _dataHandler.GetTransitIDs(since, until, cityID);
-                max += transIDs.Count();
-            }
+            var max = citiesIDs.Select(cityId => _dataHandler.GetTransitIDs(since, until, cityId)).Select(transIDs => transIDs.Count()).Sum();
             _analyseProgress.Maximum = max;
         }
 
@@ -305,7 +292,7 @@ namespace BachelorLibAPI
         /// <returns>Список найденных опасных грузов, водителей и мест с подробной информацией о них.</returns>
         public List<AnalyseReturnType> AnalyseDanger(DateTime since, DateTime until, string place)
         {
-            List<AnalyseReturnType> res = new List<AnalyseReturnType>();
+            var res = new List<AnalyseReturnType>();
             //List<int> citiesIDs = new List<int>();
             //int cityPlaceID = _dataHandler.GetCityID(place);
             //if (cityPlaceID != -1)
@@ -364,15 +351,15 @@ namespace BachelorLibAPI
         /// </summary>
         /// <param name="index">Индекс водителя в ComboBox</param>
         /// <returns>Индекс водителя в базе данных</returns>
-        public int GetComboBoxedDriverID(int index)
+        public int GetComboBoxedDriverId(int index)
         {
-            int driverID = index + 1;
+            var driverId = index + 1;
             //foreach (int missedID in _dataHandler.MissedDriverIDs)
             //{
             //    if (missedID <= driverID)
             //        driverID++;
             //}
-            return driverID;
+            return driverId;
         }
 
         /// <summary>
@@ -383,27 +370,27 @@ namespace BachelorLibAPI
         /// <returns>Информацию о водителе</returns>
         public DriverInfoType GetComboBoxedDriverInfo(int index)
         {
-            return GetDriverInfo(GetComboBoxedDriverID(index));
+            return GetDriverInfo(GetComboBoxedDriverId(index));
         }
 
         /// <summary>
         /// Получить все номера водителя
         /// </summary>
-        /// <param name="driverID">ID водителя</param>
+        /// <param name="driverId">ID водителя</param>
         /// <returns></returns>
-        public List<string> GetDriverNumbers(int driverID)
+        public List<string> GetDriverNumbers(int driverId)
         {
-            return _dataHandler.GetDriverNumbers(driverID);
+            return _dataHandler.GetDriverNumbers(driverId);
         }
 
         /// <summary>
         /// Получить информацию о каждом водителе и о его последней перевозке
         /// </summary>
-        /// <param name="driverID">ID водителя</param>
+        /// <param name="driverId">ID водителя</param>
         /// <returns></returns>
-        public DriverInfoType GetDriverInfo(int driverID)
+        public DriverInfoType GetDriverInfo(int driverId)
         {
-            DriverInfoType driverInfo = new DriverInfoType();
+            var driverInfo = new DriverInfoType();
 
             //var transIDs = _dataHandler.GetTransitIDs(driverID);
             //if(transIDs.Count() == 0)

@@ -1,11 +1,14 @@
-﻿namespace BachelorLibAPI.Forms
+﻿using System.ComponentModel;
+using System.Windows.Forms;
+
+namespace BachelorLibAPI.Forms
 {
     partial class DriverInfoForm
     {
         /// <summary>
         /// Required designer variable.
         /// </summary>
-        private System.ComponentModel.IContainer components = null;
+        private IContainer components = null;
 
         /// <summary>
         /// Clean up any resources being used.
@@ -369,27 +372,27 @@
 
         #endregion
 
-        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
-        private System.Windows.Forms.ComboBox cmbDriver;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.ComboBox cmbNumbers;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.Label lblStatus;
-        private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.Label lblConsName;
-        private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.Label lblFrom;
-        private System.Windows.Forms.Label lblTo;
-        private System.Windows.Forms.Label lblStartTime;
-        private System.Windows.Forms.DateTimePicker dtpStart;
-        private System.Windows.Forms.Label lblArrTime;
-        private System.Windows.Forms.DateTimePicker dtpArr;
-        private System.Windows.Forms.Label lblProbableLocSub;
-        private System.Windows.Forms.Label lblProbableLocation;
-        private System.Windows.Forms.Label label9;
-        private System.Windows.Forms.Label lblID;
+        private TableLayoutPanel tableLayoutPanel1;
+        private ComboBox cmbDriver;
+        private Label label1;
+        private Label label2;
+        private ComboBox cmbNumbers;
+        private Label label3;
+        private Label label4;
+        private Label lblStatus;
+        private Label label5;
+        private Label lblConsName;
+        private Label label6;
+        private Label label7;
+        private Label lblFrom;
+        private Label lblTo;
+        private Label lblStartTime;
+        private DateTimePicker dtpStart;
+        private Label lblArrTime;
+        private DateTimePicker dtpArr;
+        private Label lblProbableLocSub;
+        private Label lblProbableLocation;
+        private Label label9;
+        private Label lblID;
     }
 }

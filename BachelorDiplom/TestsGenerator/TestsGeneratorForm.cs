@@ -1,11 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.Linq;
-using System.Text;
 using System.Windows.Forms;
+using BachelorLibAPI.Program;
 
 namespace BachelorLibAPI.TestsGenerator
 {
@@ -13,31 +10,31 @@ namespace BachelorLibAPI.TestsGenerator
     {
         private QueriesHandler _queriesHandler;
         private readonly MyDataReader _data;
-        private readonly Random random = new Random();
-        private const int _driversCount = 1200;
-        private const int _transitsCount = 1000;
+        private readonly Random _random = new Random();
+        private const int DriversCount = 1200;
+        private const int TransitsCount = 1000;
         private int _datesCount = 100;
 
-        private List<string> cities;
-        private List<string> consignments;
-        private List<string> numbers;
-        private List<string> dates;
+        private List<string> _cities;
+        private List<string> _consignments;
+        private List<string> _numbers;
+        private List<string> _dates;
 
-        public TestsGeneratorForm(QueriesHandler _qh)
+        public TestsGeneratorForm(QueriesHandler qh)
         {
             InitializeComponent();
-            _queriesHandler = _qh;
+            _queriesHandler = qh;
 
             _data = new MyDataReader();
             _data.LoadFromFiles();
 
             //cities = _queriesHandler.GetCitiesNames();
-            consignments = _queriesHandler.GetConsignmentsNames();
-            numbers = _queriesHandler.GetNumbers();
-            dates = new List<string>();
+            _consignments = QueriesHandler.GetConsignmentsNames();
+            _numbers = _queriesHandler.GetNumbers();
+            _dates = new List<string>();
 
             pbTransits.Minimum = 0;
-            pbTransits.Maximum = _transitsCount;
+            pbTransits.Maximum = TransitsCount;
             pbTransits.Value = 0;
 
             GenerateDates();
@@ -45,32 +42,32 @@ namespace BachelorLibAPI.TestsGenerator
 
         private void GenerateDates()
         {
-            DateTime dt = DateTime.Now;
+            var dt = DateTime.Now;
 
-            for (int i = 0; i < _datesCount; ++i)
+            for (var i = 0; i < _datesCount; ++i)
             {
-                string year = dt.Year.ToString();
-                string month = random.Next(dt.Month - 1, dt.Month + 1).ToString();
-                string day = random.Next(1, 28).ToString();
-                string hour = random.Next(0, 23).ToString();
-                string minute = random.Next(0, 59).ToString();
-                string second = random.Next(0, 59).ToString();
+                var year = dt.Year.ToString();
+                var month = _random.Next(dt.Month - 1, dt.Month + 1).ToString();
+                var day = _random.Next(1, 28).ToString();
+                var hour = _random.Next(0, 23).ToString();
+                var minute = _random.Next(0, 59).ToString();
+                var second = _random.Next(0, 59).ToString();
 
-                dates.Add(year + " " + month + " " + day + " " + hour + " " + minute + " " + second);
+                _dates.Add(year + " " + month + " " + day + " " + hour + " " + minute + " " + second);
             }
         }
 
         private void AddDrivers()
         {
-            for (int i = 0; i < _driversCount; ++i)
+            for (var i = 0; i < DriversCount; ++i)
             {
-                string name = _data.Names.Random(random);
-                string midName = _data.Midnames.Random(random);
-                string lastName = _data.Lastnames.Random(random);
-                long inum1 = 9999999999 - i;
-                long inum2 = 4999999999 - i;
-                string num1 = inum1.ToString();
-                string num2 = inum2.ToString();
+                var name = _data.Names.Random(_random);
+                var midName = _data.Midnames.Random(_random);
+                var lastName = _data.Lastnames.Random(_random);
+                var inum1 = 9999999999 - i;
+                var inum2 = 4999999999 - i;
+                var num1 = inum1.ToString();
+                var num2 = inum2.ToString();
 
                 _queriesHandler.AddNewDriver(lastName, name, midName, num1, num2);
             }
@@ -78,24 +75,24 @@ namespace BachelorLibAPI.TestsGenerator
 
         private void AddTransits()
         {
-            for (int i = 0; i < _transitsCount; ++i)
+            for (var i = 0; i < TransitsCount; ++i)
             {               
-                string num = numbers.Random(random);
-                string cons = consignments.Random(random);
+                var num = _numbers.Random(_random);
+                var cons = _consignments.Random(_random);
 
-                List<string> citiesLst = new List<string>();
-                int citiesCount = random.Next(2, 5);
-                for(int j = 0; j < citiesCount; ++j)
+                var citiesLst = new List<string>();
+                var citiesCount = _random.Next(2, 5);
+                for(var j = 0; j < citiesCount; ++j)
                 {
-                    string city = cities.Random(random);
+                    var city = _cities.Random(_random);
                     while(citiesLst.Contains(city))
-                        city = cities.Random(random);
+                        city = _cities.Random(_random);
                     citiesLst.Add(city);
                 }
 
-                string startDate = dates.Random(random);
-                int [] date = startDate.Split().Where(x => x != "").Select(x => int.Parse(x)).ToArray();
-                DateTime start = new DateTime(date[0], date[1], date[2], date[3], date[4], date[5]);
+                var startDate = _dates.Random(_random);
+                var date = startDate.Split().Where(x => x != "").Select(x => int.Parse(x)).ToArray();
+                var start = new DateTime(date[0], date[1], date[2], date[3], date[4], date[5]);
 
                 _queriesHandler.AddNewWaybill(num, cons, citiesLst, start);
 

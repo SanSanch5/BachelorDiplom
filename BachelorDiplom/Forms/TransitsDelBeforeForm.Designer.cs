@@ -1,11 +1,14 @@
-﻿namespace BachelorLibAPI.Forms
+﻿using System.ComponentModel;
+using System.Windows.Forms;
+
+namespace BachelorLibAPI.Forms
 {
     partial class TransitsDelBeforeForm
     {
         /// <summary>
         /// Required designer variable.
         /// </summary>
-        private System.ComponentModel.IContainer components = null;
+        private IContainer components = null;
 
         /// <summary>
         /// Clean up any resources being used.
@@ -70,7 +73,7 @@
 
         #endregion
 
-        private System.Windows.Forms.DateTimePicker dtpTime;
-        private System.Windows.Forms.Button btnDel;
+        private DateTimePicker dtpTime;
+        private Button btnDel;
     }
 }

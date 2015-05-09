@@ -1,11 +1,14 @@
-﻿namespace BachelorLibAPI.Forms
+﻿using System.ComponentModel;
+using System.Windows.Forms;
+
+namespace BachelorLibAPI.Forms
 {
     partial class AnalyseResultsForm
     {
         /// <summary>
         /// Required designer variable.
         /// </summary>
-        private System.ComponentModel.IContainer components = null;
+        private IContainer components = null;
 
         /// <summary>
         /// Clean up any resources being used.
@@ -276,22 +279,22 @@
 
         #endregion
 
-        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
-        private System.Windows.Forms.ComboBox cmbRes;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.TextBox edtAfterCrash;
-        private System.Windows.Forms.Label lblDriverSurname;
-        private System.Windows.Forms.Label lblDriverName;
-        private System.Windows.Forms.ComboBox cmbDriverNumbers;
-        private System.Windows.Forms.Label lblDangerDegree;
-        private System.Windows.Forms.Label lblPlace;
-        private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.DateTimePicker dtpLoc;
-        private System.Windows.Forms.Label label7;
+        private TableLayoutPanel tableLayoutPanel1;
+        private ComboBox cmbRes;
+        private Label label1;
+        private Label label2;
+        private Label label3;
+        private Label label4;
+        private Label label5;
+        private TextBox edtAfterCrash;
+        private Label lblDriverSurname;
+        private Label lblDriverName;
+        private ComboBox cmbDriverNumbers;
+        private Label lblDangerDegree;
+        private Label lblPlace;
+        private Label label6;
+        private DateTimePicker dtpLoc;
+        private Label label7;
 
     }
 }

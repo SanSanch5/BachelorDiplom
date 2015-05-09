@@ -1,16 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 
 namespace BachelorLibAPI.Algorithms
 {
-    public static class AXOB
+    public static class Axob
     {
         /// <summary>
         /// Если здесь нет показателя, то проводится расчёт с помощью интерполяции
         /// </summary>
-        public static Dictionary<string, double> coefficient = new Dictionary<string, double>
+        public static Dictionary<string, double> Coefficient = new Dictionary<string, double>
         {
             {"Хлор",                            1.0},
             {"Азотная кислота",                 21.0},
@@ -38,7 +35,7 @@ namespace BachelorLibAPI.Algorithms
         /// <summary>
         /// Если нет показателя, то обезвреживающее в-во не нужно
         /// </summary>
-        public static Dictionary<string, KeyValuePair<string, double>> antiSubstance = 
+        public static Dictionary<string, KeyValuePair<string, double>> AntiSubstance = 
             new Dictionary<string,KeyValuePair<string,double>>
         {
             {"Аммиак",                      new KeyValuePair<string, double>("36% р-р соляной кислоты", 5.6)},
@@ -55,8 +52,8 @@ namespace BachelorLibAPI.Algorithms
 
     public interface IChemicalEnvironmentCalculation
     {
-        double infectionArea();
-        KeyValuePair<string, double> antiSubstanceCount();
+        double InfectionArea();
+        KeyValuePair<string, double> AntiSubstanceCount();
     }
 
     /// <summary>
@@ -65,30 +62,30 @@ namespace BachelorLibAPI.Algorithms
     /// (на высоте флюгера - 5-7 м/с); 
     /// температура воздуха - +20 С; 
     /// </summary>
-    class RD_90 : IChemicalEnvironmentCalculation
+    class Rd90 : IChemicalEnvironmentCalculation
     {
-        private string substance;
-        private double substanceCount;
-        private double qEq;
+        private string _substance;
+        private double _substanceCount;
+        private double _qEq;
 
-        RD_90(string _substance, double _substanceCount)
+        Rd90(string _substance, double _substanceCount)
         {
-            substance = _substance;
-            substanceCount = _substanceCount;
+            this._substance = _substance;
+            this._substanceCount = _substanceCount;
 
-            qEq = substanceCount / AXOB.coefficient[substance];
+            _qEq = this._substanceCount / Axob.Coefficient[this._substance];
         }
 
-        public double infectionArea()
+        public double InfectionArea()
         {
             return 0;
         }
 
-        public KeyValuePair<string, double> antiSubstanceCount()
+        public KeyValuePair<string, double> AntiSubstanceCount()
         {
-            return AXOB.antiSubstance.ContainsKey(substance) 
-                ? new KeyValuePair<string, double>(AXOB.antiSubstance[substance].Key, 
-                    AXOB.antiSubstance[substance].Value*substanceCount)
+            return Axob.AntiSubstance.ContainsKey(_substance) 
+                ? new KeyValuePair<string, double>(Axob.AntiSubstance[_substance].Key, 
+                    Axob.AntiSubstance[_substance].Value*_substanceCount)
                 : new KeyValuePair<string, double>("", 0);
         }
     }

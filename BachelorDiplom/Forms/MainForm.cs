@@ -1,17 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
 using System.Windows.Forms;
-using System.Diagnostics;
-
-using BachelorLibAPI.RoadsMap;
 using BachelorLibAPI.Data;
+using BachelorLibAPI.Map;
+using BachelorLibAPI.Program;
 using BachelorLibAPI.TestsGenerator;
-using BachelorLibAPI.Reports;
 
 namespace BachelorLibAPI.Forms
 {
@@ -21,14 +16,14 @@ namespace BachelorLibAPI.Forms
         /// Предусмотрена возможность расширения: привязка к другой карте и к другой базе данных.
         /// Обработчик запросов отвечает за логику запросов: проверки, исключения, ошибки и т.п.
         /// </summary>
-        private QueriesHandler m_queriesHandler;
+        private QueriesHandler _mQueriesHandler;
 
         public MainForm()
         {
             InitializeComponent();
 
-            m_queriesHandler = new QueriesHandler(PgSqlDataHandler.Instance, new OpenStreetGreatMap(ref gmap));
-            m_queriesHandler.AnalyseProgress = pbAnalyse;
+            _mQueriesHandler = new QueriesHandler(PgSqlDataHandler.Instance, new OpenStreetGreatMap(ref gmap));
+            _mQueriesHandler.AnalyseProgress = pbAnalyse;
             FillMainForm();
         }
 
@@ -42,14 +37,14 @@ namespace BachelorLibAPI.Forms
 
         private void AddDriverClick(object sender, EventArgs e)
         {
-            DriverAddForm driverAddingForm = new DriverAddForm(m_queriesHandler);
+            var driverAddingForm = new DriverAddForm(_mQueriesHandler);
             driverAddingForm.Show();
             driverAddingForm.TopMost = true;
         }
 
         private void AddConsignmentClick(object sender, EventArgs e)
         {
-            ConsignmentAddForm consAddingForm = new ConsignmentAddForm(m_queriesHandler);
+            var consAddingForm = new ConsignmentAddForm(_mQueriesHandler);
             consAddingForm.Show();
         }
 
@@ -65,17 +60,17 @@ namespace BachelorLibAPI.Forms
 
         private void DelDriverClick(object sender, EventArgs e)
         {
-            string password = "admin";
+            var password = "admin";
             try
             {
-                PasswordBox passwordBox = new PasswordBox();
+                var passwordBox = new PasswordBox();
                 passwordBox.ShowDialog();
                 if (passwordBox.DialogResult == DialogResult.OK)
                 {
                     if (passwordBox.Password == password)
                     {
                         passwordBox.Close();
-                        DriverDelForm driverDelForm = new DriverDelForm(m_queriesHandler);
+                        var driverDelForm = new DriverDelForm(_mQueriesHandler);
                         driverDelForm.Show();
                     }
                     else
@@ -84,7 +79,7 @@ namespace BachelorLibAPI.Forms
             }
             catch (InvalidExpressionException ex)
             {
-                MessageBox.Show(ex.Message, "Отказано в доступе.");
+                MessageBox.Show(ex.Message, @"Отказано в доступе.");
             }
         }
 
@@ -105,17 +100,17 @@ namespace BachelorLibAPI.Forms
 
         private void DelTransitsBefore(object sender, EventArgs e)
         {
-            string password = "admin";
+            var password = "admin";
             try
             {
-                PasswordBox passwordBox = new PasswordBox();
+                var passwordBox = new PasswordBox();
                 passwordBox.ShowDialog();
                 if (passwordBox.DialogResult == DialogResult.OK)
                 {
                     if (passwordBox.Password == password)
                     {
                         passwordBox.Close();
-                        TransitsDelBeforeForm transitsDelBeforeForm = new TransitsDelBeforeForm(m_queriesHandler);
+                        var transitsDelBeforeForm = new TransitsDelBeforeForm(_mQueriesHandler);
                         transitsDelBeforeForm.Show();
                     }
                     else
@@ -124,7 +119,7 @@ namespace BachelorLibAPI.Forms
             }
             catch (InvalidExpressionException ex)
             {
-                MessageBox.Show(ex.Message, "Отказано в доступе.");
+                MessageBox.Show(ex.Message, @"Отказано в доступе.");
             }
         }
 
@@ -140,7 +135,7 @@ namespace BachelorLibAPI.Forms
 
         private void FindDriverInfoClick(object sender, EventArgs e)
         {
-            DriverInfoForm driverInfoForm = new DriverInfoForm(m_queriesHandler);
+            var driverInfoForm = new DriverInfoForm(_mQueriesHandler);
             driverInfoForm.Show();
         }
 
@@ -166,7 +161,7 @@ namespace BachelorLibAPI.Forms
 
         private void NewWaybillClick(object sender, EventArgs e)
         {
-            WaybillForm waybillForm = new WaybillForm(m_queriesHandler);
+            var waybillForm = new WaybillForm(_mQueriesHandler);
             waybillForm.Show();
         }
 
@@ -179,8 +174,8 @@ namespace BachelorLibAPI.Forms
         {
             try
             {
-                DateTime since = new DateTime();
-                DateTime until = new DateTime();
+                DateTime since;
+                DateTime until;
                 if(dtpPrecTime.Enabled)
                 {
                     since = dtpPrecTime.Value;
@@ -192,37 +187,36 @@ namespace BachelorLibAPI.Forms
                     until = dtpUntil.Value;
                 }
 
-                string place = cmbCrashPlace.Text;
+                var place = cmbCrashPlace.Text;
                 if(place == "")
                     throw new FormatException("Укажите место аварии!");
 
-                AnalyseResultsForm analyseReturnForm = 
-                    new AnalyseResultsForm(m_queriesHandler.AnalyseDanger(since, until, place));
+                new AnalyseResultsForm(_mQueriesHandler.AnalyseDanger(since, until, place));
             }
             catch (FormatException ex)
             {
-                MessageBox.Show(ex.Message, "Все поля обязательны для заполнения!");
+                MessageBox.Show(ex.Message, @"Все поля обязательны для заполнения!");
                 cmbCrashPlace.Focus();
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, "Ошибка базы данных.");
+                MessageBox.Show(ex.Message, @"Ошибка базы данных.");
             }
         }
 
         private void LoadTestDataClick(object sender, EventArgs e)
         {
-            string password = "test";
+            var password = "test";
             try
             {
-                PasswordBox passwordBox = new PasswordBox();
+                var passwordBox = new PasswordBox();
                 passwordBox.ShowDialog();
                 if (passwordBox.DialogResult == DialogResult.OK)
                 {
                     if (passwordBox.Password == password)
                     {
                         passwordBox.Close();
-                        TestsGeneratorForm testsGeneratorForm = new TestsGeneratorForm(m_queriesHandler);
+                        var testsGeneratorForm = new TestsGeneratorForm(_mQueriesHandler);
                         testsGeneratorForm.Show();
                     }
                     else
@@ -231,13 +225,13 @@ namespace BachelorLibAPI.Forms
             }
             catch(InvalidExpressionException ex)
             {
-                MessageBox.Show(ex.Message, "Отказано в доступе.");
+                MessageBox.Show(ex.Message, @"Отказано в доступе.");
             }
         }
 
         private void chbTimeInterval_CheckedChanged(object sender, EventArgs e)
         {
-            bool b = dtpPrecTime.Enabled;
+            var b = dtpPrecTime.Enabled;
             dtpPrecTime.Enabled = !b;
 
             dtpSince.Enabled = b;
@@ -259,35 +253,35 @@ namespace BachelorLibAPI.Forms
             pbAnalyse.Visible = false;
         }
 
-        private Point menuClickPos;
+        private Point _menuClickPos;
 
         private void gmap_MouseDoubleClick(object sender, MouseEventArgs e)
         {
-            string adress = m_queriesHandler.Map.getPlacemark(e.X, e.Y);
+            var adress = _mQueriesHandler.Map.GetPlacemark(e.X, e.Y);
             MessageBox.Show(adress);
         }
 
 
-        private void markStartPointClick(object sender, EventArgs e)
+        private void MarkStartPointClick(object sender, EventArgs e)
         {
-            m_queriesHandler.Map.setStartPoint(gmap.FromLocalToLatLng(gmap.PointToClient(menuClickPos).X, gmap.PointToClient(menuClickPos).Y));
+            _mQueriesHandler.Map.SetStartPoint(gmap.FromLocalToLatLng(gmap.PointToClient(_menuClickPos).X, gmap.PointToClient(_menuClickPos).Y));
         }
 
-        private void markEndPointClick(object sender, EventArgs e)
+        private void MarkEndPointClick(object sender, EventArgs e)
         {
-            m_queriesHandler.Map.setEndPoint(gmap.FromLocalToLatLng(gmap.PointToClient(menuClickPos).X, gmap.PointToClient(menuClickPos).Y));       
+            _mQueriesHandler.Map.SetEndPoint(gmap.FromLocalToLatLng(gmap.PointToClient(_menuClickPos).X, gmap.PointToClient(_menuClickPos).Y));       
         }
 
-        private void getRouteClick(object sender, EventArgs e)
+        private void GetRouteClick(object sender, EventArgs e)
         {
             ltMainOptions.Visible = false;
-            m_queriesHandler.Map.constructShortTrack();
+            _mQueriesHandler.Map.ConstructShortTrack();
             ltMainOptions.Visible = true;
         }
 
         private void mapMenu_Opening(object sender, CancelEventArgs e)
         {
-            menuClickPos = Cursor.Position;
+            _menuClickPos = Cursor.Position;
         }
 
         private void MainForm_FormClosed(object sender, FormClosedEventArgs e)

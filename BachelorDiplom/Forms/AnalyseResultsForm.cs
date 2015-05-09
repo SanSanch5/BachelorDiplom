@@ -1,12 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
 using System.Windows.Forms;
-
 using BachelorLibAPI.Data;
 
 namespace BachelorLibAPI.Forms
@@ -26,7 +21,7 @@ namespace BachelorLibAPI.Forms
         {
             InitializeComponent();
             _result = res;
-            _result.Sort((a, b) => a.dangerDegree.CompareTo(b.dangerDegree));
+            _result.Sort((a, b) => a.DangerDegree.CompareTo(b.DangerDegree));
 
             FillConsignments();
         }
@@ -37,7 +32,7 @@ namespace BachelorLibAPI.Forms
             {
                 foreach (var res in _result)
                 {
-                    cmbRes.Items.Add(res.consName);
+                    cmbRes.Items.Add(res.ConsName);
                 }
                 cmbRes.SelectedIndex = 0;
                 FillFormWithIndex(0);
@@ -52,21 +47,21 @@ namespace BachelorLibAPI.Forms
 
         private void FillFormWithIndex(int index)
         {
-            AnalyseReturnType curTrans = _result[index];
-            lblDangerDegree.Text = curTrans.dangerDegree.ToString() + " (" + ConsignmentsRate[curTrans.dangerDegree] + ")";
-            lblDriverName.Text = curTrans.driversName;
-            lblDriverSurname.Text = curTrans.driversSurname;
-            lblPlace.Text = curTrans.city;
-            edtAfterCrash.Text = curTrans.afterCrash;
-            dtpLoc.Value = curTrans.location;
+            var curTrans = _result[index];
+            lblDangerDegree.Text = curTrans.DangerDegree.ToString() + " (" + ConsignmentsRate[curTrans.DangerDegree] + ")";
+            lblDriverName.Text = curTrans.DriversName;
+            lblDriverSurname.Text = curTrans.DriversSurname;
+            lblPlace.Text = curTrans.City;
+            edtAfterCrash.Text = curTrans.AfterCrash;
+            dtpLoc.Value = curTrans.Location;
 
             cmbDriverNumbers.Items.Clear();
-            foreach (var number in curTrans.driversNumbers)
+            foreach (var number in curTrans.DriversNumbers)
                 cmbDriverNumbers.Items.Add(number);
 
             cmbDriverNumbers.SelectedIndex = 0;
 
-            Color clr = GetColor(curTrans.dangerDegree);
+            var clr = GetColor(curTrans.DangerDegree);
             lblDangerDegree.ForeColor = clr;
             lblDriverName.ForeColor = clr;
             lblDriverSurname.ForeColor = clr;
@@ -75,7 +70,7 @@ namespace BachelorLibAPI.Forms
 
         private Color GetColor(int dangerDegree)
         {
-            Color clr = new Color();
+            var clr = new Color();
             switch (dangerDegree)
             {
                 case 1:

@@ -1,11 +1,14 @@
-﻿namespace BachelorLibAPI.Forms
+﻿using System.ComponentModel;
+using System.Windows.Forms;
+
+namespace BachelorLibAPI.Forms
 {
     partial class DriverDelBox
     {
         /// <summary>
         /// Required designer variable.
         /// </summary>
-        private System.ComponentModel.IContainer components = null;
+        private IContainer components = null;
 
         /// <summary>
         /// Clean up any resources being used.
@@ -83,8 +86,8 @@
 
         #endregion
 
-        private System.Windows.Forms.Label lblName;
-        private System.Windows.Forms.Button btnCancel;
-        private System.Windows.Forms.Button btnDel;
+        private Label lblName;
+        private Button btnCancel;
+        private Button btnDel;
     }
 }

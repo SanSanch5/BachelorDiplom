@@ -1,11 +1,14 @@
-﻿namespace BachelorLibAPI.Forms
+﻿using System.ComponentModel;
+using System.Windows.Forms;
+
+namespace BachelorLibAPI.Forms
 {
     partial class WaybillForm
     {
         /// <summary>
         /// Required designer variable.
         /// </summary>
-        private System.ComponentModel.IContainer components = null;
+        private IContainer components = null;
 
         /// <summary>
         /// Clean up any resources being used.
@@ -261,20 +264,20 @@
 
         #endregion
 
-        private System.Windows.Forms.TableLayoutPanel ltpNewDriver;
-        private System.Windows.Forms.Label lblArr;
-        private System.Windows.Forms.Label lblTelephoneNumber;
-        private System.Windows.Forms.Label lblStart;
-        private System.Windows.Forms.Label lblConsName;
-        private System.Windows.Forms.MaskedTextBox edtDriverPhoneNumber;
-        private System.Windows.Forms.Button btnNewDriver;
-        private System.Windows.Forms.ComboBox cmbStart;
-        private System.Windows.Forms.ComboBox cmbArr;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.ComboBox cmbMid;
-        private System.Windows.Forms.Button btnMoreMid;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.DateTimePicker dtpStart;
-        private System.Windows.Forms.ComboBox cmbCons;
+        private TableLayoutPanel ltpNewDriver;
+        private Label lblArr;
+        private Label lblTelephoneNumber;
+        private Label lblStart;
+        private Label lblConsName;
+        private MaskedTextBox edtDriverPhoneNumber;
+        private Button btnNewDriver;
+        private ComboBox cmbStart;
+        private ComboBox cmbArr;
+        private Label label1;
+        private ComboBox cmbMid;
+        private Button btnMoreMid;
+        private Label label2;
+        private DateTimePicker dtpStart;
+        private ComboBox cmbCons;
     }
 }

@@ -1,11 +1,14 @@
-﻿namespace BachelorLibAPI.Forms
+﻿using System.ComponentModel;
+using System.Windows.Forms;
+
+namespace BachelorLibAPI.Forms
 {
     partial class ConsignmentAddForm
     {
         /// <summary>
         /// Required designer variable.
         /// </summary>
-        private System.ComponentModel.IContainer components = null;
+        private IContainer components = null;
 
         /// <summary>
         /// Clean up any resources being used.
@@ -165,13 +168,13 @@
 
         #endregion
 
-        private System.Windows.Forms.TableLayoutPanel ltpNewCons;
-        private System.Windows.Forms.Label lblCrashActions;
-        private System.Windows.Forms.Label lblDangerDegree;
-        private System.Windows.Forms.Label lblConsName;
-        private System.Windows.Forms.TextBox edtDriverLastName;
-        private System.Windows.Forms.TextBox edtCrashActions;
-        private System.Windows.Forms.Button btnNewCons;
-        private System.Windows.Forms.ComboBox cmbDangerDegrees;
+        private TableLayoutPanel ltpNewCons;
+        private Label lblCrashActions;
+        private Label lblDangerDegree;
+        private Label lblConsName;
+        private TextBox edtDriverLastName;
+        private TextBox edtCrashActions;
+        private Button btnNewCons;
+        private ComboBox cmbDangerDegrees;
     }
 }

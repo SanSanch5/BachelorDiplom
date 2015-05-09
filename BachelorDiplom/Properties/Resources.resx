@@ -120,4 +120,8 @@
   <data name="String1" xml:space="preserve">
     <value>Data Source=alex-pc\alexsql;Initial Catalog=Course_DB;Integrated Security=True</value>
   </data>
+  <data name="CannotConstructShortTrack" xml:space="preserve">
+    <value>Не удалось построить маршрут.</value>
+    <comment>Сообщение при невозможности построение</comment>
+  </data>
 </root>

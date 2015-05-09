@@ -1,38 +1,37 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using GMap.NET;
 
 namespace BachelorLibAPI.Data
 {
     public struct AnalyseReturnType
     {
-        public string consName;
-        public int dangerDegree;
-        public string afterCrash;
-        public string driversName;
-        public string driversSurname;
-        public List<string> driversNumbers;
-        public string city;
-        public DateTime location;
+        public string ConsName;
+        public int DangerDegree;
+        public string AfterCrash;
+        public string DriversName;
+        public string DriversSurname;
+        public List<string> DriversNumbers;
+        public string City;
+        public DateTime Location;
     }
 
     public struct DriverInfoType
     {
-        public int ID;
-        public string surname;
-        public string name;
-        public string mName;
-        public List<string> numbers;
-        public string consName;
-        public int dangerDegree;
-        public string startLocation;
-        public DateTime start;
-        public string goalLocation;
-        public DateTime probableArrival;
-        public DateTime arrival;
-        public string probableLocation;
-        public bool status;
+        public int Id;
+        public string Surname;
+        public string Name;
+        public string MName;
+        public List<string> Numbers;
+        public string ConsName;
+        public int DangerDegree;
+        public string StartLocation;
+        public DateTime Start;
+        public string GoalLocation;
+        public DateTime ProbableArrival;
+        public DateTime Arrival;
+        public string ProbableLocation;
+        public bool Status;
     }
 
     /// <summary>
@@ -43,15 +42,15 @@ namespace BachelorLibAPI.Data
         /// <summary>
         /// Добавляет новый контакт
         /// </summary>
-        /// <param name="driverID">Идентификатор владельца контакта</param>
+        /// <param name="driverId">Идентификатор владельца контакта</param>
         /// <param name="contact">Номер телефона</param>
-        void AddNewContact(int driverID, string contact);
+        void AddNewContact(int driverId, string contact);
 
         /// <summary>
         /// Удалить все контакты, записанные за водителя
         /// </summary>
-        /// <param name="driverID">ID водителя</param>
-        void DelContacts(int driverID);
+        /// <param name="driverId">ID водителя</param>
+        void DelContacts(int driverId);
 
         /// <summary>
         /// Добавить нового водителя
@@ -65,22 +64,22 @@ namespace BachelorLibAPI.Data
         /// <summary>
         /// Удалить водителя
         /// </summary>
-        /// <param name="driverID"></param>
-        void DelDriver(int driverID);
+        /// <param name="driverId"></param>
+        void DelDriver(int driverId);
 
         /// <summary>
         /// Добавить новую перевозку
         /// </summary>
-        /// <param name="driverID"></param>
-        /// <param name="consignmentID"></param>
+        /// <param name="driverId"></param>
+        /// <param name="consignmentId"></param>
         /// <returns>ID добавленной перевозки</returns>
-        int AddNewTransit(int driverID, int consignmentID);
+        int AddNewTransit(int driverId, int consignmentId);
 
         /// <summary>
         /// Удалить перевозку
         /// </summary>
-        /// <param name="transID"></param>
-        void DelTransit(int transID);
+        /// <param name="transId"></param>
+        void DelTransit(int transId);
 
         /// <summary>
         /// 
@@ -104,22 +103,22 @@ namespace BachelorLibAPI.Data
         /// </summary>
         int DriverWithPhoneNumber(string contact);
 
-        string GetDriversFullName(int driverID);
+        string GetDriversFullName(int driverId);
         List<string> GetDriversFullNames();
 
         /// <summary>
         /// Найти ID перевозки по ID водителя и времени отправления
         /// </summary>
-        /// <param name="driverID"></param>
+        /// <param name="driverId"></param>
         /// <param name="start"></param>
         /// <returns></returns>
-        int GetTransitID(int driverID, DateTime start);
+        int GetTransitId(int driverId, DateTime start);
 
         /// <summary>
         /// Найти ID всех первозок в заданный промежуток времени в заданном городе
         /// </summary>
         /// <returns></returns>
-        List<int> GetTransitIDs(DateTime start, DateTime until, int placeID);
+        List<int> GetTransitIDs(DateTime start, DateTime until, int placeId);
         
         /// <summary>
         /// 
@@ -128,7 +127,7 @@ namespace BachelorLibAPI.Data
         /// <param name="until"></param>
         /// <param name="placeID"></param>
         /// <returns></returns>
-        List<int> GetTransitIDs(int driverID);
+        List<int> GetTransitIDs(int driverId);
 
         /// <summary>
         /// Получить список из ID первозок, зарегистрированных ранее указанного времени 
@@ -146,52 +145,52 @@ namespace BachelorLibAPI.Data
         /// <summary>
         /// Определить водителя по номеру первозки
         /// </summary>
-        /// <param name="transID">ID перевозки</param>
+        /// <param name="transId">ID перевозки</param>
         /// <returns>ID водителя</returns>
-        int GetDriverID(int transID);
+        int GetDriverId(int transId);
 
         /// <summary>
         /// Определить груз по номеру перевозки
         /// </summary>
-        /// <param name="transID"></param>
+        /// <param name="transId"></param>
         /// <returns></returns>
-        string GetConsignmentName(int transID);
+        string GetConsignmentName(int transId);
 
         /// <summary>
         /// Получить имя водителя
         /// </summary>
-        /// <param name="driverID">ID водителя</param>
+        /// <param name="driverId">ID водителя</param>
         /// <returns></returns>
-        string GetDriverName(int driverID);
+        string GetDriverName(int driverId);
         
         /// <summary>
         /// Получить фамилию водителя
         /// </summary>
-        /// <param name="driverID">ID водителя</param>
+        /// <param name="driverId">ID водителя</param>
         /// <returns></returns>
-        string GetDriverSurname(int driverID);
+        string GetDriverSurname(int driverId);
 
         /// <summary>
         /// Получить контактные номера водителя
         /// </summary>
-        /// <param name="driverID">ID водителя</param>
+        /// <param name="driverId">ID водителя</param>
         /// <returns>Список номеров</returns>
-        List<string> GetDriverNumbers(int driverID);
+        List<string> GetDriverNumbers(int driverId);
 
         /// <summary>
         /// Получить время нахождения водителя в городе в рамках перевозки
         /// </summary>
-        /// <param name="transID">ID перевозки</param>
+        /// <param name="transId">ID перевозки</param>
         /// <param name="cityID">ID города</param>
         /// <returns>Оцененное время, когда водитель будет в этом городе</returns>
-        List<DateTime> GetLocationTime(int transID, GMap.NET.PointLatLng pnt);
+        List<DateTime> GetLocationTime(int transId, PointLatLng pnt);
 
         /// <summary>
         /// Получить текущее местонахождение водителя
         /// </summary>
-        /// <param name="transID">ID перевозки</param>
+        /// <param name="transId">ID перевозки</param>
         /// <returns></returns>
-        GMap.NET.PointLatLng GetCurrentLocation(int transID);
+        PointLatLng GetCurrentLocation(int transId);
 
         void SubmitChanges();
     }   

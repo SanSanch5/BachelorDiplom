@@ -1,11 +1,15 @@
-﻿namespace BachelorLibAPI.Forms
+﻿using System.ComponentModel;
+using System.Windows.Forms;
+using GMap.NET.WindowsForms;
+
+namespace BachelorLibAPI.Forms
 {
     partial class MainForm
     {
         /// <summary>
         /// Required designer variable.
         /// </summary>
-        private System.ComponentModel.IContainer components = null;
+        private IContainer components = null;
 
         /// <summary>
         /// Clean up any resources being used.
@@ -493,21 +497,21 @@
             this.toolStripMenuItem3.Name = "toolStripMenuItem3";
             this.toolStripMenuItem3.Size = new System.Drawing.Size(255, 22);
             this.toolStripMenuItem3.Text = "Отметить как пункт отправления";
-            this.toolStripMenuItem3.Click += new System.EventHandler(this.markStartPointClick);
+            this.toolStripMenuItem3.Click += new System.EventHandler(this.MarkStartPointClick);
             // 
             // toolStripMenuItem4
             // 
             this.toolStripMenuItem4.Name = "toolStripMenuItem4";
             this.toolStripMenuItem4.Size = new System.Drawing.Size(255, 22);
             this.toolStripMenuItem4.Text = "Отметить как пункт назначения";
-            this.toolStripMenuItem4.Click += new System.EventHandler(this.markEndPointClick);
+            this.toolStripMenuItem4.Click += new System.EventHandler(this.MarkEndPointClick);
             // 
             // построитьМаршрутToolStripMenuItem
             // 
             this.построитьМаршрутToolStripMenuItem.Name = "построитьМаршрутToolStripMenuItem";
             this.построитьМаршрутToolStripMenuItem.Size = new System.Drawing.Size(255, 22);
             this.построитьМаршрутToolStripMenuItem.Text = "Построить маршрут";
-            this.построитьМаршрутToolStripMenuItem.Click += new System.EventHandler(this.getRouteClick);
+            this.построитьМаршрутToolStripMenuItem.Click += new System.EventHandler(this.GetRouteClick);
             // 
             // ltMapPanel
             // 
@@ -553,48 +557,48 @@
 
         #endregion
 
-        private System.Windows.Forms.MenuStrip menuMain;
-        private System.Windows.Forms.ToolStripMenuItem программаToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem новыйПутевойЛистToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem установитьСтатусЗавершенияToolStripMenuItem;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator5;
-        private System.Windows.Forms.ToolStripMenuItem анализОпасностиToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem базаДанныхToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem добавитьToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem водителяToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem грузToolStripMenuItem;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
-        private System.Windows.Forms.ToolStripMenuItem удалитьToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem водителяToolStripMenuItem1;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator7;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator8;
-        private System.Windows.Forms.ToolStripMenuItem найтиToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem информациюОВодителеToolStripMenuItem;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
-        private System.Windows.Forms.ToolStripMenuItem loadTestData;
-        private System.Windows.Forms.ToolStripMenuItem перевозкиРанееToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem завершённыеПеревозкиToolStripMenuItem;
-        private System.Windows.Forms.TableLayoutPanel ltMainOptions;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.CheckBox chbTimeInterval;
-        private System.Windows.Forms.Label lblSince;
-        private System.Windows.Forms.Label lblUntil;
-        private System.Windows.Forms.DateTimePicker dtpSince;
-        private System.Windows.Forms.DateTimePicker dtpUntil;
-        private System.Windows.Forms.DateTimePicker dtpPrecTime;
-        private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.RadioButton rbtRegion;
-        private System.Windows.Forms.RadioButton rbtCity;
-        private System.Windows.Forms.ComboBox cmbCrashPlace;
-        private System.Windows.Forms.Button btnAnalyse;
-        private System.Windows.Forms.ProgressBar pbAnalyse;
-        private GMap.NET.WindowsForms.GMapControl gmap;
-        private System.Windows.Forms.TableLayoutPanel ltMapPanel;
-        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem1;
-        private System.Windows.Forms.ContextMenuStrip mapMenu;
-        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem2;
-        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem3;
-        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem4;
-        private System.Windows.Forms.ToolStripMenuItem построитьМаршрутToolStripMenuItem;
+        private MenuStrip menuMain;
+        private ToolStripMenuItem программаToolStripMenuItem;
+        private ToolStripMenuItem новыйПутевойЛистToolStripMenuItem;
+        private ToolStripMenuItem установитьСтатусЗавершенияToolStripMenuItem;
+        private ToolStripSeparator toolStripSeparator5;
+        private ToolStripMenuItem анализОпасностиToolStripMenuItem;
+        private ToolStripMenuItem базаДанныхToolStripMenuItem;
+        private ToolStripMenuItem добавитьToolStripMenuItem;
+        private ToolStripMenuItem водителяToolStripMenuItem;
+        private ToolStripMenuItem грузToolStripMenuItem;
+        private ToolStripSeparator toolStripSeparator2;
+        private ToolStripMenuItem удалитьToolStripMenuItem;
+        private ToolStripMenuItem водителяToolStripMenuItem1;
+        private ToolStripSeparator toolStripSeparator7;
+        private ToolStripSeparator toolStripSeparator8;
+        private ToolStripMenuItem найтиToolStripMenuItem;
+        private ToolStripMenuItem информациюОВодителеToolStripMenuItem;
+        private ToolStripSeparator toolStripSeparator3;
+        private ToolStripMenuItem loadTestData;
+        private ToolStripMenuItem перевозкиРанееToolStripMenuItem;
+        private ToolStripMenuItem завершённыеПеревозкиToolStripMenuItem;
+        private TableLayoutPanel ltMainOptions;
+        private Label label1;
+        private CheckBox chbTimeInterval;
+        private Label lblSince;
+        private Label lblUntil;
+        private DateTimePicker dtpSince;
+        private DateTimePicker dtpUntil;
+        private DateTimePicker dtpPrecTime;
+        private GroupBox groupBox1;
+        private RadioButton rbtRegion;
+        private RadioButton rbtCity;
+        private ComboBox cmbCrashPlace;
+        private Button btnAnalyse;
+        private ProgressBar pbAnalyse;
+        private GMapControl gmap;
+        private TableLayoutPanel ltMapPanel;
+        private ToolStripMenuItem toolStripMenuItem1;
+        private ContextMenuStrip mapMenu;
+        private ToolStripMenuItem toolStripMenuItem2;
+        private ToolStripMenuItem toolStripMenuItem3;
+        private ToolStripMenuItem toolStripMenuItem4;
+        private ToolStripMenuItem построитьМаршрутToolStripMenuItem;
     }
 }

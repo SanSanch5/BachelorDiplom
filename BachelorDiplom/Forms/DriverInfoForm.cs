@@ -1,13 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
 using System.Linq;
-using System.Text;
 using System.Windows.Forms;
-
-using BachelorLibAPI.Data;
+using BachelorLibAPI.Program;
 
 namespace BachelorLibAPI.Forms
 {
@@ -25,7 +20,7 @@ namespace BachelorLibAPI.Forms
 
         private void FillDrivers()
         {
-            List<string> drivers = _queriesHandler.GetDriversFullNames();
+            var drivers = _queriesHandler.GetDriversFullNames();
 
             cmbDriver.Items.Clear();
             cmbDriver.Items.AddRange(drivers.Select(x => (object)x).ToArray());
@@ -53,48 +48,48 @@ namespace BachelorLibAPI.Forms
         {
             try
             {
-                DriverInfoType driverInfo = _queriesHandler.GetComboBoxedDriverInfo(index);
+                var driverInfo = _queriesHandler.GetComboBoxedDriverInfo(index);
 
-                lblID.Text = driverInfo.ID.ToString();
+                lblID.Text = driverInfo.Id.ToString();
                 cmbNumbers.Items.Clear();
-                foreach (var num in driverInfo.numbers)
+                foreach (var num in driverInfo.Numbers)
                     cmbNumbers.Items.Add(num);
                 cmbNumbers.SelectedIndex = 0;
 
                 dtpArr.Visible = true;
-                lblFrom.Text = driverInfo.startLocation;
-                lblTo.Text = driverInfo.goalLocation;
-                lblConsName.Text = driverInfo.consName;
-                lblConsName.ForeColor = GetColor(driverInfo.dangerDegree);
+                lblFrom.Text = driverInfo.StartLocation;
+                lblTo.Text = driverInfo.GoalLocation;
+                lblConsName.Text = driverInfo.ConsName;
+                lblConsName.ForeColor = GetColor(driverInfo.DangerDegree);
 
-                if (driverInfo.status)
+                if (driverInfo.Status)
                 {
                     lblProbableLocSub.Visible = false;
                     lblProbableLocation.Visible = false;
                     lblStatus.Text = "Завершена";
                     lblArrTime.Text = "Время прибытия:";
-                    dtpArr.Value = driverInfo.arrival;
+                    dtpArr.Value = driverInfo.Arrival;
                     lblStatus.ForeColor = Color.Green;
                 }
                 else
                 {
                     dtpStart.Visible = true;
-                    dtpStart.Value = driverInfo.start;
-                    lblProbableLocation.Text = driverInfo.probableLocation;
+                    dtpStart.Value = driverInfo.Start;
+                    lblProbableLocation.Text = driverInfo.ProbableLocation;
                     lblProbableLocSub.Visible = true;
                     lblProbableLocation.Visible = true;
                     lblStatus.Text = "Не завершена";
                     lblArrTime.Text = "Время прибытия (предположительное):";
-                    dtpArr.Value = driverInfo.probableArrival;
+                    dtpArr.Value = driverInfo.ProbableArrival;
                     lblStatus.ForeColor = Color.BlueViolet;
                 }
             }
             catch (NullReferenceException ex)
             {
                 ClearForm();
-                int driverID = _queriesHandler.GetComboBoxedDriverID(index);
-                lblID.Text = driverID.ToString();
-                foreach (var num in _queriesHandler.GetDriverNumbers(driverID))
+                var driverId = _queriesHandler.GetComboBoxedDriverId(index);
+                lblID.Text = driverId.ToString();
+                foreach (var num in _queriesHandler.GetDriverNumbers(driverId))
                     cmbNumbers.Items.Add(num);
                 cmbNumbers.SelectedIndex = 0;
 
@@ -104,7 +99,7 @@ namespace BachelorLibAPI.Forms
 
         private Color GetColor(int dangerDegree)
         {
-            Color clr = new Color();
+            var clr = new Color();
             switch (dangerDegree)
             {
                 case 1:
