@@ -7,12 +7,16 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using BachelorLibAPI.Program;
-using BachelorLibAPI.Properties;
+
 using GMap.NET;
 using GMap.NET.MapProviders;
 using GMap.NET.WindowsForms;
 using GMap.NET.WindowsForms.Markers;
+
+using BachelorLibAPI.Program;
+using BachelorLibAPI.Properties;
+using BachelorLibAPI.Data;
+
 using Timer = System.Threading.Timer;
 
 namespace BachelorLibAPI.Map
@@ -26,6 +30,7 @@ namespace BachelorLibAPI.Map
             _gmap.MapProvider = OpenStreetMapProvider.Instance;
             GMaps.Instance.Mode = AccessMode.ServerAndCache;
             _gmap.Zoom = 7;
+            PointLatLng pnt = new PointLatLng();
             _gmap.SetPositionByKeywords("МГТУ им. Баумана");
             _gmap.DragButton = MouseButtons.Left;
             _gmap.DisableFocusOnMouseEnter = true;
@@ -37,7 +42,17 @@ namespace BachelorLibAPI.Map
             _gmap.Overlays.Add(_endMarkerOverlay);
             _gmap.OnMarkerClick += GmapOnMarkerClick;
 
-            AddTransitMarker(1);
+            AddTransitMarker(new TransitInfo
+            {
+                Id = 0,
+                Car = "Mersedez",
+                Consignment = "Аммиак",
+                Driver = "Пахомов Александр",
+                DriverNumber = "8(916)778-10-28",
+                From = "Москва",
+                Grz = "Е777КХ777",
+                To = "Воронеж"
+            });
 
             SetActions();
             var mTransitsDrawing = new Task(_mTransitsDrawingAction);
@@ -46,32 +61,34 @@ namespace BachelorLibAPI.Map
 
         private void GmapOnMarkerClick(object sender, MouseEventArgs mouseEventArgs)
         {
-            if (mouseEventArgs.Button == MouseButtons.Middle)
-            {
-                _markersOverlay.Markers.Remove(sender as GMarkerGoogle);
-            }
+            ContextMenuStrip menu = new ContextMenuStrip();
+            menu.Items.Add(@"Удалить", null, (o, args) => _markersOverlay.Markers.Remove(sender as GMarkerGoogle));
+            menu.Show(Cursor.Position);
         }
 
-        public void AddTransitMarker(int transitId)
+        public void AddTransitMarker(TransitInfo transit)
         {
-            var m = new TransitMarker {TransitId = transitId};
+            var m = new TransitMarker {Transit = transit};
             var pic = new Bitmap("..\\..\\Map\\Resources\\truckyellow.png");
-            m.Marker = new GMarkerGoogle(new PointLatLng(55, 37), new Bitmap(pic, new Size(32, 32)))
+            GeoCoderStatusCode st;
+            PointLatLng p = new PointLatLng(55, 37);
+            m.Marker = new GMarkerGoogle(p, new Bitmap(pic, new Size(32, 32)))
             {
                 ToolTipText =
                     string.Format(
-                        "Перевозка #{0}\nОткуда: {1}\nКуда: {2}\nГруз: {3}\nВодитель: {4}\nНомер телефона: {5}\nАвтомобиль: {6}\nГРЗ: {7}",
-                        transitId, "", "", "", "", "", "", "")
+                        "Перевозка #{0}\nОткуда: {1}\nКуда: {2}\nГруз: {3}\nВодитель: {4}\nНомер телефона: {5}\nАвтомобиль: {6}\nГРЗ: {7}\nТекущее местоположение: {8}",
+                        m.Transit.Id, m.Transit.From, m.Transit.To, m.Transit.Consignment, m.Transit.Driver, m.Transit.DriverNumber, m.Transit.Car, m.Transit.Grz,
+                        // ReSharper disable once PossibleInvalidOperationException
+                        GetPlacemark(p, out st).HasValue ? GetPlacemark(p, out st).Value.Address : @"Неизвестно")
             };
-
-
+            
             _mTransitMarkers.Add(m);
             _markersOverlay.Markers.Add(m.Marker);
         }
 
         public void RemoveTransitMarker(int transitId)
         {
-            var m = _mTransitMarkers.Where(x => x.TransitId == transitId).Select(x => x.Marker).ToArray()[0];
+            var m = _mTransitMarkers.Where(x => x.Transit.Id == transitId).Select(x => x.Marker).ToArray()[0];
             _markersOverlay.Markers.Remove(m);
         }
 
@@ -267,7 +284,7 @@ namespace BachelorLibAPI.Map
 
         private struct TransitMarker
         {
-            public int TransitId;
+            public TransitInfo Transit;
             public GMarkerGoogle Marker;
         }
 

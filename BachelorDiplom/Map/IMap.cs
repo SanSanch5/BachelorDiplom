@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using BachelorLibAPI.Data;
 using GMap.NET;
 
 namespace BachelorLibAPI.Map
@@ -23,7 +24,7 @@ namespace BachelorLibAPI.Map
         void SetStartPoint(PointLatLng start);
         void SetEndPoint(PointLatLng end);
         void ConstructShortTrack();
-        void AddTransitMarker(int transitId);
+        void AddTransitMarker(TransitInfo transit);
         void RemoveTransitMarker(int transitId);
 
         /// <summary>

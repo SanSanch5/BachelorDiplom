@@ -4,6 +4,18 @@ using GMap.NET;
 
 namespace BachelorLibAPI.Data
 {
+    public struct TransitInfo
+    {
+        public int Id;
+        public string From;
+        public string To;
+        public string Consignment;
+        public string Driver;
+        public string DriverNumber;
+        public string Car;
+        public string Grz;
+    }
+
     public struct AnalyseReturnType
     {
         public string ConsName;

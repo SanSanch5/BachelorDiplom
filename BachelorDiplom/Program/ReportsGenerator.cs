@@ -17,19 +17,13 @@ namespace BachelorLibAPI.Program
             
             try
             {
-                if (xlApp == null)
-                {
-                    MessageBox.Show("Excel не установлен!", "Внимание!");
-                    return;
-                }
-
                 xlWorkBook = xlApp.Workbooks.Add();
 
                 var xlWorkSheet = xlWorkBook.Worksheets.get_Item(1);
                 xlWorkSheet.Cells[1, 1] = "Sheet 1 content";
 
                 xlWorkBook.SaveAs(@"P:\Study\sem8\diploma\project\BachelorDiplom\BachelorDiplom\Reports\test.xlsx");
-                MessageBox.Show("Отчёт сгенерирован в файл" + @"P:\Study\sem8\diploma\project\BachelorDiplom\BachelorDiplom\Reports\test.xlsx");
+                MessageBox.Show(@"Отчёт сгенерирован в файл" + @"P:\Study\sem8\diploma\project\BachelorDiplom\BachelorDiplom\Reports\test.xlsx");
 
                 ReleaseObject(xlWorkBook);
                 ReleaseObject(xlApp);
@@ -52,7 +46,7 @@ namespace BachelorLibAPI.Program
             catch (Exception ex)
             {
                 obj = null;
-                MessageBox.Show("Ошибка при очисте памяти после объекта " + ex.ToString());
+                MessageBox.Show(@"Ошибка при очисте памяти после объекта " + ex.ToString());
             }
             finally
             {
