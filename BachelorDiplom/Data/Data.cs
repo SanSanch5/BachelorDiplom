@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Windows.Forms;
 using GMap.NET;
 
 namespace BachelorLibAPI.Data
@@ -131,14 +132,7 @@ namespace BachelorLibAPI.Data
         /// </summary>
         /// <returns></returns>
         List<int> GetTransitIDs(DateTime start, DateTime until, int placeId);
-        
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="start"></param>
-        /// <param name="until"></param>
-        /// <param name="placeID"></param>
-        /// <returns></returns>
+
         List<int> GetTransitIDs(int driverId);
 
         /// <summary>
@@ -160,6 +154,11 @@ namespace BachelorLibAPI.Data
         /// <param name="transId">ID перевозки</param>
         /// <returns>ID водителя</returns>
         int GetDriverId(int transId);
+
+        // ReSharper disable once InconsistentNaming
+        int GetCarIdByGRZ(string grz);
+
+        string GetCarMarkModel(string grz);
 
         /// <summary>
         /// Определить груз по номеру перевозки

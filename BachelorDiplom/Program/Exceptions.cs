@@ -12,7 +12,16 @@ namespace BachelorLibAPI.Program
             }
         }
     }
-
+    class UnknownPlacemark : Exception
+    {
+        public override string Message
+        {
+            get
+            {
+                return "На карте нет точки с таким названием";
+            }
+        }
+    }
     class RouteBuilderLogicException : Exception
     {
         public override string Message

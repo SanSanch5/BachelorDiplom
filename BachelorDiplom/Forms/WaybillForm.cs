@@ -66,7 +66,7 @@ namespace BachelorLibAPI.Forms
 
                 var dt = dtpStart.Value;
 
-                _queriesHandler.AddNewWaybill(num, consName, citiesLst, dt);
+                //_queriesHandler.AddNewWaybill(num, consName, citiesLst, dt);
                 MessageBox.Show("Новая перевозка зарегистрирована.", "Информация");
             }
             catch (FormatException ex)

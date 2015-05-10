@@ -2,9 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
+
 using BachelorLibAPI.Data;
 using BachelorLibAPI.Forms;
 using BachelorLibAPI.Map;
+using BachelorLibAPI.Algorithms;
 
 //using System.Transactions;
 
@@ -15,7 +17,6 @@ namespace BachelorLibAPI.Program
     /// </summary>
     public class QueriesHandler
     {
-        private IDataHandler _dataHandler;
         private ProgressBar _analyseProgress;
 
         private const int TimeCorrection = 20;
@@ -27,7 +28,7 @@ namespace BachelorLibAPI.Program
         /// <param name="m">Реализация интерфейса IMap</param>
         public QueriesHandler(IDataHandler dh, IMap m)
         {
-            _dataHandler = dh;
+            DataHandler = dh;
             Map = m;
         }
 
@@ -42,11 +43,7 @@ namespace BachelorLibAPI.Program
         /// <summary>
         /// Свойство устанавливает новую реализацию интерфейса IDataHandler и возвращает текущуюю
         /// </summary>
-        public IDataHandler DataHandler
-        {
-            get { return _dataHandler; }
-            set { _dataHandler = value; }
-        }
+        public IDataHandler DataHandler { get; set; }
 
         /// <summary>
         /// Свойство устанавливает новую реализацию интерфейса IMap и возвращает текущуюю
@@ -55,35 +52,35 @@ namespace BachelorLibAPI.Program
 
         public static List<string> GetConsignmentsNames()
         {
-            return new List<string>();
+            return Ahov.Coefficient.Select(x => x.Key).ToList();
         }
 
         private void AddDriver(string lName, string name, string mName, string num1, string num2)
         {
-            var newId = _dataHandler.AddNewDriver(lName, name, mName);
+            var newId = DataHandler.AddNewDriver(lName, name, mName);
             AddContactsToDriver(newId, num1, num2);
             MessageBox.Show(@"Водитель успешно добавлен", @"Информация");
         }
 
         private void AddContactsToDriver(int driverId, string num1, string num2)
         {
-            _dataHandler.AddNewContact(driverId, num1);
+            DataHandler.AddNewContact(driverId, num1);
             if (num1 != num2 && num2 != "")
-                _dataHandler.AddNewContact(driverId, num2);
+                DataHandler.AddNewContact(driverId, num2);
         }
 
         private void NamesakesWork(int [] ds, string num1, string num2)
         {
             var numbers = new List<string>();
             foreach (var id in ds)            
-                numbers.AddRange(_dataHandler.GetDriverNumbers(id));
+                numbers.AddRange(DataHandler.GetDriverNumbers(id));
 
             var namesakesForm = new NamesakesForm(numbers);
             namesakesForm.ShowDialog();
             if(namesakesForm.DialogResult == DialogResult.OK)
             {
                 var number = namesakesForm.Number;
-                var driverId = _dataHandler.DriverWithPhoneNumber(number);
+                var driverId = DataHandler.DriverWithPhoneNumber(number);
                 AddContactsToDriver(driverId, num1, num2);
             }
         }
@@ -101,17 +98,17 @@ namespace BachelorLibAPI.Program
         /// <param name="num2">Дополнительный номер</param>
         public void AddNewDriver(string lName, string name, string mName, string num1, string num2)
         {
-            if (_dataHandler.HasPhoneNumber(num1))
+            if (DataHandler.HasPhoneNumber(num1))
             {
-                throw new Exception("Номер " + num1 + " уже зарегистрирован на водителя с id " + _dataHandler.DriverWithPhoneNumber(num1));
+                throw new Exception("Номер " + num1 + " уже зарегистрирован на водителя с id " + DataHandler.DriverWithPhoneNumber(num1));
             }
 
-            if (num2 != "" && _dataHandler.HasPhoneNumber(num2))
+            if (num2 != "" && DataHandler.HasPhoneNumber(num2))
             {
-                throw new Exception("Номер " + num2 + " уже зарегистрирован на водителя с id " + _dataHandler.DriverWithPhoneNumber(num2));
+                throw new Exception("Номер " + num2 + " уже зарегистрирован на водителя с id " + DataHandler.DriverWithPhoneNumber(num2));
             }
 
-            var namesakes = _dataHandler.FindDrivers(lName, name, mName);
+            var namesakes = DataHandler.FindDrivers(lName, name, mName);
             if (namesakes.Length != 0)
             {
                 // обработать ситуацию с полными тёзками
@@ -124,7 +121,7 @@ namespace BachelorLibAPI.Program
                         if (namesakes.Length == 1)
                         {
                             AddContactsToDriver(namesakes[0], num1, num2);
-                            MessageBox.Show("Контакты успешно добавлены.", "Информация");
+                            MessageBox.Show(@"Контакты успешно добавлены.", @"Информация");
                         }
                         else
                             NamesakesWork(namesakes, num1, num2);
@@ -148,17 +145,17 @@ namespace BachelorLibAPI.Program
         /// <returns></returns>
         public string CheckDriver(string number)
         {
-            if (!_dataHandler.HasPhoneNumber(number))
+            if (!DataHandler.HasPhoneNumber(number))
                 throw new Exception("Водитель с таким номером не найден в базе.");
 
-            return _dataHandler.GetDriversFullName(_dataHandler.DriverWithPhoneNumber(number));
+            return DataHandler.GetDriversFullName(DataHandler.DriverWithPhoneNumber(number));
         }
 
-        private void DelTransits(List<int> transIDs)
+        private void DelTransits(IEnumerable<int> transIDs)
         {
             foreach (var transId in transIDs)
             {
-                _dataHandler.DelTransit(transId);
+                DataHandler.DelTransit(transId);
             }
         }
 
@@ -168,12 +165,12 @@ namespace BachelorLibAPI.Program
         /// <param name="number"></param>
         public void DelDriver(string number)
         {
-            var driverId = _dataHandler.DriverWithPhoneNumber(number);
-            _dataHandler.DelDriver(driverId);
-            _dataHandler.DelContacts(driverId);
-            DelTransits(_dataHandler.GetTransitIDs(driverId));
+            var driverId = DataHandler.DriverWithPhoneNumber(number);
+            DataHandler.DelDriver(driverId);
+            DataHandler.DelContacts(driverId);
+            DelTransits(DataHandler.GetTransitIDs(driverId));
 
-            _dataHandler.SubmitChanges();
+            DataHandler.SubmitChanges();
         }
 
         /// <summary>
@@ -189,16 +186,89 @@ namespace BachelorLibAPI.Program
         /// <param name="citiesLst"></param>
         public void AddNewTransit(int driverId, int consId, DateTime start, List<string> citiesLst)
         {
-            //int citiesCount = citiesLst.Count;
-            //if (citiesLst.Count < 2)
-            //    throw new Exception("Как минимум водитель посетит 2 города: начальный и конечный!");
+//            int citiesCount = placesLst.Count;
+//            if (placesLst.Count < 2)
+//                throw new Exception("Как минимум водитель посетит 2 города: начальный и конечный!");
+//
+//            var fullCitiesList = _map.getShortTrack(_dataHandler.GetCityID(placesLst[0]), _dataHandler.GetCityID(placesLst[1]));
+//
+//            for (int i = 1; i < citiesCount - 1; ++i)
+//            {
+//                int correction = fullCitiesList.Last().Value;
+//                var localCitiesList = _map.getShortTrack(_dataHandler.GetCityID(placesLst[i]), _dataHandler.GetCityID(placesLst[i+1]), correction);
+//                localCitiesList.Remove(localCitiesList.First());
+//
+//                fullCitiesList.AddRange(localCitiesList);
+//            }
+//
+//            string fullCitiesIDsString = "";
+//            foreach (var id in fullCitiesList)
+//                fullCitiesIDsString += id.Key.ToString() + " ";
+//
+//            int transID = _dataHandler.AddNewTransit(driverID, consID);
+//            _dataHandler.AddNewRoute(transID, start, DateTime.MinValue, fullCitiesIDsString, false);
+//
+//            citiesCount = fullCitiesList.Count;
+//            for (int i = 0; i < citiesCount; ++i)
+//            {
+//                int currentCityID = fullCitiesList[i].Key;
+//                DateTime noticedTime = start.AddMinutes(fullCitiesList[i].Value + _dataHandler.GetParkingMinutesOfTheCity(currentCityID));
+//                _dataHandler.AddNewTransitStady(transID, currentCityID, noticedTime);
+//            }
+        }
 
-            //var fullCitiesList = _map.getShortTrack(_dataHandler.GetCityID(citiesLst[0]), _dataHandler.GetCityID(citiesLst[1]));
+        /// <summary>
+        /// Удалить все перевозки, зарегистрированные ранее заданного времени
+        /// </summary>
+        /// <param name="time"></param>
+        public void DelTransitsBefore(DateTime time)
+        {
+            DelTransits(DataHandler.TransitsBefore(time));
+
+            DataHandler.SubmitChanges();
+        }
+
+        /// <summary>
+        /// Добавление нового путевого листа
+        /// Не производится добавление водителя! 
+        /// Если водитель ранее не был зарегистрирован в базе, необходимо зарегистрировать его,
+        /// воспользовавшись формой добавления водителя.
+        /// Удаляются все стадии предыдущих перевозок, зарегистрированных на этого водителя, 
+        /// но сами перевозки не отмечаются, как завершённые. Для этого необходимо воспользоваться
+        /// специально предназначенной для этого формой.
+        /// </summary>
+        /// <param name="driverNum"></param>
+        /// <param name="grz"></param>
+        /// <param name="consName"></param>
+        /// <param name="placesLst"></param>
+        /// <param name="start"></param>
+        /// <param name="driverName"></param>
+        public void AddNewWaybill(string driverName, string driverNum, string grz, string consName, List<string> placesLst, DateTime start)
+        {
+            var driverId = DataHandler.DriverWithPhoneNumber(driverNum);
+
+            if (driverId == -1)
+                throw new Exception("Нет водителя с таким номером телефона");
+
+            var name = DataHandler.GetDriverName(driverId);
+            if (name != driverName)
+                throw new Exception(string.Format("Водителя с таким номером телефона зовут {0}, а не {1}", name, driverName));
+
+            var carId = DataHandler.GetCarIdByGRZ(driverNum);
+
+            if (carId == -1)
+                throw new Exception("Нет автомобиля с таким регистрационным знаком");
+
+            int citiesCount = placesLst.Count;
+            if (placesLst.Count < 2)
+                throw new Exception("Как минимум водитель посетит 2 города: начальный и конечный!");
+
+            //var fullCitiesList = Map.GetShortTrack(DataHandler.GetCityID(placesLst[0]), _dataHandler.GetCityID(placesLst[1]));
 
             //for (int i = 1; i < citiesCount - 1; ++i)
             //{
             //    int correction = fullCitiesList.Last().Value;
-            //    var localCitiesList = _map.getShortTrack(_dataHandler.GetCityID(citiesLst[i]), _dataHandler.GetCityID(citiesLst[i+1]), correction);
+            //    var localCitiesList = _map.getShortTrack(_dataHandler.GetCityID(placesLst[i]), _dataHandler.GetCityID(placesLst[i + 1]), correction);
             //    localCitiesList.Remove(localCitiesList.First());
 
             //    fullCitiesList.AddRange(localCitiesList);
@@ -220,64 +290,13 @@ namespace BachelorLibAPI.Program
             //}
         }
 
-        /// <summary>
-        /// Удалить все перевозки, зарегистрированные ранее заданного времени
-        /// </summary>
-        /// <param name="time"></param>
-        public void DelTransitsBefore(DateTime time)
-        {
-            DelTransits(_dataHandler.TransitsBefore(time));
-
-            _dataHandler.SubmitChanges();
-        }
-
-        /// <summary>
-        /// Добавление нового путевого листа
-        /// Не производится добавление водителя! 
-        /// Если водитель ранее не был зарегистрирован в базе, необходимо зарегистрировать его,
-        /// воспользовавшись формой добавления водителя.
-        /// Удаляются все стадии предыдущих перевозок, зарегистрированных на этого водителя, 
-        /// но сами перевозки не отмечаются, как завершённые. Для этого необходимо воспользоваться
-        /// специально предназначенной для этого формой.
-        /// </summary>
-        /// <param name="num"></param>
-        /// <param name="consName"></param>
-        /// <param name="citiesLst"></param>
-        /// <param name="start"></param>
-        public void AddNewWaybill(string num, string consName, List<string> citiesLst, DateTime start)
-        {
-            //int driverID = _dataHandler.DriverWithPhoneNumber(num);
-            
-            //if (driverID == -1)
-            //    throw new Exception("Нет водителя с таким номером телефона");
-            
-            //int consID = _dataHandler.GetConsignmentID(consName);
-            
-            //if (consID == -1)
-            //    throw new Exception("Нет груза с таким именем");
-            
-            //List<string> cities = _dataHandler.GetCitiesNames();
-            //foreach (var city in citiesLst)
-            //    if (!cities.Contains(city))
-            //        throw new Exception("Нет города под названием " + city);
-
-            //List<int> transitIDs = _dataHandler.GetTransitIDs(driverID);
-            //foreach (int transID in transitIDs)
-            //{
-            //    _dataHandler.DeleteStadiesByTransitID(transID);
-            //}
-            //_dataHandler.SubmitChanges();
-
-            //AddNewTransit(driverID, consID, start, citiesLst);
-        }
-
         private void SetProgressParameters(IEnumerable<int> citiesIDs, DateTime since, DateTime until)
         {
             _analyseProgress.Visible = true;
             _analyseProgress.Minimum = 0;
             _analyseProgress.Value = 0;
             
-            var max = citiesIDs.Select(cityId => _dataHandler.GetTransitIDs(since, until, cityId)).Select(transIDs => transIDs.Count()).Sum();
+            var max = citiesIDs.Select(cityId => DataHandler.GetTransitIDs(since, until, cityId)).Select(transIDs => transIDs.Count()).Sum();
             _analyseProgress.Maximum = max;
         }
 
@@ -380,7 +399,7 @@ namespace BachelorLibAPI.Program
         /// <returns></returns>
         public List<string> GetDriverNumbers(int driverId)
         {
-            return _dataHandler.GetDriverNumbers(driverId);
+            return DataHandler.GetDriverNumbers(driverId);
         }
 
         /// <summary>
@@ -430,7 +449,7 @@ namespace BachelorLibAPI.Program
         /// <returns></returns>
         public List<string> GetDriversFullNames()
         {
-            return _dataHandler.GetDriversFullNames();
+            return DataHandler.GetDriversFullNames();
         }
 
         /// <summary>
@@ -439,7 +458,7 @@ namespace BachelorLibAPI.Program
         /// <returns></returns>
         public List<string> GetNumbers()
         {
-            return _dataHandler.GetNumbers();
+            return DataHandler.GetNumbers();
         }
 
         /// <summary>
@@ -449,7 +468,7 @@ namespace BachelorLibAPI.Program
         /// <returns></returns>
         public bool HasPhoneNumber(string num)
         {
-            return _dataHandler.HasPhoneNumber(num);
+            return DataHandler.HasPhoneNumber(num);
         }
     }
 }

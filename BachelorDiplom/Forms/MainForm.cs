@@ -16,14 +16,16 @@ namespace BachelorLibAPI.Forms
         /// Предусмотрена возможность расширения: привязка к другой карте и к другой базе данных.
         /// Обработчик запросов отвечает за логику запросов: проверки, исключения, ошибки и т.п.
         /// </summary>
-        private QueriesHandler _mQueriesHandler;
+        private QueriesHandler _queriesHandler;
 
         public MainForm()
         {
             InitializeComponent();
 
-            _mQueriesHandler = new QueriesHandler(PgSqlDataHandler.Instance, new OpenStreetGreatMap(ref gmap));
-            _mQueriesHandler.AnalyseProgress = pbAnalyse;
+            _queriesHandler = new QueriesHandler(PgSqlDataHandler.Instance, new OpenStreetGreatMap(ref gmap))
+            {
+                AnalyseProgress = pbAnalyse
+            };
             FillMainForm();
         }
 
@@ -37,14 +39,14 @@ namespace BachelorLibAPI.Forms
 
         private void AddDriverClick(object sender, EventArgs e)
         {
-            var driverAddingForm = new DriverAddForm(_mQueriesHandler);
+            var driverAddingForm = new DriverAddForm(_queriesHandler);
             driverAddingForm.Show();
             driverAddingForm.TopMost = true;
         }
 
         private void AddConsignmentClick(object sender, EventArgs e)
         {
-            var consAddingForm = new ConsignmentAddForm(_mQueriesHandler);
+            var consAddingForm = new ConsignmentAddForm(_queriesHandler);
             consAddingForm.Show();
         }
 
@@ -70,7 +72,7 @@ namespace BachelorLibAPI.Forms
                     if (passwordBox.Password == password)
                     {
                         passwordBox.Close();
-                        var driverDelForm = new DriverDelForm(_mQueriesHandler);
+                        var driverDelForm = new DriverDelForm(_queriesHandler);
                         driverDelForm.Show();
                     }
                     else
@@ -110,7 +112,7 @@ namespace BachelorLibAPI.Forms
                     if (passwordBox.Password == password)
                     {
                         passwordBox.Close();
-                        var transitsDelBeforeForm = new TransitsDelBeforeForm(_mQueriesHandler);
+                        var transitsDelBeforeForm = new TransitsDelBeforeForm(_queriesHandler);
                         transitsDelBeforeForm.Show();
                     }
                     else
@@ -135,7 +137,7 @@ namespace BachelorLibAPI.Forms
 
         private void FindDriverInfoClick(object sender, EventArgs e)
         {
-            var driverInfoForm = new DriverInfoForm(_mQueriesHandler);
+            var driverInfoForm = new DriverInfoForm(_queriesHandler);
             driverInfoForm.Show();
         }
 
@@ -161,7 +163,7 @@ namespace BachelorLibAPI.Forms
 
         private void NewWaybillClick(object sender, EventArgs e)
         {
-            var waybillForm = new WaybillForm(_mQueriesHandler);
+            var waybillForm = new WaybillForm(_queriesHandler);
             waybillForm.Show();
         }
 
@@ -191,7 +193,7 @@ namespace BachelorLibAPI.Forms
                 if(place == "")
                     throw new FormatException("Укажите место аварии!");
 
-                new AnalyseResultsForm(_mQueriesHandler.AnalyseDanger(since, until, place));
+                new AnalyseResultsForm(_queriesHandler.AnalyseDanger(since, until, place));
             }
             catch (FormatException ex)
             {
@@ -216,7 +218,7 @@ namespace BachelorLibAPI.Forms
                     if (passwordBox.Password == password)
                     {
                         passwordBox.Close();
-                        var testsGeneratorForm = new TestsGeneratorForm(_mQueriesHandler);
+                        var testsGeneratorForm = new TestsGeneratorForm(_queriesHandler);
                         testsGeneratorForm.Show();
                     }
                     else
@@ -257,25 +259,30 @@ namespace BachelorLibAPI.Forms
 
         private void gmap_MouseDoubleClick(object sender, MouseEventArgs e)
         {
-            var adress = _mQueriesHandler.Map.GetPlacemark(e.X, e.Y);
+            var adress = _queriesHandler.Map.GetPlacemark(e.X, e.Y);
             MessageBox.Show(adress);
         }
 
 
         private void MarkStartPointClick(object sender, EventArgs e)
         {
-            _mQueriesHandler.Map.SetStartPoint(gmap.FromLocalToLatLng(gmap.PointToClient(_menuClickPos).X, gmap.PointToClient(_menuClickPos).Y));
+            _queriesHandler.Map.SetStartPoint(gmap.FromLocalToLatLng(gmap.PointToClient(_menuClickPos).X, gmap.PointToClient(_menuClickPos).Y));
         }
 
         private void MarkEndPointClick(object sender, EventArgs e)
         {
-            _mQueriesHandler.Map.SetEndPoint(gmap.FromLocalToLatLng(gmap.PointToClient(_menuClickPos).X, gmap.PointToClient(_menuClickPos).Y));       
+            _queriesHandler.Map.SetEndPoint(gmap.FromLocalToLatLng(gmap.PointToClient(_menuClickPos).X, gmap.PointToClient(_menuClickPos).Y));       
+        }
+
+        private void MarkMiddlePointClick(object sender, EventArgs e)
+        {
+            _queriesHandler.Map.SetMiddlePoint(gmap.FromLocalToLatLng(gmap.PointToClient(_menuClickPos).X, gmap.PointToClient(_menuClickPos).Y));
         }
 
         private void GetRouteClick(object sender, EventArgs e)
         {
             ltMainOptions.Visible = false;
-            _mQueriesHandler.Map.ConstructShortTrack();
+            _queriesHandler.Map.ConstructShortTrack();
             ltMainOptions.Visible = true;
         }
 

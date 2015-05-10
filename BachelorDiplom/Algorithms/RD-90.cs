@@ -2,12 +2,12 @@
 
 namespace BachelorLibAPI.Algorithms
 {
-    public static class Axob
+    public static class Ahov
     {
         /// <summary>
         /// Если здесь нет показателя, то проводится расчёт с помощью интерполяции
         /// </summary>
-        public static Dictionary<string, double> Coefficient = new Dictionary<string, double>
+        public static readonly Dictionary<string, double> Coefficient = new Dictionary<string, double>
         {
             {"Хлор",                            1.0},
             {"Азотная кислота",                 21.0},
@@ -26,7 +26,6 @@ namespace BachelorLibAPI.Algorithms
             {"Метил бромистый",                 165},
             {"Метил хлористый",                 165},
             {"Сероводород",                     28},
-            {"Соляная кислота",                 7.0},
             {"Формальдегид",                    1.0},
             {"Хлорпикрин",                      0.52},
             {"Сернистый ангидрид",              30.0}
@@ -35,7 +34,7 @@ namespace BachelorLibAPI.Algorithms
         /// <summary>
         /// Если нет показателя, то обезвреживающее в-во не нужно
         /// </summary>
-        public static Dictionary<string, KeyValuePair<string, double>> AntiSubstance = 
+        public static readonly Dictionary<string, KeyValuePair<string, double>> AntiSubstance = 
             new Dictionary<string,KeyValuePair<string,double>>
         {
             {"Аммиак",                      new KeyValuePair<string, double>("36% р-р соляной кислоты", 5.6)},
@@ -64,16 +63,16 @@ namespace BachelorLibAPI.Algorithms
     /// </summary>
     class Rd90 : IChemicalEnvironmentCalculation
     {
-        private string _substance;
-        private double _substanceCount;
-        private double _qEq;
+        private readonly string _substance;
+        private readonly double _substanceCount;
+        private double QEq { get; set; }
 
-        Rd90(string _substance, double _substanceCount)
+        Rd90(string substance, double substanceCount)
         {
-            this._substance = _substance;
-            this._substanceCount = _substanceCount;
+            _substance = substance;
+            _substanceCount = substanceCount;
 
-            _qEq = this._substanceCount / Axob.Coefficient[this._substance];
+            QEq = _substanceCount / Ahov.Coefficient[this._substance];
         }
 
         public double InfectionArea()
@@ -83,9 +82,9 @@ namespace BachelorLibAPI.Algorithms
 
         public KeyValuePair<string, double> AntiSubstanceCount()
         {
-            return Axob.AntiSubstance.ContainsKey(_substance) 
-                ? new KeyValuePair<string, double>(Axob.AntiSubstance[_substance].Key, 
-                    Axob.AntiSubstance[_substance].Value*_substanceCount)
+            return Ahov.AntiSubstance.ContainsKey(_substance) 
+                ? new KeyValuePair<string, double>(Ahov.AntiSubstance[_substance].Key, 
+                    Ahov.AntiSubstance[_substance].Value*_substanceCount)
                 : new KeyValuePair<string, double>("", 0);
         }
     }

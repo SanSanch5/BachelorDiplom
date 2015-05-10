@@ -94,7 +94,7 @@ namespace BachelorLibAPI.TestsGenerator
                 var date = startDate.Split().Where(x => x != "").Select(x => int.Parse(x)).ToArray();
                 var start = new DateTime(date[0], date[1], date[2], date[3], date[4], date[5]);
 
-                _queriesHandler.AddNewWaybill(num, cons, citiesLst, start);
+                //_queriesHandler.AddNewWaybill(num, cons, citiesLst, start);
 
                 ++pbTransits.Value;
             }

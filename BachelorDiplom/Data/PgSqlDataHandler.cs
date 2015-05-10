@@ -20,6 +20,15 @@ namespace BachelorLibAPI.Data
              _npgsqlConnection = new NpgsqlConnection(Settings.Default.CarsTrackingDBConnectionString);
         }
 
+        public int GetCarIdByGRZ(string grz)
+        {
+            return 0;
+        }
+        public string GetCarMarkModel(string grz)
+        {
+            return "";
+        }
+
         public void AddNewContact(int driverId, string contact)
         {
 

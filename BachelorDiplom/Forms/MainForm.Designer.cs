@@ -71,7 +71,9 @@ namespace BachelorLibAPI.Forms
             this.gmap = new GMap.NET.WindowsForms.GMapControl();
             this.mapMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripMenuItem3 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem5 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem4 = new System.Windows.Forms.ToolStripMenuItem();
             this.построитьМаршрутToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ltMapPanel = new System.Windows.Forms.TableLayoutPanel();
@@ -478,38 +480,52 @@ namespace BachelorLibAPI.Forms
             // 
             this.mapMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripMenuItem2,
+            this.toolStripSeparator1,
             this.toolStripMenuItem3,
+            this.toolStripMenuItem5,
             this.toolStripMenuItem4,
             this.построитьМаршрутToolStripMenuItem});
             this.mapMenu.Name = "mapMenu";
-            this.mapMenu.Size = new System.Drawing.Size(256, 114);
+            this.mapMenu.Size = new System.Drawing.Size(278, 142);
             this.mapMenu.Opening += new System.ComponentModel.CancelEventHandler(this.mapMenu_Opening);
             // 
             // toolStripMenuItem2
             // 
             this.toolStripMenuItem2.Name = "toolStripMenuItem2";
-            this.toolStripMenuItem2.Size = new System.Drawing.Size(255, 22);
+            this.toolStripMenuItem2.Size = new System.Drawing.Size(277, 22);
             this.toolStripMenuItem2.Text = "Добавить перевозку";
             this.toolStripMenuItem2.Click += new System.EventHandler(this.NewWaybillClick);
+            // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(274, 6);
             // 
             // toolStripMenuItem3
             // 
             this.toolStripMenuItem3.Name = "toolStripMenuItem3";
-            this.toolStripMenuItem3.Size = new System.Drawing.Size(255, 22);
+            this.toolStripMenuItem3.Size = new System.Drawing.Size(277, 22);
             this.toolStripMenuItem3.Text = "Отметить как пункт отправления";
             this.toolStripMenuItem3.Click += new System.EventHandler(this.MarkStartPointClick);
+            // 
+            // toolStripMenuItem5
+            // 
+            this.toolStripMenuItem5.Name = "toolStripMenuItem5";
+            this.toolStripMenuItem5.Size = new System.Drawing.Size(277, 22);
+            this.toolStripMenuItem5.Text = "Отметить как промежуточную точку";
+            this.toolStripMenuItem5.Click += new System.EventHandler(this.MarkMiddlePointClick);
             // 
             // toolStripMenuItem4
             // 
             this.toolStripMenuItem4.Name = "toolStripMenuItem4";
-            this.toolStripMenuItem4.Size = new System.Drawing.Size(255, 22);
+            this.toolStripMenuItem4.Size = new System.Drawing.Size(277, 22);
             this.toolStripMenuItem4.Text = "Отметить как пункт назначения";
             this.toolStripMenuItem4.Click += new System.EventHandler(this.MarkEndPointClick);
             // 
             // построитьМаршрутToolStripMenuItem
             // 
             this.построитьМаршрутToolStripMenuItem.Name = "построитьМаршрутToolStripMenuItem";
-            this.построитьМаршрутToolStripMenuItem.Size = new System.Drawing.Size(255, 22);
+            this.построитьМаршрутToolStripMenuItem.Size = new System.Drawing.Size(277, 22);
             this.построитьМаршрутToolStripMenuItem.Text = "Построить маршрут";
             this.построитьМаршрутToolStripMenuItem.Click += new System.EventHandler(this.GetRouteClick);
             // 
@@ -600,5 +616,7 @@ namespace BachelorLibAPI.Forms
         private ToolStripMenuItem toolStripMenuItem3;
         private ToolStripMenuItem toolStripMenuItem4;
         private ToolStripMenuItem построитьМаршрутToolStripMenuItem;
+        private ToolStripSeparator toolStripSeparator1;
+        private ToolStripMenuItem toolStripMenuItem5;
     }
 }
