@@ -45,7 +45,6 @@ namespace BachelorLibAPI.Forms
             this.picTo = new System.Windows.Forms.PictureBox();
             this.btnMoreMid = new System.Windows.Forms.Button();
             this.picMid = new System.Windows.Forms.PictureBox();
-            this.btnNewWaybill = new System.Windows.Forms.Button();
             this.edtDriverPhoneNumber = new System.Windows.Forms.MaskedTextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.lblTelephoneNumber = new System.Windows.Forms.Label();
@@ -54,6 +53,7 @@ namespace BachelorLibAPI.Forms
             this.dtpStart = new System.Windows.Forms.DateTimePicker();
             this.label4 = new System.Windows.Forms.Label();
             this.edtGRZ = new System.Windows.Forms.TextBox();
+            this.btnNewWaybill = new System.Windows.Forms.Button();
             this.ttForOk = new System.Windows.Forms.ToolTip(this.components);
             this.ltpNewDriver.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picFrom)).BeginInit();
@@ -236,21 +236,6 @@ namespace BachelorLibAPI.Forms
             this.picMid.TabIndex = 24;
             this.picMid.TabStop = false;
             // 
-            // btnNewWaybill
-            // 
-            this.btnNewWaybill.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.ltpNewDriver.SetColumnSpan(this.btnNewWaybill, 3);
-            this.btnNewWaybill.Enabled = false;
-            this.btnNewWaybill.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.btnNewWaybill.Location = new System.Drawing.Point(616, 207);
-            this.btnNewWaybill.Name = "btnNewWaybill";
-            this.btnNewWaybill.Size = new System.Drawing.Size(190, 37);
-            this.btnNewWaybill.TabIndex = 10;
-            this.btnNewWaybill.Text = "Добавить перевозку";
-            this.btnNewWaybill.UseVisualStyleBackColor = true;
-            this.btnNewWaybill.Click += new System.EventHandler(this.AddNewWaybill);
-            // 
             // edtDriverPhoneNumber
             // 
             this.edtDriverPhoneNumber.Anchor = System.Windows.Forms.AnchorStyles.Left;
@@ -333,6 +318,21 @@ namespace BachelorLibAPI.Forms
             this.edtGRZ.Size = new System.Drawing.Size(212, 26);
             this.edtGRZ.TabIndex = 28;
             // 
+            // btnNewWaybill
+            // 
+            this.btnNewWaybill.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.ltpNewDriver.SetColumnSpan(this.btnNewWaybill, 3);
+            this.btnNewWaybill.Enabled = false;
+            this.btnNewWaybill.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.btnNewWaybill.Location = new System.Drawing.Point(616, 207);
+            this.btnNewWaybill.Name = "btnNewWaybill";
+            this.btnNewWaybill.Size = new System.Drawing.Size(190, 37);
+            this.btnNewWaybill.TabIndex = 10;
+            this.btnNewWaybill.Text = "Добавить перевозку";
+            this.btnNewWaybill.UseVisualStyleBackColor = true;
+            this.btnNewWaybill.Click += new System.EventHandler(this.AddNewWaybill);
+            // 
             // WaybillForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -340,7 +340,7 @@ namespace BachelorLibAPI.Forms
             this.ClientSize = new System.Drawing.Size(809, 247);
             this.Controls.Add(this.ltpNewDriver);
             this.Name = "WaybillForm";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
             this.Text = "Заполнить путевой лист";
             this.Activated += new System.EventHandler(this.WaybillForm_Enter);
             this.ltpNewDriver.ResumeLayout(false);

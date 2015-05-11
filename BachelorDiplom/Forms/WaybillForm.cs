@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using System.Drawing;
-using System.Threading.Tasks;
 
 using BachelorLibAPI.Program;
 
@@ -33,6 +32,9 @@ namespace BachelorLibAPI.Forms
         {
             foreach (var cons in _consNames)
                 cmbCons.Items.Add(cons);
+            var screen = Screen.PrimaryScreen;
+            Left = /*screen.WorkingArea.Right - Width - */25;
+            Top = screen.WorkingArea.Top + 50;
         }
 
         private void AddNewWaybill(object sender, EventArgs e)
@@ -49,12 +51,13 @@ namespace BachelorLibAPI.Forms
                 if (!_consNames.Contains(consName))
                     throw new FormatException("Выберите груз.");
 
-                if (edtMid.Text != "" &&
-                    MessageBox.Show(@"Вы уверены, что не хотите добавить введённый промежуточный пункт?", @"Внимание!") !=
-                    DialogResult.Yes)
+                if (edtMid.Text != "")
+                {
+                    MessageBox.Show(@"Добавьте введённую промежуточную точку или сотрите её из поля ввода", @"Внимание!");
                     return;
+                }
 
-                Hide();
+                WindowState = FormWindowState.Minimized;
                 if (!QueriesHandler.CheckBeforeAdding()) return;
                 QueriesHandler.AddNewWaybill(driverName, num, grz, consName, dtpStart.Value);
                 MessageBox.Show(@"Новая перевозка зарегистрирована.", @"Информация");
@@ -73,7 +76,6 @@ namespace BachelorLibAPI.Forms
 
         private void AddMoreMidCities(Object sender, EventArgs e)
         {
-            
             QueriesHandler.SetMiddlePoint(edtMid.Text);
             edtMid.Text = "";
             CheckAndConstructRoute();
@@ -82,6 +84,7 @@ namespace BachelorLibAPI.Forms
         private bool _hasStart;
         private bool _hasEnd;
 
+        private bool _needUpdate;
         private void CheckAndConstructRoute()
         {
             if (_hasStart && _hasEnd)
@@ -95,7 +98,7 @@ namespace BachelorLibAPI.Forms
                 }
                 catch (Exception e)
                 {
-                    Close();
+                    _needUpdate = false;
                     MessageBox.Show(e.Message);
                 }
             }
@@ -183,7 +186,8 @@ namespace BachelorLibAPI.Forms
                 _hasEnd = true;
                 picTo.Image = new Bitmap(PicOk, new Size(16, 16));
             }
-            CheckAndConstructRoute();
+            if (_needUpdate) CheckAndConstructRoute();
+            else _needUpdate = true;
         }
     }
 }

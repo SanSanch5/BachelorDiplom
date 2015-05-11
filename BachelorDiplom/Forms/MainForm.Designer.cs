@@ -484,7 +484,7 @@ namespace BachelorLibAPI.Forms
             this.toolStripMenuItem5,
             this.toolStripMenuItem4});
             this.mapMenu.Name = "mapMenu";
-            this.mapMenu.Size = new System.Drawing.Size(278, 120);
+            this.mapMenu.Size = new System.Drawing.Size(278, 98);
             this.mapMenu.Opening += new System.ComponentModel.CancelEventHandler(this.mapMenu_Opening);
             // 
             // toolStripMenuItem2

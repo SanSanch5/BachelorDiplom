@@ -74,7 +74,6 @@ namespace BachelorLibAPI.Map
         /// Использовать желательно после использования CheckAdress
         /// Иначе ловите исключение типа UnknownPlacemark
         /// </summary>
-        [SuppressMessage("ReSharper", "PossibleInvalidOperationException")]
         public string GetCorrectAdress(string adress)
         {
             if(!CheckAdress(adress))
@@ -82,8 +81,9 @@ namespace BachelorLibAPI.Map
 
             GeoCoderStatusCode st;
             var provider = (OpenStreetMapProvider) _gmap.MapProvider;
+            // ReSharper disable once PossibleInvalidOperationException
             var plc = GetPlacemark(provider.GetPoint(adress, out st).Value, out st);
-            return plc.Value.Address;
+            return plc.HasValue ? plc.Value.Address : adress;
         }
 
         private void GmapOnMarkerClick(object sender, MouseEventArgs mouseEventArgs)
@@ -161,6 +161,8 @@ namespace BachelorLibAPI.Map
 
         public void SetStartPoint(PointLatLng start)
         {
+            CancelTask(_stadiesGenerationCts, _stadiesGeneration);
+
             StartPoint = start;
             var pic = new Bitmap("..\\..\\Map\\Resources\\start.png");
             var marker = new GMarkerGoogle(start, new Bitmap(pic, new Size(32, 32)));
@@ -188,6 +190,8 @@ namespace BachelorLibAPI.Map
 
         public void SetMiddlePoint(PointLatLng mid)
         {
+            CancelTask(_stadiesGenerationCts, _stadiesGeneration);
+
             _middlePoints.Add(mid);
             var pic = new Bitmap("..\\..\\Map\\Resources\\flag_pink.png");
             var marker = new GMarkerGoogle(mid, new Bitmap(pic, new Size(32, 32)));
@@ -214,6 +218,8 @@ namespace BachelorLibAPI.Map
 
         public void SetEndPoint(PointLatLng end)
         {
+            CancelTask(_stadiesGenerationCts, _stadiesGeneration);
+
             EndPoint = end;
             var pic = new Bitmap("..\\..\\Map\\Resources\\finish.png");
             var marker = new GMarkerGoogle(end, new Bitmap(pic, new Size(32, 32)));
@@ -281,15 +287,20 @@ namespace BachelorLibAPI.Map
             return true;
         }
 
+        private void CancelTask(CancellationTokenSource cts, Task task)
+        {
+            if (task == null) return;
+            if (!task.IsCompleted)
+                cts.Cancel();
+            else if (task.IsCanceled)
+                Debug.WriteLine("Задача отменена");
+            else if (task.IsCompleted || task.IsCanceled)
+                _stadiesGeneration.Dispose();
+        }
+
         public void ConstructShortTrack()
         {
-            if (_stadiesGeneration != null && !_stadiesGeneration.IsCompleted)
-                _stadiesGenerationCts.Cancel();
-            else if (_stadiesGeneration != null && _stadiesGeneration.IsCanceled)
-                Debug.WriteLine("Задача отменена");
-            else if (_stadiesGeneration != null && (_stadiesGeneration.IsCompleted || _stadiesGeneration.IsCanceled))
-                _stadiesGenerationCts.Dispose();
-
+            CancelTask(_stadiesGenerationCts, _stadiesGeneration);
 
             if (StartPoint == null)
                 throw new Exception(@"Не задана начальная точка");
@@ -323,7 +334,7 @@ namespace BachelorLibAPI.Map
             
             _stadiesGenerationCts = new CancellationTokenSource();
             var cancellationToken = _stadiesGenerationCts.Token;
-            _stadiesGeneration = Task.Run(() => GenerateStadies(cancellationToken, routePoints, 50, 10), cancellationToken);
+            _stadiesGeneration = Task.Run(() => GenerateStadies(cancellationToken, routePoints, 50, 15), cancellationToken);
         }
 
         public List<KeyValuePair<PointLatLng, int>> GetShortTrack()
@@ -386,7 +397,6 @@ namespace BachelorLibAPI.Map
             }
         }
 
-        [SuppressMessage("ReSharper", "MethodSupportsCancellation")]
         private void GenerateStadies(CancellationToken token, IReadOnlyList<PointLatLng> routePoints, int diff,
             int threadsCount = 4)
         {
@@ -397,62 +407,78 @@ namespace BachelorLibAPI.Map
             var results = new List<List<KeyValuePair<PointLatLng, int>>>();
             var tasks = new List<Task>();
 
-            for (var i = 0; i < threadsCount; ++i)
+            try
             {
-                results.Add(new List<KeyValuePair<PointLatLng, int>>());
-                var i1 = i;
-                tasks.Add(
-                    Task.Run(() => GenerateStadiesPart(token, i1, diff, diff*threadsCount, routePoints, results[i1]),
-                        token));
-            }
-
-            var ost = (routePoints.Count - 1)%diff;
-            var lastHandledPoint = routePoints.Count - 1 - ost;
-            var counter = 0;
-            var currentTime = 0;
-            var iterationPoints = new List<KeyValuePair<PointLatLng, int>>();
-            while (counter < (routePoints.Count - 1)/diff*threadsCount &&
-                   (iterationPoints.Count == 0 || iterationPoints.Last().Key != routePoints[lastHandledPoint]))
-            {
-                var arg = diff;
-                try
+                for (var i = 0; i < threadsCount; ++i)
                 {
-                    iterationPoints.Clear();
-                    var localCurrentTime = currentTime;
-                    // ReSharper disable once LoopCanBeConvertedToQuery
-                    foreach (var result in results)
-                        iterationPoints.Add(new KeyValuePair<PointLatLng, int>(result[counter].Key,
-                            localCurrentTime += result[counter].Value));
+                    results.Add(new List<KeyValuePair<PointLatLng, int>>());
+                    var i1 = i;
+                    tasks.Add(
+                        Task.Run(() => GenerateStadiesPart(token, i1, diff, diff*threadsCount, routePoints, results[i1]),
+                            token));
+                }
 
-                    _detailedRoute.AddRange(iterationPoints);
-                    currentTime = localCurrentTime;
+                var ost = (routePoints.Count - 1)%diff;
+                var lastHandledPoint = routePoints.Count - 1 - ost;
+                var counter = 0;
+                var currentTime = 0;
+                    // жёсткая логика для вытаскивания данных из другого потока
+                while (counter < (routePoints.Count - 1)/diff*threadsCount)
+                {
+                    for (var i = 0; i < results.Count; i++)
+                    {
+                        var result = results[i];
+                        var added = false;
+                        while (!added)
+                        {
+                            if (tasks[i].IsCompleted)
+                            {
+                                if (result.Count > counter)
+                                    _detailedRoute.Add(new KeyValuePair<PointLatLng, int>(result[counter].Key,
+                                        currentTime += result[counter].Value));
+                                added = true;
+                            }
+                            else if (result.Count > counter)
+                            {
+                                _detailedRoute.Add(new KeyValuePair<PointLatLng, int>(result[counter].Key,
+                                    currentTime += result[counter].Value));
+                                added = true;
+                            }
+                            else
+                            {
+                                foreach (var task in tasks)
+                                    task.Wait(diff*10, token);
+                            }
+                        }
+                    }
                     ++counter;
                 }
-                catch (ArgumentOutOfRangeException)
+
+                var wholeTime = _detailedRoute.Last().Value;
+                var shouldBe = (int)(60 * _distance / Settings.Default.AvegareVelocity);
+                if (ost != 0)
                 {
-                    foreach (var task in tasks)
-                    {
-                        if (!token.IsCancellationRequested)
-                            task.Wait(arg*10);
-                        else return;
-                    }
+                    var r = ((OpenStreetMapProvider) _gmap.MapProvider).GetRoute(routePoints[lastHandledPoint],
+                        routePoints.Last(), false, false, 11);
+                    wholeTime = _detailedRoute.Last().Value + (int) (60*r.Distance/Settings.Default.AvegareVelocity);
+                    _detailedRoute.Add(new KeyValuePair<PointLatLng, int>(routePoints.Last(), wholeTime > shouldBe ? wholeTime : shouldBe));
+                }
+
+                Debug.WriteLine(
+                    "Обработано {0} объектов через каждые {1}. Итоговое время: {2} минут.\nНа расчёт затрачено {3} секунд",
+                    routePoints.Count, diff, wholeTime, (DateTime.Now.Ticks - st)/TimeSpan.TicksPerSecond);
+            }
+            catch (OperationCanceledException)
+            {
+                foreach (
+                    var task in
+                        tasks.Where(
+                            task => (task.Status == TaskStatus.Canceled) || (task.Status == TaskStatus.RanToCompletion))
+                    )
+                {
+                    task.Dispose();
                 }
             }
-
-            if (iterationPoints.Count != 4) _detailedRoute.AddRange(iterationPoints);
-
-            var wholeTime = _detailedRoute.Last().Value;
-            if (ost != 0)
-            {
-                var r = ((OpenStreetMapProvider) _gmap.MapProvider).GetRoute(routePoints[lastHandledPoint],
-                    routePoints.Last(), false, false, 11);
-                wholeTime = _detailedRoute.Last().Value + (int) (60*r.Distance/Settings.Default.AvegareVelocity);
-                _detailedRoute.Add(new KeyValuePair<PointLatLng, int>(routePoints.Last(), wholeTime));
-            }
-
-            Debug.WriteLine(
-                "Обработано {0} объектов через каждые {1}. Итоговое время: {2} минут.\nНа расчёт затрачено {3} секунд",
-                routePoints.Count, diff, wholeTime, (DateTime.Now.Ticks - st)/TimeSpan.TicksPerSecond);
         }
 
         private void SetActions()
