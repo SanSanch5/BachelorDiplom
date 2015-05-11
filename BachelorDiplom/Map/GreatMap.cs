@@ -70,6 +70,22 @@ namespace BachelorLibAPI.Map
             return st == GeoCoderStatusCode.G_GEO_SUCCESS;
         }
 
+        /// <summary>
+        /// Использовать желательно после использования CheckAdress
+        /// Иначе ловите исключение типа UnknownPlacemark
+        /// </summary>
+        [SuppressMessage("ReSharper", "PossibleInvalidOperationException")]
+        public string GetCorrectAdress(string adress)
+        {
+            if(!CheckAdress(adress))
+                throw new UnknownPlacemark();
+
+            GeoCoderStatusCode st;
+            var provider = (OpenStreetMapProvider) _gmap.MapProvider;
+            var plc = GetPlacemark(provider.GetPoint(adress, out st).Value, out st);
+            return plc.Value.Address;
+        }
+
         private void GmapOnMarkerClick(object sender, MouseEventArgs mouseEventArgs)
         {
             var menu = new ContextMenuStrip();
@@ -154,6 +170,9 @@ namespace BachelorLibAPI.Map
                 marker.ToolTipText = "Точка отправления:\n" + placemark.Value.Address;
             _startMarkerOverlay.Clear();
             _startMarkerOverlay.Markers.Add(marker);
+
+            _gmap.Position = StartPoint.Value;
+            if (_gmap.Zoom < 14) _gmap.Zoom = 14;
         }
 
         public void SetStartPoint(string start)
@@ -177,6 +196,9 @@ namespace BachelorLibAPI.Map
             if (placemark != null)
                 marker.ToolTipText = string.Format("Промежуточная точка #{0}\n{1}", _middlePoints.Count, placemark.Value.Address);
             _middleMarkersOverlay.Markers.Add(marker);
+
+            _gmap.Position = mid;
+            if (_gmap.Zoom < 14) _gmap.Zoom = 14;
         }
 
         public void SetMiddlePoint(string mid)
@@ -201,6 +223,9 @@ namespace BachelorLibAPI.Map
                 marker.ToolTipText = "Точка назначения:\n" + placemark.Value.Address;
             _endMarkerOverlay.Clear();
             _endMarkerOverlay.Markers.Add(marker);
+
+            _gmap.Position = EndPoint.Value;
+            if(_gmap.Zoom < 14) _gmap.Zoom = 14;
         }
         public void SetEndPoint(string end)
         {
@@ -208,49 +233,19 @@ namespace BachelorLibAPI.Map
             // ReSharper disable once PossibleNullReferenceException
             var pnt = (_gmap.MapProvider as OpenStreetMapProvider).GetPoint(end, out st);
             if (pnt.HasValue)
-                SetStartPoint(pnt.Value);
+                SetEndPoint(pnt.Value);
             else
                 throw new UnknownPlacemark();
         }
-        public void ConstructShortTrack()
+
+        private double _distance;
+        public bool CheckBeforeAdding()
         {
-            if (_stadiesGeneration != null && !_stadiesGeneration.IsCompleted)
-                _stadiesGenerationCts.Cancel();
+            Cursor.Current = Cursors.WaitCursor;
+            _stadiesGeneration.Wait();
+            Cursor.Current = Cursors.Default;
 
-            if (StartPoint == null)
-                throw new Exception(@"Не задана начальная точка");
-            if (EndPoint == null)
-                throw new Exception(@"Не задана конечная точка");
-
-            var routePoints = new List<PointLatLng>();
-            var curStart = StartPoint.Value;
-            double distance = 0;
-            MapRoute route;
-            _detailedRoute.Clear();
-
-            foreach (var middlePoint in _middlePoints)
-            {
-                route = ((OpenStreetMapProvider)_gmap.MapProvider).GetRoute(curStart, middlePoint, false, false, 11);
-                if (route == null || route.Points.Count == 0)
-                {
-                    MessageBox.Show(Resources.CannotConstructShortTrack);
-                    return;
-                }
-                routePoints.AddRange(route.Points);
-                routePoints.RemoveAt(routePoints.Count-1);
-                curStart = middlePoint;
-                distance += route.Distance;
-            }
-
-            route = ((OpenStreetMapProvider)_gmap.MapProvider).GetRoute(curStart, EndPoint.Value, false, false, 11);
-            if (route == null || route.Points.Count == 0)
-            {
-                MessageBox.Show(Resources.CannotConstructShortTrack);
-                return;
-            }
-            routePoints.AddRange(route.Points);
-
-            var r = new GMapRoute(routePoints, "New route")
+            var r = new GMapRoute(_detailedRoute.Select(x => x.Key).ToList(), "New route")
             {
                 Stroke =
                 {
@@ -265,51 +260,98 @@ namespace BachelorLibAPI.Map
             GeoCoderStatusCode st;
             var placemarkEnd = GetPlacemark(EndPoint.Value, out st);
             var placemarkStart = GetPlacemark(StartPoint.Value, out st);
-            if (placemarkStart != null && (placemarkEnd != null && MessageBox.Show(string.Format("Маршрут: \nиз: {0}\nв: {1}\nРасстояние: {2} км.\nИспользовать этот маршрут для новой перевозки?\n\nВы можете добавить промежуточные точки для уточнения", 
-                placemarkStart.Value.Address, placemarkEnd.Value.Address, (distance + route.Distance).ToString("N2")), 
-                @"Требуется подтверждение!", MessageBoxButtons.YesNo) == DialogResult.Yes))
+            if (placemarkStart == null || (placemarkEnd == null || MessageBox.Show(
+                string.Format(
+                    "Маршрут: \nиз: {0}\nв: {1}\n{2} промежуточных точек\nРасстояние: {3} км.\n\nВы можете добавить промежуточные точки для уточнения\n\nИспользовать этот маршрут для новой перевозки?",
+                    placemarkStart.Value.Address, placemarkEnd.Value.Address, _middlePoints.Count,
+                    _distance.ToString("N2")),
+                @"Требуется подтверждение!", MessageBoxButtons.YesNo) != DialogResult.Yes))
             {
-                _startMarkerOverlay.Clear();
-                _endMarkerOverlay.Clear();
-                _middleMarkersOverlay.Clear();
-                    // сохранить
-                    // запустить таском генерацию всех подмаршрутов...
-                var cancellationToken = _stadiesGenerationCts.Token;
-                _stadiesGeneration = Task.Run(() => GenerateStadies(cancellationToken, routePoints, 50, 10), cancellationToken);
+                _routesOverlay.Clear();
+                return false;
+            }
+            
+            _startMarkerOverlay.Clear();
+            _endMarkerOverlay.Clear();
+            _middleMarkersOverlay.Clear();
+            _routesOverlay.Clear();
 
-                StartPoint = EndPoint = null;
-                _middlePoints.Clear();
-                //_stadiesGeneration.Wait();
+            StartPoint = EndPoint = null;
+            _middlePoints.Clear();
+            return true;
+        }
+
+        public void ConstructShortTrack()
+        {
+            if (_stadiesGeneration != null && !_stadiesGeneration.IsCompleted)
+                _stadiesGenerationCts.Cancel();
+            else if (_stadiesGeneration != null && _stadiesGeneration.IsCanceled)
+                Debug.WriteLine("Задача отменена");
+            else if (_stadiesGeneration != null && (_stadiesGeneration.IsCompleted || _stadiesGeneration.IsCanceled))
+                _stadiesGenerationCts.Dispose();
+
+
+            if (StartPoint == null)
+                throw new Exception(@"Не задана начальная точка");
+            if (EndPoint == null)
+                throw new Exception(@"Не задана конечная точка");
+
+            var routePoints = new List<PointLatLng>();
+            var curStart = StartPoint.Value;
+            _distance = 0;
+            MapRoute route;
+            _detailedRoute.Clear();
+
+            foreach (var middlePoint in _middlePoints)
+            {
+                route = ((OpenStreetMapProvider)_gmap.MapProvider).GetRoute(curStart, middlePoint, false, false, 11);
+                if (route == null || route.Points.Count == 0)
+                    throw new Exception(Resources.CannotConstructShortTrack);
+
+                routePoints.AddRange(route.Points);
+                routePoints.RemoveAt(routePoints.Count-1);
+                curStart = middlePoint;
+                _distance += route.Distance;
             }
 
-            _routesOverlay.Clear();
-            //var m = new GMapRoute(_detailedRoute.Select(x => x.Key).ToList(), "Re route")
-            //{
-            //    Stroke =
-            //    {
-            //        Width = 2,
-            //        Color = Color.Black
-            //    }
-            //};
-            //_routesOverlay.Routes.Add(m);
+            route = ((OpenStreetMapProvider)_gmap.MapProvider).GetRoute(curStart, EndPoint.Value, false, false, 11);
+            if (route == null || route.Points.Count == 0)
+                throw new Exception(Resources.CannotConstructShortTrack);
 
-            //r = new GMapRoute(routePoints.Where(x => routePoints.IndexOf(x) % 100 == 0).ToList(), "New route")
-            //{
-            //    Stroke =
-            //    {
-            //        Width = 2,
-            //        Color = Color.Red
-            //    }
-            //};
-
-            _routesOverlay.Routes.Add(r);
-            _gmap.ZoomAndCenterRoute(r);
+            routePoints.AddRange(route.Points);
+            _distance += route.Distance;
+            
+            _stadiesGenerationCts = new CancellationTokenSource();
+            var cancellationToken = _stadiesGenerationCts.Token;
+            _stadiesGeneration = Task.Run(() => GenerateStadies(cancellationToken, routePoints, 50, 10), cancellationToken);
         }
 
         public List<KeyValuePair<PointLatLng, int>> GetShortTrack()
         {
             _stadiesGeneration.Wait();
             return _detailedRoute;
+        }
+
+        public string GetStartPoint()
+        {
+            GeoCoderStatusCode st;
+            if (!StartPoint.HasValue) return "";
+
+            var plc = GetPlacemark(StartPoint.Value, out st);
+            return plc != null ? plc.Value.Address : "";
+        }
+        public string GetEndPoint()
+        {
+            GeoCoderStatusCode st;
+            if (!EndPoint.HasValue) return "";
+
+            var plc = GetPlacemark(EndPoint.Value, out st);
+            return plc != null ? plc.Value.Address : "";
+        }
+
+        public bool HasMidPoints()
+        {
+            return _middlePoints.Count != 0;
         }
 
         private Placemark? GetPlacemark(PointLatLng pnt, out GeoCoderStatusCode st)
@@ -344,31 +386,6 @@ namespace BachelorLibAPI.Map
             }
         }
 
-        private void MergeSortedLists(CancellationToken token, IList<KeyValuePair<PointLatLng, int>> lst1Res, IEnumerable<KeyValuePair<PointLatLng, int>> lst2)
-        {
-            var i = 0;
-            var startAdding = false;
-            var cnt = lst1Res.Count;
-            foreach (var elem in lst2)
-            {
-                if (token.IsCancellationRequested)
-                    return;
-
-                if (startAdding)
-                    lst1Res.Add(elem);
-                else
-                {
-                    while (!startAdding && lst1Res[i].Value <= elem.Value)
-                    {
-                        ++i;
-                        if (i >= cnt)
-                            startAdding = true;
-                    }
-                    lst1Res.Insert(i, elem);
-                }
-            }
-        }
-
         [SuppressMessage("ReSharper", "MethodSupportsCancellation")]
         private void GenerateStadies(CancellationToken token, IReadOnlyList<PointLatLng> routePoints, int diff,
             int threadsCount = 4)
@@ -397,6 +414,7 @@ namespace BachelorLibAPI.Map
             while (counter < (routePoints.Count - 1)/diff*threadsCount &&
                    (iterationPoints.Count == 0 || iterationPoints.Last().Key != routePoints[lastHandledPoint]))
             {
+                var arg = diff;
                 try
                 {
                     iterationPoints.Clear();
@@ -414,8 +432,9 @@ namespace BachelorLibAPI.Map
                 {
                     foreach (var task in tasks)
                     {
-                        if (token.IsCancellationRequested) return;
-                        task.Wait(diff*10);
+                        if (!token.IsCancellationRequested)
+                            task.Wait(arg*10);
+                        else return;
                     }
                 }
             }
@@ -485,11 +504,11 @@ namespace BachelorLibAPI.Map
         private readonly GMapOverlay _routesOverlay = new GMapOverlay("routes");
         private readonly GMapOverlay _markersOverlay = new GMapOverlay("markers");
         private readonly List<KeyValuePair<PointLatLng, int>> _detailedRoute = new List<KeyValuePair<PointLatLng, int>>();
-        private List<PointLatLng> _middlePoints = new List<PointLatLng>(); 
+        private readonly List<PointLatLng> _middlePoints = new List<PointLatLng>(); 
 
         private readonly List<TransitMarker> _transitMarkers = new List<TransitMarker>();
 
-        private readonly CancellationTokenSource _stadiesGenerationCts = new CancellationTokenSource();
+        private CancellationTokenSource _stadiesGenerationCts = new CancellationTokenSource();
         private Task _stadiesGeneration;
         private Action _mTransitsDrawingAction;
     }

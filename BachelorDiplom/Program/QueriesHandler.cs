@@ -240,10 +240,9 @@ namespace BachelorLibAPI.Program
         /// <param name="driverNum"></param>
         /// <param name="grz"></param>
         /// <param name="consName"></param>
-        /// <param name="placesLst"></param>
         /// <param name="start"></param>
         /// <param name="driverName"></param>
-        public void AddNewWaybill(string driverName, string driverNum, string grz, string consName, List<string> placesLst, DateTime start)
+        public void AddNewWaybill(string driverName, string driverNum, string grz, string consName, DateTime start)
         {
             var driverId = DataHandler.DriverWithPhoneNumber(driverNum);
 
@@ -258,10 +257,6 @@ namespace BachelorLibAPI.Program
 
             if (carId == -1)
                 throw new Exception("Нет автомобиля с таким регистрационным знаком");
-
-            int citiesCount = placesLst.Count;
-            if (placesLst.Count < 2)
-                throw new Exception("Как минимум водитель посетит 2 города: начальный и конечный!");
 
             //var fullCitiesList = Map.GetShortTrack(DataHandler.GetCityID(placesLst[0]), _dataHandler.GetCityID(placesLst[1]));
 
@@ -288,6 +283,58 @@ namespace BachelorLibAPI.Program
             //    DateTime noticedTime = start.AddMinutes(fullCitiesList[i].Value + _dataHandler.GetParkingMinutesOfTheCity(currentCityID));
             //    _dataHandler.AddNewTransitStady(transID, currentCityID, noticedTime);
             //}
+        }
+
+        public bool CheckAdress(ref string adress)
+        {
+                // хак, чтобы искал то, что сам же вернул :D
+            var elems = adress.Split(',').ToList();
+            if (elems.Count > 5)
+                adress = string.Format("{0},{1},{2},{3},{4}", elems[0], elems[1], elems[2], elems[3], elems[4]);
+            return Map.CheckAdress(adress);
+        }
+        public string GetCorrectAdress(string adress)
+        {
+            return Map.GetCorrectAdress(adress);
+        }
+
+        public void SetStartPoint(string adress)
+        {
+            Map.SetStartPoint(adress);
+        }
+
+        public string GetStartPoint()
+        {
+            return Map.GetStartPoint();
+        }
+
+        public void SetMiddlePoint(string adress)
+        {
+            Map.SetMiddlePoint(adress);
+        }
+
+        public bool HasMiddlePoints()
+        {
+            return Map.HasMidPoints();
+        }
+        public void SetEndPoint(string adress)
+        {
+            Map.SetEndPoint(adress);
+        }
+
+        public bool CheckBeforeAdding()
+        {
+            return Map.CheckBeforeAdding();
+        }
+
+        public string GetEndPoint()
+        {
+            return Map.GetEndPoint();
+        }
+
+        public void ConstructShortTrack()
+        {
+            Map.ConstructShortTrack();
         }
 
         private void SetProgressParameters(IEnumerable<int> citiesIDs, DateTime since, DateTime until)

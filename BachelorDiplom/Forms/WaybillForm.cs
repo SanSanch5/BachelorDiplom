@@ -2,95 +2,188 @@
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
+using System.Drawing;
+using System.Threading.Tasks;
+
 using BachelorLibAPI.Program;
 
 namespace BachelorLibAPI.Forms
 {
     public partial class WaybillForm : Form
     {
-        QueriesHandler _queriesHandler;
-        private static List<string> _citiesNamesList;
-        private List<string> _midCities;
-        private List<string> _consNames;
+        private QueriesHandler QueriesHandler { get; set; }
+        private readonly List<string> _consNames;
+        private static readonly Bitmap PicOk = new Bitmap(@"..\..\Resources\Pictures\ok.png");
+        private static readonly Bitmap PicNotOk = new Bitmap(@"..\..\Resources\Pictures\not_ok.png");
 
         public WaybillForm(QueriesHandler qh)
         {
             InitializeComponent();
-            _queriesHandler = qh;
-
-            _midCities = new List<string>();
-            _citiesNamesList = new List<string>();
+//            TopMost = true;
+            QueriesHandler = qh;
             _consNames = QueriesHandler.GetConsignmentsNames();
 
-            FillCombos();
+            if(QueriesHandler.HasMiddlePoints())
+                MessageBox.Show(@"Отмеченные промежуточные точки уже учтены.", @"Информация");
+
+            FillForm();
         }
 
-        private void FillCombos()
+        private void FillForm()
         {
-            foreach (var city in _citiesNamesList)
-            {
-                cmbStart.Items.Add(city);
-                cmbMid.Items.Add(city);
-                cmbArr.Items.Add(city);
-            }
-
             foreach (var cons in _consNames)
                 cmbCons.Items.Add(cons);
         }
 
-        private void AddNewWaybill(Object sender, EventArgs e)
+        private void AddNewWaybill(object sender, EventArgs e)
         {
-            /*
-             * на форме телефон водителя, наименование груза, названия начального и конечного пунктов и время отправления
-             * дописать, чтоб название груза выбирать из выпадающего списка.
-             */
             try
             {
                 var num = Regex.Replace(edtDriverPhoneNumber.Text, "[^0-9]", "");
                 var consName = cmbCons.Text;
-                var firstCity = cmbStart.Text;
-                var lastCity = cmbArr.Text;
+                var driverName = edtDriverName.Text;
+                var grz = edtGRZ.Text;
 
-                if((num == "" || num.Length != 10) || consName == "" || firstCity == "" || lastCity == "")
+                if((num == "" || num.Length != 10) || consName == "" || driverName == "" || grz == "")
                     throw new FormatException("Звёздочкой (*) отмечены поля для обязательного заполнения!");
+                if (!_consNames.Contains(consName))
+                    throw new FormatException("Выберите груз.");
 
-                var citiesLst = new List<string>();
-                citiesLst.Add(firstCity);
+                if (edtMid.Text != "" &&
+                    MessageBox.Show(@"Вы уверены, что не хотите добавить введённый промежуточный пункт?", @"Внимание!") !=
+                    DialogResult.Yes)
+                    return;
 
-                var city = cmbMid.Text;
-                if (_citiesNamesList.Contains(city))
-                    _midCities.Add(city);
-
-                citiesLst.AddRange(_midCities);
-                citiesLst.Add(lastCity);
-
-                var dt = dtpStart.Value;
-
-                //_queriesHandler.AddNewWaybill(num, consName, citiesLst, dt);
-                MessageBox.Show("Новая перевозка зарегистрирована.", "Информация");
+                Hide();
+                if (!QueriesHandler.CheckBeforeAdding()) return;
+                QueriesHandler.AddNewWaybill(driverName, num, grz, consName, dtpStart.Value);
+                MessageBox.Show(@"Новая перевозка зарегистрирована.", @"Информация");
             }
             catch (FormatException ex)
             {
-                MessageBox.Show(ex.Message, "Предупреждение");
+                Cursor.Current = Cursors.Default;
+                MessageBox.Show(ex.Message, @"Предупреждение");
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, "Нет данных в базе!");
+                Cursor.Current = Cursors.Default;
+                MessageBox.Show(ex.Message, @"Ошибка");
             }
         }
 
         private void AddMoreMidCities(Object sender, EventArgs e)
         {
-            var city = cmbMid.Text;
-            if (_citiesNamesList.Contains(city))
+            
+            QueriesHandler.SetMiddlePoint(edtMid.Text);
+            edtMid.Text = "";
+            CheckAndConstructRoute();
+        }
+
+        private bool _hasStart;
+        private bool _hasEnd;
+
+        private void CheckAndConstructRoute()
+        {
+            if (_hasStart && _hasEnd)
             {
-                _midCities.Add(city);
-                cmbMid.Text = "";
+                try
+                {
+                    btnNewWaybill.Enabled = true;
+                    Cursor.Current = Cursors.WaitCursor;
+                    QueriesHandler.ConstructShortTrack();
+                    Cursor.Current = Cursors.Default;
+                }
+                catch (Exception e)
+                {
+                    Close();
+                    MessageBox.Show(e.Message);
+                }
             }
             else
+                btnNewWaybill.Enabled = false;
+        }
+
+        private void OnFocusOut(object sender, EventArgs e)
+        {
+            var textBox = (TextBox) sender;
+            var txt = textBox.Text;
+            if (txt == "") return;
+
+            Cursor.Current = Cursors.WaitCursor;
+            var hasAdress = QueriesHandler.CheckAdress(ref txt);
+            textBox.Text = txt;
+
+            ttForOk.SetToolTip(textBox, hasAdress ? QueriesHandler.GetCorrectAdress(txt) : txt);
+
+            var pic = hasAdress
+                ? new Bitmap(PicOk, new Size(16, 16))
+                : new Bitmap(PicNotOk, new Size(16, 16));
+            var ttText = hasAdress ? "Адрес найден на карте" : "Адрес не найден на карте, проверьте и исправьте";
+            if (textBox == edtFrom)
             {
-                MessageBox.Show("Нет города " + city + " в базе данных", "Предупреждение");
+                picFrom.Image = pic;
+                ttForOk.SetToolTip(picFrom, ttText);
+                _hasStart = hasAdress;
+                if (_hasStart)
+                {
+                    QueriesHandler.SetStartPoint(txt);
+                    CheckAndConstructRoute();
+                }
             }
+            else if (textBox == edtMid)
+            {
+                picMid.Image = pic;
+                ttForOk.SetToolTip(picMid, ttText);
+                btnMoreMid.Enabled = hasAdress;
+            }
+            else if (textBox == edtTo)
+            {
+                picTo.Image = pic;
+                ttForOk.SetToolTip(picTo, ttText);
+                _hasEnd = hasAdress;
+                if (_hasEnd)
+                {
+                    QueriesHandler.SetEndPoint(txt);
+                    CheckAndConstructRoute();
+                }
+            }
+            Cursor.Current = Cursors.Default;
+        }
+
+        private void OnTextChanged(object sender, EventArgs e)
+        {
+            var textBox = (TextBox)sender;
+            if (textBox == edtFrom)
+            {
+                picFrom.Image = null;
+            }
+            else if (textBox == edtMid)
+            {
+                picMid.Image = null;
+                btnMoreMid.Enabled = false;
+            }
+            else if (textBox == edtTo)
+            {
+                picTo.Image = null;
+            }
+        }
+
+        private void WaybillForm_Enter(object sender, EventArgs e)
+        {
+            edtFrom.Text = QueriesHandler.GetStartPoint();
+            if (edtFrom.Text != "")
+            {
+                _hasStart = true;
+                picFrom.Image = new Bitmap(PicOk, new Size(16, 16));
+            }
+
+            edtTo.Text = QueriesHandler.GetEndPoint();
+            if (edtTo.Text != "")
+            {
+                _hasEnd = true;
+                picTo.Image = new Bitmap(PicOk, new Size(16, 16));
+            }
+            CheckAndConstructRoute();
         }
     }
 }

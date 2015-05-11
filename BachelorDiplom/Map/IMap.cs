@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Security.Cryptography.X509Certificates;
 using BachelorLibAPI.Data;
 using GMap.NET;
 
@@ -18,14 +19,19 @@ namespace BachelorLibAPI.Map
         List<KeyValuePair<PointLatLng, int>> GetShortTrack();
         string GetPlacemark(int x, int y);
         void SetStartPoint(PointLatLng start);
+        string GetStartPoint();
         void SetMiddlePoint(PointLatLng mid);
         void SetEndPoint(PointLatLng end);
+        string GetEndPoint();
         void SetStartPoint(string start);
         void SetMiddlePoint(string mid);
+        bool HasMidPoints();
         void SetEndPoint(string end);
         void ConstructShortTrack();
         void AddTransitMarker(TransitInfo transit);
         void RemoveTransitMarker(int transitId);
         bool CheckAdress(string adress);
+        string GetCorrectAdress(string adress);
+        bool CheckBeforeAdding();
     }
 }

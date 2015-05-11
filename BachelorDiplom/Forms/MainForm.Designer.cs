@@ -75,7 +75,6 @@ namespace BachelorLibAPI.Forms
             this.toolStripMenuItem3 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem5 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem4 = new System.Windows.Forms.ToolStripMenuItem();
-            this.построитьМаршрутToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ltMapPanel = new System.Windows.Forms.TableLayoutPanel();
             this.menuMain.SuspendLayout();
             this.ltMainOptions.SuspendLayout();
@@ -483,10 +482,9 @@ namespace BachelorLibAPI.Forms
             this.toolStripSeparator1,
             this.toolStripMenuItem3,
             this.toolStripMenuItem5,
-            this.toolStripMenuItem4,
-            this.построитьМаршрутToolStripMenuItem});
+            this.toolStripMenuItem4});
             this.mapMenu.Name = "mapMenu";
-            this.mapMenu.Size = new System.Drawing.Size(278, 142);
+            this.mapMenu.Size = new System.Drawing.Size(278, 120);
             this.mapMenu.Opening += new System.ComponentModel.CancelEventHandler(this.mapMenu_Opening);
             // 
             // toolStripMenuItem2
@@ -521,13 +519,6 @@ namespace BachelorLibAPI.Forms
             this.toolStripMenuItem4.Size = new System.Drawing.Size(277, 22);
             this.toolStripMenuItem4.Text = "Отметить как пункт назначения";
             this.toolStripMenuItem4.Click += new System.EventHandler(this.MarkEndPointClick);
-            // 
-            // построитьМаршрутToolStripMenuItem
-            // 
-            this.построитьМаршрутToolStripMenuItem.Name = "построитьМаршрутToolStripMenuItem";
-            this.построитьМаршрутToolStripMenuItem.Size = new System.Drawing.Size(277, 22);
-            this.построитьМаршрутToolStripMenuItem.Text = "Построить маршрут";
-            this.построитьМаршрутToolStripMenuItem.Click += new System.EventHandler(this.GetRouteClick);
             // 
             // ltMapPanel
             // 
@@ -615,7 +606,6 @@ namespace BachelorLibAPI.Forms
         private ToolStripMenuItem toolStripMenuItem2;
         private ToolStripMenuItem toolStripMenuItem3;
         private ToolStripMenuItem toolStripMenuItem4;
-        private ToolStripMenuItem построитьМаршрутToolStripMenuItem;
         private ToolStripSeparator toolStripSeparator1;
         private ToolStripMenuItem toolStripMenuItem5;
     }
