@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Diagnostics.CodeAnalysis;
 using System.Drawing;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Threading;
@@ -24,8 +24,8 @@ namespace BachelorLibAPI.Map
 {
     public sealed class OpenStreetGreatMap : IMap
     {
-        public PointLatLng? StartPoint { get; private set; }
-        public PointLatLng? EndPoint { get; private set; }
+        private PointLatLng? StartPoint { get; set; }
+        private PointLatLng? EndPoint { get; set; }
 
         public OpenStreetGreatMap(ref GMapControl gmap)
         {
@@ -46,17 +46,17 @@ namespace BachelorLibAPI.Map
             _gmap.Overlays.Add(_endMarkerOverlay);
             _gmap.OnMarkerClick += GmapOnMarkerClick;
 
-            AddTransitMarker(new TransitInfo
-            {
-                Id = 0,
-                Car = "Mersedez",
-                Consignment = "Аммиак",
-                Driver = "Пахомов Александр",
-                DriverNumber = "8(916)778-10-28",
-                From = "Москва",
-                Grz = "Е777КХ777",
-                To = "Воронеж"
-            });
+            //AddTransitMarker(new TransitInfo
+            //{
+            //    Id = 0,
+            //    Car = "Mersedez",
+            //    Consignment = "Аммиак",
+            //    Driver = "Пахомов Александр",
+            //    DriverNumber = "8(916)778-10-28",
+            //    From = "Москва",
+            //    Grz = "Е777КХ777",
+            //    To = "Воронеж"
+            //});
 
             SetActions();
             var mTransitsDrawing = new Task(_mTransitsDrawingAction);
@@ -115,8 +115,8 @@ namespace BachelorLibAPI.Map
                     MessageBoxIcon.Question) == DialogResult.Yes)
             {
                     // удалить перевозку
-
-                _transitMarkers.Remove(_transitMarkers.Where(x => x.Marker == marker).ToList()[0]);
+                lock (_transitMarkers)
+                    _transitMarkers.Remove(_transitMarkers.Where(x => x.Marker == marker).ToList()[0]);
                 _markersOverlay.Markers.Remove(marker);
             }
         }
@@ -126,24 +126,29 @@ namespace BachelorLibAPI.Map
             var m = new TransitMarker {Transit = transit};
             var pic = new Bitmap("..\\..\\Map\\Resources\\truckyellow.png");
             GeoCoderStatusCode st;
-            var p = new PointLatLng(55, 37);
-            m.Marker = new GMarkerGoogle(p, new Bitmap(pic, new Size(32, 32)))
+            var p = ((OpenStreetMapProvider)_gmap.MapProvider).GetPoint(transit.From, out st);
+            // ReSharper disable once PossibleInvalidOperationException
+            var plc = GetPlacemark(p.Value, out st);
+            m.Marker = new GMarkerGoogle(p.Value, new Bitmap(pic, new Size(32, 32)))
             {
                 ToolTipText =
                     string.Format(
                         "Перевозка #{0}\nОткуда: {1}\nКуда: {2}\nГруз: {3}\nВодитель: {4}\nНомер телефона: {5}\nАвтомобиль: {6}\nГРЗ: {7}\nТекущее местоположение: {8}",
                         m.Transit.Id, m.Transit.From, m.Transit.To, m.Transit.Consignment, m.Transit.Driver, m.Transit.DriverNumber, m.Transit.Car, m.Transit.Grz,
                         // ReSharper disable once PossibleInvalidOperationException
-                        GetPlacemark(p, out st).HasValue ? GetPlacemark(p, out st).Value.Address : @"Неизвестно")
+                        plc.HasValue ? plc.Value.Address : "")
             };
-            
-            _transitMarkers.Add(m);
+
+            lock (_transitMarkers)
+                _transitMarkers.Add(m);
             _markersOverlay.Markers.Add(m.Marker);
         }
 
         public void RemoveTransitMarker(int transitId)
         {
-            var m = _transitMarkers.Where(x => x.Transit.Id == transitId).Select(x => x.Marker).ToArray()[0];
+            GMarkerGoogle m;
+            lock (_transitMarkers)
+                m = _transitMarkers.Where(x => x.Transit.Id == transitId).Select(x => x.Marker).ToArray()[0];
             _markersOverlay.Markers.Remove(m);
         }
 
@@ -264,7 +269,9 @@ namespace BachelorLibAPI.Map
             _gmap.ZoomAndCenterRoute(r);
 
             GeoCoderStatusCode st;
+            // ReSharper disable once PossibleInvalidOperationException
             var placemarkEnd = GetPlacemark(EndPoint.Value, out st);
+            // ReSharper disable once PossibleInvalidOperationException
             var placemarkStart = GetPlacemark(StartPoint.Value, out st);
             if (placemarkStart == null || (placemarkEnd == null || MessageBox.Show(
                 string.Format(
@@ -423,7 +430,7 @@ namespace BachelorLibAPI.Map
                 var counter = 0;
                 var currentTime = 0;
                     // жёсткая логика для вытаскивания данных из другого потока
-                while (counter < (routePoints.Count - 1)/diff*threadsCount)
+                while (counter < (routePoints.Count - 1)/(diff*threadsCount))
                 {
                     for (var i = 0; i < results.Count; i++)
                     {
@@ -507,19 +514,45 @@ namespace BachelorLibAPI.Map
         private void DrawTransits(object stateInfo)
         {
             var autoEvent = (AutoResetEvent)stateInfo;
-            var filename = TempFilesDir + DateTime.Now.ToString("HH:mm_dd.MM.yyyy");
-            foreach(var transMarker in _transitMarkers)
-            {
-                // ищу файл по текущему времени, ищу в нём номер перевозки, устанавливаю позицию - изи
-                if (!File.Exists(filename)) continue;
-                using (var fs = new FileStream(filename, FileMode.Open))
-                {
+            var filename = TempFilesDir + DateTime.Now.ToString(Resources.TimeFileFormat);
+            if (!File.Exists(filename)) return;
 
+            var transitsForUpdated = new List<KeyValuePair<int, PointLatLng>>();
+            using (var sr = new StreamReader(new FileStream(filename, FileMode.Open)))
+            {
+                string line;
+                while ((line = sr.ReadLine()) != null)
+                {
+                    var splitted = line.Split(';').ToList();
+                    transitsForUpdated.Add(new KeyValuePair<int, PointLatLng>(int.Parse(splitted[0]),
+                        new PointLatLng(double.Parse(splitted[1], CultureInfo.InvariantCulture),
+                            double.Parse(splitted[2], CultureInfo.InvariantCulture))));
                 }
-                //transMarker.marker.Position = new PointLatLng(transMarker.marker.Position.Lat + 0.002, transMarker.marker.Position.Lng - 0.03);
             }
 
-            Debug.WriteLine("{0} I'm here!", DateTime.Now.ToString("HH:mm_dd.MM.yyyy"));
+            lock(_transitMarkers)
+            {
+                foreach(var transMarker in _transitMarkers)
+                {
+                    var marker = transMarker;
+                    var markerPos = transitsForUpdated.Where(x => x.Key == marker.Transit.Id).ToArray();
+                    if (!markerPos.Any()) continue;
+
+                    transMarker.Marker.Position = markerPos.First().Value;
+                    GeoCoderStatusCode st;
+                    var plc = GetPlacemark(transMarker.Marker.Position, out st);
+                    transMarker.Marker.ToolTipText =
+                        string.Format(
+                            "Перевозка #{0}\nОткуда: {1}\nКуда: {2}\nГруз: {3}\nВодитель: {4}\nНомер телефона: {5}\nАвтомобиль: {6}\nГРЗ: {7}\nТекущее местоположение: {8}",
+                            transMarker.Transit.Id, transMarker.Transit.From, transMarker.Transit.To,
+                            transMarker.Transit.Consignment, transMarker.Transit.Driver,
+                            transMarker.Transit.DriverNumber, transMarker.Transit.Car, transMarker.Transit.Grz,
+                            // ReSharper disable once PossibleInvalidOperationException
+                            plc.HasValue ? plc.Value.Address : "");
+                }
+            }
+
+            Debug.WriteLine("{0} I'm here!", DateTime.Now.ToString(Resources.TimeFileFormat));
             autoEvent.Set();
         }
 

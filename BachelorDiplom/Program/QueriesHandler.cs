@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 
@@ -7,6 +9,8 @@ using BachelorLibAPI.Data;
 using BachelorLibAPI.Forms;
 using BachelorLibAPI.Map;
 using BachelorLibAPI.Algorithms;
+using BachelorLibAPI.Properties;
+using GMap.NET;
 
 //using System.Transactions;
 
@@ -48,7 +52,7 @@ namespace BachelorLibAPI.Program
         /// <summary>
         /// Свойство устанавливает новую реализацию интерфейса IMap и возвращает текущуюю
         /// </summary>
-        public IMap Map { get; private set; }
+        public IMap Map { get; set; }
 
         public static List<string> GetConsignmentsNames()
         {
@@ -228,6 +232,8 @@ namespace BachelorLibAPI.Program
             DataHandler.SubmitChanges();
         }
 
+        private const string TempFilesDir = @"..\..\TempStadiesFiles\";
+
         /// <summary>
         /// Добавление нового путевого листа
         /// Не производится добавление водителя! 
@@ -242,47 +248,57 @@ namespace BachelorLibAPI.Program
         /// <param name="consName"></param>
         /// <param name="start"></param>
         /// <param name="driverName"></param>
-        public void AddNewWaybill(string driverName, string driverNum, string grz, string consName, DateTime start)
+        /// <param name="from"></param>
+        /// <param name="to"></param>
+        public void AddNewWaybill(string driverName, string driverNum, string grz, string consName, DateTime start,
+            string from, string to)
         {
             var driverId = DataHandler.DriverWithPhoneNumber(driverNum);
 
             if (driverId == -1)
-                throw new Exception("Нет водителя с таким номером телефона");
+//                DataHandler.AddNewContact(driverId, driverNum);
+                throw new Exception("Водитель с таким номером не найден");
+            else
+            {
+                var name = DataHandler.GetDriverName(driverId);
+                if (name != driverName)
+                    throw new Exception(string.Format("Водителя с таким номером телефона зовут {0}, а не {1}", name, driverName));
+            }
 
-            var name = DataHandler.GetDriverName(driverId);
-            if (name != driverName)
-                throw new Exception(string.Format("Водителя с таким номером телефона зовут {0}, а не {1}", name, driverName));
-
-            var carId = DataHandler.GetCarIdByGRZ(driverNum);
+            var carId = DataHandler.GetCarIdByGRZ(grz);
 
             if (carId == -1)
                 throw new Exception("Нет автомобиля с таким регистрационным знаком");
 
-            //var fullCitiesList = Map.GetShortTrack(DataHandler.GetCityID(placesLst[0]), _dataHandler.GetCityID(placesLst[1]));
+            Cursor.Current = Cursors.WaitCursor;
+            var detailedRoute = Map.GetShortTrack();
+            var transitId = DataHandler.AddNewTransit(driverId, carId, consName, start, detailedRoute.First().Key,
+                detailedRoute.Last().Key);
 
-            //for (int i = 1; i < citiesCount - 1; ++i)
-            //{
-            //    int correction = fullCitiesList.Last().Value;
-            //    var localCitiesList = _map.getShortTrack(_dataHandler.GetCityID(placesLst[i]), _dataHandler.GetCityID(placesLst[i + 1]), correction);
-            //    localCitiesList.Remove(localCitiesList.First());
+            var checkTime = DateTime.Now;
+            foreach (var keyValuePair in detailedRoute)
+            {
+                var tm = start.AddMinutes(keyValuePair.Value);
+                var fs = new FileStream(TempFilesDir + tm.ToString(Resources.TimeFileFormat), FileMode.Append);
+                using (var sw = new StreamWriter(fs))
+                {
+                    sw.WriteLine("{0};{1};{2}", transitId, keyValuePair.Key.Lat, keyValuePair.Key.Lng);
+                }
+            }
+            Debug.WriteLine("Данные записаны в файлы. Затраченное время {0}сек", (DateTime.Now.Ticks-checkTime.Ticks)/TimeSpan.TicksPerSecond);
 
-            //    fullCitiesList.AddRange(localCitiesList);
-            //}
-
-            //string fullCitiesIDsString = "";
-            //foreach (var id in fullCitiesList)
-            //    fullCitiesIDsString += id.Key.ToString() + " ";
-
-            //int transID = _dataHandler.AddNewTransit(driverID, consID);
-            //_dataHandler.AddNewRoute(transID, start, DateTime.MinValue, fullCitiesIDsString, false);
-
-            //citiesCount = fullCitiesList.Count;
-            //for (int i = 0; i < citiesCount; ++i)
-            //{
-            //    int currentCityID = fullCitiesList[i].Key;
-            //    DateTime noticedTime = start.AddMinutes(fullCitiesList[i].Value + _dataHandler.GetParkingMinutesOfTheCity(currentCityID));
-            //    _dataHandler.AddNewTransitStady(transID, currentCityID, noticedTime);
-            //}
+            Map.AddTransitMarker(new TransitInfo
+            {
+                Car = DataHandler.GetCarInformation(carId),
+                Consignment = consName,
+                Driver = driverName,
+                DriverNumber = driverNum,
+                From = from,
+                To = to,
+                Grz = grz,
+                Id = transitId
+            });
+            Cursor.Current = Cursors.Default;
         }
 
         public bool CheckAdress(ref string adress)

@@ -7,6 +7,7 @@ using BachelorLibAPI.Data;
 using BachelorLibAPI.Map;
 using BachelorLibAPI.Program;
 using BachelorLibAPI.TestsGenerator;
+using GMap.NET;
 
 namespace BachelorLibAPI.Forms
 {
@@ -26,6 +27,7 @@ namespace BachelorLibAPI.Forms
             {
                 AnalyseProgress = pbAnalyse
             };
+
             FillMainForm();
         }
 

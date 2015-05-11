@@ -124,4 +124,10 @@
     <value>Не удалось построить маршрут.</value>
     <comment>Сообщение при невозможности построение</comment>
   </data>
+  <data name="TimeFileFormat" xml:space="preserve">
+    <value>HH-mm_dd-MM-yyyy</value>
+  </data>
+  <data name="PgConnectionString" xml:space="preserve">
+    <value>Server=localhost;Port=5432;User Id=alex;Password=4;Database=cars_tracking;</value>
+  </data>
 </root>

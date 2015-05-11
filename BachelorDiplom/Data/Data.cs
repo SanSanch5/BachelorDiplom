@@ -84,9 +84,13 @@ namespace BachelorLibAPI.Data
         /// Добавить новую перевозку
         /// </summary>
         /// <param name="driverId"></param>
-        /// <param name="consignmentId"></param>
+        /// <param name="carId"></param>
+        /// <param name="consName"></param>
+        /// <param name="startTime"></param>
+        /// <param name="startPoint"></param>
+        /// <param name="endPoint"></param>
         /// <returns>ID добавленной перевозки</returns>
-        int AddNewTransit(int driverId, int consignmentId);
+        int AddNewTransit(int driverId, int carId, string consName, DateTime startTime, PointLatLng startPoint, PointLatLng endPoint);
 
         /// <summary>
         /// Удалить перевозку
@@ -117,6 +121,8 @@ namespace BachelorLibAPI.Data
         int DriverWithPhoneNumber(string contact);
 
         string GetDriversFullName(int driverId);
+
+        string GetCarInformation(int carId);
         List<string> GetDriversFullNames();
 
         /// <summary>
