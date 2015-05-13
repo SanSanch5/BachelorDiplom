@@ -1,0 +1,16 @@
+<map id="Иерархия классов. Графический вид." name="Иерархия классов. Графический вид.">
+<area shape="rect" id="node2" href="$class_bachelor_lib_a_p_i_1_1_forms_1_1_analyse_results_form.html" title="BachelorLibAPI.Forms.Analyse\lResultsForm" alt="" coords="131,5,334,47"/>
+<area shape="rect" id="node3" href="$class_bachelor_lib_a_p_i_1_1_forms_1_1_consignment_add_form.html" title="BachelorLibAPI.Forms.Consignment\lAddForm" alt="" coords="117,71,349,112"/>
+<area shape="rect" id="node4" href="$class_bachelor_lib_a_p_i_1_1_forms_1_1_driver_add_form.html" title="BachelorLibAPI.Forms.Driver\lAddForm" alt="" coords="139,136,327,177"/>
+<area shape="rect" id="node5" href="$class_bachelor_lib_a_p_i_1_1_forms_1_1_driver_del_box.html" title="BachelorLibAPI.Forms.Driver\lDelBox" alt="" coords="139,201,327,243"/>
+<area shape="rect" id="node6" href="$class_bachelor_lib_a_p_i_1_1_forms_1_1_driver_del_form.html" title="BachelorLibAPI.Forms.Driver\lDelForm" alt="" coords="139,267,327,308"/>
+<area shape="rect" id="node7" href="$class_bachelor_lib_a_p_i_1_1_forms_1_1_driver_info_form.html" title="BachelorLibAPI.Forms.Driver\lInfoForm" alt="" coords="139,332,327,373"/>
+<area shape="rect" id="node8" href="$class_bachelor_lib_a_p_i_1_1_forms_1_1_main_form.html" title="BachelorLibAPI.Forms.MainForm" alt="" coords="125,398,340,425"/>
+<area shape="rect" id="node9" href="$class_bachelor_lib_a_p_i_1_1_forms_1_1_namesakes_box.html" title="BachelorLibAPI.Forms.NamesakesBox" alt="" coords="109,449,357,475"/>
+<area shape="rect" id="node10" href="$class_bachelor_lib_a_p_i_1_1_forms_1_1_namesakes_form.html" title="BachelorLibAPI.Forms.NamesakesForm" alt="" coords="105,499,360,526"/>
+<area shape="rect" id="node11" href="$class_bachelor_lib_a_p_i_1_1_forms_1_1_password_box.html" title="BachelorLibAPI.Forms.PasswordBox" alt="" coords="115,550,351,577"/>
+<area shape="rect" id="node12" href="$class_bachelor_lib_a_p_i_1_1_forms_1_1_progress_bar_form.html" title="BachelorLibAPI.Forms.Progress\lBarForm" alt="" coords="129,601,337,643"/>
+<area shape="rect" id="node13" href="$class_bachelor_lib_a_p_i_1_1_forms_1_1_transits_del_before_form.html" title="BachelorLibAPI.Forms.Transits\lDelBeforeForm" alt="" coords="131,667,334,708"/>
+<area shape="rect" id="node14" href="$class_bachelor_lib_a_p_i_1_1_forms_1_1_waybill_form.html" title="BachelorLibAPI.Forms.WaybillForm" alt="" coords="118,733,347,759"/>
+<area shape="rect" id="node15" href="$class_bachelor_lib_a_p_i_1_1_tests_generator_1_1_tests_generator_form.html" title="BachelorLibAPI.TestsGenerator.\lTestsGeneratorForm" alt="" coords="129,784,337,825"/>
+</map>
