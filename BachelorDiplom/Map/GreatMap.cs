@@ -46,20 +46,8 @@ namespace BachelorLibAPI.Map
             _gmap.Overlays.Add(_endMarkerOverlay);
             _gmap.OnMarkerClick += GmapOnMarkerClick;
 
-            //AddTransitMarker(new TransitInfo
-            //{
-            //    Id = 0,
-            //    Car = "Mersedez",
-            //    Consignment = "Аммиак",
-            //    Driver = "Пахомов Александр",
-            //    DriverNumber = "8(916)778-10-28",
-            //    From = "Москва",
-            //    Grz = "Е777КХ777",
-            //    To = "Воронеж"
-            //});
-
             SetActions();
-            var mTransitsDrawing = new Task(_mTransitsDrawingAction);
+            var mTransitsDrawing = new Task(_transitsDrawingAction);
             mTransitsDrawing.Start();
         }
 
@@ -89,7 +77,13 @@ namespace BachelorLibAPI.Map
         private void GmapOnMarkerClick(object sender, MouseEventArgs mouseEventArgs)
         {
             var menu = new ContextMenuStrip();
+
             menu.Items.Add(@"Удалить", new Bitmap("..\\..\\Map\\Resources\\cross.png"), (o, args) => RemoveMarkerAdvanced(sender as GMarkerGoogle));
+            menu.Items.Add(@"Приблизить", new Bitmap("..\\..\\Map\\Resources\\in.png"), (o, args) =>
+            {
+                _gmap.Position = ((GMarkerGoogle)sender).Position;
+                _gmap.Zoom = 15;
+            });
             menu.Show(Cursor.Position);
         }
 
@@ -490,7 +484,7 @@ namespace BachelorLibAPI.Map
 
         private void SetActions()
         {
-            _mTransitsDrawingAction = () =>
+            _transitsDrawingAction = () =>
             {
                 var drawingEvent = new AutoResetEvent(false);
                 TimerCallback tcb = DrawTransits;
@@ -500,6 +494,10 @@ namespace BachelorLibAPI.Map
                 while (true)
                     drawingEvent.WaitOne();
                 // ReSharper disable once FunctionNeverReturns
+            };
+            _transitsInitialization = () =>
+            {
+//                var transits = 
             };
         }
 
@@ -569,6 +567,7 @@ namespace BachelorLibAPI.Map
 
         private CancellationTokenSource _stadiesGenerationCts = new CancellationTokenSource();
         private Task _stadiesGeneration;
-        private Action _mTransitsDrawingAction;
+        private Action _transitsDrawingAction;
+        private Action _transitsInitialization;
     }
 }

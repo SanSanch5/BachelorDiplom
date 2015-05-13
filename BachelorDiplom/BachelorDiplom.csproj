@@ -129,6 +129,12 @@
     <Compile Include="Forms\PasswordBox.Designer.cs">
       <DependentUpon>PasswordBox.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\ProgressBarForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\ProgressBarForm.Designer.cs">
+      <DependentUpon>ProgressBarForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\TransitsDelBeforeForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -186,6 +192,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\PasswordBox.resx">
       <DependentUpon>PasswordBox.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\ProgressBarForm.resx">
+      <DependentUpon>ProgressBarForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\TransitsDelBeforeForm.resx">
       <DependentUpon>TransitsDelBeforeForm.cs</DependentUpon>

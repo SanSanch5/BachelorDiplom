@@ -70,6 +70,15 @@ namespace BachelorLibAPI.Properties {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на yyyy-MM-dd HH:mm:ss.
+        /// </summary>
+        internal static string DateTimeFormat {
+            get {
+                return ResourceManager.GetString("DateTimeFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Server=localhost;Port=5432;User Id=alex;Password=4;Database=cars_tracking;.
         /// </summary>
         internal static string PgConnectionString {

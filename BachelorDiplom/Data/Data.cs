@@ -138,6 +138,8 @@ namespace BachelorLibAPI.Data
         /// </summary>
         /// <returns></returns>
         List<int> GetTransitIDs(DateTime start, DateTime until, int placeId);
+        List<int> GetTransitIDs();
+        List<TransitInfo> GetTransits();
 
         List<int> GetTransitIDs(int driverId);
 
@@ -153,6 +155,8 @@ namespace BachelorLibAPI.Data
         /// </summary>
         /// <returns>Список всех контактов</returns>
         List<string> GetNumbers();
+
+        List<string> GetGrzList(); 
 
         /// <summary>
         /// Определить водителя по номеру первозки

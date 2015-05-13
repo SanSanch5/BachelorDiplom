@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
 using BachelorLibAPI.Data;
@@ -57,6 +58,16 @@ namespace BachelorLibAPI.Program
         public static List<string> GetConsignmentsNames()
         {
             return Ahov.Coefficient.Select(x => x.Key).ToList();
+        }
+
+        public List<string> GetGrzList()
+        {
+            return DataHandler.GetGrzList();
+        }
+
+        public string GetCarInfo(string grz)
+        {
+            return DataHandler.GetCarInformation(DataHandler.GetCarIdByGRZ(grz));
         }
 
         private void AddDriver(string lName, string name, string mName, string num1, string num2)
@@ -275,17 +286,27 @@ namespace BachelorLibAPI.Program
             var transitId = DataHandler.AddNewTransit(driverId, carId, consName, start, detailedRoute.First().Key,
                 detailedRoute.Last().Key);
 
-            var checkTime = DateTime.Now;
-            foreach (var keyValuePair in detailedRoute)
+            Task.Run(() =>
             {
-                var tm = start.AddMinutes(keyValuePair.Value);
-                var fs = new FileStream(TempFilesDir + tm.ToString(Resources.TimeFileFormat), FileMode.Append);
-                using (var sw = new StreamWriter(fs))
+                var pbForm = new ProgressBarForm(@"Запись временных файлов", detailedRoute.Count);
+
+                var fsForTransit = new FileStream(TempFilesDir + string.Format("\\Transits\\{0}", transitId), FileMode.Create);
+                using (var swForTransit = new StreamWriter(fsForTransit))
                 {
-                    sw.WriteLine("{0};{1};{2}", transitId, keyValuePair.Key.Lat, keyValuePair.Key.Lng);
+                    foreach (var keyValuePair in detailedRoute)
+                    {
+                        var tm = start.AddMinutes(keyValuePair.Value);
+                        var fs = new FileStream(TempFilesDir + tm.ToString(Resources.TimeFileFormat), FileMode.Append);
+                        using (var sw = new StreamWriter(fs))
+                        {
+                            sw.WriteLine("{0};{1};{2}", transitId, keyValuePair.Key.Lat, keyValuePair.Key.Lng);
+                        }
+                        swForTransit.WriteLine("{0};{1};{2}", tm.ToString(Resources.DateTimeFormat), keyValuePair.Key.Lat, keyValuePair.Key.Lng);
+                        pbForm.Progress();
+                    }
                 }
-            }
-            Debug.WriteLine("Данные записаны в файлы. Затраченное время {0}сек", (DateTime.Now.Ticks-checkTime.Ticks)/TimeSpan.TicksPerSecond);
+                pbForm.Close();
+            });
 
             Map.AddTransitMarker(new TransitInfo
             {

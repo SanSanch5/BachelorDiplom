@@ -52,13 +52,15 @@ namespace BachelorLibAPI.Forms
             this.label2 = new System.Windows.Forms.Label();
             this.dtpStart = new System.Windows.Forms.DateTimePicker();
             this.label4 = new System.Windows.Forms.Label();
-            this.edtGRZ = new System.Windows.Forms.TextBox();
             this.btnNewWaybill = new System.Windows.Forms.Button();
             this.ttForOk = new System.Windows.Forms.ToolTip(this.components);
+            this.cmbGRZ = new System.Windows.Forms.ComboBox();
+            this.picGrz = new System.Windows.Forms.PictureBox();
             this.ltpNewDriver.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picFrom)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picTo)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picMid)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picGrz)).BeginInit();
             this.SuspendLayout();
             // 
             // ltpNewDriver
@@ -88,8 +90,9 @@ namespace BachelorLibAPI.Forms
             this.ltpNewDriver.Controls.Add(this.label2, 0, 6);
             this.ltpNewDriver.Controls.Add(this.dtpStart, 1, 6);
             this.ltpNewDriver.Controls.Add(this.label4, 0, 5);
-            this.ltpNewDriver.Controls.Add(this.edtGRZ, 1, 5);
             this.ltpNewDriver.Controls.Add(this.btnNewWaybill, 2, 6);
+            this.ltpNewDriver.Controls.Add(this.cmbGRZ, 1, 5);
+            this.ltpNewDriver.Controls.Add(this.picGrz, 2, 5);
             this.ltpNewDriver.Dock = System.Windows.Forms.DockStyle.Fill;
             this.ltpNewDriver.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.ltpNewDriver.Location = new System.Drawing.Point(0, 0);
@@ -252,11 +255,11 @@ namespace BachelorLibAPI.Forms
             this.label3.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label3.Location = new System.Drawing.Point(130, 143);
+            this.label3.Location = new System.Drawing.Point(142, 143);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(118, 19);
+            this.label3.Size = new System.Drawing.Size(106, 19);
             this.label3.TabIndex = 25;
-            this.label3.Text = "* Имя водителя:";
+            this.label3.Text = "Имя водителя:";
             // 
             // lblTelephoneNumber
             // 
@@ -310,14 +313,6 @@ namespace BachelorLibAPI.Forms
             this.label4.TabIndex = 27;
             this.label4.Text = "* ГРЗ автомобиля:";
             // 
-            // edtGRZ
-            // 
-            this.edtGRZ.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.edtGRZ.Location = new System.Drawing.Point(254, 174);
-            this.edtGRZ.Name = "edtGRZ";
-            this.edtGRZ.Size = new System.Drawing.Size(212, 26);
-            this.edtGRZ.TabIndex = 28;
-            // 
             // btnNewWaybill
             // 
             this.btnNewWaybill.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -332,6 +327,27 @@ namespace BachelorLibAPI.Forms
             this.btnNewWaybill.Text = "Добавить перевозку";
             this.btnNewWaybill.UseVisualStyleBackColor = true;
             this.btnNewWaybill.Click += new System.EventHandler(this.AddNewWaybill);
+            // 
+            // cmbGRZ
+            // 
+            this.cmbGRZ.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.cmbGRZ.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.cmbGRZ.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
+            this.cmbGRZ.FormattingEnabled = true;
+            this.cmbGRZ.Location = new System.Drawing.Point(254, 176);
+            this.cmbGRZ.Name = "cmbGRZ";
+            this.cmbGRZ.Size = new System.Drawing.Size(212, 27);
+            this.cmbGRZ.TabIndex = 28;
+            this.cmbGRZ.SelectedIndexChanged += new System.EventHandler(this.cmbGRZ_SelectedIndexChanged);
+            // 
+            // picGrz
+            // 
+            this.picGrz.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.picGrz.Location = new System.Drawing.Point(472, 179);
+            this.picGrz.Name = "picGrz";
+            this.picGrz.Size = new System.Drawing.Size(16, 16);
+            this.picGrz.TabIndex = 29;
+            this.picGrz.TabStop = false;
             // 
             // WaybillForm
             // 
@@ -348,6 +364,7 @@ namespace BachelorLibAPI.Forms
             ((System.ComponentModel.ISupportInitialize)(this.picFrom)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.picTo)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.picMid)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picGrz)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -376,6 +393,7 @@ namespace BachelorLibAPI.Forms
         private Label label3;
         private TextBox edtDriverName;
         private Label label4;
-        private TextBox edtGRZ;
+        private ComboBox cmbGRZ;
+        private PictureBox picGrz;
     }
 }

@@ -92,7 +92,7 @@ namespace BachelorLibAPI.Data
                     string.Format(
                         "INSERT INTO t_transit(dirver_id, car_id, start_time, start_position, end_position, consignment_name) " +
                         "VALUES ({0}, {1}, '{2}', '({3}, {4})', '({5}, {6})', '{7}');", driverId, carId,
-                        startTime.ToString("yyyy-MM-dd HH:mm:ss"), startPoint.Lat, startPoint.Lng, endPoint.Lat,
+                        startTime.ToString(Resources.DateTimeFormat), startPoint.Lat, startPoint.Lng, endPoint.Lat,
                         endPoint.Lng, consName), _npgsqlConnection);
             cmd.ExecuteNonQuery();
 
@@ -164,6 +164,7 @@ namespace BachelorLibAPI.Data
             try
             {
                 res = (string) cmd.ExecuteScalar();
+                res = res ?? "";
             }
             catch (Exception)
             {
@@ -197,6 +198,58 @@ namespace BachelorLibAPI.Data
             return new List<int>();
         }
 
+        public List<int> GetTransitIDs()
+        {
+            _npgsqlConnection.Open();
+
+            var cmd = new NpgsqlCommand("SELECT id from t_transit;", _npgsqlConnection);
+            var res = new List<int>();
+
+            try
+            {
+                var dr = cmd.ExecuteReader();
+                while (dr.Read())
+                    res.Add(int.Parse(dr[0].ToString()));
+            }
+            catch (Exception)
+            {
+                res = new List<int>();
+            }
+            finally
+            {
+                _npgsqlConnection.Close();
+            }
+
+            return res;
+        }
+
+        public List<TransitInfo> GetTransits()
+        {
+            _npgsqlConnection.Open();
+
+            var cmd = new NpgsqlCommand("SELECT id from t_transit;", _npgsqlConnection);
+            var res = new List<TransitInfo>();
+
+            try
+            {
+                var dr = cmd.ExecuteReader();
+                while (dr.Read())
+                {
+                    
+                }
+            }
+            catch (Exception)
+            {
+                res = new List<TransitInfo>();
+            }
+            finally
+            {
+                _npgsqlConnection.Close();
+            }
+
+            return res;
+        }
+
         public List<int> GetTransitIDs(int driverId)
         {
             return new List<int>();
@@ -210,6 +263,31 @@ namespace BachelorLibAPI.Data
         public List<string> GetNumbers()
         {
             return new List<string>();
+        }
+
+        public List<string> GetGrzList()
+        {
+            _npgsqlConnection.Open();
+
+            var cmd = new NpgsqlCommand("SELECT grz from t_grz;", _npgsqlConnection);
+            var res = new List<string>();
+
+            try
+            {
+                var dr = cmd.ExecuteReader();
+                while (dr.Read())
+                    res.Add(dr[0].ToString());
+            }
+            catch (Exception)
+            {
+                res = new List<string>();
+            }
+            finally
+            {
+                _npgsqlConnection.Close();
+            }
+
+            return res;
         }
 
         public int GetDriverId(int transId)

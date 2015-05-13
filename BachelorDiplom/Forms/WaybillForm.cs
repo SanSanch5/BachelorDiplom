@@ -12,15 +12,20 @@ namespace BachelorLibAPI.Forms
     {
         private QueriesHandler QueriesHandler { get; set; }
         private readonly List<string> _consNames;
+        private readonly List<string> _grzList;
         private static readonly Bitmap PicOk = new Bitmap(@"..\..\Resources\Pictures\ok.png");
         private static readonly Bitmap PicNotOk = new Bitmap(@"..\..\Resources\Pictures\not_ok.png");
 
         public WaybillForm(QueriesHandler qh)
         {
             InitializeComponent();
-//            TopMost = true;
+            var screen = Screen.PrimaryScreen;
+            Left = 25;
+            Top = screen.WorkingArea.Top + 50;
+
             QueriesHandler = qh;
             _consNames = QueriesHandler.GetConsignmentsNames();
+            _grzList = QueriesHandler.GetGrzList();
 
             if(QueriesHandler.HasMiddlePoints())
                 MessageBox.Show(@"Отмеченные промежуточные точки уже учтены.", @"Информация");
@@ -32,9 +37,9 @@ namespace BachelorLibAPI.Forms
         {
             foreach (var cons in _consNames)
                 cmbCons.Items.Add(cons);
-            var screen = Screen.PrimaryScreen;
-            Left = /*screen.WorkingArea.Right - Width - */25;
-            Top = screen.WorkingArea.Top + 50;
+            
+            foreach (var grz in _grzList)
+                cmbGRZ.Items.Add(grz);
         }
 
         private void AddNewWaybill(object sender, EventArgs e)
@@ -44,12 +49,14 @@ namespace BachelorLibAPI.Forms
                 var num = Regex.Replace(edtDriverPhoneNumber.Text, "[^0-9]", "");
                 var consName = cmbCons.Text;
                 var driverName = edtDriverName.Text;
-                var grz = edtGRZ.Text;
+                var grz = cmbGRZ.Text;
 
                 if((num == "" || num.Length != 10) || consName == "" || driverName == "" || grz == "")
                     throw new FormatException("Звёздочкой (*) отмечены поля для обязательного заполнения!");
                 if (!_consNames.Contains(consName))
                     throw new FormatException("Выберите груз.");
+                if (!_grzList.Contains(grz))
+                    throw new FormatException("Выберите номер (ГРЗ).");
 
                 if (edtMid.Text != "")
                 {
@@ -190,6 +197,18 @@ namespace BachelorLibAPI.Forms
             }
             if (_needUpdate) CheckAndConstructRoute();
             else _needUpdate = true;
+        }
+
+        private void cmbGRZ_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            var grz = cmbGRZ.Text;
+            var car = QueriesHandler.GetCarInfo(grz);
+
+            ttForOk.SetToolTip(cmbGRZ, car != "" ? car : @"Автомобиль с этим номером не зарегистрирован");
+            ttForOk.SetToolTip(picGrz, car != "" ? car : @"Автомобиль с этим номером не зарегистрирован");
+            picGrz.Image = car != ""
+                ? new Bitmap(PicOk, new Size(16, 16))
+                : new Bitmap(PicNotOk, new Size(16, 16));
         }
     }
 }

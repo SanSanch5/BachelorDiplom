@@ -130,4 +130,7 @@
   <data name="PgConnectionString" xml:space="preserve">
     <value>Server=localhost;Port=5432;User Id=alex;Password=4;Database=cars_tracking;</value>
   </data>
+  <data name="DateTimeFormat" xml:space="preserve">
+    <value>yyyy-MM-dd HH:mm:ss</value>
+  </data>
 </root>
