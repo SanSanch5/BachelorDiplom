@@ -62,14 +62,12 @@
 <div class="dyncontent">
 <div class="center"><img src="interface_bachelor_lib_a_p_i_1_1_map_1_1_i_map__inherit__graph.png" border="0" usemap="#_bachelor_lib_a_p_i_8_map_8_i_map_inherit__map" alt="Inheritance graph"/></div>
 <map name="_bachelor_lib_a_p_i_8_map_8_i_map_inherit__map" id="_bachelor_lib_a_p_i_8_map_8_i_map_inherit__map">
-<area shape="rect" id="node2" href="class_bachelor_lib_a_p_i_1_1_map_1_1_open_street_great_map.html" title="{BachelorLibAPI.Map.OpenStreet\lGreatMap\n|+ StartPoint\l+ EndPoint\l|+ OpenStreetGreatMap()\l+ CheckAdress()\l+ GetCorrectAdress()\l+ AddTransitMarker()\l+ RemoveTransitMarker()\l+ GetPlacemark()\l+ SetStartPoint()\l+ SetStartPoint()\l+ SetMiddlePoint()\l+ SetMiddlePoint()\l+ SetEndPoint()\l+ SetEndPoint()\l+ CheckBeforeAdding()\l+ ConstructShortTrack()\l+ GetShortTrack()\l+ GetStartPoint()\l+ GetEndPoint()\l+ HasMidPoints()\l}" alt="" coords="5,365,216,721"/></map>
+<area shape="rect" id="node2" href="class_bachelor_lib_a_p_i_1_1_map_1_1_open_street_great_map.html" title="{BachelorLibAPI.Map.OpenStreet\lGreatMap\n|+ StartPoint\l+ EndPoint\l|+ OpenStreetGreatMap()\l+ CheckAdress()\l+ GetCorrectAdress()\l+ AddTransitMarker()\l+ RemoveTransitMarker()\l+ GetPlacemark()\l+ SetStartPoint()\l+ SetStartPoint()\l+ SetMiddlePoint()\l+ SetMiddlePoint()\l+ SetEndPoint()\l+ SetEndPoint()\l+ CheckBeforeAdding()\l+ ConstructShortTrack()\l+ GetShortTrack()\l+ GetStartPoint()\l+ GetEndPoint()\l+ HasMidPoints()\l+ GetPlacemark()\l}" alt="" coords="5,380,216,751"/></map>
 </div>
 <div class="dynheader">
 Граф связей класса BachelorLibAPI.Map.IMap:</div>
 <div class="dyncontent">
 <div class="center"><img src="interface_bachelor_lib_a_p_i_1_1_map_1_1_i_map__coll__graph.png" border="0" usemap="#_bachelor_lib_a_p_i_8_map_8_i_map_coll__map" alt="Collaboration graph"/></div>
-<map name="_bachelor_lib_a_p_i_8_map_8_i_map_coll__map" id="_bachelor_lib_a_p_i_8_map_8_i_map_coll__map">
-</map>
 </div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
@@ -80,6 +78,9 @@
 <tr class="memitem:a0b4562a0cf46d5548042e54cf7dfbe4f"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a0b4562a0cf46d5548042e54cf7dfbe4f"></a>
 string&#160;</td><td class="memItemRight" valign="bottom"><b>GetPlacemark</b> (int x, int y)</td></tr>
 <tr class="separator:a0b4562a0cf46d5548042e54cf7dfbe4f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad56993d074a6a5d0120217f840438d73"><td class="memItemLeft" align="right" valign="top">string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interface_bachelor_lib_a_p_i_1_1_map_1_1_i_map.html#ad56993d074a6a5d0120217f840438d73">GetPlacemark</a> (PointLatLng pnt)</td></tr>
+<tr class="memdesc:ad56993d074a6a5d0120217f840438d73"><td class="mdescLeft">&#160;</td><td class="mdescRight">Попытка получить адрес по длине/широте  <a href="#ad56993d074a6a5d0120217f840438d73">Подробнее...</a><br /></td></tr>
+<tr class="separator:ad56993d074a6a5d0120217f840438d73"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a15fc8c01e15d73e2a109ae9216ccee26"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a15fc8c01e15d73e2a109ae9216ccee26"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>SetStartPoint</b> (PointLatLng start)</td></tr>
 <tr class="separator:a15fc8c01e15d73e2a109ae9216ccee26"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -149,13 +150,40 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>CheckBeforeAdding</b>
 
 </div>
 </div>
+<a class="anchor" id="ad56993d074a6a5d0120217f840438d73"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">string BachelorLibAPI.Map.IMap.GetPlacemark </td>
+          <td>(</td>
+          <td class="paramtype">PointLatLng&#160;</td>
+          <td class="paramname"><em>pnt</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Попытка получить адрес по длине/широте </p>
+<dl class="params"><dt>Аргументы</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">pnt</td><td>Точка типа длина/широта</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Возвращает</dt><dd>Адрес или сообщение о том, что адрес не удалось определить</dd></dl>
+
+<p>Замещается в <a class="el" href="class_bachelor_lib_a_p_i_1_1_map_1_1_open_street_great_map.html#ad83d284ec386d30012200d4c2a72a299">BachelorLibAPI.Map.OpenStreetGreatMap</a>.</p>
+
+</div>
+</div>
 <hr/>Объявления и описания членов интерфейса находятся в файле:<ul>
 <li>P:/Study/sem8/diploma/project/BachelorDiplom/BachelorDiplom/Map/IMap.cs</li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Документация по АИС контроля перемещения ТС, перевозящих АХО грузы, в случае ЧП. Последние изменения: Ср 13 Май 2015 12:04:26. Создано системой &#160;<a href="http://www.doxygen.org/index.html">
+Документация по АИС контроля перемещения ТС, перевозящих АХО грузы, в случае ЧП. Последние изменения: Ср 13 Май 2015 23:15:52. Создано системой &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.9.1
 </small></address>

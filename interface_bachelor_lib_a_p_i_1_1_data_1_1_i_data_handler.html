@@ -62,14 +62,12 @@
 <div class="dyncontent">
 <div class="center"><img src="interface_bachelor_lib_a_p_i_1_1_data_1_1_i_data_handler__inherit__graph.png" border="0" usemap="#_bachelor_lib_a_p_i_8_data_8_i_data_handler_inherit__map" alt="Inheritance graph"/></div>
 <map name="_bachelor_lib_a_p_i_8_data_8_i_data_handler_inherit__map" id="_bachelor_lib_a_p_i_8_data_8_i_data_handler_inherit__map">
-<area shape="rect" id="node2" href="class_bachelor_lib_a_p_i_1_1_data_1_1_pg_sql_data_handler.html" title="{BachelorLibAPI.Data.PgSql\lDataHandler\n|+ Instance\l|+ GetCarIdByGRZ()\l+ GetCarMarkModel()\l+ AddNewContact()\l+ DelContacts()\l+ AddNewDriver()\l+ DelDriver()\l+ AddNewTransit()\l+ DelTransit()\l+ GetTableLength\&lt; T \&gt;()\l+ HasPhoneNumber()\l+ FindDrivers()\l+ DriverWithPhoneNumber()\l+ GetCarInformation()\l+ GetDriversFullName()\l+ GetDriversFullNames()\l+ GetTransitId()\l+ GetTransitIDs()\l+ GetTransitIDs()\l+ GetTransits()\l+ GetTransitIDs()\l+ TransitsBefore()\l+ GetNumbers()\l+ GetGrzList()\l+ GetDriverId()\l+ GetConsignmentName()\l+ GetDriverName()\l+ GetDriverSurname()\l+ GetDriverNumbers()\l+ GetLocationTime()\l+ GetCurrentLocation()\l+ SubmitChanges()\l}" alt="" coords="5,585,188,1117"/></map>
+<area shape="rect" id="node2" href="class_bachelor_lib_a_p_i_1_1_data_1_1_pg_sql_data_handler.html" title="{BachelorLibAPI.Data.PgSql\lDataHandler\n|+ Instance\l|+ GetCarIdByGRZ()\l+ GetTransitCarId()\l+ AddNewContact()\l+ DelContacts()\l+ AddNewDriver()\l+ DelDriver()\l+ AddNewTransit()\l+ DelTransit()\l+ GetTableLength\&lt; T \&gt;()\l+ HasPhoneNumber()\l+ FindDrivers()\l+ DriverWithPhoneNumber()\l+ GetCarInformation()\l+ GetDriversFullName()\l+ GetDriversFullNames()\l+ GetTransitId()\l+ GetTransitIDs()\l+ GetTransitIDs()\l+ GetTransits()\l+ GetTransitIDs()\l+ TransitsBefore()\l+ GetNumbers()\l+ GetGrzByCarId()\l+ GetGrzList()\l+ GetDriverId()\l+ GetConsignmentName()\l+ GetDriverName()\l+ GetDriverSurname()\l+ GetDriverNumbers()\l+ GetLocationTime()\l+ GetCurrentLocation()\l+ GetStartAndEndPoints()\l+ SubmitChanges()\l}" alt="" coords="5,585,188,1147"/></map>
 </div>
 <div class="dynheader">
 Граф связей класса BachelorLibAPI.Data.IDataHandler:</div>
 <div class="dyncontent">
 <div class="center"><img src="interface_bachelor_lib_a_p_i_1_1_data_1_1_i_data_handler__coll__graph.png" border="0" usemap="#_bachelor_lib_a_p_i_8_data_8_i_data_handler_coll__map" alt="Collaboration graph"/></div>
-<map name="_bachelor_lib_a_p_i_8_data_8_i_data_handler_coll__map" id="_bachelor_lib_a_p_i_8_data_8_i_data_handler_coll__map">
-</map>
 </div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
@@ -124,14 +122,17 @@ List&lt; int &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>GetTrans
 <tr class="memitem:af78fadd788f160fb66bea04981c553ec"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="af78fadd788f160fb66bea04981c553ec"></a>
 List&lt; <a class="el" href="struct_bachelor_lib_a_p_i_1_1_data_1_1_transit_info.html">TransitInfo</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>GetTransits</b> ()</td></tr>
 <tr class="separator:af78fadd788f160fb66bea04981c553ec"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad84a69f5535bace8dfdab082e563dd3a"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ad84a69f5535bace8dfdab082e563dd3a"></a>
-List&lt; int &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>GetTransitIDs</b> (int driverId)</td></tr>
-<tr class="separator:ad84a69f5535bace8dfdab082e563dd3a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa8eb9b65e1d800095b6debb3433de1cf"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aa8eb9b65e1d800095b6debb3433de1cf"></a>
+IEnumerable&lt; int &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>GetTransitIDs</b> (int driverId)</td></tr>
+<tr class="separator:aa8eb9b65e1d800095b6debb3433de1cf"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad00a95b1fb6a662d480553cabcd77bf9"><td class="memItemLeft" align="right" valign="top">List&lt; int &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interface_bachelor_lib_a_p_i_1_1_data_1_1_i_data_handler.html#ad00a95b1fb6a662d480553cabcd77bf9">TransitsBefore</a> (DateTime time)</td></tr>
 <tr class="memdesc:ad00a95b1fb6a662d480553cabcd77bf9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Получить список из ID первозок, зарегистрированных ранее указанного времени  <a href="#ad00a95b1fb6a662d480553cabcd77bf9">Подробнее...</a><br /></td></tr>
 <tr class="separator:ad00a95b1fb6a662d480553cabcd77bf9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a92fe827f92c8f84f9cde79455ba975a2"><td class="memItemLeft" align="right" valign="top">List&lt; string &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interface_bachelor_lib_a_p_i_1_1_data_1_1_i_data_handler.html#a92fe827f92c8f84f9cde79455ba975a2">GetNumbers</a> ()</td></tr>
 <tr class="separator:a92fe827f92c8f84f9cde79455ba975a2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab4c1289eee7c077268dc44d92cac9129"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ab4c1289eee7c077268dc44d92cac9129"></a>
+string&#160;</td><td class="memItemRight" valign="bottom"><b>GetGrzByCarId</b> (int carId)</td></tr>
+<tr class="separator:ab4c1289eee7c077268dc44d92cac9129"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8bebddeccef5bbae14eab62328ba6b39"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a8bebddeccef5bbae14eab62328ba6b39"></a>
 List&lt; string &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>GetGrzList</b> ()</td></tr>
 <tr class="separator:a8bebddeccef5bbae14eab62328ba6b39"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -141,9 +142,9 @@ List&lt; string &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>GetGr
 <tr class="memitem:ae6f0b1de7a622a6f51af07b83b401bd0"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ae6f0b1de7a622a6f51af07b83b401bd0"></a>
 int&#160;</td><td class="memItemRight" valign="bottom"><b>GetCarIdByGRZ</b> (string grz)</td></tr>
 <tr class="separator:ae6f0b1de7a622a6f51af07b83b401bd0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a70121fe723f2b7038c5326b483a54c49"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a70121fe723f2b7038c5326b483a54c49"></a>
-string&#160;</td><td class="memItemRight" valign="bottom"><b>GetCarMarkModel</b> (string grz)</td></tr>
-<tr class="separator:a70121fe723f2b7038c5326b483a54c49"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a05df868f2bd41306fd8082ae1c56fbce"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a05df868f2bd41306fd8082ae1c56fbce"></a>
+int&#160;</td><td class="memItemRight" valign="bottom"><b>GetTransitCarId</b> (int transitId)</td></tr>
+<tr class="separator:a05df868f2bd41306fd8082ae1c56fbce"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6acfcfd049569eac197d6a67a053dcee"><td class="memItemLeft" align="right" valign="top">string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interface_bachelor_lib_a_p_i_1_1_data_1_1_i_data_handler.html#a6acfcfd049569eac197d6a67a053dcee">GetConsignmentName</a> (int transId)</td></tr>
 <tr class="memdesc:a6acfcfd049569eac197d6a67a053dcee"><td class="mdescLeft">&#160;</td><td class="mdescRight">Определить груз по номеру перевозки  <a href="#a6acfcfd049569eac197d6a67a053dcee">Подробнее...</a><br /></td></tr>
 <tr class="separator:a6acfcfd049569eac197d6a67a053dcee"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -156,12 +157,9 @@ string&#160;</td><td class="memItemRight" valign="bottom"><b>GetCarMarkModel</b>
 <tr class="memitem:a160cc6e574e4298ae1e9fa1f66317915"><td class="memItemLeft" align="right" valign="top">List&lt; string &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interface_bachelor_lib_a_p_i_1_1_data_1_1_i_data_handler.html#a160cc6e574e4298ae1e9fa1f66317915">GetDriverNumbers</a> (int driverId)</td></tr>
 <tr class="memdesc:a160cc6e574e4298ae1e9fa1f66317915"><td class="mdescLeft">&#160;</td><td class="mdescRight">Получить контактные номера водителя  <a href="#a160cc6e574e4298ae1e9fa1f66317915">Подробнее...</a><br /></td></tr>
 <tr class="separator:a160cc6e574e4298ae1e9fa1f66317915"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:accc4138745adba0c48d9ed057e8b0401"><td class="memItemLeft" align="right" valign="top">List&lt; DateTime &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interface_bachelor_lib_a_p_i_1_1_data_1_1_i_data_handler.html#accc4138745adba0c48d9ed057e8b0401">GetLocationTime</a> (int transId, PointLatLng pnt)</td></tr>
-<tr class="memdesc:accc4138745adba0c48d9ed057e8b0401"><td class="mdescLeft">&#160;</td><td class="mdescRight">Получить время нахождения водителя в городе в рамках перевозки  <a href="#accc4138745adba0c48d9ed057e8b0401">Подробнее...</a><br /></td></tr>
-<tr class="separator:accc4138745adba0c48d9ed057e8b0401"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5464a4eeab5ff9dfe641eac609e4ead6"><td class="memItemLeft" align="right" valign="top">PointLatLng&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interface_bachelor_lib_a_p_i_1_1_data_1_1_i_data_handler.html#a5464a4eeab5ff9dfe641eac609e4ead6">GetCurrentLocation</a> (int transId)</td></tr>
-<tr class="memdesc:a5464a4eeab5ff9dfe641eac609e4ead6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Получить текущее местонахождение водителя  <a href="#a5464a4eeab5ff9dfe641eac609e4ead6">Подробнее...</a><br /></td></tr>
-<tr class="separator:a5464a4eeab5ff9dfe641eac609e4ead6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2a0eef98ec30c89b07bb389c331d95f1"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a2a0eef98ec30c89b07bb389c331d95f1"></a>
+Tuple&lt; PointLatLng, PointLatLng &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>GetStartAndEndPoints</b> (int transit)</td></tr>
+<tr class="separator:a2a0eef98ec30c89b07bb389c331d95f1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab910267b37ea7c6f6450adcf929ab34a"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ab910267b37ea7c6f6450adcf929ab34a"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>SubmitChanges</b> ()</td></tr>
 <tr class="separator:ab910267b37ea7c6f6450adcf929ab34a"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -642,7 +640,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>SubmitChanges</b> ()<
 </dl>
 <dl class="section return"><dt>Возвращает</dt><dd>ID водителя</dd></dl>
 
-<p>Замещается в <a class="el" href="class_bachelor_lib_a_p_i_1_1_data_1_1_pg_sql_data_handler.html#a6b0d4492cdd5616d1e79c668f74ecef2">BachelorLibAPI.Data.PgSqlDataHandler</a>.</p>
+<p>Замещается в <a class="el" href="class_bachelor_lib_a_p_i_1_1_data_1_1_pg_sql_data_handler.html#a2a77c94bd7bbb11d0d5f5ba97d8ec73f">BachelorLibAPI.Data.PgSqlDataHandler</a>.</p>
 
 </div>
 </div>
@@ -754,78 +752,13 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>SubmitChanges</b> ()<
 
 </div>
 </div>
-<a class="anchor" id="accc4138745adba0c48d9ed057e8b0401"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">List&lt;DateTime&gt; BachelorLibAPI.Data.IDataHandler.GetLocationTime </td>
-          <td>(</td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>transId</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">PointLatLng&#160;</td>
-          <td class="paramname"><em>pnt</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Получить время нахождения водителя в городе в рамках перевозки </p>
-<dl class="params"><dt>Аргументы</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">transId</td><td>ID перевозки</td></tr>
-    <tr><td class="paramname">cityID</td><td>ID города</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Возвращает</dt><dd>Оцененное время, когда водитель будет в этом городе</dd></dl>
-
-<p>Замещается в <a class="el" href="class_bachelor_lib_a_p_i_1_1_data_1_1_pg_sql_data_handler.html#ab44c7fb98a2d7270745090f21fffbad9">BachelorLibAPI.Data.PgSqlDataHandler</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a5464a4eeab5ff9dfe641eac609e4ead6"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">PointLatLng BachelorLibAPI.Data.IDataHandler.GetCurrentLocation </td>
-          <td>(</td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>transId</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Получить текущее местонахождение водителя </p>
-<dl class="params"><dt>Аргументы</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">transId</td><td>ID перевозки</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Возвращает</dt><dd></dd></dl>
-
-<p>Замещается в <a class="el" href="class_bachelor_lib_a_p_i_1_1_data_1_1_pg_sql_data_handler.html#a7c1ba15b5b6059614723d30047eddce8">BachelorLibAPI.Data.PgSqlDataHandler</a>.</p>
-
-</div>
-</div>
 <hr/>Объявления и описания членов интерфейса находятся в файле:<ul>
 <li>P:/Study/sem8/diploma/project/BachelorDiplom/BachelorDiplom/Data/Data.cs</li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Документация по АИС контроля перемещения ТС, перевозящих АХО грузы, в случае ЧП. Последние изменения: Ср 13 Май 2015 12:04:26. Создано системой &#160;<a href="http://www.doxygen.org/index.html">
+Документация по АИС контроля перемещения ТС, перевозящих АХО грузы, в случае ЧП. Последние изменения: Ср 13 Май 2015 23:15:50. Создано системой &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.9.1
 </small></address>

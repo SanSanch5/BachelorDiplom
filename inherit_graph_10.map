@@ -1,3 +1,5 @@
 <map id="Иерархия классов. Графический вид." name="Иерархия классов. Графический вид.">
-<area shape="rect" id="node1" href="$class_bachelor_lib_a_p_i_1_1_program_1_1_program.html" title="BachelorLibAPI.Program.Program" alt="" coords="5,5,223,32"/>
+<area shape="rect" id="node2" href="$class_bachelor_lib_a_p_i_1_1_program_1_1_placemark_getting_exception.html" title="BachelorLibAPI.Program.Placemark\lGettingException" alt="" coords="133,5,364,47"/>
+<area shape="rect" id="node3" href="$class_bachelor_lib_a_p_i_1_1_program_1_1_route_builder_logic_exception.html" title="BachelorLibAPI.Program.Route\lBuilderLogicException" alt="" coords="147,71,350,112"/>
+<area shape="rect" id="node4" href="$class_bachelor_lib_a_p_i_1_1_program_1_1_unknown_placemark.html" title="BachelorLibAPI.Program.Unknown\lPlacemark" alt="" coords="138,136,359,177"/>
 </map>

@@ -75,9 +75,9 @@
 <tr class="memitem:a09e46fee337982c6c050344c8e166ad6"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a09e46fee337982c6c050344c8e166ad6"></a>
 int&#160;</td><td class="memItemRight" valign="bottom"><b>GetCarIdByGRZ</b> (string grz)</td></tr>
 <tr class="separator:a09e46fee337982c6c050344c8e166ad6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a143e29ea883d3732360649950fed116c"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a143e29ea883d3732360649950fed116c"></a>
-string&#160;</td><td class="memItemRight" valign="bottom"><b>GetCarMarkModel</b> (string grz)</td></tr>
-<tr class="separator:a143e29ea883d3732360649950fed116c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3674c8d3a26eae968e449282e19cb8f8"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a3674c8d3a26eae968e449282e19cb8f8"></a>
+int&#160;</td><td class="memItemRight" valign="bottom"><b>GetTransitCarId</b> (int transitId)</td></tr>
+<tr class="separator:a3674c8d3a26eae968e449282e19cb8f8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0cdb9fc6c7c3ea358485e3bffb1fa934"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_bachelor_lib_a_p_i_1_1_data_1_1_pg_sql_data_handler.html#a0cdb9fc6c7c3ea358485e3bffb1fa934">AddNewContact</a> (int driverId, string contact)</td></tr>
 <tr class="memdesc:a0cdb9fc6c7c3ea358485e3bffb1fa934"><td class="mdescLeft">&#160;</td><td class="mdescRight">Добавляет новый контакт  <a href="#a0cdb9fc6c7c3ea358485e3bffb1fa934">Подробнее...</a><br /></td></tr>
 <tr class="separator:a0cdb9fc6c7c3ea358485e3bffb1fa934"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -128,20 +128,23 @@ List&lt; int &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>GetTrans
 <tr class="memitem:a69d52f9e2f73dafbfbaf7502b5807bb1"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a69d52f9e2f73dafbfbaf7502b5807bb1"></a>
 List&lt; <a class="el" href="struct_bachelor_lib_a_p_i_1_1_data_1_1_transit_info.html">TransitInfo</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>GetTransits</b> ()</td></tr>
 <tr class="separator:a69d52f9e2f73dafbfbaf7502b5807bb1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac55f6492a93776784a666505987db79e"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ac55f6492a93776784a666505987db79e"></a>
-List&lt; int &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>GetTransitIDs</b> (int driverId)</td></tr>
-<tr class="separator:ac55f6492a93776784a666505987db79e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae319936ed8b16e9a5180ffce0966db67"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ae319936ed8b16e9a5180ffce0966db67"></a>
+IEnumerable&lt; int &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>GetTransitIDs</b> (int driverId)</td></tr>
+<tr class="separator:ae319936ed8b16e9a5180ffce0966db67"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3b1d22949947e9418e17f5094853913e"><td class="memItemLeft" align="right" valign="top">List&lt; int &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_bachelor_lib_a_p_i_1_1_data_1_1_pg_sql_data_handler.html#a3b1d22949947e9418e17f5094853913e">TransitsBefore</a> (DateTime time)</td></tr>
 <tr class="memdesc:a3b1d22949947e9418e17f5094853913e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Получить список из ID первозок, зарегистрированных ранее указанного времени  <a href="#a3b1d22949947e9418e17f5094853913e">Подробнее...</a><br /></td></tr>
 <tr class="separator:a3b1d22949947e9418e17f5094853913e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aea17eb3632eecc98c32d5ee4a9873158"><td class="memItemLeft" align="right" valign="top">List&lt; string &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_bachelor_lib_a_p_i_1_1_data_1_1_pg_sql_data_handler.html#aea17eb3632eecc98c32d5ee4a9873158">GetNumbers</a> ()</td></tr>
 <tr class="separator:aea17eb3632eecc98c32d5ee4a9873158"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a63f5600e2502602ea7ed3763fa2480f8"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a63f5600e2502602ea7ed3763fa2480f8"></a>
+string&#160;</td><td class="memItemRight" valign="bottom"><b>GetGrzByCarId</b> (int carId)</td></tr>
+<tr class="separator:a63f5600e2502602ea7ed3763fa2480f8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aeda7a7bd529745d6e0ca6f5587574854"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aeda7a7bd529745d6e0ca6f5587574854"></a>
 List&lt; string &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>GetGrzList</b> ()</td></tr>
 <tr class="separator:aeda7a7bd529745d6e0ca6f5587574854"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6b0d4492cdd5616d1e79c668f74ecef2"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_bachelor_lib_a_p_i_1_1_data_1_1_pg_sql_data_handler.html#a6b0d4492cdd5616d1e79c668f74ecef2">GetDriverId</a> (int transId)</td></tr>
-<tr class="memdesc:a6b0d4492cdd5616d1e79c668f74ecef2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Определить водителя по номеру первозки  <a href="#a6b0d4492cdd5616d1e79c668f74ecef2">Подробнее...</a><br /></td></tr>
-<tr class="separator:a6b0d4492cdd5616d1e79c668f74ecef2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2a77c94bd7bbb11d0d5f5ba97d8ec73f"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_bachelor_lib_a_p_i_1_1_data_1_1_pg_sql_data_handler.html#a2a77c94bd7bbb11d0d5f5ba97d8ec73f">GetDriverId</a> (int transitId)</td></tr>
+<tr class="memdesc:a2a77c94bd7bbb11d0d5f5ba97d8ec73f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Определить водителя по номеру первозки  <a href="#a2a77c94bd7bbb11d0d5f5ba97d8ec73f">Подробнее...</a><br /></td></tr>
+<tr class="separator:a2a77c94bd7bbb11d0d5f5ba97d8ec73f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8b09d8b87acc33121b69f4ebf14c345d"><td class="memItemLeft" align="right" valign="top">string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_bachelor_lib_a_p_i_1_1_data_1_1_pg_sql_data_handler.html#a8b09d8b87acc33121b69f4ebf14c345d">GetConsignmentName</a> (int transId)</td></tr>
 <tr class="memdesc:a8b09d8b87acc33121b69f4ebf14c345d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Определить груз по номеру перевозки  <a href="#a8b09d8b87acc33121b69f4ebf14c345d">Подробнее...</a><br /></td></tr>
 <tr class="separator:a8b09d8b87acc33121b69f4ebf14c345d"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -154,12 +157,15 @@ List&lt; string &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>GetGr
 <tr class="memitem:ab9f52f31c2712891067ec63d9c98abf2"><td class="memItemLeft" align="right" valign="top">List&lt; string &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_bachelor_lib_a_p_i_1_1_data_1_1_pg_sql_data_handler.html#ab9f52f31c2712891067ec63d9c98abf2">GetDriverNumbers</a> (int driverId)</td></tr>
 <tr class="memdesc:ab9f52f31c2712891067ec63d9c98abf2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Получить контактные номера водителя  <a href="#ab9f52f31c2712891067ec63d9c98abf2">Подробнее...</a><br /></td></tr>
 <tr class="separator:ab9f52f31c2712891067ec63d9c98abf2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab44c7fb98a2d7270745090f21fffbad9"><td class="memItemLeft" align="right" valign="top">List&lt; DateTime &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_bachelor_lib_a_p_i_1_1_data_1_1_pg_sql_data_handler.html#ab44c7fb98a2d7270745090f21fffbad9">GetLocationTime</a> (int transId, PointLatLng pnt)</td></tr>
-<tr class="memdesc:ab44c7fb98a2d7270745090f21fffbad9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Получить время нахождения водителя в городе в рамках перевозки  <a href="#ab44c7fb98a2d7270745090f21fffbad9">Подробнее...</a><br /></td></tr>
+<tr class="memitem:ab44c7fb98a2d7270745090f21fffbad9"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ab44c7fb98a2d7270745090f21fffbad9"></a>
+List&lt; DateTime &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>GetLocationTime</b> (int transId, PointLatLng pnt)</td></tr>
 <tr class="separator:ab44c7fb98a2d7270745090f21fffbad9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7c1ba15b5b6059614723d30047eddce8"><td class="memItemLeft" align="right" valign="top">PointLatLng&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_bachelor_lib_a_p_i_1_1_data_1_1_pg_sql_data_handler.html#a7c1ba15b5b6059614723d30047eddce8">GetCurrentLocation</a> (int transId)</td></tr>
-<tr class="memdesc:a7c1ba15b5b6059614723d30047eddce8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Получить текущее местонахождение водителя  <a href="#a7c1ba15b5b6059614723d30047eddce8">Подробнее...</a><br /></td></tr>
+<tr class="memitem:a7c1ba15b5b6059614723d30047eddce8"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a7c1ba15b5b6059614723d30047eddce8"></a>
+PointLatLng&#160;</td><td class="memItemRight" valign="bottom"><b>GetCurrentLocation</b> (int transId)</td></tr>
 <tr class="separator:a7c1ba15b5b6059614723d30047eddce8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abe9f23cb14ccf04c20c6afe003dcd519"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="abe9f23cb14ccf04c20c6afe003dcd519"></a>
+Tuple&lt; PointLatLng, PointLatLng &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>GetStartAndEndPoints</b> (int transitId)</td></tr>
+<tr class="separator:abe9f23cb14ccf04c20c6afe003dcd519"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a042bcc335db755ff18c9626b5118480b"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a042bcc335db755ff18c9626b5118480b"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>SubmitChanges</b> ()</td></tr>
 <tr class="separator:a042bcc335db755ff18c9626b5118480b"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -735,7 +741,7 @@ static <a class="el" href="class_bachelor_lib_a_p_i_1_1_data_1_1_pg_sql_data_han
 
 </div>
 </div>
-<a class="anchor" id="a6b0d4492cdd5616d1e79c668f74ecef2"></a>
+<a class="anchor" id="a2a77c94bd7bbb11d0d5f5ba97d8ec73f"></a>
 <div class="memitem">
 <div class="memproto">
 <table class="mlabels">
@@ -910,94 +916,13 @@ static <a class="el" href="class_bachelor_lib_a_p_i_1_1_data_1_1_pg_sql_data_han
 
 </div>
 </div>
-<a class="anchor" id="ab44c7fb98a2d7270745090f21fffbad9"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">List&lt;DateTime&gt; BachelorLibAPI.Data.PgSqlDataHandler.GetLocationTime </td>
-          <td>(</td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>transId</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">PointLatLng&#160;</td>
-          <td class="paramname"><em>pnt</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Получить время нахождения водителя в городе в рамках перевозки </p>
-<dl class="params"><dt>Аргументы</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">transId</td><td>ID перевозки</td></tr>
-    <tr><td class="paramname">cityID</td><td>ID города</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Возвращает</dt><dd>Оцененное время, когда водитель будет в этом городе</dd></dl>
-
-<p>Замещает <a class="el" href="interface_bachelor_lib_a_p_i_1_1_data_1_1_i_data_handler.html#accc4138745adba0c48d9ed057e8b0401">BachelorLibAPI.Data.IDataHandler</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a7c1ba15b5b6059614723d30047eddce8"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">PointLatLng BachelorLibAPI.Data.PgSqlDataHandler.GetCurrentLocation </td>
-          <td>(</td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>transId</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Получить текущее местонахождение водителя </p>
-<dl class="params"><dt>Аргументы</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">transId</td><td>ID перевозки</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Возвращает</dt><dd></dd></dl>
-
-<p>Замещает <a class="el" href="interface_bachelor_lib_a_p_i_1_1_data_1_1_i_data_handler.html#a5464a4eeab5ff9dfe641eac609e4ead6">BachelorLibAPI.Data.IDataHandler</a>.</p>
-
-</div>
-</div>
 <hr/>Объявления и описания членов класса находятся в файле:<ul>
 <li>P:/Study/sem8/diploma/project/BachelorDiplom/BachelorDiplom/Data/PgSqlDataHandler.cs</li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Документация по АИС контроля перемещения ТС, перевозящих АХО грузы, в случае ЧП. Последние изменения: Ср 13 Май 2015 12:04:26. Создано системой &#160;<a href="http://www.doxygen.org/index.html">
+Документация по АИС контроля перемещения ТС, перевозящих АХО грузы, в случае ЧП. Последние изменения: Ср 13 Май 2015 23:15:50. Создано системой &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.9.1
 </small></address>

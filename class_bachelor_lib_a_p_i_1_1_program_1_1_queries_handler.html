@@ -63,8 +63,6 @@
 Граф связей класса BachelorLibAPI.Program.QueriesHandler:</div>
 <div class="dyncontent">
 <div class="center"><img src="class_bachelor_lib_a_p_i_1_1_program_1_1_queries_handler__coll__graph.png" border="0" usemap="#_bachelor_lib_a_p_i_8_program_8_queries_handler_coll__map" alt="Collaboration graph"/></div>
-<map name="_bachelor_lib_a_p_i_8_program_8_queries_handler_coll__map" id="_bachelor_lib_a_p_i_8_program_8_queries_handler_coll__map">
-</map>
 </div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
@@ -93,6 +91,9 @@ string&#160;</td><td class="memItemRight" valign="bottom"><b>GetCarInfo</b> (str
 <tr class="memitem:a713b0b6548bb378304644489caa19346"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_bachelor_lib_a_p_i_1_1_program_1_1_queries_handler.html#a713b0b6548bb378304644489caa19346">DelTransitsBefore</a> (DateTime time)</td></tr>
 <tr class="memdesc:a713b0b6548bb378304644489caa19346"><td class="mdescLeft">&#160;</td><td class="mdescRight">Удалить все перевозки, зарегистрированные ранее заданного времени  <a href="#a713b0b6548bb378304644489caa19346">Подробнее...</a><br /></td></tr>
 <tr class="separator:a713b0b6548bb378304644489caa19346"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a186f6b51efec54be265e1963fb47a807"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_bachelor_lib_a_p_i_1_1_program_1_1_queries_handler.html#a186f6b51efec54be265e1963fb47a807">PutTransitsFromDbToMap</a> ()</td></tr>
+<tr class="memdesc:a186f6b51efec54be265e1963fb47a807"><td class="mdescLeft">&#160;</td><td class="mdescRight">При начальной загрузке программы в фоновом режиме (пользователь может работать в это время) Запрашивает данные из базы о зарегистрированных перевозках и отдаёт в нужном карте формате для расстановки маркеров.  <a href="#a186f6b51efec54be265e1963fb47a807">Подробнее...</a><br /></td></tr>
+<tr class="separator:a186f6b51efec54be265e1963fb47a807"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7286faab2a9eb8430848e264b7e394cf"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_bachelor_lib_a_p_i_1_1_program_1_1_queries_handler.html#a7286faab2a9eb8430848e264b7e394cf">AddNewWaybill</a> (string driverName, string driverNum, string grz, string consName, DateTime start, string from, string to)</td></tr>
 <tr class="memdesc:a7286faab2a9eb8430848e264b7e394cf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Добавление нового путевого листа Не производится добавление водителя! Если водитель ранее не был зарегистрирован в базе, необходимо зарегистрировать его, воспользовавшись формой добавления водителя. Удаляются все стадии предыдущих перевозок, зарегистрированных на этого водителя, но сами перевозки не отмечаются, как завершённые. Для этого необходимо воспользоваться специально предназначенной для этого формой.  <a href="#a7286faab2a9eb8430848e264b7e394cf">Подробнее...</a><br /></td></tr>
 <tr class="separator:a7286faab2a9eb8430848e264b7e394cf"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -431,6 +432,31 @@ static List&lt; string &gt;&#160;</td><td class="memItemRight" valign="bottom"><
   </table>
   </dd>
 </dl>
+
+</div>
+</div>
+<a class="anchor" id="a186f6b51efec54be265e1963fb47a807"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void BachelorLibAPI.Program.QueriesHandler.PutTransitsFromDbToMap </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>При начальной загрузке программы в фоновом режиме (пользователь может работать в это время) Запрашивает данные из базы о зарегистрированных перевозках и отдаёт в нужном карте формате для расстановки маркеров. </p>
 
 </div>
 </div>
@@ -855,7 +881,7 @@ static List&lt; string &gt;&#160;</td><td class="memItemRight" valign="bottom"><
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Документация по АИС контроля перемещения ТС, перевозящих АХО грузы, в случае ЧП. Последние изменения: Ср 13 Май 2015 12:04:27. Создано системой &#160;<a href="http://www.doxygen.org/index.html">
+Документация по АИС контроля перемещения ТС, перевозящих АХО грузы, в случае ЧП. Последние изменения: Ср 13 Май 2015 23:15:52. Создано системой &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.9.1
 </small></address>
