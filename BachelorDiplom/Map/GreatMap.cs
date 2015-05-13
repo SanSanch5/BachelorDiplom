@@ -2,22 +2,18 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
-using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-
+using BachelorLibAPI.Data;
+using BachelorLibAPI.Program;
+using BachelorLibAPI.Properties;
 using GMap.NET;
 using GMap.NET.MapProviders;
 using GMap.NET.WindowsForms;
 using GMap.NET.WindowsForms.Markers;
-
-using BachelorLibAPI.Program;
-using BachelorLibAPI.Properties;
-using BachelorLibAPI.Data;
-
 using Timer = System.Threading.Timer;
 
 namespace BachelorLibAPI.Map
@@ -115,22 +111,27 @@ namespace BachelorLibAPI.Map
             }
         }
 
+        /// <summary>
+        /// Заполняю данные о перевозки, которые будут в дальнейшем отображаться при наведении указателя на значок перевозки
+        /// Если местоположение не удалось определить, то маркер будет добавле как только его текущее местоположение определится
+        /// Перевозки, которые в стадии завершения (основываясь на моём приближении), отображаются чёрным "разгруженным" грузовиком
+        /// Находящиеся в пути - жёлтым "загруженным"
+        /// </summary>
+        /// <param name="transit"></param>
         public void AddTransitMarker(TransitInfo transit)
         {
             var m = new TransitMarker {Transit = transit};
-            var pic = new Bitmap("..\\..\\Map\\Resources\\truckyellow.png");
-            GeoCoderStatusCode st;
-            var p = ((OpenStreetMapProvider)_gmap.MapProvider).GetPoint(transit.From, out st);
-            // ReSharper disable once PossibleInvalidOperationException
-            var plc = GetPlacemark(p.Value, out st);
-            m.Marker = new GMarkerGoogle(p.Value, new Bitmap(pic, new Size(32, 32)))
+            var pic = transit.IsFinshed
+                ? new Bitmap("..\\..\\Map\\Resources\\tractorunitblack.png")
+                : new Bitmap("..\\..\\Map\\Resources\\truckyellow.png");
+
+            m.Marker = new GMarkerGoogle(transit.CurrentPlace.Position, new Bitmap(pic, new Size(32, 32)))
             {
                 ToolTipText =
                     string.Format(
                         "Перевозка #{0}\nОткуда: {1}\nКуда: {2}\nГруз: {3}\nВодитель: {4}\nНомер телефона: {5}\nАвтомобиль: {6}\nГРЗ: {7}\nТекущее местоположение: {8}",
-                        m.Transit.Id, m.Transit.From, m.Transit.To, m.Transit.Consignment, m.Transit.Driver, m.Transit.DriverNumber, m.Transit.Car, m.Transit.Grz,
-                        // ReSharper disable once PossibleInvalidOperationException
-                        plc.HasValue ? plc.Value.Address : "")
+                        m.Transit.Id, m.Transit.From.Address, m.Transit.To.Address, m.Transit.Consignment, m.Transit.Driver,
+                        m.Transit.DriverNumber, m.Transit.Car, m.Transit.Grz, m.Transit.CurrentPlace.Address)
             };
 
             lock (_transitMarkers)
@@ -299,6 +300,11 @@ namespace BachelorLibAPI.Map
                 _stadiesGeneration.Dispose();
         }
 
+        /// <summary>
+        /// Собирает точки из подмаршрутов в один маршрут, 
+        /// инициирует фоновую задачу расчёта времени пребывания автомобиля в каждой промежуточной стадии
+        /// стадии фиксируются в идеале через 1 минуту
+        /// </summary>
         public void ConstructShortTrack()
         {
             CancelTask(_stadiesGenerationCts, _stadiesGeneration);
@@ -332,10 +338,13 @@ namespace BachelorLibAPI.Map
 
             routePoints.AddRange(route.Points);
             _distance += route.Distance;
-            
+
             _stadiesGenerationCts = new CancellationTokenSource();
             var cancellationToken = _stadiesGenerationCts.Token;
-            _stadiesGeneration = Task.Run(() => GenerateStadies(cancellationToken, routePoints, 50, 15), cancellationToken);
+            var diff = (int) (routePoints.Count/_distance);
+            while (_distance < diff) diff /= 2;
+            _stadiesGeneration = Task.Run(() =>
+                GenerateStadies(cancellationToken, routePoints, diff < 1 ? 1 : diff, 20), cancellationToken);
         }
 
         public List<KeyValuePair<PointLatLng, int>> GetShortTrack()
@@ -371,8 +380,15 @@ namespace BachelorLibAPI.Map
             return ((OpenStreetMapProvider)_gmap.MapProvider).GetPlacemark(pnt, out st);
         }
 
+        public string GetPlacemark(PointLatLng pnt)
+        {
+            GeoCoderStatusCode st;
+            var placemark = GetPlacemark(pnt, out st);
+            return placemark != null ? placemark.Value.Address : @"Метоположение не определено";
+        }
+
         private void GenerateStadiesPart(CancellationToken token, int start, int diff, int increment,
-            IReadOnlyList<PointLatLng> routePoints, ICollection<KeyValuePair<PointLatLng, int>> res)
+            IReadOnlyList<PointLatLng> routePoints, ICollection<KeyValuePair<PointLatLng, double>> res)
         {
             for (var i = diff*start + diff; i < routePoints.Count; i += increment)
             {
@@ -387,8 +403,8 @@ namespace BachelorLibAPI.Map
                     r = ((OpenStreetMapProvider) _gmap.MapProvider).GetRoute(routePoints[i - diff + diff/10*(tmp++)],
                         routePoints[i], false, false, 11);
 
-                res.Add(new KeyValuePair<PointLatLng, int>(routePoints[i],
-                    (int) (60*r.Distance/Settings.Default.AvegareVelocity)));
+                res.Add(new KeyValuePair<PointLatLng, double>(routePoints[i],
+                    (60*r.Distance/Settings.Default.AvegareVelocity)));
 
                 Debug.WriteLine("До промежуточной точки {0}:{1} из предыдущей ({2} назад) Время {3}",
                     res.Last().Key.Lat.ToString("G5"),
@@ -402,17 +418,16 @@ namespace BachelorLibAPI.Map
             int threadsCount = 4)
         {
             var st = DateTime.Now.Ticks;
-            _detailedRoute.Add(new KeyValuePair<PointLatLng, int>(routePoints[0], 0));
             Debug.WriteLine("Добавлено: {0} - {1}", routePoints[0], 0);
 
-            var results = new List<List<KeyValuePair<PointLatLng, int>>>();
+            var results = new List<List<KeyValuePair<PointLatLng, double>>>();
             var tasks = new List<Task>();
 
             try
             {
                 for (var i = 0; i < threadsCount; ++i)
                 {
-                    results.Add(new List<KeyValuePair<PointLatLng, int>>());
+                    results.Add(new List<KeyValuePair<PointLatLng, double>>());
                     var i1 = i;
                     tasks.Add(
                         Task.Run(() => GenerateStadiesPart(token, i1, diff, diff*threadsCount, routePoints, results[i1]),
@@ -422,8 +437,13 @@ namespace BachelorLibAPI.Map
                 var ost = (routePoints.Count - 1)%diff;
                 var lastHandledPoint = routePoints.Count - 1 - ost;
                 var counter = 0;
-                var currentTime = 0;
-                    // жёсткая логика для вытаскивания данных из другого потока
+                var currentTime = 0.0;
+
+                var detailedRoute = new List<KeyValuePair<PointLatLng, double>>
+                {
+                    new KeyValuePair<PointLatLng, double>(routePoints[0], 0)
+                };
+                // жёсткая логика для вытаскивания данных из другого потока
                 while (counter < (routePoints.Count - 1)/(diff*threadsCount))
                 {
                     for (var i = 0; i < results.Count; i++)
@@ -435,13 +455,13 @@ namespace BachelorLibAPI.Map
                             if (tasks[i].IsCompleted)
                             {
                                 if (result.Count > counter)
-                                    _detailedRoute.Add(new KeyValuePair<PointLatLng, int>(result[counter].Key,
+                                    detailedRoute.Add(new KeyValuePair<PointLatLng, double>(result[counter].Key,
                                         currentTime += result[counter].Value));
                                 added = true;
                             }
                             else if (result.Count > counter)
                             {
-                                _detailedRoute.Add(new KeyValuePair<PointLatLng, int>(result[counter].Key,
+                                detailedRoute.Add(new KeyValuePair<PointLatLng, double>(result[counter].Key,
                                     currentTime += result[counter].Value));
                                 added = true;
                             }
@@ -455,19 +475,26 @@ namespace BachelorLibAPI.Map
                     ++counter;
                 }
 
-                var wholeTime = _detailedRoute.Last().Value;
-                var shouldBe = (int)(60 * _distance / Settings.Default.AvegareVelocity);
+                var wholeTime = detailedRoute.Last().Value;
+                var shouldBe = (60 * _distance / Settings.Default.AvegareVelocity);
                 if (ost != 0)
                 {
                     var r = ((OpenStreetMapProvider) _gmap.MapProvider).GetRoute(routePoints[lastHandledPoint],
                         routePoints.Last(), false, false, 11);
-                    wholeTime = _detailedRoute.Last().Value + (int) (60*r.Distance/Settings.Default.AvegareVelocity);
-                    _detailedRoute.Add(new KeyValuePair<PointLatLng, int>(routePoints.Last(), wholeTime > shouldBe ? wholeTime : shouldBe));
+                    wholeTime = detailedRoute.Last().Value + (60*r.Distance/Settings.Default.AvegareVelocity);
+                    detailedRoute.Add(new KeyValuePair<PointLatLng, double>(routePoints.Last(), wholeTime > shouldBe ? wholeTime : shouldBe));
                 }
+                else
+                {
+                    var tmp = detailedRoute.Last();
+                    detailedRoute.Remove(tmp);
+                    detailedRoute.Add(new KeyValuePair<PointLatLng, double>(tmp.Key, wholeTime > shouldBe ? wholeTime : shouldBe));
+                }
+                _detailedRoute.AddRange(detailedRoute.Select(x => new KeyValuePair<PointLatLng, int>(x.Key, (int)Math.Round(x.Value))).ToList());
 
                 Debug.WriteLine(
                     "Обработано {0} объектов через каждые {1}. Итоговое время: {2} минут.\nНа расчёт затрачено {3} секунд",
-                    routePoints.Count, diff, wholeTime, (DateTime.Now.Ticks - st)/TimeSpan.TicksPerSecond);
+                    routePoints.Count, diff, _detailedRoute.Last().Value, (DateTime.Now.Ticks - st)/TimeSpan.TicksPerSecond);
             }
             catch (OperationCanceledException)
             {
@@ -495,10 +522,6 @@ namespace BachelorLibAPI.Map
                     drawingEvent.WaitOne();
                 // ReSharper disable once FunctionNeverReturns
             };
-            _transitsInitialization = () =>
-            {
-//                var transits = 
-            };
         }
 
         private struct TransitMarker
@@ -523,30 +546,29 @@ namespace BachelorLibAPI.Map
                 {
                     var splitted = line.Split(';').ToList();
                     transitsForUpdated.Add(new KeyValuePair<int, PointLatLng>(int.Parse(splitted[0]),
-                        new PointLatLng(double.Parse(splitted[1], CultureInfo.InvariantCulture),
-                            double.Parse(splitted[2], CultureInfo.InvariantCulture))));
+                        new PointLatLng(double.Parse(splitted[1]),
+                            double.Parse(splitted[2]))));
                 }
             }
 
             lock(_transitMarkers)
             {
-                foreach(var transMarker in _transitMarkers)
+                foreach (var t in _transitMarkers)
                 {
+                    var transMarker = t;
                     var marker = transMarker;
                     var markerPos = transitsForUpdated.Where(x => x.Key == marker.Transit.Id).ToArray();
                     if (!markerPos.Any()) continue;
 
-                    transMarker.Marker.Position = markerPos.First().Value;
-                    GeoCoderStatusCode st;
-                    var plc = GetPlacemark(transMarker.Marker.Position, out st);
+                    transMarker.Marker.Position = transMarker.Transit.CurrentPlace.Position = markerPos.First().Value;
+                    transMarker.Transit.CurrentPlace.Address = GetPlacemark(transMarker.Marker.Position);
                     transMarker.Marker.ToolTipText =
                         string.Format(
                             "Перевозка #{0}\nОткуда: {1}\nКуда: {2}\nГруз: {3}\nВодитель: {4}\nНомер телефона: {5}\nАвтомобиль: {6}\nГРЗ: {7}\nТекущее местоположение: {8}",
-                            transMarker.Transit.Id, transMarker.Transit.From, transMarker.Transit.To,
+                            transMarker.Transit.Id, transMarker.Transit.From.Address, transMarker.Transit.To.Address,
                             transMarker.Transit.Consignment, transMarker.Transit.Driver,
                             transMarker.Transit.DriverNumber, transMarker.Transit.Car, transMarker.Transit.Grz,
-                            // ReSharper disable once PossibleInvalidOperationException
-                            plc.HasValue ? plc.Value.Address : "");
+                            transMarker.Transit.CurrentPlace.Address);
                 }
             }
 
@@ -568,6 +590,5 @@ namespace BachelorLibAPI.Map
         private CancellationTokenSource _stadiesGenerationCts = new CancellationTokenSource();
         private Task _stadiesGeneration;
         private Action _transitsDrawingAction;
-        private Action _transitsInitialization;
     }
 }

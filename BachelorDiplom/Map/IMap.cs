@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Security.Cryptography.X509Certificates;
 using BachelorLibAPI.Data;
 using GMap.NET;
 
@@ -18,6 +17,13 @@ namespace BachelorLibAPI.Map
         /// <returns></returns>
         List<KeyValuePair<PointLatLng, int>> GetShortTrack();
         string GetPlacemark(int x, int y);
+
+        /// <summary>
+        /// Попытка получить адрес по длине/широте
+        /// </summary>
+        /// <param name="pnt">Точка типа длина/широта</param>
+        /// <returns>Адрес или сообщение о том, что адрес не удалось определить</returns>
+        string GetPlacemark(PointLatLng pnt);
         void SetStartPoint(PointLatLng start);
         string GetStartPoint();
         void SetMiddlePoint(PointLatLng mid);

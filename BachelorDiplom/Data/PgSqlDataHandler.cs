@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.Threading;
 using BachelorLibAPI.Properties;
 using GMap.NET;
 using Npgsql;
+using NpgsqlTypes;
 
 namespace BachelorLibAPI.Data
 {
@@ -23,46 +25,78 @@ namespace BachelorLibAPI.Data
 
         public int GetCarIdByGRZ(string grz)
         {
-            _npgsqlConnection.Open();
-
-            var cmd =
-                new NpgsqlCommand(
-                    string.Format(
-                        "SELECT t_car.id from t_car join t_grz on (t_car.grz_id = t_grz.id) where t_grz.grz = '{0}';",
-                        grz), _npgsqlConnection);
-            int res;
-
-            try
+            lock(_lockObject)
             {
-                res = (int)cmd.ExecuteScalar();
-            }
-            catch (Exception)
-            {
-                res = -1;
-            }
-            finally
-            {
-                _npgsqlConnection.Close();
-            }
+                _npgsqlConnection.Open();
 
-            return res;
+                var cmd =
+                    new NpgsqlCommand(
+                        string.Format(
+                            "SELECT t_car.id from t_car join t_grz on (t_car.grz_id = t_grz.id) where t_grz.grz = '{0}';",
+                            grz), _npgsqlConnection);
+                int res;
+
+                try
+                {
+                    res = (int)cmd.ExecuteScalar();
+                }
+                catch (Exception)
+                {
+                    res = -1;
+                }
+                finally
+                {
+                    _npgsqlConnection.Close();
+                }
+
+                return res;
+            }
         }
-        public string GetCarMarkModel(string grz)
+
+        public int GetTransitCarId(int transitId)
         {
-            return "";
+            lock (_lockObject)
+            {
+                _npgsqlConnection.Open();
+
+                var cmd =
+                    new NpgsqlCommand(
+                        string.Format(
+                            "SELECT car_id from t_transit where id = '{0}';",
+                            transitId), _npgsqlConnection);
+                int res;
+
+                try
+                {
+                    res = (int)cmd.ExecuteScalar();
+                }
+                catch (Exception)
+                {
+                    res = -1;
+                }
+                finally
+                {
+                    _npgsqlConnection.Close();
+                }
+
+                return res;
+            }
         }
 
         public void AddNewContact(int driverId, string contact)
         {
-            _npgsqlConnection.Open();
+            lock (_lockObject)
+            {
+                _npgsqlConnection.Open();
 
-            var cmd =
-                new NpgsqlCommand(
-                    string.Format("INSERT INTO t_telephone_number(number, driver_id) VALUES ('{0}', {1});", contact,
-                        driverId), _npgsqlConnection);
-            cmd.ExecuteNonQuery();
+                var cmd =
+                    new NpgsqlCommand(
+                        string.Format("INSERT INTO t_telephone_number(number, driver_id) VALUES ('{0}', {1});", contact,
+                            driverId), _npgsqlConnection);
+                cmd.ExecuteNonQuery();
 
-            _npgsqlConnection.Close();
+                _npgsqlConnection.Close();
+            }
         }
 
         public void DelContacts(int driverId)
@@ -82,27 +116,30 @@ namespace BachelorLibAPI.Data
 
         public int AddNewTransit(int driverId, int carId, string consName, DateTime startTime, PointLatLng startPoint, PointLatLng endPoint)
         {
-            _npgsqlConnection.Open();
-            var customCulture = (CultureInfo)System.Threading.Thread.CurrentThread.CurrentCulture.Clone();
-            customCulture.NumberFormat.NumberDecimalSeparator = ".";
-            System.Threading.Thread.CurrentThread.CurrentCulture = customCulture;
+            lock (_lockObject)
+            {
+                _npgsqlConnection.Open();
+                var customCulture = (CultureInfo) Thread.CurrentThread.CurrentCulture.Clone();
+                customCulture.NumberFormat.NumberDecimalSeparator = ".";
+                Thread.CurrentThread.CurrentCulture = customCulture;
 
-            var cmd =
-                new NpgsqlCommand(
-                    string.Format(
-                        "INSERT INTO t_transit(dirver_id, car_id, start_time, start_position, end_position, consignment_name) " +
-                        "VALUES ({0}, {1}, '{2}', '({3}, {4})', '({5}, {6})', '{7}');", driverId, carId,
-                        startTime.ToString(Resources.DateTimeFormat), startPoint.Lat, startPoint.Lng, endPoint.Lat,
-                        endPoint.Lng, consName), _npgsqlConnection);
-            cmd.ExecuteNonQuery();
+                var cmd =
+                    new NpgsqlCommand(
+                        string.Format(
+                            "INSERT INTO t_transit(driver_id, car_id, start_time, start_position, end_position, consignment_name) " +
+                            "VALUES ({0}, {1}, '{2}', '({3}, {4})', '({5}, {6})', '{7}');", driverId, carId,
+                            startTime.ToString(Resources.DateTimeFormat), startPoint.Lat, startPoint.Lng, endPoint.Lat,
+                            endPoint.Lng, consName), _npgsqlConnection);
+                cmd.ExecuteNonQuery();
 
-            var res = (int)(new NpgsqlCommand(
-                    string.Format("select id from t_transit where dirver_id = {0} and start_time = '{1}';", driverId,
+                var res = (int) (new NpgsqlCommand(
+                    string.Format("select id from t_transit where driver_id = {0} and start_time = '{1}';", driverId,
                         startTime.ToString("yyyy-MM-dd HH:mm:ss")),
                     _npgsqlConnection)).ExecuteScalar();
 
-            _npgsqlConnection.Close();
-            return res;
+                _npgsqlConnection.Close();
+                return res;
+            }
         }
 
         public void DelTransit(int transId)
@@ -127,55 +164,62 @@ namespace BachelorLibAPI.Data
 
         public int DriverWithPhoneNumber(string contact)
         {
-            _npgsqlConnection.Open();
-
-            var cmd =
-                new NpgsqlCommand(
-                    string.Format("select driver_id from t_telephone_number where number = '{0}';", contact),
-                    _npgsqlConnection);
-            int res;
-
-            try
+            lock (_lockObject)
             {
-                res = (int) cmd.ExecuteScalar();
-            }
-            catch (Exception)
-            {
-                res = -1;
-            }
-            finally
-            {
-                _npgsqlConnection.Close();
-            }
+                _npgsqlConnection.Open();
 
-            return res;
+                var cmd =
+                    new NpgsqlCommand(
+                        string.Format("select driver_id from t_telephone_number where number = '{0}';", contact),
+                        _npgsqlConnection);
+                int res;
+
+                try
+                {
+                    res = (int) cmd.ExecuteScalar();
+                }
+                catch (Exception)
+                {
+                    res = -1;
+                }
+                finally
+                {
+                    _npgsqlConnection.Close();
+                }
+
+                return res;
+            }
         }
 
         public string GetCarInformation(int carId)
         {
-            _npgsqlConnection.Open();
-
-            var cmd =
-                new NpgsqlCommand(
-                    string.Format("SELECT concat(mark_name, ' ', model_name) as full_name from t_car where id = {0};",
-                        carId), _npgsqlConnection);
-            string res;
-
-            try
+            lock (_lockObject)
             {
-                res = (string) cmd.ExecuteScalar();
-                res = res ?? "";
-            }
-            catch (Exception)
-            {
-                res = "";
-            }
-            finally
-            {
-                _npgsqlConnection.Close();
-            }
+                _npgsqlConnection.Open();
 
-            return res;
+                var cmd =
+                    new NpgsqlCommand(
+                        string.Format(
+                            "SELECT concat(mark_name, ' ', model_name) as full_name from t_car where id = {0};",
+                            carId), _npgsqlConnection);
+                string res;
+
+                try
+                {
+                    res = (string) cmd.ExecuteScalar();
+                    res = res ?? @"Не удалось определить автомобиль";
+                }
+                catch (Exception ex)
+                {
+                    res = @"Возникла ошибка " + ex.Message;
+                }
+                finally
+                {
+                    _npgsqlConnection.Close();
+                }
+
+                return res;
+            }
         }
 
         public string GetDriversFullName(int driverId)
@@ -200,57 +244,63 @@ namespace BachelorLibAPI.Data
 
         public List<int> GetTransitIDs()
         {
-            _npgsqlConnection.Open();
-
-            var cmd = new NpgsqlCommand("SELECT id from t_transit;", _npgsqlConnection);
-            var res = new List<int>();
-
-            try
+            lock (_lockObject)
             {
-                var dr = cmd.ExecuteReader();
-                while (dr.Read())
-                    res.Add(int.Parse(dr[0].ToString()));
-            }
-            catch (Exception)
-            {
-                res = new List<int>();
-            }
-            finally
-            {
-                _npgsqlConnection.Close();
-            }
+                _npgsqlConnection.Open();
 
-            return res;
+                var cmd = new NpgsqlCommand("SELECT id from t_transit;", _npgsqlConnection);
+                var res = new List<int>();
+
+                try
+                {
+                    var dr = cmd.ExecuteReader();
+                    while (dr.Read())
+                        res.Add(int.Parse(dr[0].ToString()));
+                }
+                catch (Exception)
+                {
+                    res = new List<int>();
+                }
+                finally
+                {
+                    _npgsqlConnection.Close();
+                }
+
+                return res;
+            }
         }
 
         public List<TransitInfo> GetTransits()
         {
-            _npgsqlConnection.Open();
-
-            var cmd = new NpgsqlCommand("SELECT id from t_transit;", _npgsqlConnection);
-            var res = new List<TransitInfo>();
-
-            try
+            lock (_lockObject)
             {
-                var dr = cmd.ExecuteReader();
-                while (dr.Read())
+                _npgsqlConnection.Open();
+
+                var cmd = new NpgsqlCommand("SELECT id from t_transit;", _npgsqlConnection);
+                var res = new List<TransitInfo>();
+
+                try
                 {
-                    
-                }
-            }
-            catch (Exception)
-            {
-                res = new List<TransitInfo>();
-            }
-            finally
-            {
-                _npgsqlConnection.Close();
-            }
+                    var dr = cmd.ExecuteReader();
+                    while (dr.Read())
+                    {
 
-            return res;
+                    }
+                }
+                catch (Exception)
+                {
+                    res = new List<TransitInfo>();
+                }
+                finally
+                {
+                    _npgsqlConnection.Close();
+                }
+
+                return res;
+            }
         }
 
-        public List<int> GetTransitIDs(int driverId)
+        public IEnumerable<int> GetTransitIDs(int driverId)
         {
             return new List<int>();
         }
@@ -265,62 +315,150 @@ namespace BachelorLibAPI.Data
             return new List<string>();
         }
 
-        public List<string> GetGrzList()
+        public string GetGrzByCarId(int carId)
         {
-            _npgsqlConnection.Open();
-
-            var cmd = new NpgsqlCommand("SELECT grz from t_grz;", _npgsqlConnection);
-            var res = new List<string>();
-
-            try
+            lock (_lockObject)
             {
-                var dr = cmd.ExecuteReader();
-                while (dr.Read())
-                    res.Add(dr[0].ToString());
-            }
-            catch (Exception)
-            {
-                res = new List<string>();
-            }
-            finally
-            {
-                _npgsqlConnection.Close();
-            }
+                _npgsqlConnection.Open();
 
-            return res;
+                var cmd =
+                    new NpgsqlCommand(
+                        string.Format(
+                            "SELECT t_grz.grz from t_car join t_grz on (t_car.grz_id = t_grz.id) where t_car.id = {0};",
+                            carId), _npgsqlConnection);
+                string res;
+
+                try
+                {
+                    res = (string) cmd.ExecuteScalar();
+                    res = res ?? @"Не удалось определить автомобиль";
+                }
+                catch (Exception ex)
+                {
+                    res = @"Возникла ошибка " + ex.Message;
+                }
+                finally
+                {
+                    _npgsqlConnection.Close();
+                }
+
+                return res;
+            }
         }
 
-        public int GetDriverId(int transId)
+        public List<string> GetGrzList()
         {
-            return 0;
+            lock (_lockObject)
+            {
+                _npgsqlConnection.Open();
+
+                var cmd = new NpgsqlCommand("SELECT grz from t_grz;", _npgsqlConnection);
+                var res = new List<string>();
+
+                try
+                {
+                    var dr = cmd.ExecuteReader();
+                    while (dr.Read())
+                        res.Add(dr[0].ToString());
+                }
+                catch (Exception)
+                {
+                    res = new List<string>();
+                }
+                finally
+                {
+                    _npgsqlConnection.Close();
+                }
+
+                return res;
+            }
+        }
+
+        public int GetDriverId(int transitId)
+        {
+            lock (_lockObject)
+            {
+                _npgsqlConnection.Open();
+
+                var cmd =
+                    new NpgsqlCommand(
+                        string.Format(
+                            "SELECT driver_id from t_transit where id = '{0}';",
+                            transitId), _npgsqlConnection);
+                int res;
+
+                try
+                {
+                    res = (int) cmd.ExecuteScalar();
+                }
+                catch (Exception)
+                {
+                    res = -1;
+                }
+                finally
+                {
+                    _npgsqlConnection.Close();
+                }
+
+                return res;
+            }
         }
 
         public string GetConsignmentName(int transId)
         {
-            return "";
+            lock (_lockObject)
+            {
+                _npgsqlConnection.Open();
+
+                var cmd =
+                    new NpgsqlCommand(string.Format("SELECT consignment_name FROM t_transit where id = {0};", transId),
+                        _npgsqlConnection);
+                string res;
+
+                try
+                {
+                    res = (string) cmd.ExecuteScalar();
+                    res = res ?? @"Для данной перевозки не задан груз";
+                }
+                catch (Exception ex)
+                {
+                    res = @"Возникла ошибка " + ex.Message;
+                }
+                finally
+                {
+                    _npgsqlConnection.Close();
+                }
+
+                return res;
+            }
         }
 
         public string GetDriverName(int driverId)
         {
-            _npgsqlConnection.Open();
-
-            var cmd = new NpgsqlCommand(string.Format("SELECT name FROM t_driver where id = {0};", driverId), _npgsqlConnection);
-            string res;
-
-            try
+            lock (_lockObject)
             {
-                res = (string)cmd.ExecuteScalar();
-            }
-            catch (Exception)
-            {
-                res = "";
-            }
-            finally
-            {
-                _npgsqlConnection.Close();
-            }
+                _npgsqlConnection.Open();
 
-            return res;
+                var cmd = new NpgsqlCommand(string.Format("SELECT name FROM t_driver where id = {0};", driverId),
+                    _npgsqlConnection);
+                string res;
+
+                try
+                {
+                    res = (string) cmd.ExecuteScalar();
+                    res = res ?? @"Водитель не определён";
+                }
+                catch (Exception ex)
+                {
+                    res = @"Возникла ошибка " + ex.Message;
+                }
+                finally
+                {
+                    _npgsqlConnection.Close();
+                }
+
+                return res;
+            }
         }
 
         public string GetDriverSurname(int driverId)
@@ -330,7 +468,33 @@ namespace BachelorLibAPI.Data
 
         public List<string> GetDriverNumbers(int driverId)
         {
-            return new List<string>();
+            lock (_lockObject)
+            {
+                _npgsqlConnection.Open();
+
+                var cmd =
+                    new NpgsqlCommand(
+                        string.Format("SELECT number from t_telephone_number where driver_id = {0};", driverId),
+                        _npgsqlConnection);
+                var res = new List<string>();
+
+                try
+                {
+                    var dr = cmd.ExecuteReader();
+                    while (dr.Read())
+                        res.Add(dr[0].ToString());
+                }
+                catch (Exception)
+                {
+                    res = new List<string>();
+                }
+                finally
+                {
+                    _npgsqlConnection.Close();
+                }
+
+                return res;
+            }
         }
 
         public List<DateTime> GetLocationTime(int transId, PointLatLng pnt)
@@ -343,9 +507,44 @@ namespace BachelorLibAPI.Data
             return new PointLatLng();
         }
 
+        public Tuple<PointLatLng, PointLatLng> GetStartAndEndPoints(int transitId)
+        {
+            lock (_lockObject)
+            {
+                _npgsqlConnection.Open();
+
+                var cmd =
+                    new NpgsqlCommand(
+                        string.Format("SELECT start_position, end_position from t_transit where id = {0};", transitId),
+                        _npgsqlConnection);
+                Tuple<PointLatLng, PointLatLng> res = null;
+                try
+                {
+                    var dr = cmd.ExecuteReader();
+                    dr.Read();
+                    var start = (NpgsqlPoint) dr[0];
+                    var end = (NpgsqlPoint) dr[1];
+                    res = new Tuple<PointLatLng, PointLatLng>(new PointLatLng(start.X, start.Y),
+                        new PointLatLng(end.X, end.Y));
+                }
+                catch (Exception)
+                {
+                    // ignored
+                }
+                finally
+                {
+                    _npgsqlConnection.Close();
+                }
+
+                return res;
+            }
+        }
+
         public void SubmitChanges() 
         {
 
         }
+
+        private readonly object _lockObject = new object();
     }
 }

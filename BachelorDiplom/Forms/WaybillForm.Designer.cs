@@ -53,9 +53,9 @@ namespace BachelorLibAPI.Forms
             this.dtpStart = new System.Windows.Forms.DateTimePicker();
             this.label4 = new System.Windows.Forms.Label();
             this.btnNewWaybill = new System.Windows.Forms.Button();
-            this.ttForOk = new System.Windows.Forms.ToolTip(this.components);
             this.cmbGRZ = new System.Windows.Forms.ComboBox();
             this.picGrz = new System.Windows.Forms.PictureBox();
+            this.ttForOk = new System.Windows.Forms.ToolTip(this.components);
             this.ltpNewDriver.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picFrom)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picTo)).BeginInit();
@@ -334,7 +334,7 @@ namespace BachelorLibAPI.Forms
             this.cmbGRZ.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
             this.cmbGRZ.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.cmbGRZ.FormattingEnabled = true;
-            this.cmbGRZ.Location = new System.Drawing.Point(254, 176);
+            this.cmbGRZ.Location = new System.Drawing.Point(254, 173);
             this.cmbGRZ.Name = "cmbGRZ";
             this.cmbGRZ.Size = new System.Drawing.Size(212, 27);
             this.cmbGRZ.TabIndex = 28;
@@ -358,6 +358,7 @@ namespace BachelorLibAPI.Forms
             this.Name = "WaybillForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
             this.Text = "Заполнить путевой лист";
+            this.TopMost = true;
             this.Activated += new System.EventHandler(this.WaybillForm_Enter);
             this.ltpNewDriver.ResumeLayout(false);
             this.ltpNewDriver.PerformLayout();

@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
-using System.Drawing;
-
 using BachelorLibAPI.Program;
 
 namespace BachelorLibAPI.Forms
@@ -51,7 +50,7 @@ namespace BachelorLibAPI.Forms
                 var driverName = edtDriverName.Text;
                 var grz = cmbGRZ.Text;
 
-                if((num == "" || num.Length != 10) || consName == "" || driverName == "" || grz == "")
+                if ((num == "" || num.Length != 10) || consName == "" || driverName == "" || grz == "")
                     throw new FormatException("Звёздочкой (*) отмечены поля для обязательного заполнения!");
                 if (!_consNames.Contains(consName))
                     throw new FormatException("Выберите груз.");
@@ -72,14 +71,16 @@ namespace BachelorLibAPI.Forms
             }
             catch (FormatException ex)
             {
-                Cursor.Current = Cursors.Default;
                 MessageBox.Show(ex.Message, @"Предупреждение");
             }
             catch (Exception ex)
             {
+                MessageBox.Show(ex.Message, @"Ошибка");
+            }
+            finally
+            {
                 Cursor.Current = Cursors.Default;
                 _needUpdate = false;
-                MessageBox.Show(ex.Message, @"Ошибка");
             }
         }
 
@@ -93,7 +94,7 @@ namespace BachelorLibAPI.Forms
         private bool _hasStart;
         private bool _hasEnd;
 
-        private bool _needUpdate;
+        private bool _needUpdate = true;
         private void CheckAndConstructRoute()
         {
             if (_hasStart && _hasEnd)
@@ -101,9 +102,13 @@ namespace BachelorLibAPI.Forms
                 try
                 {
                     btnNewWaybill.Enabled = true;
-                    Cursor.Current = Cursors.WaitCursor;
-                    QueriesHandler.ConstructShortTrack();
-                    Cursor.Current = Cursors.Default;
+                    if (_needUpdate)
+                    {
+                        Cursor.Current = Cursors.WaitCursor;
+                        QueriesHandler.ConstructShortTrack();
+                        Cursor.Current = Cursors.Default;
+                    }
+                    else _needUpdate = true;
                 }
                 catch (Exception e)
                 {
@@ -125,41 +130,51 @@ namespace BachelorLibAPI.Forms
             var hasAdress = QueriesHandler.CheckAdress(ref txt);
             textBox.Text = txt;
 
-            ttForOk.SetToolTip(textBox, hasAdress ? QueriesHandler.GetCorrectAdress(txt) : txt);
+            try
+            {
+                ttForOk.SetToolTip(textBox, hasAdress ? QueriesHandler.GetCorrectAdress(txt) : txt);
 
-            var pic = hasAdress
-                ? new Bitmap(PicOk, new Size(16, 16))
-                : new Bitmap(PicNotOk, new Size(16, 16));
-            var ttText = hasAdress ? "Адрес найден на карте" : "Адрес не найден на карте, проверьте и исправьте";
-            if (textBox == edtFrom)
-            {
-                picFrom.Image = pic;
-                ttForOk.SetToolTip(picFrom, ttText);
-                _hasStart = hasAdress;
-                if (_hasStart)
+                var pic = hasAdress
+                    ? new Bitmap(PicOk, new Size(16, 16))
+                    : new Bitmap(PicNotOk, new Size(16, 16));
+                var ttText = hasAdress ? "Адрес найден на карте" : "Адрес не найден на карте, проверьте и исправьте";
+                if (textBox == edtFrom)
                 {
-                    QueriesHandler.SetStartPoint(txt);
-                    CheckAndConstructRoute();
+                    picFrom.Image = pic;
+                    ttForOk.SetToolTip(picFrom, ttText);
+                    _hasStart = hasAdress;
+                    if (_hasStart)
+                    {
+                        QueriesHandler.SetStartPoint(txt);
+                        CheckAndConstructRoute();
+                    }
+                }
+                else if (textBox == edtMid)
+                {
+                    picMid.Image = pic;
+                    ttForOk.SetToolTip(picMid, ttText);
+                    btnMoreMid.Enabled = hasAdress;
+                }
+                else if (textBox == edtTo)
+                {
+                    picTo.Image = pic;
+                    ttForOk.SetToolTip(picTo, ttText);
+                    _hasEnd = hasAdress;
+                    if (_hasEnd)
+                    {
+                        QueriesHandler.SetEndPoint(txt);
+                        CheckAndConstructRoute();
+                    }
                 }
             }
-            else if (textBox == edtMid)
+            catch (UnknownPlacemark up)
             {
-                picMid.Image = pic;
-                ttForOk.SetToolTip(picMid, ttText);
-                btnMoreMid.Enabled = hasAdress;
+                MessageBox.Show(up.Message);
             }
-            else if (textBox == edtTo)
+            finally
             {
-                picTo.Image = pic;
-                ttForOk.SetToolTip(picTo, ttText);
-                _hasEnd = hasAdress;
-                if (_hasEnd)
-                {
-                    QueriesHandler.SetEndPoint(txt);
-                    CheckAndConstructRoute();
-                }
+                Cursor.Current = Cursors.Default;
             }
-            Cursor.Current = Cursors.Default;
         }
 
         private void OnTextChanged(object sender, EventArgs e)
@@ -195,8 +210,7 @@ namespace BachelorLibAPI.Forms
                 _hasEnd = true;
                 picTo.Image = new Bitmap(PicOk, new Size(16, 16));
             }
-            if (_needUpdate) CheckAndConstructRoute();
-            else _needUpdate = true;
+            CheckAndConstructRoute();
         }
 
         private void cmbGRZ_SelectedIndexChanged(object sender, EventArgs e)
@@ -204,9 +218,9 @@ namespace BachelorLibAPI.Forms
             var grz = cmbGRZ.Text;
             var car = QueriesHandler.GetCarInfo(grz);
 
-            ttForOk.SetToolTip(cmbGRZ, car != "" ? car : @"Автомобиль с этим номером не зарегистрирован");
-            ttForOk.SetToolTip(picGrz, car != "" ? car : @"Автомобиль с этим номером не зарегистрирован");
-            picGrz.Image = car != ""
+            ttForOk.SetToolTip(cmbGRZ, car);
+            ttForOk.SetToolTip(picGrz, car);
+            picGrz.Image = car != @"Не удалось определить автомобиль"
                 ? new Bitmap(PicOk, new Size(16, 16))
                 : new Bitmap(PicNotOk, new Size(16, 16));
         }

@@ -1,20 +1,27 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Windows.Forms;
 using GMap.NET;
 
 namespace BachelorLibAPI.Data
 {
+    public struct FullPointDescription
+    {
+        public string Address;
+        public PointLatLng Position;
+    }
     public struct TransitInfo
     {
         public int Id;
-        public string From;
-        public string To;
+
+        public FullPointDescription From;
+        public FullPointDescription To;
         public string Consignment;
         public string Driver;
         public string DriverNumber;
         public string Car;
         public string Grz;
+        public FullPointDescription CurrentPlace;
+        public bool IsFinshed;
     }
 
     public struct AnalyseReturnType
@@ -141,7 +148,7 @@ namespace BachelorLibAPI.Data
         List<int> GetTransitIDs();
         List<TransitInfo> GetTransits();
 
-        List<int> GetTransitIDs(int driverId);
+        IEnumerable<int> GetTransitIDs(int driverId);
 
         /// <summary>
         /// Получить список из ID первозок, зарегистрированных ранее указанного времени 
@@ -156,6 +163,7 @@ namespace BachelorLibAPI.Data
         /// <returns>Список всех контактов</returns>
         List<string> GetNumbers();
 
+        string GetGrzByCarId(int carId);
         List<string> GetGrzList(); 
 
         /// <summary>
@@ -168,7 +176,7 @@ namespace BachelorLibAPI.Data
         // ReSharper disable once InconsistentNaming
         int GetCarIdByGRZ(string grz);
 
-        string GetCarMarkModel(string grz);
+        int GetTransitCarId(int transitId);
 
         /// <summary>
         /// Определить груз по номеру перевозки
@@ -198,20 +206,7 @@ namespace BachelorLibAPI.Data
         /// <returns>Список номеров</returns>
         List<string> GetDriverNumbers(int driverId);
 
-        /// <summary>
-        /// Получить время нахождения водителя в городе в рамках перевозки
-        /// </summary>
-        /// <param name="transId">ID перевозки</param>
-        /// <param name="cityID">ID города</param>
-        /// <returns>Оцененное время, когда водитель будет в этом городе</returns>
-        List<DateTime> GetLocationTime(int transId, PointLatLng pnt);
-
-        /// <summary>
-        /// Получить текущее местонахождение водителя
-        /// </summary>
-        /// <param name="transId">ID перевозки</param>
-        /// <returns></returns>
-        PointLatLng GetCurrentLocation(int transId);
+        Tuple<PointLatLng, PointLatLng> GetStartAndEndPoints(int transit);
 
         void SubmitChanges();
     }   

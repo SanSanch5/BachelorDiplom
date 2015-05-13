@@ -14,10 +14,15 @@ namespace BachelorLibAPI.Forms
             progressBar.Value += count;
         }
 
+        public void Complete()
+        {
+            progressBar.Value = progressBar.Maximum;
+        }
+
         public ProgressBarForm(string processName, int count)
         {
-            Text = processName;
             InitializeComponent();
+            Text = processName;
             Show();
             var screen = Screen.PrimaryScreen;
             Left = screen.WorkingArea.Right - Width;

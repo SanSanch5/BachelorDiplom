@@ -7,7 +7,6 @@ using BachelorLibAPI.Data;
 using BachelorLibAPI.Map;
 using BachelorLibAPI.Program;
 using BachelorLibAPI.TestsGenerator;
-using GMap.NET;
 
 namespace BachelorLibAPI.Forms
 {
@@ -23,16 +22,22 @@ namespace BachelorLibAPI.Forms
         {
             InitializeComponent();
 
+
             _queriesHandler = new QueriesHandler(PgSqlDataHandler.Instance, new OpenStreetGreatMap(ref gmap))
             {
                 AnalyseProgress = pbAnalyse
             };
-
+            
             FillMainForm();
         }
 
         void FillMainForm()
         {
+            _queriesHandler.PutTransitsFromDbToMap();
+         
+            //var pb = new ProgressBarForm("asdasdasdasd", 121231);
+            //for(int i = 0; i < 121231; ++i)
+            //    pb.Progress();
             //foreach (var city in m_queriesHandler.GetCitiesNames())
             //{
             //    cmbCrashPlace.Items.Add(city);
