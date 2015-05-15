@@ -74,24 +74,28 @@ namespace BachelorLibAPI.Map
 
         private void GmapOnWheel(object sender, MouseEventArgs e)
         {
-            Rectangle rect = Rectangle.FromLTRB(Cursor.Position.X - 16, Cursor.Position.Y, Cursor.Position.X + 16, Cursor.Position.Y+32);
-            //var pointer = _gmap.FromLocalToLatLng(e.X, e.Y);
+            var rect = Rectangle.FromLTRB(Cursor.Position.X - 16, Cursor.Position.Y, Cursor.Position.X + 16,
+                Cursor.Position.Y + 32);
 
-            lock (MarkerPublicLock.Instance)
+            lock (_transitMarkers)
             {
-                var lst =
+                var arr =
                     _transitMarkers.Where(delegate(TransitMarker x)
                     {
                         var pntLoc = _gmap.FromLatLngToLocal(x.Marker.Position);
                         var pnt = new Point((int) pntLoc.X, (int) pntLoc.Y);
                         var pntToScreen = _gmap.PointToScreen(pnt);
                         return rect.Contains(pntToScreen);
-                    }).ToList();
-                if (!lst.Any()) return;
+                    }).ToArray();
+                if (!arr.Any()) return;
+
+                // ReSharper disable once PossibleLossOfFraction
                 _gmap.Zoom += e.Delta/120;
-                _gmap.Position = lst[0].Marker.Position;
-                Cursor.Position = _gmap.PointToScreen(new Point((int)_gmap.FromLatLngToLocal(_gmap.Position).X, (int)_gmap.FromLatLngToLocal(_gmap.Position).Y-10));
+                _gmap.Position = arr[0].Marker.Position;
             }
+            Cursor.Position =
+                _gmap.PointToScreen(new Point((int) _gmap.FromLatLngToLocal(_gmap.Position).X,
+                    (int) _gmap.FromLatLngToLocal(_gmap.Position).Y - 10));
         }
 
         private void GmapOnMarkerClick(object sender, MouseEventArgs mouseEventArgs)
@@ -137,14 +141,15 @@ namespace BachelorLibAPI.Map
                 MessageBox.Show(@"Вы уверены, что хотите удалить перевозку?", @"Внимание!", MessageBoxButtons.YesNo,
                     MessageBoxIcon.Question) == DialogResult.Yes)
             {
-                lock (MarkerPublicLock.Instance)
+                TransitRemoveEventArgs args;
+                lock (_transitMarkers)
                 {
                     var m = _transitMarkers.Where(x => x.Marker == marker).ToList()[0];
                     _transitMarkers.Remove(m);
                     _markersOverlay.Markers.Remove(marker);
-                    var args = new TransitRemoveEventArgs {TransitId = m.Transit.Id};
-                    OnTransitRemove(args);
+                    args = new TransitRemoveEventArgs {TransitId = m.Transit.Id};
                 }
+                OnTransitRemove(args);
             }
         }
 
@@ -157,30 +162,35 @@ namespace BachelorLibAPI.Map
         /// <param name="transit"></param>
         public void AddTransitMarker(TransitInfo transit)
         {
-            lock (MarkerPublicLock.Instance)
+            var m = new TransitMarker {Transit = transit};
+            var pic = transit.IsFinshed
+                ? new Bitmap("..\\..\\Map\\Resources\\tractorunitblack.png")
+                : new Bitmap("..\\..\\Map\\Resources\\truckyellow.png");
+
+            m.Marker = new GMarkerGoogle(transit.CurrentPlace.Position, new Bitmap(pic, new Size(32, 32)))
             {
-                var m = new TransitMarker {Transit = transit};
-                var pic = transit.IsFinshed
-                    ? new Bitmap("..\\..\\Map\\Resources\\tractorunitblack.png")
-                    : new Bitmap("..\\..\\Map\\Resources\\truckyellow.png");
+                ToolTipText =
+                    string.Format(
+                        "Перевозка #{0}\nОткуда: {1}\nКуда: {2}\nГруз: {3}\nВодитель: {4}\nНомер телефона: {5}\nАвтомобиль: {6}\nГРЗ: {7}\nТекущее местоположение: {8}",
+                        m.Transit.Id, m.Transit.From.Address, m.Transit.To.Address, m.Transit.Consignment,
+                        m.Transit.Driver,
+                        m.Transit.DriverNumber, m.Transit.Car, m.Transit.Grz, m.Transit.CurrentPlace.Address)
+            };
 
-                m.Marker = new GMarkerGoogle(transit.CurrentPlace.Position, new Bitmap(pic, new Size(32, 32)))
-                {
-                    ToolTipText =
-                        string.Format(
-                            "Перевозка #{0}\nОткуда: {1}\nКуда: {2}\nГруз: {3}\nВодитель: {4}\nНомер телефона: {5}\nАвтомобиль: {6}\nГРЗ: {7}\nТекущее местоположение: {8}",
-                            m.Transit.Id, m.Transit.From.Address, m.Transit.To.Address, m.Transit.Consignment, m.Transit.Driver,
-                            m.Transit.DriverNumber, m.Transit.Car, m.Transit.Grz, m.Transit.CurrentPlace.Address)
-                };
-
+            lock (_transitMarkers)
+            {
                 _transitMarkers.Add(m);
-                _markersOverlay.Markers.Add(m.Marker);
+
+                //лист тут не при чём оказался.. просто элемент управления, созданный в каком-то потоке, может меняться только!! в этом потоке!
+                if(_gmap.InvokeRequired)
+                    _gmap.Invoke((MethodInvoker)delegate { _markersOverlay.Markers.Add(m.Marker); });
+                else _markersOverlay.Markers.Add(m.Marker);
             }
         }
 
         public void RemoveTransitMarker(int transitId)
         {
-            lock (MarkerPublicLock.Instance)
+            lock (_transitMarkers)
             {
                 var m = _transitMarkers.Where(x => x.Transit.Id == transitId).Select(x => x.Marker).ToArray()[0];
                 _markersOverlay.Markers.Remove(m);
@@ -416,10 +426,7 @@ namespace BachelorLibAPI.Map
 
         private Placemark? GetPlacemark(PointLatLng pnt, out GeoCoderStatusCode st)
         {
-            lock(_placemarkGettingLock)
-            {
-                return ((OpenStreetMapProvider)_gmap.MapProvider).GetPlacemark(pnt, out st);
-            }
+            return ((OpenStreetMapProvider) _gmap.MapProvider).GetPlacemark(pnt, out st);
         }
 
         public string GetPlacemark(PointLatLng pnt)
@@ -464,7 +471,7 @@ namespace BachelorLibAPI.Map
 
             var results = new List<List<KeyValuePair<PointLatLng, double>>>();
             var tasks = new List<Task>();
-            ProgressBarForm progressBar = new ProgressBarForm("Расчёт промежуточных стадий...", (routePoints.Count - 1) / diff * 1000 + 1000);
+            var progressBar = new ProgressBarForm("Расчёт промежуточных стадий...", (routePoints.Count - 1) / diff * 1000 + 1000);
 
             try
             {
@@ -565,8 +572,9 @@ namespace BachelorLibAPI.Map
             {
                 var drawingEvent = new AutoResetEvent(false);
                 TimerCallback tcb = DrawTransits;
+                var sleep = 60 - DateTime.Now.Second;
                 // ReSharper disable once ObjectCreationAsStatement
-                new Timer(tcb, drawingEvent, 0, 60000);
+                new Timer(tcb, drawingEvent, sleep*1000, 60000);
 
                 while (true)
                     drawingEvent.WaitOne();
@@ -584,7 +592,7 @@ namespace BachelorLibAPI.Map
 
         private void DrawTransits(object stateInfo)
         {
-            var autoEvent = (AutoResetEvent)stateInfo;
+            var autoEvent = (AutoResetEvent) stateInfo;
             var filename = TempFilesDir + DateTime.Now.ToString(Resources.TimeFileFormat);
             if (!File.Exists(filename)) return;
 
@@ -601,37 +609,34 @@ namespace BachelorLibAPI.Map
                 }
             }
 
-            lock (MarkerPublicLock.Instance)
+            try
             {
-                try
+                lock (_transitMarkers)
                 {
-                    var tmpSafe = _transitMarkers.ToArray();
-                    for (int i = 0; i < tmpSafe.Length; i++)
+                    foreach (var transit in _transitMarkers)
                     {
-                        var t = tmpSafe[i];
-                        var transMarker = t;
-                        var marker = transMarker;
-                        var markerPos = transitsForUpdated.Where(x => x.Key == marker.Transit.Id).ToArray();
+                        var t = transit;
+                        var markerPos = transitsForUpdated.Where(x => x.Key == t.Transit.Id).ToArray();
                         if (!markerPos.Any()) continue;
 
-                        transMarker.Marker.Position = transMarker.Transit.CurrentPlace.Position = markerPos.First().Value;
-                        transMarker.Transit.CurrentPlace.Address = GetPlacemark(transMarker.Marker.Position);
-                        transMarker.Marker.ToolTipText =
+                        t.Marker.Position = t.Transit.CurrentPlace.Position = markerPos.First().Value;
+                        t.Transit.CurrentPlace.Address = GetPlacemark(t.Marker.Position);
+                        t.Marker.ToolTipText =
                             string.Format(
                                 "Перевозка #{0}\nОткуда: {1}\nКуда: {2}\nГруз: {3}\nВодитель: {4}\nНомер телефона: {5}\nАвтомобиль: {6}\nГРЗ: {7}\nТекущее местоположение: {8}",
-                                transMarker.Transit.Id, transMarker.Transit.From.Address, transMarker.Transit.To.Address,
-                                transMarker.Transit.Consignment, transMarker.Transit.Driver,
-                                transMarker.Transit.DriverNumber, transMarker.Transit.Car, transMarker.Transit.Grz,
-                                transMarker.Transit.CurrentPlace.Address);
+                                t.Transit.Id, t.Transit.From.Address, t.Transit.To.Address,
+                                t.Transit.Consignment, t.Transit.Driver,
+                                t.Transit.DriverNumber, t.Transit.Car, t.Transit.Grz,
+                                t.Transit.CurrentPlace.Address);
                     }
-
-                    Debug.WriteLine(string.Format("{0} Текущие положения перевозок обновлены!", DateTime.Now.ToString(Resources.TimeFileFormat)));
-                    autoEvent.Set();
                 }
-                catch (Exception e)
-                {
-                    Debug.WriteLine(e.Message);
-                }
+                Debug.WriteLine(string.Format("{0} Текущие положения перевозок обновлены!",
+                    DateTime.Now.ToString(Resources.TimeFileFormat)));
+                autoEvent.Set();
+            }
+            catch (Exception e)
+            {
+                Debug.WriteLine(e.Message);
             }
         }
 
@@ -649,8 +654,5 @@ namespace BachelorLibAPI.Map
         private CancellationTokenSource _stadiesGenerationCts = new CancellationTokenSource();
         private Task _stadiesGeneration;
         private Action _transitsDrawingAction;
-
-        private readonly object _placemarkGettingLock = new object();
-        //public readonly object _transitMarkersLock = new object();
     }
 }

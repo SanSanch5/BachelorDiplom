@@ -306,10 +306,8 @@ namespace BachelorLibAPI.Program
                         CurrentPlace = currentPlace,
                         IsFinshed = isFinshed
                     };
-                    lock (MarkerPublicLock.Instance)
-                    {
-                        Map.AddTransitMarker(ti);
-                    }
+                    
+                    Map.AddTransitMarker(ti);
                 }
                 catch (Exception ex)
                 {
