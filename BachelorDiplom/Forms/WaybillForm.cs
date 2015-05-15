@@ -127,8 +127,8 @@ namespace BachelorLibAPI.Forms
             if (txt == "") return;
 
             Cursor.Current = Cursors.WaitCursor;
-            var hasAdress = QueriesHandler.CheckAdress(ref txt);
-            textBox.Text = txt;
+            var hasAdress = QueriesHandler.CheckAdress(txt);
+            //textBox.Text = txt;
 
             try
             {
@@ -143,11 +143,9 @@ namespace BachelorLibAPI.Forms
                     picFrom.Image = pic;
                     ttForOk.SetToolTip(picFrom, ttText);
                     _hasStart = hasAdress;
-                    if (_hasStart)
-                    {
-                        QueriesHandler.SetStartPoint(txt);
-                        CheckAndConstructRoute();
-                    }
+                    if (!_hasStart) return;
+                    QueriesHandler.SetStartPoint(txt);
+                    CheckAndConstructRoute();
                 }
                 else if (textBox == edtMid)
                 {
@@ -160,11 +158,9 @@ namespace BachelorLibAPI.Forms
                     picTo.Image = pic;
                     ttForOk.SetToolTip(picTo, ttText);
                     _hasEnd = hasAdress;
-                    if (_hasEnd)
-                    {
-                        QueriesHandler.SetEndPoint(txt);
-                        CheckAndConstructRoute();
-                    }
+                    if (!_hasEnd) return;
+                    QueriesHandler.SetEndPoint(txt);
+                    CheckAndConstructRoute();
                 }
             }
             catch (UnknownPlacemark up)
@@ -197,14 +193,16 @@ namespace BachelorLibAPI.Forms
 
         private void WaybillForm_Enter(object sender, EventArgs e)
         {
-            edtFrom.Text = QueriesHandler.GetStartPoint();
+            if (edtFrom.Text == "") 
+                edtFrom.Text = QueriesHandler.GetStartPoint();
             if (edtFrom.Text != "")
             {
                 _hasStart = true;
                 picFrom.Image = new Bitmap(PicOk, new Size(16, 16));
             }
 
-            edtTo.Text = QueriesHandler.GetEndPoint();
+            if (edtTo.Text == "") 
+                edtTo.Text = QueriesHandler.GetEndPoint();
             if (edtTo.Text != "")
             {
                 _hasEnd = true;

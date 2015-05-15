@@ -4,9 +4,14 @@ namespace BachelorLibAPI.Forms
 {
     public partial class ProgressBarForm : Form
     {
-        protected override bool ShowWithoutActivation
+        protected override CreateParams CreateParams
         {
-            get { return true; }
+            get
+            {
+                var ret = base.CreateParams;
+                ret.ExStyle |= (int)0x08000000L;
+                return ret;
+            }
         }
 
         public void Progress(int count = 1)
@@ -16,7 +21,7 @@ namespace BachelorLibAPI.Forms
 
         public void Complete()
         {
-            progressBar.Value = progressBar.Maximum;
+            progressBar.Value = progressBar.Maximum-1;
         }
 
         public ProgressBarForm(string processName, int count)

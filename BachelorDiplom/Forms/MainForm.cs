@@ -1,7 +1,10 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
+using System.Threading;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 using BachelorLibAPI.Data;
 using BachelorLibAPI.Map;
@@ -22,18 +25,25 @@ namespace BachelorLibAPI.Forms
         {
             InitializeComponent();
 
+            FillMainForm();
+        }
+
+        private void FillMainForm()
+        {
+            if (InvokeRequired)
+            {
+                Invoke((MethodInvoker)FillMainForm);
+                return;
+            }
 
             _queriesHandler = new QueriesHandler(PgSqlDataHandler.Instance, new OpenStreetGreatMap(ref gmap))
             {
                 AnalyseProgress = pbAnalyse
             };
-            
-            FillMainForm();
-        }
 
-        void FillMainForm()
-        {
+            Cursor.Current = Cursors.WaitCursor;
             _queriesHandler.PutTransitsFromDbToMap();
+            Cursor.Current = Cursors.Default;
          
             //var pb = new ProgressBarForm("asdasdasdasd", 121231);
             //for(int i = 0; i < 121231; ++i)

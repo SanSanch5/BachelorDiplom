@@ -144,7 +144,18 @@ namespace BachelorLibAPI.Data
 
         public void DelTransit(int transId)
         {
+            lock (_lockObject)
+            {
+                _npgsqlConnection.Open();
 
+                var cmd =
+                    new NpgsqlCommand(
+                        string.Format("DELETE FROM t_transit WHERE id = {0};", transId),
+                        _npgsqlConnection);
+                cmd.ExecuteNonQuery();
+
+                _npgsqlConnection.Close();
+            }
         }
 
         public int GetTableLength<T>()

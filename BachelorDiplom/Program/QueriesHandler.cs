@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using BachelorLibAPI.Algorithms;
@@ -48,10 +49,19 @@ namespace BachelorLibAPI.Program
         /// </summary>
         public IDataHandler DataHandler { get; set; }
 
+        private IMap _map;
+
         /// <summary>
         /// Свойство устанавливает новую реализацию интерфейса IMap и возвращает текущуюю
         /// </summary>
-        public IMap Map { get; set; }
+        public IMap Map
+        {
+            get { return _map; }
+            set 
+            { 
+                _map = value;
+                _map.TransitRemove += DelTransit;
+            } }
 
         public static List<string> GetConsignmentsNames()
         {
@@ -172,6 +182,15 @@ namespace BachelorLibAPI.Program
             }
         }
 
+        private void DelTransit(object o, TransitRemoveEventArgs e)
+        {
+            DataHandler.DelTransit(e.TransitId);
+            if (File.Exists(TempFilesDir + string.Format("\\Transits\\{0}", e.TransitId))) 
+                File.Delete(TempFilesDir + string.Format("\\Transits\\{0}", e.TransitId));
+
+            MessageBox.Show(@"Перевозка удалена", @"Информация");
+        }
+
         /// <summary>
         /// Удаляет записи о водителе вместе со всеми зарегистрированными на него перевозками
         /// </summary>
@@ -241,6 +260,44 @@ namespace BachelorLibAPI.Program
             DataHandler.SubmitChanges();
         }
 
+        private Action AddTransitToMap(int id, int currentPosition, PointLatLng currentPoint, int count)
+        {
+            return () =>
+            {
+                var carId = DataHandler.GetTransitCarId(id);
+                var driverId = DataHandler.GetDriverId(id);
+                var startEnd = DataHandler.GetStartAndEndPoints(id);
+
+                var ti = new TransitInfo
+                {
+                    Car =
+                        carId == -1 ? @"Не удалось определить автомобиль" : DataHandler.GetCarInformation(carId),
+                    Consignment = DataHandler.GetConsignmentName(id),
+                    Driver = DataHandler.GetDriverName(driverId),
+                    DriverNumber = DataHandler.GetDriverNumbers(driverId).First(),
+                    From = new FullPointDescription
+                    {
+                        Address = Map.GetPlacemark(startEnd.Item1),
+                        Position = startEnd.Item1
+                    },
+                    To = new FullPointDescription
+                    {
+                        Address = Map.GetPlacemark(startEnd.Item2),
+                        Position = startEnd.Item2
+                    },
+                    Grz = DataHandler.GetGrzByCarId(carId),
+                    Id = id,
+                    CurrentPlace = new FullPointDescription
+                    {
+                        Address = Map.GetPlacemark(currentPoint),
+                        Position = currentPoint
+                    },
+                    IsFinshed = currentPosition == count - 1
+                };
+                Map.AddTransitMarker(ti);
+            };
+        }
+
         /// <summary>
         /// При начальной загрузке программы в фоновом режиме (пользователь может работать в это время)
         /// Запрашивает данные из базы о зарегистрированных перевозках
@@ -248,69 +305,44 @@ namespace BachelorLibAPI.Program
         /// </summary>
         public void PutTransitsFromDbToMap()
         {
-            var transits = DataHandler.GetTransitIDs();
-            var pbForm = new ProgressBarForm(@"Отображение перевозок на карте...", transits.Count);
-            foreach (var transitId in transits)
+            Task.Run(() =>
             {
-                pbForm.Progress();
-                var currentPosition = -1;
-                var currentPoint = new PointLatLng(0, 0);
-                var counter = 0;
-                var fs = new FileStream(TempFilesDir + string.Format("\\Transits\\{0}", transitId), FileMode.Open);
-                using (var sr = new StreamReader(fs))
+                var tasks = new List<Task>();
+                var transits = DataHandler.GetTransitIDs();
+                var pbForm = new ProgressBarForm(@"Отображение перевозок на карте...", transits.Count*1000);
+                foreach (var transitId in transits)
                 {
-                    string line;
-                    while ((line = sr.ReadLine()) != null)
+                    pbForm.Progress(1000);
+                    var currentPosition = -1;
+                    var currentPoint = new PointLatLng(0, 0);
+                    var counter = 0;
+                    var fs = new FileStream(TempFilesDir + string.Format("\\Transits\\{0}", transitId), FileMode.Open);
+                    using (var sr = new StreamReader(fs))
                     {
-                        ++counter;
-                        var splitted = line.Split(';').ToList();
-                        var tm = DateTime.Parse(splitted[0]);
-                        if (tm > DateTime.Now) continue;
-                        ++currentPosition;
-                        currentPoint.Lat = double.Parse(splitted[1]);
-                        currentPoint.Lng = double.Parse(splitted[2]);
+                        string line;
+                        while ((line = sr.ReadLine()) != null)
+                        {
+                            ++counter;
+                            var splitted = line.Split(';').ToList();
+                            var tm = DateTime.Parse(splitted[0]);
+                            if (tm > DateTime.Now) continue;
+                            ++currentPosition;
+                            currentPoint.Lat = double.Parse(splitted[1]);
+                            currentPoint.Lng = double.Parse(splitted[2]);
+                        }
                     }
+
+                    if (currentPosition == -1) continue;
+
+                    var id = transitId;
+                    Task.Run(AddTransitToMap(id, currentPosition, currentPoint, counter)).Wait();
+                    //tasks.Add(Task.Run(AddTransitToMap(id, currentPosition, currentPoint, counter)));
                 }
-
-                if (currentPosition == -1) continue;
-
-                var id = transitId;
-                Task.Run(() =>
-                {
-                    var carId = DataHandler.GetTransitCarId(id);
-                    var driverId = DataHandler.GetDriverId(id);
-                    var startEnd = DataHandler.GetStartAndEndPoints(id);
-
-                    var ti = new TransitInfo
-                    {
-                        Car = carId == -1 ? @"Не удалось определить автомобиль" : DataHandler.GetCarInformation(carId),
-                        Consignment = DataHandler.GetConsignmentName(id),
-                        Driver = DataHandler.GetDriverName(driverId),
-                        DriverNumber = DataHandler.GetDriverNumbers(driverId).First(),
-                        From = new FullPointDescription
-                        {
-                            Address = Map.GetPlacemark(startEnd.Item1),
-                            Position = startEnd.Item1
-                        },
-                        To = new FullPointDescription
-                        {
-                            Address = Map.GetPlacemark(startEnd.Item2),
-                            Position = startEnd.Item2
-                        },
-                        Grz = DataHandler.GetGrzByCarId(carId),
-                        Id = id,
-                        CurrentPlace = new FullPointDescription
-                        {
-                            Address = Map.GetPlacemark(currentPoint),
-                            Position = currentPoint
-                        },
-                        IsFinshed = currentPosition == counter - 1
-                    };
-                    Map.AddTransitMarker(ti);
-                });
-            }
-            pbForm.Complete();
-            pbForm.Close();
+                //Task.WaitAll(tasks.Where(x => x != null).ToArray());
+                pbForm.Complete();
+                Thread.Sleep(1000);
+                pbForm.Close();
+            });
         }
 
         private const string TempFilesDir = @"..\..\TempStadiesFiles\";
@@ -376,6 +408,9 @@ namespace BachelorLibAPI.Program
                         swForTransit.WriteLine("{0};{1};{2}", tm.ToString(Resources.DateTimeFormat), keyValuePair.Key.Lat, keyValuePair.Key.Lng);
                     }
                 }
+
+                pbForm.Complete();
+                pbForm.Close();
                 if (currentPosition == -1) return;
 
                 Map.AddTransitMarker(new TransitInfo
@@ -403,9 +438,6 @@ namespace BachelorLibAPI.Program
                     },
                     IsFinshed = currentPosition == detailedRoute.Count - 1
                 });
-
-                pbForm.Complete();
-                pbForm.Close();
             });
             Cursor.Current = Cursors.Default;
         }
@@ -418,12 +450,12 @@ namespace BachelorLibAPI.Program
         private static string CutAdress(string adress)
         {
             var elems = adress.Split(',').ToList();
-            if (elems.Count > 5)
-                adress = string.Format("{0},{1},{2},{3},{4}", elems[0], elems[1], elems[2], elems[3], elems[4]);
+            if (elems.Count > 6)
+                adress = string.Format("{0},{1},{2},{3},{4}", elems[1], elems[2], elems[3], elems[4], elems[5]);
             return adress;
         }
 
-        public bool CheckAdress(ref string adress)
+        public bool CheckAdress(string adress)
         {
             return Map.CheckAdress(CutAdress(adress));
         }

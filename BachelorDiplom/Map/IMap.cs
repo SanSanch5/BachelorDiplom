@@ -1,15 +1,23 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using BachelorLibAPI.Data;
 using GMap.NET;
 
 namespace BachelorLibAPI.Map
 {
+    public class TransitRemoveEventArgs : EventArgs
+    {
+        public int TransitId { get; set; }
+    }
+    public delegate void ThresholdReachedEventHandler(object sender, TransitRemoveEventArgs e);
+
     /// <summary>
     /// Интерфейс для карты. Классы-реализации должны предоставлять пользователю структуру карты, возможность её обновить
     /// и возможность находить кратчайшие пути с возможным объездом множества населённых пунктов.
     /// </summary>
     public interface IMap
     {
+        event ThresholdReachedEventHandler TransitRemove;
         /// <summary>
         /// Ключ записи словаря - положение промежуточной точки на карте, 
         /// значение записи словаря - время поездки из пункта отправления 

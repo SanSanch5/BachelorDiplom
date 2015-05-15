@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Windows.Forms;
 using BachelorLibAPI.Forms;
 
@@ -12,16 +13,16 @@ namespace BachelorLibAPI.Program
         [STAThread]
         static void Main()
         {
-            //try
-            //{
+            try
+            {
                 Application.EnableVisualStyles();
                 Application.SetCompatibleTextRenderingDefault(false);
                 Application.Run(new MainForm());
-            //}
-            //catch (Exception ex)
-            //{
-            //    MessageBox.Show("Необработанное исключение: " + ex.Message);
-            //}
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(@"Необработанное исключение: " + ex.Message);
+            }
         }
     }
 }

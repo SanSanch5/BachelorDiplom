@@ -56,6 +56,7 @@ namespace BachelorLibAPI.Data
 
     /// <summary>
     /// Предоставляет необходимый функционал для работы с данными, абстрагируясь от способа их хранения
+    /// Перед вызовом любой функции нужно открыть соединение, после закрыть. (OpenConnection, CloseConnection)
     /// </summary>
     public interface IDataHandler
     {

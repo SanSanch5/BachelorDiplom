@@ -8,6 +8,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using BachelorLibAPI.Data;
+using BachelorLibAPI.Forms;
 using BachelorLibAPI.Program;
 using BachelorLibAPI.Properties;
 using GMap.NET;
@@ -41,6 +42,7 @@ namespace BachelorLibAPI.Map
             _gmap.Overlays.Add(_middleMarkersOverlay);
             _gmap.Overlays.Add(_endMarkerOverlay);
             _gmap.OnMarkerClick += GmapOnMarkerClick;
+            _gmap.MouseWheel += GmapOnWheel;
 
             SetActions();
             var mTransitsDrawing = new Task(_transitsDrawingAction);
@@ -70,6 +72,27 @@ namespace BachelorLibAPI.Map
             return plc.HasValue ? plc.Value.Address : adress;
         }
 
+        private void GmapOnWheel(object sender, MouseEventArgs e)
+        {
+            Rectangle rect = Rectangle.FromLTRB(Cursor.Position.X - 16, Cursor.Position.Y, Cursor.Position.X + 16, Cursor.Position.Y+32);
+            //var pointer = _gmap.FromLocalToLatLng(e.X, e.Y);
+
+            lock (_transitMarkers)
+            {
+                var lst =
+                    _transitMarkers.Where(delegate(TransitMarker x)
+                    {
+                        var pntLoc = _gmap.FromLatLngToLocal(x.Marker.Position);
+                        var pnt = new Point((int) pntLoc.X, (int) pntLoc.Y);
+                        var pntToScreen = _gmap.PointToScreen(pnt);
+                        return rect.Contains(pntToScreen);
+                    }).ToList();
+                if (!lst.Any()) return;
+                _gmap.Zoom += e.Delta/120;
+                _gmap.Position = lst[0].Marker.Position;
+            }
+        }
+
         private void GmapOnMarkerClick(object sender, MouseEventArgs mouseEventArgs)
         {
             var menu = new ContextMenuStrip();
@@ -81,6 +104,15 @@ namespace BachelorLibAPI.Map
                 _gmap.Zoom = 15;
             });
             menu.Show(Cursor.Position);
+        }
+
+        public event ThresholdReachedEventHandler TransitRemove;
+
+        private void OnTransitRemove(TransitRemoveEventArgs e)
+        {
+            var handler = TransitRemove;
+            if (handler != null)
+                handler(this, e);
         }
 
         private void RemoveMarkerAdvanced(GMarkerGoogle marker)
@@ -104,10 +136,14 @@ namespace BachelorLibAPI.Map
                 MessageBox.Show(@"Вы уверены, что хотите удалить перевозку?", @"Внимание!", MessageBoxButtons.YesNo,
                     MessageBoxIcon.Question) == DialogResult.Yes)
             {
-                    // удалить перевозку
                 lock (_transitMarkers)
-                    _transitMarkers.Remove(_transitMarkers.Where(x => x.Marker == marker).ToList()[0]);
-                _markersOverlay.Markers.Remove(marker);
+                {
+                    var m = _transitMarkers.Where(x => x.Marker == marker).ToList()[0];
+                    _transitMarkers.Remove(m);
+                    _markersOverlay.Markers.Remove(marker);
+                    var args = new TransitRemoveEventArgs {TransitId = m.Transit.Id};
+                    OnTransitRemove(args);
+                }
             }
         }
 
@@ -135,16 +171,19 @@ namespace BachelorLibAPI.Map
             };
 
             lock (_transitMarkers)
+            {
                 _transitMarkers.Add(m);
-            _markersOverlay.Markers.Add(m.Marker);
+                _markersOverlay.Markers.Add(m.Marker);
+            }
         }
 
         public void RemoveTransitMarker(int transitId)
         {
-            GMarkerGoogle m;
             lock (_transitMarkers)
-                m = _transitMarkers.Where(x => x.Transit.Id == transitId).Select(x => x.Marker).ToArray()[0];
-            _markersOverlay.Markers.Remove(m);
+            {
+                var m = _transitMarkers.Where(x => x.Transit.Id == transitId).Select(x => x.Marker).ToArray()[0];
+                _markersOverlay.Markers.Remove(m);
+            }
         }
 
         public string GetPlacemark(int x, int y)
@@ -331,7 +370,6 @@ namespace BachelorLibAPI.Map
                 curStart = middlePoint;
                 _distance += route.Distance;
             }
-
             route = ((OpenStreetMapProvider)_gmap.MapProvider).GetRoute(curStart, EndPoint.Value, false, false, 11);
             if (route == null || route.Points.Count == 0)
                 throw new Exception(Resources.CannotConstructShortTrack);
@@ -422,6 +460,7 @@ namespace BachelorLibAPI.Map
 
             var results = new List<List<KeyValuePair<PointLatLng, double>>>();
             var tasks = new List<Task>();
+            ProgressBarForm progressBar = new ProgressBarForm("Расчёт промежуточных стадий...", (routePoints.Count - 1) / diff * 1000 + 1000);
 
             try
             {
@@ -448,6 +487,7 @@ namespace BachelorLibAPI.Map
                 {
                     for (var i = 0; i < results.Count; i++)
                     {
+                        progressBar.Progress(1000);
                         var result = results[i];
                         var added = false;
                         while (!added)
@@ -474,7 +514,7 @@ namespace BachelorLibAPI.Map
                     }
                     ++counter;
                 }
-
+                progressBar.Progress(1000);
                 var wholeTime = detailedRoute.Last().Value;
                 var shouldBe = (60 * _distance / Settings.Default.AvegareVelocity);
                 if (ost != 0)
@@ -492,12 +532,17 @@ namespace BachelorLibAPI.Map
                 }
                 _detailedRoute.AddRange(detailedRoute.Select(x => new KeyValuePair<PointLatLng, int>(x.Key, (int)Math.Round(x.Value))).ToList());
 
+                progressBar.Complete();
+                Thread.Sleep(1000);
+                progressBar.Close();
+
                 Debug.WriteLine(
                     "Обработано {0} объектов через каждые {1}. Итоговое время: {2} минут.\nНа расчёт затрачено {3} секунд",
                     routePoints.Count, diff, _detailedRoute.Last().Value, (DateTime.Now.Ticks - st)/TimeSpan.TicksPerSecond);
             }
             catch (OperationCanceledException)
             {
+                Task.WaitAll(tasks.Where(x => x != null).ToArray());
                 foreach (
                     var task in
                         tasks.Where(
@@ -506,6 +551,7 @@ namespace BachelorLibAPI.Map
                 {
                     task.Dispose();
                 }
+                progressBar.Close();
             }
         }
 
@@ -551,9 +597,10 @@ namespace BachelorLibAPI.Map
                 }
             }
 
-            lock(_transitMarkers)
+            lock (_transitMarkers)
             {
-                foreach (var t in _transitMarkers)
+                var tmpSafe = _transitMarkers.Select(x => x).ToList();
+                foreach (var t in tmpSafe)
                 {
                     var transMarker = t;
                     var marker = transMarker;
@@ -570,10 +617,10 @@ namespace BachelorLibAPI.Map
                             transMarker.Transit.DriverNumber, transMarker.Transit.Car, transMarker.Transit.Grz,
                             transMarker.Transit.CurrentPlace.Address);
                 }
-            }
 
-            Debug.WriteLine("{0} I'm here!", DateTime.Now.ToString(Resources.TimeFileFormat));
-            autoEvent.Set();
+                Debug.WriteLine(string.Format("{0} Текущие положения перевозок обновлены!", DateTime.Now.ToString(Resources.TimeFileFormat)));
+                autoEvent.Set();
+            }
         }
 
         private readonly GMapControl _gmap;
