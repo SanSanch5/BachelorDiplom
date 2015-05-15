@@ -55,19 +55,21 @@
 </div><!--header-->
 <div class="contents">
 
-<p>Предоставляет необходимый функционал для работы с данными, абстрагируясь от способа их хранения  
+<p>Предоставляет необходимый функционал для работы с данными, абстрагируясь от способа их хранения Перед вызовом любой функции нужно открыть соединение, после закрыть. (OpenConnection, CloseConnection)  
  <a href="interface_bachelor_lib_a_p_i_1_1_data_1_1_i_data_handler.html#details">Подробнее...</a></p>
 <div class="dynheader">
 Граф наследования:BachelorLibAPI.Data.IDataHandler:</div>
 <div class="dyncontent">
 <div class="center"><img src="interface_bachelor_lib_a_p_i_1_1_data_1_1_i_data_handler__inherit__graph.png" border="0" usemap="#_bachelor_lib_a_p_i_8_data_8_i_data_handler_inherit__map" alt="Inheritance graph"/></div>
 <map name="_bachelor_lib_a_p_i_8_data_8_i_data_handler_inherit__map" id="_bachelor_lib_a_p_i_8_data_8_i_data_handler_inherit__map">
-<area shape="rect" id="node2" href="class_bachelor_lib_a_p_i_1_1_data_1_1_pg_sql_data_handler.html" title="{BachelorLibAPI.Data.PgSql\lDataHandler\n|+ Instance\l|+ GetCarIdByGRZ()\l+ GetTransitCarId()\l+ AddNewContact()\l+ DelContacts()\l+ AddNewDriver()\l+ DelDriver()\l+ AddNewTransit()\l+ DelTransit()\l+ GetTableLength\&lt; T \&gt;()\l+ HasPhoneNumber()\l+ FindDrivers()\l+ DriverWithPhoneNumber()\l+ GetCarInformation()\l+ GetDriversFullName()\l+ GetDriversFullNames()\l+ GetTransitId()\l+ GetTransitIDs()\l+ GetTransitIDs()\l+ GetTransits()\l+ GetTransitIDs()\l+ TransitsBefore()\l+ GetNumbers()\l+ GetGrzByCarId()\l+ GetGrzList()\l+ GetDriverId()\l+ GetConsignmentName()\l+ GetDriverName()\l+ GetDriverSurname()\l+ GetDriverNumbers()\l+ GetLocationTime()\l+ GetCurrentLocation()\l+ GetStartAndEndPoints()\l+ SubmitChanges()\l}" alt="" coords="5,585,188,1147"/></map>
+<area shape="rect" id="node2" href="class_bachelor_lib_a_p_i_1_1_data_1_1_pg_sql_data_handler.html" title="{BachelorLibAPI.Data.PgSql\lDataHandler\n|+ Instance\l|+ GetCarIdByGRZ()\l+ GetTransitCarId()\l+ AddNewContact()\l+ DelContacts()\l+ AddNewDriver()\l+ DelDriver()\l+ AddNewTransit()\l+ DelTransit()\l+ GetTableLength\&lt; T \&gt;()\l+ HasPhoneNumber()\l+ FindDrivers()\l+ DriverWithPhoneNumber()\l+ GetCarInformation()\l+ GetDriversFullName()\l+ GetDriversFullNames()\l+ GetTransitId()\l+ GetTransitIDs()\l+ GetTransitIDs()\l+ GetTransitIDs()\l+ TransitsBefore()\l+ GetNumbers()\l+ GetGrzByCarId()\l+ GetGrzList()\l+ GetDriverId()\l+ GetConsignmentName()\l+ GetDriverName()\l+ GetDriverSurname()\l+ GetDriverNumbers()\l+ GetLocationTime()\l+ GetCurrentLocation()\l+ GetStartAndEndPoints()\l+ SubmitChanges()\l}" alt="" coords="5,571,188,1117"/></map>
 </div>
 <div class="dynheader">
 Граф связей класса BachelorLibAPI.Data.IDataHandler:</div>
 <div class="dyncontent">
 <div class="center"><img src="interface_bachelor_lib_a_p_i_1_1_data_1_1_i_data_handler__coll__graph.png" border="0" usemap="#_bachelor_lib_a_p_i_8_data_8_i_data_handler_coll__map" alt="Collaboration graph"/></div>
+<map name="_bachelor_lib_a_p_i_8_data_8_i_data_handler_coll__map" id="_bachelor_lib_a_p_i_8_data_8_i_data_handler_coll__map">
+</map>
 </div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
@@ -119,9 +121,6 @@ List&lt; string &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>GetDr
 <tr class="memitem:a21d13629e7871e83f4a106a74b06d7ad"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a21d13629e7871e83f4a106a74b06d7ad"></a>
 List&lt; int &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>GetTransitIDs</b> ()</td></tr>
 <tr class="separator:a21d13629e7871e83f4a106a74b06d7ad"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af78fadd788f160fb66bea04981c553ec"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="af78fadd788f160fb66bea04981c553ec"></a>
-List&lt; <a class="el" href="struct_bachelor_lib_a_p_i_1_1_data_1_1_transit_info.html">TransitInfo</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>GetTransits</b> ()</td></tr>
-<tr class="separator:af78fadd788f160fb66bea04981c553ec"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa8eb9b65e1d800095b6debb3433de1cf"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aa8eb9b65e1d800095b6debb3433de1cf"></a>
 IEnumerable&lt; int &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>GetTransitIDs</b> (int driverId)</td></tr>
 <tr class="separator:aa8eb9b65e1d800095b6debb3433de1cf"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -165,7 +164,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>SubmitChanges</b> ()<
 <tr class="separator:ab910267b37ea7c6f6450adcf929ab34a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Подробное описание</h2>
-<div class="textblock"><p>Предоставляет необходимый функционал для работы с данными, абстрагируясь от способа их хранения </p>
+<div class="textblock"><p>Предоставляет необходимый функционал для работы с данными, абстрагируясь от способа их хранения Перед вызовом любой функции нужно открыть соединение, после закрыть. (OpenConnection, CloseConnection) </p>
 </div><h2 class="groupheader">Методы</h2>
 <a class="anchor" id="a1d86d8054ddad34c01c9554bf5581eff"></a>
 <div class="memitem">
@@ -758,7 +757,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>SubmitChanges</b> ()<
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Документация по АИС контроля перемещения ТС, перевозящих АХО грузы, в случае ЧП. Последние изменения: Ср 13 Май 2015 23:15:50. Создано системой &#160;<a href="http://www.doxygen.org/index.html">
+Документация по АИС контроля перемещения ТС, перевозящих АХО грузы, в случае ЧП. Последние изменения: Сб 16 Май 2015 00:49:37. Создано системой &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.9.1
 </small></address>

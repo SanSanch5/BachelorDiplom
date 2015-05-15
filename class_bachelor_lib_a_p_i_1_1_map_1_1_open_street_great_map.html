@@ -50,6 +50,7 @@
   <div class="summary">
 <a href="#nested-classes">Классы</a> &#124;
 <a href="#pub-methods">Открытые члены</a> &#124;
+<a href="#events">События</a> &#124;
 <a href="class_bachelor_lib_a_p_i_1_1_map_1_1_open_street_great_map-members.html">Полный список членов класса</a>  </div>
   <div class="headertitle">
 <div class="title">Класс BachelorLibAPI.Map.OpenStreetGreatMap</div>  </div>
@@ -60,14 +61,14 @@
 <div class="dyncontent">
 <div class="center"><img src="class_bachelor_lib_a_p_i_1_1_map_1_1_open_street_great_map__inherit__graph.png" border="0" usemap="#_bachelor_lib_a_p_i_8_map_8_open_street_great_map_inherit__map" alt="Inheritance graph"/></div>
 <map name="_bachelor_lib_a_p_i_8_map_8_open_street_great_map_inherit__map" id="_bachelor_lib_a_p_i_8_map_8_open_street_great_map_inherit__map">
-<area shape="rect" id="node2" href="interface_bachelor_lib_a_p_i_1_1_map_1_1_i_map.html" title="Интерфейс для карты. Классы&#45;реализации должны предоставлять пользователю структуру карты..." alt="" coords="27,5,194,332"/></map>
+<area shape="rect" id="node2" href="interface_bachelor_lib_a_p_i_1_1_map_1_1_i_map.html" title="Интерфейс для карты. Классы&#45;реализации должны предоставлять пользователю структуру карты..." alt="" coords="27,5,194,347"/></map>
 </div>
 <div class="dynheader">
 Граф связей класса BachelorLibAPI.Map.OpenStreetGreatMap:</div>
 <div class="dyncontent">
 <div class="center"><img src="class_bachelor_lib_a_p_i_1_1_map_1_1_open_street_great_map__coll__graph.png" border="0" usemap="#_bachelor_lib_a_p_i_8_map_8_open_street_great_map_coll__map" alt="Collaboration graph"/></div>
 <map name="_bachelor_lib_a_p_i_8_map_8_open_street_great_map_coll__map" id="_bachelor_lib_a_p_i_8_map_8_open_street_great_map_coll__map">
-<area shape="rect" id="node2" href="interface_bachelor_lib_a_p_i_1_1_map_1_1_i_map.html" title="Интерфейс для карты. Классы&#45;реализации должны предоставлять пользователю структуру карты..." alt="" coords="27,5,194,332"/></map>
+<area shape="rect" id="node2" href="interface_bachelor_lib_a_p_i_1_1_map_1_1_i_map.html" title="Интерфейс для карты. Классы&#45;реализации должны предоставлять пользователю структуру карты..." alt="" coords="27,5,194,347"/></map>
 </div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
@@ -81,7 +82,7 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>CheckAdress</b> (stri
 <tr class="memitem:a33a5490370b99a287a311fdbb5d378e1"><td class="memItemLeft" align="right" valign="top">string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_bachelor_lib_a_p_i_1_1_map_1_1_open_street_great_map.html#a33a5490370b99a287a311fdbb5d378e1">GetCorrectAdress</a> (string adress)</td></tr>
 <tr class="memdesc:a33a5490370b99a287a311fdbb5d378e1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Использовать желательно после использования CheckAdress Иначе ловите исключение типа UnknownPlacemark  <a href="#a33a5490370b99a287a311fdbb5d378e1">Подробнее...</a><br /></td></tr>
 <tr class="separator:a33a5490370b99a287a311fdbb5d378e1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4e0b7c52f9560c246f412186aa5d3d08"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_bachelor_lib_a_p_i_1_1_map_1_1_open_street_great_map.html#a4e0b7c52f9560c246f412186aa5d3d08">AddTransitMarker</a> (<a class="el" href="struct_bachelor_lib_a_p_i_1_1_data_1_1_transit_info.html">TransitInfo</a> transit)</td></tr>
+<tr class="memitem:a4e0b7c52f9560c246f412186aa5d3d08"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_bachelor_lib_a_p_i_1_1_map_1_1_open_street_great_map.html#a4e0b7c52f9560c246f412186aa5d3d08">AddTransitMarker</a> (<a class="el" href="struct_bachelor_lib_a_p_i_1_1_program_1_1_transit_info.html">TransitInfo</a> transit)</td></tr>
 <tr class="memdesc:a4e0b7c52f9560c246f412186aa5d3d08"><td class="mdescLeft">&#160;</td><td class="mdescRight">Заполняю данные о перевозки, которые будут в дальнейшем отображаться при наведении указателя на значок перевозки Если местоположение не удалось определить, то маркер будет добавле как только его текущее местоположение определится Перевозки, которые в стадии завершения (основываясь на моём приближении), отображаются чёрным "разгруженным" грузовиком Находящиеся в пути - жёлтым "загруженным"  <a href="#a4e0b7c52f9560c246f412186aa5d3d08">Подробнее...</a><br /></td></tr>
 <tr class="separator:a4e0b7c52f9560c246f412186aa5d3d08"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7c4b2f1ad12219b3f64db36a558752b2"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a7c4b2f1ad12219b3f64db36a558752b2"></a>
@@ -129,6 +130,19 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>HasMidPoints</b> ()</
 <tr class="memitem:ad83d284ec386d30012200d4c2a72a299"><td class="memItemLeft" align="right" valign="top">string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_bachelor_lib_a_p_i_1_1_map_1_1_open_street_great_map.html#ad83d284ec386d30012200d4c2a72a299">GetPlacemark</a> (PointLatLng pnt)</td></tr>
 <tr class="memdesc:ad83d284ec386d30012200d4c2a72a299"><td class="mdescLeft">&#160;</td><td class="mdescRight">Попытка получить адрес по длине/широте  <a href="#ad83d284ec386d30012200d4c2a72a299">Подробнее...</a><br /></td></tr>
 <tr class="separator:ad83d284ec386d30012200d4c2a72a299"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a14c072054e1afe6ae2078d70b4905c69"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_bachelor_lib_a_p_i_1_1_map_1_1_open_street_great_map.html#a14c072054e1afe6ae2078d70b4905c69">DrawDangerRegion</a> (<a class="el" href="struct_bachelor_lib_a_p_i_1_1_program_1_1_crash_info.html">CrashInfo</a> crashInfo)</td></tr>
+<tr class="memdesc:a14c072054e1afe6ae2078d70b4905c69"><td class="mdescLeft">&#160;</td><td class="mdescRight">Инициирует динамическое изменение полигона, отражающего состояние загрязнения со временем  <a href="#a14c072054e1afe6ae2078d70b4905c69">Подробнее...</a><br /></td></tr>
+<tr class="separator:a14c072054e1afe6ae2078d70b4905c69"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="events"></a>
+События</h2></td></tr>
+<tr class="memitem:aed5a826112f8c6ba453d427ff4cc44b0"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aed5a826112f8c6ba453d427ff4cc44b0"></a>
+ThresholdReachedEventHandler&#160;</td><td class="memItemRight" valign="bottom"><b>TransitRemove</b> Удалить&quot;Приблизить&quot;</td></tr>
+<tr class="separator:aed5a826112f8c6ba453d427ff4cc44b0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header events_interface_bachelor_lib_a_p_i_1_1_map_1_1_i_map"><td colspan="2" onclick="javascript:toggleInherit('events_interface_bachelor_lib_a_p_i_1_1_map_1_1_i_map')"><img src="closed.png" alt="-"/>&#160;События унаследованные от <a class="el" href="interface_bachelor_lib_a_p_i_1_1_map_1_1_i_map.html">BachelorLibAPI.Map.IMap</a></td></tr>
+<tr class="memitem:afb0ed5e204de8dad3fa107274594717f inherit events_interface_bachelor_lib_a_p_i_1_1_map_1_1_i_map"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="afb0ed5e204de8dad3fa107274594717f"></a>
+ThresholdReachedEventHandler&#160;</td><td class="memItemRight" valign="bottom"><b>TransitRemove</b></td></tr>
+<tr class="separator:afb0ed5e204de8dad3fa107274594717f inherit events_interface_bachelor_lib_a_p_i_1_1_map_1_1_i_map"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Методы</h2>
 <a class="anchor" id="a33a5490370b99a287a311fdbb5d378e1"></a>
@@ -169,7 +183,7 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>HasMidPoints</b> ()</
         <tr>
           <td class="memname">void BachelorLibAPI.Map.OpenStreetGreatMap.AddTransitMarker </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="struct_bachelor_lib_a_p_i_1_1_data_1_1_transit_info.html">TransitInfo</a>&#160;</td>
+          <td class="paramtype"><a class="el" href="struct_bachelor_lib_a_p_i_1_1_program_1_1_transit_info.html">TransitInfo</a>&#160;</td>
           <td class="paramname"><em>transit</em></td><td>)</td>
           <td></td>
         </tr>
@@ -285,13 +299,47 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>HasMidPoints</b> ()</
 
 </div>
 </div>
+<a class="anchor" id="a14c072054e1afe6ae2078d70b4905c69"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void BachelorLibAPI.Map.OpenStreetGreatMap.DrawDangerRegion </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_bachelor_lib_a_p_i_1_1_program_1_1_crash_info.html">CrashInfo</a>&#160;</td>
+          <td class="paramname"><em>crashInfo</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Инициирует динамическое изменение полигона, отражающего состояние загрязнения со временем </p>
+<dl class="params"><dt>Аргументы</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">crashInfo</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Замещает <a class="el" href="interface_bachelor_lib_a_p_i_1_1_map_1_1_i_map.html">BachelorLibAPI.Map.IMap</a>.</p>
+
+</div>
+</div>
 <hr/>Объявления и описания членов класса находятся в файле:<ul>
 <li>P:/Study/sem8/diploma/project/BachelorDiplom/BachelorDiplom/Map/GreatMap.cs</li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Документация по АИС контроля перемещения ТС, перевозящих АХО грузы, в случае ЧП. Последние изменения: Ср 13 Май 2015 23:15:52. Создано системой &#160;<a href="http://www.doxygen.org/index.html">
+Документация по АИС контроля перемещения ТС, перевозящих АХО грузы, в случае ЧП. Последние изменения: Сб 16 Май 2015 00:49:37. Создано системой &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.9.1
 </small></address>

@@ -63,6 +63,8 @@
 Граф связей класса BachelorLibAPI.Program.QueriesHandler:</div>
 <div class="dyncontent">
 <div class="center"><img src="class_bachelor_lib_a_p_i_1_1_program_1_1_queries_handler__coll__graph.png" border="0" usemap="#_bachelor_lib_a_p_i_8_program_8_queries_handler_coll__map" alt="Collaboration graph"/></div>
+<map name="_bachelor_lib_a_p_i_8_program_8_queries_handler_coll__map" id="_bachelor_lib_a_p_i_8_program_8_queries_handler_coll__map">
+</map>
 </div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
@@ -97,9 +99,9 @@ string&#160;</td><td class="memItemRight" valign="bottom"><b>GetCarInfo</b> (str
 <tr class="memitem:a7286faab2a9eb8430848e264b7e394cf"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_bachelor_lib_a_p_i_1_1_program_1_1_queries_handler.html#a7286faab2a9eb8430848e264b7e394cf">AddNewWaybill</a> (string driverName, string driverNum, string grz, string consName, DateTime start, string from, string to)</td></tr>
 <tr class="memdesc:a7286faab2a9eb8430848e264b7e394cf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Добавление нового путевого листа Не производится добавление водителя! Если водитель ранее не был зарегистрирован в базе, необходимо зарегистрировать его, воспользовавшись формой добавления водителя. Удаляются все стадии предыдущих перевозок, зарегистрированных на этого водителя, но сами перевозки не отмечаются, как завершённые. Для этого необходимо воспользоваться специально предназначенной для этого формой.  <a href="#a7286faab2a9eb8430848e264b7e394cf">Подробнее...</a><br /></td></tr>
 <tr class="separator:a7286faab2a9eb8430848e264b7e394cf"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa63b4d04f26371a1482e113a3ac07d9d"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aa63b4d04f26371a1482e113a3ac07d9d"></a>
-bool&#160;</td><td class="memItemRight" valign="bottom"><b>CheckAdress</b> (ref string adress)</td></tr>
-<tr class="separator:aa63b4d04f26371a1482e113a3ac07d9d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a97813c67ace870bc73adbba564c32138"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a97813c67ace870bc73adbba564c32138"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>CheckAdress</b> (string adress)</td></tr>
+<tr class="separator:a97813c67ace870bc73adbba564c32138"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7b51627510a6221e14fdf3c085c05e9a"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a7b51627510a6221e14fdf3c085c05e9a"></a>
 string&#160;</td><td class="memItemRight" valign="bottom"><b>GetCorrectAdress</b> (string adress)</td></tr>
 <tr class="separator:a7b51627510a6221e14fdf3c085c05e9a"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -127,19 +129,19 @@ string&#160;</td><td class="memItemRight" valign="bottom"><b>GetEndPoint</b> ()<
 <tr class="memitem:a8168111b66c91738421f876cc6daaa23"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a8168111b66c91738421f876cc6daaa23"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>ConstructShortTrack</b> ()</td></tr>
 <tr class="separator:a8168111b66c91738421f876cc6daaa23"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4c09737cd55e9191a18c91cf7074dc44"><td class="memItemLeft" align="right" valign="top">List&lt; <a class="el" href="struct_bachelor_lib_a_p_i_1_1_data_1_1_analyse_return_type.html">AnalyseReturnType</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_bachelor_lib_a_p_i_1_1_program_1_1_queries_handler.html#a4c09737cd55e9191a18c91cf7074dc44">AnalyseDanger</a> (DateTime since, DateTime until, string place)</td></tr>
+<tr class="memitem:a4c09737cd55e9191a18c91cf7074dc44"><td class="memItemLeft" align="right" valign="top">List&lt; <a class="el" href="struct_bachelor_lib_a_p_i_1_1_program_1_1_analyse_return_type.html">AnalyseReturnType</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_bachelor_lib_a_p_i_1_1_program_1_1_queries_handler.html#a4c09737cd55e9191a18c91cf7074dc44">AnalyseDanger</a> (DateTime since, DateTime until, string place)</td></tr>
 <tr class="memdesc:a4c09737cd55e9191a18c91cf7074dc44"><td class="mdescLeft">&#160;</td><td class="mdescRight">Анализ опасности. Производится выборка по по промежутку времени по каждой перевозке для каждого города из указанного региона  <a href="#a4c09737cd55e9191a18c91cf7074dc44">Подробнее...</a><br /></td></tr>
 <tr class="separator:a4c09737cd55e9191a18c91cf7074dc44"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aee97e10badb7fd546048dc9f0a927a0f"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_bachelor_lib_a_p_i_1_1_program_1_1_queries_handler.html#aee97e10badb7fd546048dc9f0a927a0f">GetComboBoxedDriverId</a> (int index)</td></tr>
 <tr class="memdesc:aee97e10badb7fd546048dc9f0a927a0f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Специальный метод для пользователей, которые в ComboBox загрузили весь список водителей (ФИО) В любом другом случае не использовать!!!  <a href="#aee97e10badb7fd546048dc9f0a927a0f">Подробнее...</a><br /></td></tr>
 <tr class="separator:aee97e10badb7fd546048dc9f0a927a0f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9d6f88340bce44a3e928539a32db5762"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_bachelor_lib_a_p_i_1_1_data_1_1_driver_info_type.html">DriverInfoType</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_bachelor_lib_a_p_i_1_1_program_1_1_queries_handler.html#a9d6f88340bce44a3e928539a32db5762">GetComboBoxedDriverInfo</a> (int index)</td></tr>
+<tr class="memitem:a9d6f88340bce44a3e928539a32db5762"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_bachelor_lib_a_p_i_1_1_program_1_1_driver_info_type.html">DriverInfoType</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_bachelor_lib_a_p_i_1_1_program_1_1_queries_handler.html#a9d6f88340bce44a3e928539a32db5762">GetComboBoxedDriverInfo</a> (int index)</td></tr>
 <tr class="memdesc:a9d6f88340bce44a3e928539a32db5762"><td class="mdescLeft">&#160;</td><td class="mdescRight">Специальный метод для пользователей, которые в ComboBox загрузили весь список водителей (ФИО) В любом другом случае не использовать!!!  <a href="#a9d6f88340bce44a3e928539a32db5762">Подробнее...</a><br /></td></tr>
 <tr class="separator:a9d6f88340bce44a3e928539a32db5762"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a60710a31745b46997cd0935d87ef152c"><td class="memItemLeft" align="right" valign="top">List&lt; string &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_bachelor_lib_a_p_i_1_1_program_1_1_queries_handler.html#a60710a31745b46997cd0935d87ef152c">GetDriverNumbers</a> (int driverId)</td></tr>
 <tr class="memdesc:a60710a31745b46997cd0935d87ef152c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Получить все номера водителя  <a href="#a60710a31745b46997cd0935d87ef152c">Подробнее...</a><br /></td></tr>
 <tr class="separator:a60710a31745b46997cd0935d87ef152c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a01a8b78e100fd2455c1265f351a8e809"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_bachelor_lib_a_p_i_1_1_data_1_1_driver_info_type.html">DriverInfoType</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_bachelor_lib_a_p_i_1_1_program_1_1_queries_handler.html#a01a8b78e100fd2455c1265f351a8e809">GetDriverInfo</a> (int driverId)</td></tr>
+<tr class="memitem:a01a8b78e100fd2455c1265f351a8e809"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_bachelor_lib_a_p_i_1_1_program_1_1_driver_info_type.html">DriverInfoType</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_bachelor_lib_a_p_i_1_1_program_1_1_queries_handler.html#a01a8b78e100fd2455c1265f351a8e809">GetDriverInfo</a> (int driverId)</td></tr>
 <tr class="memdesc:a01a8b78e100fd2455c1265f351a8e809"><td class="mdescLeft">&#160;</td><td class="mdescRight">Получить информацию о каждом водителе и о его последней перевозке  <a href="#a01a8b78e100fd2455c1265f351a8e809">Подробнее...</a><br /></td></tr>
 <tr class="separator:a01a8b78e100fd2455c1265f351a8e809"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa0b6c27b11b578e45796c9760cd84100"><td class="memItemLeft" align="right" valign="top">List&lt; string &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_bachelor_lib_a_p_i_1_1_program_1_1_queries_handler.html#aa0b6c27b11b578e45796c9760cd84100">GetDriversFullNames</a> ()</td></tr>
@@ -548,7 +550,7 @@ static List&lt; string &gt;&#160;</td><td class="memItemRight" valign="bottom"><
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">List&lt;<a class="el" href="struct_bachelor_lib_a_p_i_1_1_data_1_1_analyse_return_type.html">AnalyseReturnType</a>&gt; BachelorLibAPI.Program.QueriesHandler.AnalyseDanger </td>
+          <td class="memname">List&lt;<a class="el" href="struct_bachelor_lib_a_p_i_1_1_program_1_1_analyse_return_type.html">AnalyseReturnType</a>&gt; BachelorLibAPI.Program.QueriesHandler.AnalyseDanger </td>
           <td>(</td>
           <td class="paramtype">DateTime&#160;</td>
           <td class="paramname"><em>since</em>, </td>
@@ -632,7 +634,7 @@ static List&lt; string &gt;&#160;</td><td class="memItemRight" valign="bottom"><
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="struct_bachelor_lib_a_p_i_1_1_data_1_1_driver_info_type.html">DriverInfoType</a> BachelorLibAPI.Program.QueriesHandler.GetComboBoxedDriverInfo </td>
+          <td class="memname"><a class="el" href="struct_bachelor_lib_a_p_i_1_1_program_1_1_driver_info_type.html">DriverInfoType</a> BachelorLibAPI.Program.QueriesHandler.GetComboBoxedDriverInfo </td>
           <td>(</td>
           <td class="paramtype">int&#160;</td>
           <td class="paramname"><em>index</em></td><td>)</td>
@@ -698,7 +700,7 @@ static List&lt; string &gt;&#160;</td><td class="memItemRight" valign="bottom"><
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="struct_bachelor_lib_a_p_i_1_1_data_1_1_driver_info_type.html">DriverInfoType</a> BachelorLibAPI.Program.QueriesHandler.GetDriverInfo </td>
+          <td class="memname"><a class="el" href="struct_bachelor_lib_a_p_i_1_1_program_1_1_driver_info_type.html">DriverInfoType</a> BachelorLibAPI.Program.QueriesHandler.GetDriverInfo </td>
           <td>(</td>
           <td class="paramtype">int&#160;</td>
           <td class="paramname"><em>driverId</em></td><td>)</td>
@@ -881,7 +883,7 @@ static List&lt; string &gt;&#160;</td><td class="memItemRight" valign="bottom"><
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Документация по АИС контроля перемещения ТС, перевозящих АХО грузы, в случае ЧП. Последние изменения: Ср 13 Май 2015 23:15:52. Создано системой &#160;<a href="http://www.doxygen.org/index.html">
+Документация по АИС контроля перемещения ТС, перевозящих АХО грузы, в случае ЧП. Последние изменения: Сб 16 Май 2015 00:49:38. Создано системой &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.9.1
 </small></address>

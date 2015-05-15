@@ -49,6 +49,7 @@
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Открытые члены</a> &#124;
+<a href="#events">События</a> &#124;
 <a href="interface_bachelor_lib_a_p_i_1_1_map_1_1_i_map-members.html">Полный список членов класса</a>  </div>
   <div class="headertitle">
 <div class="title">Интерфейс BachelorLibAPI.Map.IMap</div>  </div>
@@ -62,12 +63,14 @@
 <div class="dyncontent">
 <div class="center"><img src="interface_bachelor_lib_a_p_i_1_1_map_1_1_i_map__inherit__graph.png" border="0" usemap="#_bachelor_lib_a_p_i_8_map_8_i_map_inherit__map" alt="Inheritance graph"/></div>
 <map name="_bachelor_lib_a_p_i_8_map_8_i_map_inherit__map" id="_bachelor_lib_a_p_i_8_map_8_i_map_inherit__map">
-<area shape="rect" id="node2" href="class_bachelor_lib_a_p_i_1_1_map_1_1_open_street_great_map.html" title="{BachelorLibAPI.Map.OpenStreet\lGreatMap\n|+ StartPoint\l+ EndPoint\l|+ OpenStreetGreatMap()\l+ CheckAdress()\l+ GetCorrectAdress()\l+ AddTransitMarker()\l+ RemoveTransitMarker()\l+ GetPlacemark()\l+ SetStartPoint()\l+ SetStartPoint()\l+ SetMiddlePoint()\l+ SetMiddlePoint()\l+ SetEndPoint()\l+ SetEndPoint()\l+ CheckBeforeAdding()\l+ ConstructShortTrack()\l+ GetShortTrack()\l+ GetStartPoint()\l+ GetEndPoint()\l+ HasMidPoints()\l+ GetPlacemark()\l}" alt="" coords="5,380,216,751"/></map>
+<area shape="rect" id="node2" href="class_bachelor_lib_a_p_i_1_1_map_1_1_open_street_great_map.html" title="{BachelorLibAPI.Map.OpenStreet\lGreatMap\n|+ StartPoint\l+ EndPoint\l|+ OpenStreetGreatMap()\l+ CheckAdress()\l+ GetCorrectAdress()\l+ AddTransitMarker()\l+ RemoveTransitMarker()\l+ GetPlacemark()\l+ SetStartPoint()\l+ SetStartPoint()\l+ SetMiddlePoint()\l+ SetMiddlePoint()\l+ SetEndPoint()\l+ SetEndPoint()\l+ CheckBeforeAdding()\l+ ConstructShortTrack()\l+ GetShortTrack()\l+ GetStartPoint()\l+ GetEndPoint()\l+ HasMidPoints()\l+ GetPlacemark()\l+ DrawDangerRegion()\l}" alt="" coords="5,395,216,780"/></map>
 </div>
 <div class="dynheader">
 Граф связей класса BachelorLibAPI.Map.IMap:</div>
 <div class="dyncontent">
 <div class="center"><img src="interface_bachelor_lib_a_p_i_1_1_map_1_1_i_map__coll__graph.png" border="0" usemap="#_bachelor_lib_a_p_i_8_map_8_i_map_coll__map" alt="Collaboration graph"/></div>
+<map name="_bachelor_lib_a_p_i_8_map_8_i_map_coll__map" id="_bachelor_lib_a_p_i_8_map_8_i_map_coll__map">
+</map>
 </div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
@@ -112,7 +115,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>SetEndPoint</b> (stri
 void&#160;</td><td class="memItemRight" valign="bottom"><b>ConstructShortTrack</b> ()</td></tr>
 <tr class="separator:ada21d1f1363e1ca482d0307e94758b4a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a34f66106bf63bdc650ef7a8ae4b85c45"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a34f66106bf63bdc650ef7a8ae4b85c45"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>AddTransitMarker</b> (<a class="el" href="struct_bachelor_lib_a_p_i_1_1_data_1_1_transit_info.html">TransitInfo</a> transit)</td></tr>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>AddTransitMarker</b> (<a class="el" href="struct_bachelor_lib_a_p_i_1_1_program_1_1_transit_info.html">TransitInfo</a> transit)</td></tr>
 <tr class="separator:a34f66106bf63bdc650ef7a8ae4b85c45"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7c07a6f80bf1b7a143f3cf743147e075"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a7c07a6f80bf1b7a143f3cf743147e075"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>RemoveTransitMarker</b> (int transitId)</td></tr>
@@ -126,6 +129,15 @@ string&#160;</td><td class="memItemRight" valign="bottom"><b>GetCorrectAdress</b
 <tr class="memitem:a6d1e0652282de59164ed6a7aa0f5892d"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a6d1e0652282de59164ed6a7aa0f5892d"></a>
 bool&#160;</td><td class="memItemRight" valign="bottom"><b>CheckBeforeAdding</b> ()</td></tr>
 <tr class="separator:a6d1e0652282de59164ed6a7aa0f5892d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9fcedd73abf6859708efde2ca2cd3f4f"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a9fcedd73abf6859708efde2ca2cd3f4f"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>DrawDangerRegion</b> (<a class="el" href="struct_bachelor_lib_a_p_i_1_1_program_1_1_crash_info.html">CrashInfo</a> crashInfo)</td></tr>
+<tr class="separator:a9fcedd73abf6859708efde2ca2cd3f4f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="events"></a>
+События</h2></td></tr>
+<tr class="memitem:afb0ed5e204de8dad3fa107274594717f"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="afb0ed5e204de8dad3fa107274594717f"></a>
+ThresholdReachedEventHandler&#160;</td><td class="memItemRight" valign="bottom"><b>TransitRemove</b></td></tr>
+<tr class="separator:afb0ed5e204de8dad3fa107274594717f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Подробное описание</h2>
 <div class="textblock"><p>Интерфейс для карты. Классы-реализации должны предоставлять пользователю структуру карты, возможность её обновить и возможность находить кратчайшие пути с возможным объездом множества населённых пунктов. </p>
@@ -183,7 +195,7 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>CheckBeforeAdding</b>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Документация по АИС контроля перемещения ТС, перевозящих АХО грузы, в случае ЧП. Последние изменения: Ср 13 Май 2015 23:15:52. Создано системой &#160;<a href="http://www.doxygen.org/index.html">
+Документация по АИС контроля перемещения ТС, перевозящих АХО грузы, в случае ЧП. Последние изменения: Сб 16 Май 2015 00:49:37. Создано системой &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.9.1
 </small></address>
