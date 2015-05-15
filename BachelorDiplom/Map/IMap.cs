@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using BachelorLibAPI.Data;
+using BachelorLibAPI.Program;
 using GMap.NET;
 
 namespace BachelorLibAPI.Map
@@ -47,5 +47,6 @@ namespace BachelorLibAPI.Map
         bool CheckAdress(string adress);
         string GetCorrectAdress(string adress);
         bool CheckBeforeAdding();
+        void DrawDangerRegion(CrashInfo crashInfo);
     }
 }

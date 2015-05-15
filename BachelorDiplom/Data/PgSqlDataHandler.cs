@@ -281,36 +281,6 @@ namespace BachelorLibAPI.Data
             }
         }
 
-        public List<TransitInfo> GetTransits()
-        {
-            lock (_lockObject)
-            {
-                _npgsqlConnection.Open();
-
-                var cmd = new NpgsqlCommand("SELECT id from t_transit;", _npgsqlConnection);
-                var res = new List<TransitInfo>();
-
-                try
-                {
-                    var dr = cmd.ExecuteReader();
-                    while (dr.Read())
-                    {
-
-                    }
-                }
-                catch (Exception)
-                {
-                    res = new List<TransitInfo>();
-                }
-                finally
-                {
-                    _npgsqlConnection.Close();
-                }
-
-                return res;
-            }
-        }
-
         public IEnumerable<int> GetTransitIDs(int driverId)
         {
             return new List<int>();

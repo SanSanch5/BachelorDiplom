@@ -67,14 +67,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Algorithms\Haversine.cs" />
     <Compile Include="Algorithms\RD-90.cs" />
     <Compile Include="Data\PgSqlDataHandler.cs" />
-    <Compile Include="Forms\AnalyseResultsForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\AnalyseResultsForm.Designer.cs">
-      <DependentUpon>AnalyseResultsForm.cs</DependentUpon>
-    </Compile>
     <Compile Include="Forms\ConsignmentAddForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -153,6 +148,7 @@
     <Compile Include="Program\Exceptions.cs" />
     <Compile Include="Program\Program.cs" />
     <Compile Include="Program\ReportsGenerator.cs" />
+    <Compile Include="Program\Structures.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Program\QueriesHandler.cs" />
     <Compile Include="TestsGenerator\Files.cs" />
@@ -164,9 +160,6 @@
     <Compile Include="TestsGenerator\TestsGeneratorForm.Designer.cs">
       <DependentUpon>TestsGeneratorForm.cs</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="Forms\AnalyseResultsForm.resx">
-      <DependentUpon>AnalyseResultsForm.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Forms\ConsignmentAddForm.resx">
       <DependentUpon>ConsignmentAddForm.cs</DependentUpon>
     </EmbeddedResource>

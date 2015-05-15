@@ -4,56 +4,6 @@ using GMap.NET;
 
 namespace BachelorLibAPI.Data
 {
-    public struct FullPointDescription
-    {
-        public string Address;
-        public PointLatLng Position;
-    }
-    public struct TransitInfo
-    {
-        public int Id;
-
-        public FullPointDescription From;
-        public FullPointDescription To;
-        public string Consignment;
-        public string Driver;
-        public string DriverNumber;
-        public string Car;
-        public string Grz;
-        public FullPointDescription CurrentPlace;
-        public bool IsFinshed;
-    }
-
-    public struct AnalyseReturnType
-    {
-        public string ConsName;
-        public int DangerDegree;
-        public string AfterCrash;
-        public string DriversName;
-        public string DriversSurname;
-        public List<string> DriversNumbers;
-        public string City;
-        public DateTime Location;
-    }
-
-    public struct DriverInfoType
-    {
-        public int Id;
-        public string Surname;
-        public string Name;
-        public string MName;
-        public List<string> Numbers;
-        public string ConsName;
-        public int DangerDegree;
-        public string StartLocation;
-        public DateTime Start;
-        public string GoalLocation;
-        public DateTime ProbableArrival;
-        public DateTime Arrival;
-        public string ProbableLocation;
-        public bool Status;
-    }
-
     /// <summary>
     /// Предоставляет необходимый функционал для работы с данными, абстрагируясь от способа их хранения
     /// Перед вызовом любой функции нужно открыть соединение, после закрыть. (OpenConnection, CloseConnection)
@@ -147,7 +97,6 @@ namespace BachelorLibAPI.Data
         /// <returns></returns>
         List<int> GetTransitIDs(DateTime start, DateTime until, int placeId);
         List<int> GetTransitIDs();
-        List<TransitInfo> GetTransits();
 
         IEnumerable<int> GetTransitIDs(int driverId);
 

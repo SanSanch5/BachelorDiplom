@@ -191,36 +191,7 @@ namespace BachelorLibAPI.Forms
 
         private void DangerAnalyseClick(object sender, EventArgs e)
         {
-            try
-            {
-                DateTime since;
-                DateTime until;
-                if(dtpPrecTime.Enabled)
-                {
-                    since = dtpPrecTime.Value;
-                    until = since;
-                }
-                else
-                {
-                    since = dtpSince.Value;
-                    until = dtpUntil.Value;
-                }
-
-                var place = cmbCrashPlace.Text;
-                if(place == "")
-                    throw new FormatException("Укажите место аварии!");
-
-                new AnalyseResultsForm(_queriesHandler.AnalyseDanger(since, until, place));
-            }
-            catch (FormatException ex)
-            {
-                MessageBox.Show(ex.Message, @"Все поля обязательны для заполнения!");
-                cmbCrashPlace.Focus();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, @"Ошибка базы данных.");
-            }
+            
         }
 
         private void LoadTestDataClick(object sender, EventArgs e)

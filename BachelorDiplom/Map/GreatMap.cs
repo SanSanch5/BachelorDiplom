@@ -2,14 +2,15 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
+using System.Drawing.Drawing2D;
 using System.IO;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using BachelorLibAPI.Data;
-using BachelorLibAPI.Forms;
+using BachelorLibAPI.Algorithms;
 using BachelorLibAPI.Program;
+using BachelorLibAPI.Forms;
 using BachelorLibAPI.Properties;
 using GMap.NET;
 using GMap.NET.MapProviders;
@@ -41,6 +42,7 @@ namespace BachelorLibAPI.Map
             _gmap.Overlays.Add(_startMarkerOverlay);
             _gmap.Overlays.Add(_middleMarkersOverlay);
             _gmap.Overlays.Add(_endMarkerOverlay);
+            _gmap.Overlays.Add(_polygonsOverlay);
             _gmap.OnMarkerClick += GmapOnMarkerClick;
             _gmap.MouseWheel += GmapOnWheel;
 
@@ -120,7 +122,7 @@ namespace BachelorLibAPI.Map
                 handler(this, e);
         }
 
-        private void RemoveMarkerAdvanced(GMarkerGoogle marker)
+        private void RemoveMarkerAdvanced(GMapMarker marker)
         {
             if (StartPoint.HasValue && marker.Position == StartPoint.Value)
             {
@@ -436,6 +438,46 @@ namespace BachelorLibAPI.Map
             return placemark != null ? placemark.Value.Address : @"Метоположение не определено";
         }
 
+        /// <summary>
+        /// Инициирует динамическое изменение полигона, отражающего состояние загрязнения со временем
+        /// </summary>
+        /// <param name="crashInfo"></param>
+        public void DrawDangerRegion(CrashInfo crashInfo)
+        {
+            _crashInfo = crashInfo;
+            GetCurrentDangerRegion(50);
+        }
+
+        /// <summary>
+        /// Метод для получения полигона точек, задающих текущее положение распространения.
+        /// </summary>
+        private void GetCurrentDangerRegion(double radius)
+        {
+            const int seg = 20; // 180/20 = 9 - градусов отступ
+            // ReSharper disable once PossibleLossOfFraction
+            var delta = 180/seg;
+
+            var polygon = new List<PointLatLng>();
+
+            var startAngle = (270 + _crashInfo.WindDirection) > 360
+                ? _crashInfo.WindDirection - 90
+                : (270 + _crashInfo.WindDirection);
+            for (var i = 0; i <= seg; ++i)
+            {
+                var bearing = startAngle + delta * i;
+                if (bearing > 360) bearing -= 360;
+                polygon.Add(Haversine.PointFromStartBearingDistance(_crashInfo.Center.Position, bearing, radius));
+            }
+
+            var p = new GMapPolygon(polygon, "danger")
+            {
+                Fill = new SolidBrush(Color.FromArgb(50, Color.Red)),
+                Stroke = new Pen(Color.Red, 1)
+            };
+
+            _polygonsOverlay.Polygons.Add(p);
+        }
+
         private void GenerateStadiesPart(CancellationToken token, int start, int diff, int increment,
             IReadOnlyList<PointLatLng> routePoints, ICollection<KeyValuePair<PointLatLng, double>> res)
         {
@@ -646,6 +688,7 @@ namespace BachelorLibAPI.Map
         private readonly GMapOverlay _endMarkerOverlay = new GMapOverlay("endMarker");
         private readonly GMapOverlay _routesOverlay = new GMapOverlay("routes");
         private readonly GMapOverlay _markersOverlay = new GMapOverlay("markers");
+        private readonly GMapOverlay _polygonsOverlay = new GMapOverlay("polygons");
         private readonly List<KeyValuePair<PointLatLng, int>> _detailedRoute = new List<KeyValuePair<PointLatLng, int>>();
         private readonly List<PointLatLng> _middlePoints = new List<PointLatLng>(); 
 
@@ -654,5 +697,7 @@ namespace BachelorLibAPI.Map
         private CancellationTokenSource _stadiesGenerationCts = new CancellationTokenSource();
         private Task _stadiesGeneration;
         private Action _transitsDrawingAction;
+
+        private CrashInfo _crashInfo;
     }
 }
