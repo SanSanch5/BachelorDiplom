@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Threading;
@@ -268,33 +269,52 @@ namespace BachelorLibAPI.Program
                 var driverId = DataHandler.GetDriverId(id);
                 var startEnd = DataHandler.GetStartAndEndPoints(id);
 
-                var ti = new TransitInfo
+                try
                 {
-                    Car =
-                        carId == -1 ? @"Не удалось определить автомобиль" : DataHandler.GetCarInformation(carId),
-                    Consignment = DataHandler.GetConsignmentName(id),
-                    Driver = DataHandler.GetDriverName(driverId),
-                    DriverNumber = DataHandler.GetDriverNumbers(driverId).First(),
-                    From = new FullPointDescription
+                    var car =
+                        carId == -1 ? @"Не удалось определить автомобиль" : DataHandler.GetCarInformation(carId);
+                    var consignment = DataHandler.GetConsignmentName(id);
+                    var driver = DataHandler.GetDriverName(driverId);
+                    var driverNumber = DataHandler.GetDriverNumbers(driverId).First();
+                    var from = new FullPointDescription
                     {
                         Address = Map.GetPlacemark(startEnd.Item1),
                         Position = startEnd.Item1
-                    },
-                    To = new FullPointDescription
+                    };
+                    var to = new FullPointDescription
                     {
                         Address = Map.GetPlacemark(startEnd.Item2),
                         Position = startEnd.Item2
-                    },
-                    Grz = DataHandler.GetGrzByCarId(carId),
-                    Id = id,
-                    CurrentPlace = new FullPointDescription
+                    };
+                    var grz = DataHandler.GetGrzByCarId(carId);
+                    var currentPlace = new FullPointDescription
                     {
                         Address = Map.GetPlacemark(currentPoint),
                         Position = currentPoint
-                    },
-                    IsFinshed = currentPosition == count - 1
-                };
-                Map.AddTransitMarker(ti);
+                    };
+                    var isFinshed = currentPosition == count - 1;
+                    var ti = new TransitInfo
+                    {
+                        Car = car,
+                        Consignment = consignment,
+                        Driver = driver,
+                        DriverNumber = driverNumber,
+                        From = from,
+                        To = to,
+                        Grz = grz,
+                        Id = id,
+                        CurrentPlace = currentPlace,
+                        IsFinshed = isFinshed
+                    };
+                    lock (MarkerPublicLock.Instance)
+                    {
+                        Map.AddTransitMarker(ti);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Debug.WriteLine(ex.Message);
+                }
             };
         }
 
@@ -335,10 +355,9 @@ namespace BachelorLibAPI.Program
                     if (currentPosition == -1) continue;
 
                     var id = transitId;
-                    Task.Run(AddTransitToMap(id, currentPosition, currentPoint, counter)).Wait();
-                    //tasks.Add(Task.Run(AddTransitToMap(id, currentPosition, currentPoint, counter)));
+                    tasks.Add(Task.Run(AddTransitToMap(id, currentPosition, currentPoint, counter)));
                 }
-                //Task.WaitAll(tasks.Where(x => x != null).ToArray());
+                Task.WaitAll(tasks.Where(x => x != null).ToArray());
                 pbForm.Complete();
                 Thread.Sleep(1000);
                 pbForm.Close();

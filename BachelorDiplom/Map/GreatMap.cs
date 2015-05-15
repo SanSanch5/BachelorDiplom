@@ -77,7 +77,7 @@ namespace BachelorLibAPI.Map
             Rectangle rect = Rectangle.FromLTRB(Cursor.Position.X - 16, Cursor.Position.Y, Cursor.Position.X + 16, Cursor.Position.Y+32);
             //var pointer = _gmap.FromLocalToLatLng(e.X, e.Y);
 
-            lock (_transitMarkers)
+            lock (MarkerPublicLock.Instance)
             {
                 var lst =
                     _transitMarkers.Where(delegate(TransitMarker x)
@@ -90,6 +90,7 @@ namespace BachelorLibAPI.Map
                 if (!lst.Any()) return;
                 _gmap.Zoom += e.Delta/120;
                 _gmap.Position = lst[0].Marker.Position;
+                Cursor.Position = _gmap.PointToScreen(new Point((int)_gmap.FromLatLngToLocal(_gmap.Position).X, (int)_gmap.FromLatLngToLocal(_gmap.Position).Y-10));
             }
         }
 
@@ -136,7 +137,7 @@ namespace BachelorLibAPI.Map
                 MessageBox.Show(@"Вы уверены, что хотите удалить перевозку?", @"Внимание!", MessageBoxButtons.YesNo,
                     MessageBoxIcon.Question) == DialogResult.Yes)
             {
-                lock (_transitMarkers)
+                lock (MarkerPublicLock.Instance)
                 {
                     var m = _transitMarkers.Where(x => x.Marker == marker).ToList()[0];
                     _transitMarkers.Remove(m);
@@ -156,22 +157,22 @@ namespace BachelorLibAPI.Map
         /// <param name="transit"></param>
         public void AddTransitMarker(TransitInfo transit)
         {
-            var m = new TransitMarker {Transit = transit};
-            var pic = transit.IsFinshed
-                ? new Bitmap("..\\..\\Map\\Resources\\tractorunitblack.png")
-                : new Bitmap("..\\..\\Map\\Resources\\truckyellow.png");
-
-            m.Marker = new GMarkerGoogle(transit.CurrentPlace.Position, new Bitmap(pic, new Size(32, 32)))
+            lock (MarkerPublicLock.Instance)
             {
-                ToolTipText =
-                    string.Format(
-                        "Перевозка #{0}\nОткуда: {1}\nКуда: {2}\nГруз: {3}\nВодитель: {4}\nНомер телефона: {5}\nАвтомобиль: {6}\nГРЗ: {7}\nТекущее местоположение: {8}",
-                        m.Transit.Id, m.Transit.From.Address, m.Transit.To.Address, m.Transit.Consignment, m.Transit.Driver,
-                        m.Transit.DriverNumber, m.Transit.Car, m.Transit.Grz, m.Transit.CurrentPlace.Address)
-            };
+                var m = new TransitMarker {Transit = transit};
+                var pic = transit.IsFinshed
+                    ? new Bitmap("..\\..\\Map\\Resources\\tractorunitblack.png")
+                    : new Bitmap("..\\..\\Map\\Resources\\truckyellow.png");
 
-            lock (_transitMarkers)
-            {
+                m.Marker = new GMarkerGoogle(transit.CurrentPlace.Position, new Bitmap(pic, new Size(32, 32)))
+                {
+                    ToolTipText =
+                        string.Format(
+                            "Перевозка #{0}\nОткуда: {1}\nКуда: {2}\nГруз: {3}\nВодитель: {4}\nНомер телефона: {5}\nАвтомобиль: {6}\nГРЗ: {7}\nТекущее местоположение: {8}",
+                            m.Transit.Id, m.Transit.From.Address, m.Transit.To.Address, m.Transit.Consignment, m.Transit.Driver,
+                            m.Transit.DriverNumber, m.Transit.Car, m.Transit.Grz, m.Transit.CurrentPlace.Address)
+                };
+
                 _transitMarkers.Add(m);
                 _markersOverlay.Markers.Add(m.Marker);
             }
@@ -179,7 +180,7 @@ namespace BachelorLibAPI.Map
 
         public void RemoveTransitMarker(int transitId)
         {
-            lock (_transitMarkers)
+            lock (MarkerPublicLock.Instance)
             {
                 var m = _transitMarkers.Where(x => x.Transit.Id == transitId).Select(x => x.Marker).ToArray()[0];
                 _markersOverlay.Markers.Remove(m);
@@ -415,7 +416,10 @@ namespace BachelorLibAPI.Map
 
         private Placemark? GetPlacemark(PointLatLng pnt, out GeoCoderStatusCode st)
         {
-            return ((OpenStreetMapProvider)_gmap.MapProvider).GetPlacemark(pnt, out st);
+            lock(_placemarkGettingLock)
+            {
+                return ((OpenStreetMapProvider)_gmap.MapProvider).GetPlacemark(pnt, out st);
+            }
         }
 
         public string GetPlacemark(PointLatLng pnt)
@@ -597,29 +601,37 @@ namespace BachelorLibAPI.Map
                 }
             }
 
-            lock (_transitMarkers)
+            lock (MarkerPublicLock.Instance)
             {
-                var tmpSafe = _transitMarkers.Select(x => x).ToList();
-                foreach (var t in tmpSafe)
+                try
                 {
-                    var transMarker = t;
-                    var marker = transMarker;
-                    var markerPos = transitsForUpdated.Where(x => x.Key == marker.Transit.Id).ToArray();
-                    if (!markerPos.Any()) continue;
+                    var tmpSafe = _transitMarkers.ToArray();
+                    for (int i = 0; i < tmpSafe.Length; i++)
+                    {
+                        var t = tmpSafe[i];
+                        var transMarker = t;
+                        var marker = transMarker;
+                        var markerPos = transitsForUpdated.Where(x => x.Key == marker.Transit.Id).ToArray();
+                        if (!markerPos.Any()) continue;
 
-                    transMarker.Marker.Position = transMarker.Transit.CurrentPlace.Position = markerPos.First().Value;
-                    transMarker.Transit.CurrentPlace.Address = GetPlacemark(transMarker.Marker.Position);
-                    transMarker.Marker.ToolTipText =
-                        string.Format(
-                            "Перевозка #{0}\nОткуда: {1}\nКуда: {2}\nГруз: {3}\nВодитель: {4}\nНомер телефона: {5}\nАвтомобиль: {6}\nГРЗ: {7}\nТекущее местоположение: {8}",
-                            transMarker.Transit.Id, transMarker.Transit.From.Address, transMarker.Transit.To.Address,
-                            transMarker.Transit.Consignment, transMarker.Transit.Driver,
-                            transMarker.Transit.DriverNumber, transMarker.Transit.Car, transMarker.Transit.Grz,
-                            transMarker.Transit.CurrentPlace.Address);
+                        transMarker.Marker.Position = transMarker.Transit.CurrentPlace.Position = markerPos.First().Value;
+                        transMarker.Transit.CurrentPlace.Address = GetPlacemark(transMarker.Marker.Position);
+                        transMarker.Marker.ToolTipText =
+                            string.Format(
+                                "Перевозка #{0}\nОткуда: {1}\nКуда: {2}\nГруз: {3}\nВодитель: {4}\nНомер телефона: {5}\nАвтомобиль: {6}\nГРЗ: {7}\nТекущее местоположение: {8}",
+                                transMarker.Transit.Id, transMarker.Transit.From.Address, transMarker.Transit.To.Address,
+                                transMarker.Transit.Consignment, transMarker.Transit.Driver,
+                                transMarker.Transit.DriverNumber, transMarker.Transit.Car, transMarker.Transit.Grz,
+                                transMarker.Transit.CurrentPlace.Address);
+                    }
+
+                    Debug.WriteLine(string.Format("{0} Текущие положения перевозок обновлены!", DateTime.Now.ToString(Resources.TimeFileFormat)));
+                    autoEvent.Set();
                 }
-
-                Debug.WriteLine(string.Format("{0} Текущие положения перевозок обновлены!", DateTime.Now.ToString(Resources.TimeFileFormat)));
-                autoEvent.Set();
+                catch (Exception e)
+                {
+                    Debug.WriteLine(e.Message);
+                }
             }
         }
 
@@ -637,5 +649,8 @@ namespace BachelorLibAPI.Map
         private CancellationTokenSource _stadiesGenerationCts = new CancellationTokenSource();
         private Task _stadiesGeneration;
         private Action _transitsDrawingAction;
+
+        private readonly object _placemarkGettingLock = new object();
+        //public readonly object _transitMarkersLock = new object();
     }
 }

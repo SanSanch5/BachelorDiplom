@@ -5,6 +5,17 @@ using GMap.NET;
 
 namespace BachelorLibAPI.Map
 {
+    public sealed class MarkerPublicLock
+    {
+        private static readonly Lazy<MarkerPublicLock> Lazy =
+            new Lazy<MarkerPublicLock>(() => new MarkerPublicLock());
+
+        public static MarkerPublicLock Instance
+        {
+            get { return Lazy.Value; }
+        }
+    }
+
     public class TransitRemoveEventArgs : EventArgs
     {
         public int TransitId { get; set; }
