@@ -61,14 +61,14 @@
 <div class="dyncontent">
 <div class="center"><img src="class_bachelor_lib_a_p_i_1_1_map_1_1_open_street_great_map__inherit__graph.png" border="0" usemap="#_bachelor_lib_a_p_i_8_map_8_open_street_great_map_inherit__map" alt="Inheritance graph"/></div>
 <map name="_bachelor_lib_a_p_i_8_map_8_open_street_great_map_inherit__map" id="_bachelor_lib_a_p_i_8_map_8_open_street_great_map_inherit__map">
-<area shape="rect" id="node2" href="interface_bachelor_lib_a_p_i_1_1_map_1_1_i_map.html" title="Интерфейс для карты. Классы&#45;реализации должны предоставлять пользователю структуру карты..." alt="" coords="27,5,194,347"/></map>
+<area shape="rect" id="node2" href="interface_bachelor_lib_a_p_i_1_1_map_1_1_i_map.html" title="Интерфейс для карты. Классы&#45;реализации должны предоставлять пользователю структуру карты..." alt="" coords="27,5,194,391"/></map>
 </div>
 <div class="dynheader">
 Граф связей класса BachelorLibAPI.Map.OpenStreetGreatMap:</div>
 <div class="dyncontent">
 <div class="center"><img src="class_bachelor_lib_a_p_i_1_1_map_1_1_open_street_great_map__coll__graph.png" border="0" usemap="#_bachelor_lib_a_p_i_8_map_8_open_street_great_map_coll__map" alt="Collaboration graph"/></div>
 <map name="_bachelor_lib_a_p_i_8_map_8_open_street_great_map_coll__map" id="_bachelor_lib_a_p_i_8_map_8_open_street_great_map_coll__map">
-<area shape="rect" id="node2" href="interface_bachelor_lib_a_p_i_1_1_map_1_1_i_map.html" title="Интерфейс для карты. Классы&#45;реализации должны предоставлять пользователю структуру карты..." alt="" coords="27,5,194,347"/></map>
+<area shape="rect" id="node2" href="interface_bachelor_lib_a_p_i_1_1_map_1_1_i_map.html" title="Интерфейс для карты. Классы&#45;реализации должны предоставлять пользователю структуру карты..." alt="" coords="27,5,194,391"/></map>
 </div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
@@ -91,6 +91,15 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>RemoveTransitMarker</
 <tr class="memitem:a43d79c828f9506d2f9ae472bab120cd0"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a43d79c828f9506d2f9ae472bab120cd0"></a>
 string&#160;</td><td class="memItemRight" valign="bottom"><b>GetPlacemark</b> (int x, int y)</td></tr>
 <tr class="separator:a43d79c828f9506d2f9ae472bab120cd0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4d7acd60defce2f3c833df749d8d3765"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a4d7acd60defce2f3c833df749d8d3765"></a>
+Tuple&lt; double, double &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>GetLatLong</b> (int x, int y)</td></tr>
+<tr class="separator:a4d7acd60defce2f3c833df749d8d3765"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a650172f863ad9ee24d29e7dea2deaddd"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a650172f863ad9ee24d29e7dea2deaddd"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>SetCurrentViewPoint</b> (PointLatLng pnt)</td></tr>
+<tr class="separator:a650172f863ad9ee24d29e7dea2deaddd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a81fb5c2f6243b7d9f7ba599be1f69d80"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a81fb5c2f6243b7d9f7ba599be1f69d80"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>SetDanger</b> (int transitId, PointLatLng pnt)</td></tr>
+<tr class="separator:a81fb5c2f6243b7d9f7ba599be1f69d80"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aeca423496aecce29e015b0c343e28046"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aeca423496aecce29e015b0c343e28046"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>SetStartPoint</b> (PointLatLng start)</td></tr>
 <tr class="separator:aeca423496aecce29e015b0c343e28046"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -339,7 +348,7 @@ ThresholdReachedEventHandler&#160;</td><td class="memItemRight" valign="bottom">
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Документация по АИС контроля перемещения ТС, перевозящих АХО грузы, в случае ЧП. Последние изменения: Сб 16 Май 2015 00:49:37. Создано системой &#160;<a href="http://www.doxygen.org/index.html">
+Документация по АИС контроля перемещения ТС, перевозящих АХО грузы, в случае ЧП. Последние изменения: Вс 17 Май 2015 22:41:42. Создано системой &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.9.1
 </small></address>

@@ -67,6 +67,9 @@
 <tr class="memitem:a797a2fb3e30a5159afe15b1aa58d6fe0"><td class="memItemLeft" align="right" valign="top">static readonly Dictionary&lt; string, double &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_bachelor_lib_a_p_i_1_1_algorithms_1_1_ahov.html#a797a2fb3e30a5159afe15b1aa58d6fe0">Coefficient</a></td></tr>
 <tr class="memdesc:a797a2fb3e30a5159afe15b1aa58d6fe0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Если здесь нет показателя, то проводится расчёт с помощью интерполяции  <a href="#a797a2fb3e30a5159afe15b1aa58d6fe0">Подробнее...</a><br /></td></tr>
 <tr class="separator:a797a2fb3e30a5159afe15b1aa58d6fe0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a33ec508d39f53b04d19855bbed24be7c"><td class="memItemLeft" align="right" valign="top">static readonly Dictionary&lt; double, KeyValuePair&lt; double, double &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_bachelor_lib_a_p_i_1_1_algorithms_1_1_ahov.html#a33ec508d39f53b04d19855bbed24be7c">DepthAndAreaFree</a></td></tr>
+<tr class="memdesc:a33ec508d39f53b04d19855bbed24be7c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Таблица для свободного разлива ключ - количество вещества значение: ключ - глубина, значение - площадь распространения  <a href="#a33ec508d39f53b04d19855bbed24be7c">Подробнее...</a><br /></td></tr>
+<tr class="separator:a33ec508d39f53b04d19855bbed24be7c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a04f4b2e8f27dbf512df8540195dfcd59"><td class="memItemLeft" align="right" valign="top">static readonly Dictionary&lt; string, KeyValuePair&lt; string, double &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_bachelor_lib_a_p_i_1_1_algorithms_1_1_ahov.html#a04f4b2e8f27dbf512df8540195dfcd59">AntiSubstance</a></td></tr>
 <tr class="memdesc:a04f4b2e8f27dbf512df8540195dfcd59"><td class="mdescLeft">&#160;</td><td class="mdescRight">Если нет показателя, то обезвреживающее в-во не нужно  <a href="#a04f4b2e8f27dbf512df8540195dfcd59">Подробнее...</a><br /></td></tr>
 <tr class="separator:a04f4b2e8f27dbf512df8540195dfcd59"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -117,6 +120,42 @@
 
 </div>
 </div>
+<a class="anchor" id="a33ec508d39f53b04d19855bbed24be7c"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">readonly Dictionary&lt;double, KeyValuePair&lt;double, double&gt; &gt; BachelorLibAPI.Algorithms.Ahov.DepthAndAreaFree</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<b>Инициализатор</b><div class="fragment"><div class="line">=</div>
+<div class="line">            <span class="keyword">new</span> Dictionary&lt;double, KeyValuePair&lt;double, double&gt;&gt;</div>
+<div class="line">            {</div>
+<div class="line">                {0.1, <span class="keyword">new</span> KeyValuePair&lt;double, double&gt;(0.3653,0.0135)},</div>
+<div class="line">                {0.3, <span class="keyword">new</span> KeyValuePair&lt;double, double&gt;(0.6327,0.0406)},</div>
+<div class="line">                {0.5, <span class="keyword">new</span> KeyValuePair&lt;double, double&gt;(0.8167,0.0676)},</div>
+<div class="line">                {1,   <span class="keyword">new</span> KeyValuePair&lt;double, double&gt;(1.1551,0.1352)},</div>
+<div class="line">                {5,   <span class="keyword">new</span> KeyValuePair&lt;double, double&gt;(2.5929,0.6760)},</div>
+<div class="line">                {10,  <span class="keyword">new</span> KeyValuePair&lt;double, double&gt;(3.7434,1.4198)},</div>
+<div class="line">                {30,  <span class="keyword">new</span> KeyValuePair&lt;double, double&gt;(6.8954,4.8175)},</div>
+<div class="line">                {50,  <span class="keyword">new</span> KeyValuePair&lt;double, double&gt;(9.2427,8.6557)}, </div>
+<div class="line">                {100, <span class="keyword">new</span> KeyValuePair&lt;double, double&gt;(13.8232,19.3607)},</div>
+<div class="line">                {500, <span class="keyword">new</span> KeyValuePair&lt;double, double&gt;(35.9962,95.5892)}</div>
+<div class="line">            }</div>
+</div><!-- fragment -->
+<p>Таблица для свободного разлива ключ - количество вещества значение: ключ - глубина, значение - площадь распространения </p>
+
+</div>
+</div>
 <a class="anchor" id="a04f4b2e8f27dbf512df8540195dfcd59"></a>
 <div class="memitem">
 <div class="memproto">
@@ -158,7 +197,7 @@
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Документация по АИС контроля перемещения ТС, перевозящих АХО грузы, в случае ЧП. Последние изменения: Сб 16 Май 2015 00:49:36. Создано системой &#160;<a href="http://www.doxygen.org/index.html">
+Документация по АИС контроля перемещения ТС, перевозящих АХО грузы, в случае ЧП. Последние изменения: Вс 17 Май 2015 22:41:42. Создано системой &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.9.1
 </small></address>

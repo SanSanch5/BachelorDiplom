@@ -63,7 +63,7 @@
 <div class="dyncontent">
 <div class="center"><img src="interface_bachelor_lib_a_p_i_1_1_map_1_1_i_map__inherit__graph.png" border="0" usemap="#_bachelor_lib_a_p_i_8_map_8_i_map_inherit__map" alt="Inheritance graph"/></div>
 <map name="_bachelor_lib_a_p_i_8_map_8_i_map_inherit__map" id="_bachelor_lib_a_p_i_8_map_8_i_map_inherit__map">
-<area shape="rect" id="node2" href="class_bachelor_lib_a_p_i_1_1_map_1_1_open_street_great_map.html" title="{BachelorLibAPI.Map.OpenStreet\lGreatMap\n|+ StartPoint\l+ EndPoint\l|+ OpenStreetGreatMap()\l+ CheckAdress()\l+ GetCorrectAdress()\l+ AddTransitMarker()\l+ RemoveTransitMarker()\l+ GetPlacemark()\l+ SetStartPoint()\l+ SetStartPoint()\l+ SetMiddlePoint()\l+ SetMiddlePoint()\l+ SetEndPoint()\l+ SetEndPoint()\l+ CheckBeforeAdding()\l+ ConstructShortTrack()\l+ GetShortTrack()\l+ GetStartPoint()\l+ GetEndPoint()\l+ HasMidPoints()\l+ GetPlacemark()\l+ DrawDangerRegion()\l}" alt="" coords="5,395,216,780"/></map>
+<area shape="rect" id="node2" href="class_bachelor_lib_a_p_i_1_1_map_1_1_open_street_great_map.html" title="{BachelorLibAPI.Map.OpenStreet\lGreatMap\n|+ StartPoint\l+ EndPoint\l|+ OpenStreetGreatMap()\l+ CheckAdress()\l+ GetCorrectAdress()\l+ AddTransitMarker()\l+ RemoveTransitMarker()\l+ GetPlacemark()\l+ GetLatLong()\l+ SetCurrentViewPoint()\l+ SetDanger()\l+ SetStartPoint()\l+ SetStartPoint()\l+ SetMiddlePoint()\l+ SetMiddlePoint()\l+ SetEndPoint()\l+ SetEndPoint()\l+ CheckBeforeAdding()\l+ ConstructShortTrack()\l+ GetShortTrack()\l+ GetStartPoint()\l+ GetEndPoint()\l+ HasMidPoints()\l+ GetPlacemark()\l+ DrawDangerRegion()\l}" alt="" coords="5,439,216,868"/></map>
 </div>
 <div class="dynheader">
 Граф связей класса BachelorLibAPI.Map.IMap:</div>
@@ -81,6 +81,9 @@
 <tr class="memitem:a0b4562a0cf46d5548042e54cf7dfbe4f"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a0b4562a0cf46d5548042e54cf7dfbe4f"></a>
 string&#160;</td><td class="memItemRight" valign="bottom"><b>GetPlacemark</b> (int x, int y)</td></tr>
 <tr class="separator:a0b4562a0cf46d5548042e54cf7dfbe4f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2c2206df580a6f2b2fd59fc7d478530b"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a2c2206df580a6f2b2fd59fc7d478530b"></a>
+Tuple&lt; double, double &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>GetLatLong</b> (int x, int y)</td></tr>
+<tr class="separator:a2c2206df580a6f2b2fd59fc7d478530b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad56993d074a6a5d0120217f840438d73"><td class="memItemLeft" align="right" valign="top">string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interface_bachelor_lib_a_p_i_1_1_map_1_1_i_map.html#ad56993d074a6a5d0120217f840438d73">GetPlacemark</a> (PointLatLng pnt)</td></tr>
 <tr class="memdesc:ad56993d074a6a5d0120217f840438d73"><td class="mdescLeft">&#160;</td><td class="mdescRight">Попытка получить адрес по длине/широте  <a href="#ad56993d074a6a5d0120217f840438d73">Подробнее...</a><br /></td></tr>
 <tr class="separator:ad56993d074a6a5d0120217f840438d73"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -90,6 +93,12 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>SetStartPoint</b> (Po
 <tr class="memitem:a3025a9971bc7190e17de5fb6e96e804e"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a3025a9971bc7190e17de5fb6e96e804e"></a>
 string&#160;</td><td class="memItemRight" valign="bottom"><b>GetStartPoint</b> ()</td></tr>
 <tr class="separator:a3025a9971bc7190e17de5fb6e96e804e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a932f240920b4e1645b226ed661f622b4"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a932f240920b4e1645b226ed661f622b4"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>SetDanger</b> (int transitId, PointLatLng pnt)</td></tr>
+<tr class="separator:a932f240920b4e1645b226ed661f622b4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a617068b38cd587222b4071cb794b020e"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a617068b38cd587222b4071cb794b020e"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>SetCurrentViewPoint</b> (PointLatLng pnt)</td></tr>
+<tr class="separator:a617068b38cd587222b4071cb794b020e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae97ded19ef9f0c3b52f9064d2d3be0dd"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ae97ded19ef9f0c3b52f9064d2d3be0dd"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>SetMiddlePoint</b> (PointLatLng mid)</td></tr>
 <tr class="separator:ae97ded19ef9f0c3b52f9064d2d3be0dd"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -195,7 +204,7 @@ ThresholdReachedEventHandler&#160;</td><td class="memItemRight" valign="bottom">
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Документация по АИС контроля перемещения ТС, перевозящих АХО грузы, в случае ЧП. Последние изменения: Сб 16 Май 2015 00:49:37. Создано системой &#160;<a href="http://www.doxygen.org/index.html">
+Документация по АИС контроля перемещения ТС, перевозящих АХО грузы, в случае ЧП. Последние изменения: Вс 17 Май 2015 22:41:42. Создано системой &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.9.1
 </small></address>
