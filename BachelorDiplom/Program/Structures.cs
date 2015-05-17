@@ -1,9 +1,43 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
 using GMap.NET;
 
 namespace BachelorLibAPI.Program
 {
+    public struct DegMinSec
+    {
+        private const char D = '°';
+        private const char M = '′';
+        private const char S = '″';
+
+
+        public int Degrees;
+        public int Minutes;
+        public int Seconds;
+        public char Direction;
+
+        public DegMinSec(string value)
+        {
+            var deg = value.Split(D);
+            Degrees = int.Parse(Regex.Replace(deg[0], " ", ""));
+            var min = deg[1].Split(M);
+            Minutes = int.Parse(Regex.Replace(min[0], " ", ""));
+            var sec = min[1].Split(S);
+            Seconds = int.Parse(Regex.Replace(sec[0], " ", ""));
+            Direction = sec[1][0];
+        }
+        public override string ToString()
+        {
+            var deg = Degrees.ToString();
+            while (deg.Length != 3) deg = " " + deg;
+            var min = Minutes.ToString();
+            while (min.Length != 2) min = " " + min; 
+            var sec = Seconds.ToString();
+            while (sec.Length != 2) sec = " " + sec;
+            return deg + min + sec + Direction;
+        }
+    }
     public struct FullPointDescription
     {
         public string Address;
@@ -17,6 +51,8 @@ namespace BachelorLibAPI.Program
         public DateTime StartTime;
         public DateTime SpreadingTime;
         public double WindDirection;
+        public string Consignment;
+        public double ConsignmentCapacity;
     }
 
     public struct TransitInfo
@@ -26,12 +62,15 @@ namespace BachelorLibAPI.Program
         public FullPointDescription From;
         public FullPointDescription To;
         public string Consignment;
+        public double ConsignmentCapacity;
         public string Driver;
         public string DriverNumber;
         public string Car;
         public string Grz;
         public FullPointDescription CurrentPlace;
+        public int StadiesCount;
         public bool IsFinshed;
+        public bool IsInAccident;
     }
 
     public struct AnalyseReturnType
@@ -45,24 +84,4 @@ namespace BachelorLibAPI.Program
         public string City;
         public DateTime Location;
     }
-
-    public struct DriverInfoType
-    {
-        public int Id;
-        public string Surname;
-        public string Name;
-        public string MName;
-        public List<string> Numbers;
-        public string ConsName;
-        public int DangerDegree;
-        public string StartLocation;
-        public DateTime Start;
-        public string GoalLocation;
-        public DateTime ProbableArrival;
-        public DateTime Arrival;
-        public string ProbableLocation;
-        public bool Status;
-    }
-
-    
 }

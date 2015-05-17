@@ -46,6 +46,10 @@
     <Reference Include="GMap.NET.WindowsForms">
       <HintPath>Map\NETv4.0\GMap.NET.WindowsForms.dll</HintPath>
     </Reference>
+    <Reference Include="MathNet.Numerics, Version=3.7.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Algorithms\MathNet.Numerics.dll</HintPath>
+    </Reference>
     <Reference Include="Mono.Security, Version=4.0.0.0, Culture=neutral, PublicKeyToken=0738eb9f132ed756, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>Resources\Mono.Security.dll</HintPath>
@@ -57,6 +61,7 @@
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.Linq" />
+    <Reference Include="System.Numerics" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -67,75 +72,21 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Algorithms\Haversine.cs" />
+    <Compile Include="Algorithms\LatLongWorker.cs" />
     <Compile Include="Algorithms\RD-90.cs" />
     <Compile Include="Data\PgSqlDataHandler.cs" />
-    <Compile Include="Forms\ConsignmentAddForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\ConsignmentAddForm.Designer.cs">
-      <DependentUpon>ConsignmentAddForm.cs</DependentUpon>
-    </Compile>
     <Compile Include="Data\Data.cs" />
-    <Compile Include="Forms\DriverDelBox.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\DriverDelBox.Designer.cs">
-      <DependentUpon>DriverDelBox.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Forms\DriverAddForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\DriverAddForm.Designer.cs">
-      <DependentUpon>DriverAddForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Forms\DriverDelForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\DriverDelForm.Designer.cs">
-      <DependentUpon>DriverDelForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Forms\DriverInfoForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\DriverInfoForm.Designer.cs">
-      <DependentUpon>DriverInfoForm.cs</DependentUpon>
-    </Compile>
     <Compile Include="Forms\MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Forms\MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\NamesakesBox.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\NamesakesBox.Designer.cs">
-      <DependentUpon>NamesakesBox.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Forms\NamesakesForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\NamesakesForm.Designer.cs">
-      <DependentUpon>NamesakesForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Forms\PasswordBox.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\PasswordBox.Designer.cs">
-      <DependentUpon>PasswordBox.cs</DependentUpon>
-    </Compile>
     <Compile Include="Forms\ProgressBarForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Forms\ProgressBarForm.Designer.cs">
       <DependentUpon>ProgressBarForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Forms\TransitsDelBeforeForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\TransitsDelBeforeForm.Designer.cs">
-      <DependentUpon>TransitsDelBeforeForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\WaybillForm.cs">
       <SubType>Form</SubType>
@@ -151,47 +102,11 @@
     <Compile Include="Program\Structures.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Program\QueriesHandler.cs" />
-    <Compile Include="TestsGenerator\Files.cs" />
-    <Compile Include="TestsGenerator\ListExtension.cs" />
-    <Compile Include="TestsGenerator\MyDataReader.cs" />
-    <Compile Include="TestsGenerator\TestsGeneratorForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="TestsGenerator\TestsGeneratorForm.Designer.cs">
-      <DependentUpon>TestsGeneratorForm.cs</DependentUpon>
-    </Compile>
-    <EmbeddedResource Include="Forms\ConsignmentAddForm.resx">
-      <DependentUpon>ConsignmentAddForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\DriverDelBox.resx">
-      <DependentUpon>DriverDelBox.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\DriverAddForm.resx">
-      <DependentUpon>DriverAddForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\DriverDelForm.resx">
-      <DependentUpon>DriverDelForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\DriverInfoForm.resx">
-      <DependentUpon>DriverInfoForm.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Forms\MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\NamesakesBox.resx">
-      <DependentUpon>NamesakesBox.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\NamesakesForm.resx">
-      <DependentUpon>NamesakesForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\PasswordBox.resx">
-      <DependentUpon>PasswordBox.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Forms\ProgressBarForm.resx">
       <DependentUpon>ProgressBarForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\TransitsDelBeforeForm.resx">
-      <DependentUpon>TransitsDelBeforeForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\WaybillForm.resx">
       <DependentUpon>WaybillForm.cs</DependentUpon>
@@ -206,9 +121,6 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
-    <EmbeddedResource Include="TestsGenerator\TestsGeneratorForm.resx">
-      <DependentUpon>TestsGeneratorForm.cs</DependentUpon>
-    </EmbeddedResource>
     <None Include="app.config" />
     <None Include="Program\app.config" />
     <None Include="Properties\Settings.settings">

@@ -25,6 +25,7 @@ namespace BachelorLibAPI.Map
         /// <returns></returns>
         List<KeyValuePair<PointLatLng, int>> GetShortTrack();
         string GetPlacemark(int x, int y);
+        Tuple<double, double> GetLatLong(int x, int y); 
 
         /// <summary>
         /// Попытка получить адрес по длине/широте
@@ -34,6 +35,9 @@ namespace BachelorLibAPI.Map
         string GetPlacemark(PointLatLng pnt);
         void SetStartPoint(PointLatLng start);
         string GetStartPoint();
+        void SetDanger(int transitId, PointLatLng pnt);
+
+        void SetCurrentViewPoint(PointLatLng pnt);
         void SetMiddlePoint(PointLatLng mid);
         void SetEndPoint(PointLatLng end);
         string GetEndPoint();

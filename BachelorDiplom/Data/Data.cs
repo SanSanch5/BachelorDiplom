@@ -11,13 +11,6 @@ namespace BachelorLibAPI.Data
     public interface IDataHandler
     {
         /// <summary>
-        /// Добавляет новый контакт
-        /// </summary>
-        /// <param name="driverId">Идентификатор владельца контакта</param>
-        /// <param name="contact">Номер телефона</param>
-        void AddNewContact(int driverId, string contact);
-
-        /// <summary>
         /// Удалить все контакты, записанные за водителя
         /// </summary>
         /// <param name="driverId">ID водителя</param>
@@ -26,11 +19,12 @@ namespace BachelorLibAPI.Data
         /// <summary>
         /// Добавить нового водителя
         /// </summary>
-        /// <param name="lName">Фамилия</param>
         /// <param name="name">Имя</param>
-        /// <param name="mName">Отчество, если есть</param>
+        /// <param name="number"></param>
+        /// <param name="middleName">Отчество, если есть</param>
+        /// <param name="lastName">Фамилия</param>
         /// <returns>ID добавленного водителя</returns>
-        int AddNewDriver(string lName, string name, string mName);
+        int AddNewDriver(string name, string number, string middleName = "", string lastName = "");
         
         /// <summary>
         /// Удалить водителя
@@ -48,7 +42,7 @@ namespace BachelorLibAPI.Data
         /// <param name="startPoint"></param>
         /// <param name="endPoint"></param>
         /// <returns>ID добавленной перевозки</returns>
-        int AddNewTransit(int driverId, int carId, string consName, DateTime startTime, PointLatLng startPoint, PointLatLng endPoint);
+        int AddNewTransit(int driverId, int carId, string consName, double consCapacity, DateTime startTime, PointLatLng startPoint, PointLatLng endPoint);
 
         /// <summary>
         /// Удалить перевозку
@@ -72,11 +66,6 @@ namespace BachelorLibAPI.Data
         /// Возвращает массив идентификаторов водителей с заданными ФИО
         /// </summary>
         int[] FindDrivers(string lName, string name, string mName);
-
-        /// <summary>
-        /// Возвращает ID водителя по его номеру телефона
-        /// </summary>
-        int DriverWithPhoneNumber(string contact);
 
         string GetDriversFullName(int driverId);
 
@@ -135,6 +124,8 @@ namespace BachelorLibAPI.Data
         /// <returns></returns>
         string GetConsignmentName(int transId);
 
+        double GetConsignmentCapacity(int transitId);
+
         /// <summary>
         /// Получить имя водителя
         /// </summary>
@@ -150,14 +141,23 @@ namespace BachelorLibAPI.Data
         string GetDriverSurname(int driverId);
 
         /// <summary>
-        /// Получить контактные номера водителя
+        /// Получить контактные номера водителей с таким именем
         /// </summary>
-        /// <param name="driverId">ID водителя</param>
+        /// <param name="driverName">Имя водителя</param>
         /// <returns>Список номеров</returns>
-        List<string> GetDriverNumbers(int driverId);
+        List<string> GetNumbersByName(string driverName);
+
+        /// <summary>
+        /// Возвращает имена водителей с таким номером
+        /// </summary>
+        List<string> GetNamesByNumber(string contact);
+        string GetDriverNumber(int driverId);
+
+        int GetDriverId(string name, string number);
 
         Tuple<PointLatLng, PointLatLng> GetStartAndEndPoints(int transit);
 
         void SubmitChanges();
+
     }   
 }

@@ -1,15 +1,13 @@
 ﻿using System;
 using System.ComponentModel;
-using System.Data;
-using System.Diagnostics;
 using System.Drawing;
-using System.Threading;
-using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Xml.XPath;
+using BachelorLibAPI.Algorithms;
 using BachelorLibAPI.Data;
 using BachelorLibAPI.Map;
 using BachelorLibAPI.Program;
-using BachelorLibAPI.TestsGenerator;
+using GMap.NET;
 
 namespace BachelorLibAPI.Forms
 {
@@ -19,13 +17,25 @@ namespace BachelorLibAPI.Forms
         /// Предусмотрена возможность расширения: привязка к другой карте и к другой базе данных.
         /// Обработчик запросов отвечает за логику запросов: проверки, исключения, ошибки и т.п.
         /// </summary>
-        private QueriesHandler _queriesHandler;
+        private readonly QueriesHandler _queriesHandler;
+        private static readonly Bitmap PicOk = new Bitmap(@"..\..\Resources\Pictures\ok.png");
+        private static readonly Bitmap PicNotOk = new Bitmap(@"..\..\Resources\Pictures\not_ok.png");
 
         public MainForm()
         {
             InitializeComponent();
 
+            _queriesHandler = new QueriesHandler(PgSqlDataHandler.Instance, new OpenStreetGreatMap(ref gmap));
+            QueriesHandler.DeleteTransitStadiesOlderThenYesterday();
+
             FillMainForm();
+
+            var p1 = new PointLatLng(LatLongWorker.DegMinSecToDecimalDegree(new DegMinSec("53°19′14″N"), true), 
+                LatLongWorker.DegMinSecToDecimalDegree(new DegMinSec("001°43′47″W"), false));
+            var p2 = new PointLatLng(LatLongWorker.DegMinSecToDecimalDegree(new DegMinSec("53°11′18″N"), true), 
+                LatLongWorker.DegMinSecToDecimalDegree(new DegMinSec("000°08′00″E"), false));
+            //var p2 = LatLongWorker.PointFromStartBearingDistance(p1, 345, 125.8);
+            var dist = LatLongWorker.DistanceFromLatLonInKm(p1, p2);
         }
 
         private void FillMainForm()
@@ -35,147 +45,11 @@ namespace BachelorLibAPI.Forms
                 Invoke((MethodInvoker)FillMainForm);
                 return;
             }
-
-            _queriesHandler = new QueriesHandler(PgSqlDataHandler.Instance, new OpenStreetGreatMap(ref gmap))
-            {
-                AnalyseProgress = pbAnalyse
-            };
+            
 
             Cursor.Current = Cursors.WaitCursor;
             _queriesHandler.PutTransitsFromDbToMap();
             Cursor.Current = Cursors.Default;
-         
-            //var pb = new ProgressBarForm("asdasdasdasd", 121231);
-            //for(int i = 0; i < 121231; ++i)
-            //    pb.Progress();
-            //foreach (var city in m_queriesHandler.GetCitiesNames())
-            //{
-            //    cmbCrashPlace.Items.Add(city);
-            //}
-        }
-
-        private void AddDriverClick(object sender, EventArgs e)
-        {
-            var driverAddingForm = new DriverAddForm(_queriesHandler);
-            driverAddingForm.Show();
-            driverAddingForm.TopMost = true;
-        }
-
-        private void AddConsignmentClick(object sender, EventArgs e)
-        {
-            var consAddingForm = new ConsignmentAddForm(_queriesHandler);
-            consAddingForm.Show();
-        }
-
-        private void AddRegionClick(object sender, EventArgs e)
-        {
-
-        }
-
-        private void AddCityClick(object sender, EventArgs e)
-        {
-
-        }
-
-        private void DelDriverClick(object sender, EventArgs e)
-        {
-            var password = "admin";
-            try
-            {
-                var passwordBox = new PasswordBox();
-                passwordBox.ShowDialog();
-                if (passwordBox.DialogResult == DialogResult.OK)
-                {
-                    if (passwordBox.Password == password)
-                    {
-                        passwordBox.Close();
-                        var driverDelForm = new DriverDelForm(_queriesHandler);
-                        driverDelForm.Show();
-                    }
-                    else
-                        throw new InvalidExpressionException("Неверный пароль!");
-                }
-            }
-            catch (InvalidExpressionException ex)
-            {
-                MessageBox.Show(ex.Message, @"Отказано в доступе.");
-            }
-        }
-
-        private void DelConsignmentClick(object sender, EventArgs e)
-        {
-
-        }
-
-        private void DelTransitClick(object sender, EventArgs e)
-        {
-
-        }
-
-        private void DelEndedTransits(object sender, EventArgs e)
-        {
-            
-        }
-
-        private void DelTransitsBefore(object sender, EventArgs e)
-        {
-            var password = "admin";
-            try
-            {
-                var passwordBox = new PasswordBox();
-                passwordBox.ShowDialog();
-                if (passwordBox.DialogResult == DialogResult.OK)
-                {
-                    if (passwordBox.Password == password)
-                    {
-                        passwordBox.Close();
-                        var transitsDelBeforeForm = new TransitsDelBeforeForm(_queriesHandler);
-                        transitsDelBeforeForm.Show();
-                    }
-                    else
-                        throw new InvalidExpressionException("Неверный пароль!");
-                }
-            }
-            catch (InvalidExpressionException ex)
-            {
-                MessageBox.Show(ex.Message, @"Отказано в доступе.");
-            }
-        }
-
-        private void DelRegionClick(object sender, EventArgs e)
-        {
-
-        }
-
-        private void DelCityClick(object sender, EventArgs e)
-        {
-
-        }
-
-        private void FindDriverInfoClick(object sender, EventArgs e)
-        {
-            var driverInfoForm = new DriverInfoForm(_queriesHandler);
-            driverInfoForm.Show();
-        }
-
-        private void FindConsignmentInfoClick(object sender, EventArgs e)
-        {
-
-        }
-
-        private void FindTransitInfoClick(object sender, EventArgs e)
-        {
-
-        }
-
-        private void FindRegionInfoClick(object sender, EventArgs e)
-        {
-
-        }
-
-        private void FindCityInfoClick(object sender, EventArgs e)
-        {
-
         }
 
         private void NewWaybillClick(object sender, EventArgs e)
@@ -184,71 +58,29 @@ namespace BachelorLibAPI.Forms
             waybillForm.Show();
         }
 
-        private void EndingStatusClick(object sender, EventArgs e)
-        {
-            
-        }
-
         private void DangerAnalyseClick(object sender, EventArgs e)
         {
             
-        }
-
-        private void LoadTestDataClick(object sender, EventArgs e)
-        {
-            var password = "test";
-            try
-            {
-                var passwordBox = new PasswordBox();
-                passwordBox.ShowDialog();
-                if (passwordBox.DialogResult == DialogResult.OK)
-                {
-                    if (passwordBox.Password == password)
-                    {
-                        passwordBox.Close();
-                        var testsGeneratorForm = new TestsGeneratorForm(_queriesHandler);
-                        testsGeneratorForm.Show();
-                    }
-                    else
-                        throw new InvalidExpressionException("Неверный пароль!");
-                }
-            }
-            catch(InvalidExpressionException ex)
-            {
-                MessageBox.Show(ex.Message, @"Отказано в доступе.");
-            }
-        }
-
-        private void chbTimeInterval_CheckedChanged(object sender, EventArgs e)
-        {
-            var b = dtpPrecTime.Enabled;
-            dtpPrecTime.Enabled = !b;
-
-            dtpSince.Enabled = b;
-            dtpUntil.Enabled = b;
-        }
-
-        private void rbtCity_Click(object sender, EventArgs e)
-        {
-            
-        }
-
-        private void rbtRegion_Click(object sender, EventArgs e)
-        {
-            
-        }
-
-        private void fMain_Activated(object sender, EventArgs e)
-        {
-            pbAnalyse.Visible = false;
         }
 
         private Point _menuClickPos;
 
         private void gmap_MouseDoubleClick(object sender, MouseEventArgs e)
         {
-            var adress = _queriesHandler.Map.GetPlacemark(e.X, e.Y);
-            MessageBox.Show(adress);
+            try
+            {
+                var pnt = _queriesHandler.Map.GetLatLong(e.X, e.Y);
+                var dmsLat = LatLongWorker.DecimalDegreeToDegMinSec(pnt.Item1, true);
+                var dmsLong = LatLongWorker.DecimalDegreeToDegMinSec(pnt.Item2, false);
+                edtLat.Text = dmsLat.ToString();
+                edtLong.Text = dmsLong.ToString();
+                edtCrashPlace.Text = _queriesHandler.Map.GetPlacemark(e.X, e.Y);
+                picCheck.Image = new Bitmap(PicOk, new Size(16, 16));
+            }
+            catch (PlacemarkGettingException ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
 
 
@@ -267,13 +99,6 @@ namespace BachelorLibAPI.Forms
             _queriesHandler.Map.SetMiddlePoint(gmap.FromLocalToLatLng(gmap.PointToClient(_menuClickPos).X, gmap.PointToClient(_menuClickPos).Y));
         }
 
-        private void GetRouteClick(object sender, EventArgs e)
-        {
-            ltMainOptions.Visible = false;
-            _queriesHandler.Map.ConstructShortTrack();
-            ltMainOptions.Visible = true;
-        }
-
         private void mapMenu_Opening(object sender, CancelEventArgs e)
         {
             _menuClickPos = Cursor.Position;
@@ -283,6 +108,20 @@ namespace BachelorLibAPI.Forms
         {
             Application.Exit();
             Environment.Exit(0);
+        }
+
+        private void btnSetCrashPlace_Click(object sender, EventArgs e)
+        {
+            var pnt = new PointLatLng(LatLongWorker.DegMinSecToDecimalDegree(new DegMinSec(edtLat.Text), true), 
+                LatLongWorker.DegMinSecToDecimalDegree(new DegMinSec(edtLong.Text), false));
+            _queriesHandler.SetCurrentPointOfView(pnt.Lat, pnt.Lng);
+            if (MessageBox.Show(@"Анализировать опасность в этой точке?", @"Внимание", MessageBoxButtons.YesNo) ==
+                DialogResult.Yes)
+                _queriesHandler.AnalyseDanger(dtpPrecTime.Value, new FullPointDescription
+                {
+                    Address = edtCrashPlace.Text,
+                    Position = pnt
+                });
         }
     }
 }

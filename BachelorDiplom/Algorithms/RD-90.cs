@@ -1,4 +1,6 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
+using MathNet.Numerics;
 
 namespace BachelorLibAPI.Algorithms
 {
@@ -32,6 +34,41 @@ namespace BachelorLibAPI.Algorithms
         };
 
         /// <summary>
+        /// Таблица для свободного разлива
+        /// ключ - количество вещества
+        /// значение: ключ - глубина, значение - площадь распространения
+        /// </summary>
+        public static readonly Dictionary<double, KeyValuePair<double, double>> DepthAndAreaFree =
+            new Dictionary<double, KeyValuePair<double, double>>
+            {
+                {0.1, new KeyValuePair<double, double>(0.3653,0.0135)},
+                {0.3, new KeyValuePair<double, double>(0.6327,0.0406)},
+                {0.5, new KeyValuePair<double, double>(0.8167,0.0676)},
+                {1,   new KeyValuePair<double, double>(1.1551,0.1352)},
+                {5,   new KeyValuePair<double, double>(2.5929,0.6760)},
+                {10,  new KeyValuePair<double, double>(3.7434,1.4198)},
+                {30,  new KeyValuePair<double, double>(6.8954,4.8175)},
+                {50,  new KeyValuePair<double, double>(9.2427,8.6557)}, 
+                {100, new KeyValuePair<double, double>(13.8232,19.3607)},
+                {500, new KeyValuePair<double, double>(35.9962,95.5892)}
+            };
+
+//        public static readonly Dictionary<double, KeyValuePair<double, double>> DepthAndAreaTray =
+//            new Dictionary<double, KeyValuePair<double, double>>
+//            {
+//                {0.1, new KeyValuePair<double, double>(0.2244,0.0065)},
+//                {0.3, new KeyValuePair<double, double>(,)},
+//                {0.5, new KeyValuePair<double, double>(,)},
+//                {1,   new KeyValuePair<double, double>(,)},
+//                {5,   new KeyValuePair<double, double>(,)},
+//                {10,  new KeyValuePair<double, double>(,)},
+//                {30,  new KeyValuePair<double, double>(,)},
+//                {50,  new KeyValuePair<double, double>(,)}, 
+//                {100, new KeyValuePair<double, double>(,)},
+//                {500, new KeyValuePair<double, double>(,)}
+//            };
+
+        /// <summary>
         /// Если нет показателя, то обезвреживающее в-во не нужно
         /// </summary>
         public static readonly Dictionary<string, KeyValuePair<string, double>> AntiSubstance = 
@@ -51,8 +88,8 @@ namespace BachelorLibAPI.Algorithms
 
     public interface IChemicalEnvironmentCalculation
     {
-        double InfectionArea();
-        KeyValuePair<string, double> AntiSubstanceCount();
+        double InfectionArea { get; }
+        KeyValuePair<string, double> AntiSubstanceCount { get; }
     }
 
     /// <summary>
@@ -67,25 +104,34 @@ namespace BachelorLibAPI.Algorithms
         private readonly double _substanceCount;
         private double QEq { get; set; }
 
-        Rd90(string substance, double substanceCount)
+        public Rd90(string substance, double substanceCount)
         {
             _substance = substance;
             _substanceCount = substanceCount;
 
-            QEq = _substanceCount / Ahov.Coefficient[this._substance];
+            QEq = _substanceCount / Ahov.Coefficient[_substance];
         }
 
-        public double InfectionArea()
+        public double InfectionArea
         {
-            return 0;
+            get
+            {
+                var keys = Ahov.DepthAndAreaFree.Select(x => x.Key).ToList();
+                var values = Ahov.DepthAndAreaFree.Select(x => x.Value.Value).ToList();
+                var interp = Interpolate.Common(keys, values);
+                return interp.Interpolate(QEq);
+            }
         }
 
-        public KeyValuePair<string, double> AntiSubstanceCount()
+        public KeyValuePair<string, double> AntiSubstanceCount
         {
-            return Ahov.AntiSubstance.ContainsKey(_substance) 
-                ? new KeyValuePair<string, double>(Ahov.AntiSubstance[_substance].Key, 
-                    Ahov.AntiSubstance[_substance].Value*_substanceCount)
-                : new KeyValuePair<string, double>("", 0);
+            get
+            {
+                return Ahov.AntiSubstance.ContainsKey(_substance) 
+                    ? new KeyValuePair<string, double>(Ahov.AntiSubstance[_substance].Key, 
+                        Ahov.AntiSubstance[_substance].Value*_substanceCount)
+                    : new KeyValuePair<string, double>("", 0);
+            }
         }
     }
 }

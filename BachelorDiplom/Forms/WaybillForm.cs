@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Linq;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using BachelorLibAPI.Program;
@@ -20,7 +21,7 @@ namespace BachelorLibAPI.Forms
             InitializeComponent();
             var screen = Screen.PrimaryScreen;
             Left = 25;
-            Top = screen.WorkingArea.Top + 50;
+            Top = screen.WorkingArea.Top + 150;
 
             QueriesHandler = qh;
             _consNames = QueriesHandler.GetConsignmentsNames();
@@ -47,10 +48,11 @@ namespace BachelorLibAPI.Forms
             {
                 var num = Regex.Replace(edtDriverPhoneNumber.Text, "[^0-9]", "");
                 var consName = cmbCons.Text;
-                var driverName = edtDriverName.Text;
+                var driverName = cmbDriverName.Text;
                 var grz = cmbGRZ.Text;
+                var cap = edtConsCapacity.Text;
 
-                if ((num == "" || num.Length != 10) || consName == "" || driverName == "" || grz == "")
+                if ((num == "" || num.Length != 10) || consName == "" || driverName == "" || grz == "" || cap == "")
                     throw new FormatException("Звёздочкой (*) отмечены поля для обязательного заполнения!");
                 if (!_consNames.Contains(consName))
                     throw new FormatException("Выберите груз.");
@@ -65,7 +67,7 @@ namespace BachelorLibAPI.Forms
 
                 WindowState = FormWindowState.Minimized;
                 if (!QueriesHandler.CheckBeforeAdding()) return;
-                QueriesHandler.AddNewWaybill(driverName, num, grz, consName, dtpStart.Value, ttForOk.GetToolTip(edtFrom),
+                QueriesHandler.AddNewWaybill(driverName, num, grz, consName, double.Parse(cap), dtpStart.Value, ttForOk.GetToolTip(edtFrom),
                     ttForOk.GetToolTip(edtTo));
                 MessageBox.Show(@"Новая перевозка зарегистрирована.", @"Информация");
             }
@@ -84,7 +86,7 @@ namespace BachelorLibAPI.Forms
             }
         }
 
-        private void AddMoreMidCities(Object sender, EventArgs e)
+        private void AddMoreMidCities(object sender, EventArgs e)
         {
             QueriesHandler.SetMiddlePoint(edtMid.Text);
             edtMid.Text = "";
@@ -221,6 +223,13 @@ namespace BachelorLibAPI.Forms
             picGrz.Image = car != @"Не удалось определить автомобиль"
                 ? new Bitmap(PicOk, new Size(16, 16))
                 : new Bitmap(PicNotOk, new Size(16, 16));
+        }
+
+        private void edtDriverPhoneNumber_Leave(object sender, EventArgs e)
+        {
+            cmbDriverName.Items.Clear();
+            cmbDriverName.Items.AddRange((QueriesHandler.GetNamesByNumber(
+                Regex.Replace(edtDriverPhoneNumber.Text, "[^0-9]", ""))).Select(x => (object)x).ToArray());
         }
     }
 }

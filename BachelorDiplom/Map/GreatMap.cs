@@ -173,30 +173,27 @@ namespace BachelorLibAPI.Map
             {
                 ToolTipText =
                     string.Format(
-                        "Перевозка #{0}\nОткуда: {1}\nКуда: {2}\nГруз: {3}\nВодитель: {4}\nНомер телефона: {5}\nАвтомобиль: {6}\nГРЗ: {7}\nТекущее местоположение: {8}",
-                        m.Transit.Id, m.Transit.From.Address, m.Transit.To.Address, m.Transit.Consignment,
-                        m.Transit.Driver,
+                        "Перевозка #{0}\nОткуда: {1}\nКуда: {2}\nГруз: {3}, {4} т.\nВодитель: {5}\nНомер телефона: {6}\nАвтомобиль: {7}\nГРЗ: {8}\nТекущее местоположение: {9}",
+                        m.Transit.Id, m.Transit.From.Address, m.Transit.To.Address, 
+                        m.Transit.Consignment, m.Transit.ConsignmentCapacity, m.Transit.Driver,
                         m.Transit.DriverNumber, m.Transit.Car, m.Transit.Grz, m.Transit.CurrentPlace.Address)
             };
 
             lock (_transitMarkers)
-            {
                 _transitMarkers.Add(m);
 
-                //лист тут не при чём оказался.. просто элемент управления, созданный в каком-то потоке, может меняться только!! в этом потоке!
-                if(_gmap.InvokeRequired)
-                    _gmap.Invoke((MethodInvoker)delegate { _markersOverlay.Markers.Add(m.Marker); });
-                else _markersOverlay.Markers.Add(m.Marker);
-            }
+            //лист тут не при чём оказался.. просто элемент управления, созданный в каком-то потоке, может меняться только!! в этом потоке!
+            if(_gmap.InvokeRequired)
+                _gmap.Invoke((MethodInvoker)delegate { _markersOverlay.Markers.Add(m.Marker); });
+            else _markersOverlay.Markers.Add(m.Marker);
         }
 
         public void RemoveTransitMarker(int transitId)
         {
+            GMapMarker m;
             lock (_transitMarkers)
-            {
-                var m = _transitMarkers.Where(x => x.Transit.Id == transitId).Select(x => x.Marker).ToArray()[0];
-                _markersOverlay.Markers.Remove(m);
-            }
+                m = _transitMarkers.Where(x => x.Transit.Id == transitId).Select(x => x.Marker).ToArray()[0];
+            _markersOverlay.Markers.Remove(m);
         }
 
         public string GetPlacemark(int x, int y)
@@ -209,6 +206,38 @@ namespace BachelorLibAPI.Map
                 return plc.Value.Address;
             }
             throw new PlacemarkGettingException();
+        }
+
+        public Tuple<double, double> GetLatLong(int x, int y)
+        {
+            var pnt = _gmap.FromLocalToLatLng(x, y);
+            return new Tuple<double, double>(pnt.Lat, pnt.Lng);
+        }
+
+        public void SetCurrentViewPoint(PointLatLng pnt)
+        {
+            _gmap.Position = pnt;
+            _gmap.Zoom = 12;
+        }
+
+        public void SetDanger(int transitId, PointLatLng pnt)
+        {
+            lock (_transitMarkers)
+            {
+                var m = _transitMarkers.Where(x => x.Transit.Id == transitId).ToList().First();
+                m.Transit.IsInAccident = true;
+                _markersOverlay.Markers.Remove(m.Marker);
+                m.Marker = new GMarkerGoogle(pnt, new Bitmap(new Bitmap("..\\..\\Map\\Resources\\danger.png"), new Size(32, 32)))
+                {
+                    ToolTipText =
+                        string.Format(
+                            "Перевозка #{0} АВАРИЯ!!!\nОткуда: {1}\nКуда: {2}\nГруз: {3}, {4} т.\nВодитель: {5}\nНомер телефона: {6}\nАвтомобиль: {7}\nГРЗ: {8}\nТекущее местоположение: {9}",
+                            m.Transit.Id, m.Transit.From.Address, m.Transit.To.Address,
+                            m.Transit.Consignment, m.Transit.ConsignmentCapacity, m.Transit.Driver,
+                            m.Transit.DriverNumber, m.Transit.Car, m.Transit.Grz, m.Transit.CurrentPlace.Address)
+                };
+                _markersOverlay.Markers.Add(m.Marker);
+            }
         }
 
         public void SetStartPoint(PointLatLng start)
@@ -244,7 +273,7 @@ namespace BachelorLibAPI.Map
         {
             CancelTask(_stadiesGenerationCts, _stadiesGeneration);
 
-            _middlePoints.Add(mid);
+            lock(_middlePoints) _middlePoints.Add(mid);
             var pic = new Bitmap("..\\..\\Map\\Resources\\flag_pink.png");
             var marker = new GMarkerGoogle(mid, new Bitmap(pic, new Size(32, 32)));
             GeoCoderStatusCode st;
@@ -344,12 +373,12 @@ namespace BachelorLibAPI.Map
         private void CancelTask(CancellationTokenSource cts, Task task)
         {
             if (task == null) return;
-            if (!task.IsCompleted)
+            //if (!task.IsCompleted)
                 cts.Cancel();
-            else if (task.IsCanceled)
+            /*else */if (task.IsCanceled)
                 Debug.WriteLine("Задача отменена");
-            else if (task.IsCompleted || task.IsCanceled)
-                _stadiesGeneration.Dispose();
+            //else if (task.IsCompleted || task.IsCanceled)
+            //    _stadiesGeneration.Dispose();
         }
 
         /// <summary>
@@ -372,18 +401,22 @@ namespace BachelorLibAPI.Map
             MapRoute route;
             _detailedRoute.Clear();
 
-            foreach (var middlePoint in _middlePoints)
+            lock (_middlePoints)
             {
-                route = ((OpenStreetMapProvider)_gmap.MapProvider).GetRoute(curStart, middlePoint, false, false, 11);
-                if (route == null || route.Points.Count == 0)
-                    throw new Exception(Resources.CannotConstructShortTrack);
+                foreach (var middlePoint in _middlePoints)
+                {
+                    route = ((OpenStreetMapProvider) _gmap.MapProvider).GetRoute(curStart, middlePoint, false, false, 11);
+                    if (route == null || route.Points.Count == 0)
+                        throw new Exception(Resources.CannotConstructShortTrack);
 
-                routePoints.AddRange(route.Points);
-                routePoints.RemoveAt(routePoints.Count-1);
-                curStart = middlePoint;
-                _distance += route.Distance;
+                    routePoints.AddRange(route.Points);
+                    routePoints.RemoveAt(routePoints.Count - 1);
+                    curStart = middlePoint;
+                    _distance += route.Distance;
+                }
             }
-            route = ((OpenStreetMapProvider)_gmap.MapProvider).GetRoute(curStart, EndPoint.Value, false, false, 11);
+
+            route = ((OpenStreetMapProvider) _gmap.MapProvider).GetRoute(curStart, EndPoint.Value, false, false, 11);
             if (route == null || route.Points.Count == 0)
                 throw new Exception(Resources.CannotConstructShortTrack);
 
@@ -395,7 +428,7 @@ namespace BachelorLibAPI.Map
             var diff = (int) (routePoints.Count/_distance);
             while (_distance < diff) diff /= 2;
             _stadiesGeneration = Task.Run(() =>
-                GenerateStadies(cancellationToken, routePoints, diff < 1 ? 1 : diff, 20), cancellationToken);
+                GenerateStadies(cancellationToken, routePoints, diff < 1 ? 2 : diff*2, 20), cancellationToken);
         }
 
         public List<KeyValuePair<PointLatLng, int>> GetShortTrack()
@@ -445,28 +478,29 @@ namespace BachelorLibAPI.Map
         public void DrawDangerRegion(CrashInfo crashInfo)
         {
             _crashInfo = crashInfo;
-            GetCurrentDangerRegion(50);
+            var radius = Math.Sqrt(2*_crashInfo.Area/Math.PI);
+            GetCurrentDangerRegion(radius);
         }
 
         /// <summary>
-        /// Метод для получения полигона точек, задающих текущее положение распространения.
+        /// Метод для получения полигона точек, задающих текущее положение распространения облака.
         /// </summary>
         private void GetCurrentDangerRegion(double radius)
         {
-            const int seg = 20; // 180/20 = 9 - градусов отступ
             // ReSharper disable once PossibleLossOfFraction
-            var delta = 180/seg;
+            const int delta = 180/Seg;
 
             var polygon = new List<PointLatLng>();
 
             var startAngle = (270 + _crashInfo.WindDirection) > 360
                 ? _crashInfo.WindDirection - 90
                 : (270 + _crashInfo.WindDirection);
-            for (var i = 0; i <= seg; ++i)
+            for (var i = 0; i <= Seg; ++i)
             {
                 var bearing = startAngle + delta * i;
                 if (bearing > 360) bearing -= 360;
-                polygon.Add(Haversine.PointFromStartBearingDistance(_crashInfo.Center.Position, bearing, radius));
+                polygon.Add(LatLongWorker.PointFromStartBearingDistance(_crashInfo.Center.Position, bearing, radius));
+                Debug.WriteLine("{0} - {1}", radius, LatLongWorker.DistanceFromLatLonInKm(_crashInfo.Center.Position, polygon.Last()));
             }
 
             var p = new GMapPolygon(polygon, "danger")
@@ -586,7 +620,6 @@ namespace BachelorLibAPI.Map
                 _detailedRoute.AddRange(detailedRoute.Select(x => new KeyValuePair<PointLatLng, int>(x.Key, (int)Math.Round(x.Value))).ToList());
 
                 progressBar.Complete();
-                Thread.Sleep(1000);
                 progressBar.Close();
 
                 Debug.WriteLine(
@@ -595,7 +628,6 @@ namespace BachelorLibAPI.Map
             }
             catch (OperationCanceledException)
             {
-                Task.WaitAll(tasks.Where(x => x != null).ToArray());
                 foreach (
                     var task in
                         tasks.Where(
@@ -659,15 +691,15 @@ namespace BachelorLibAPI.Map
                     {
                         var t = transit;
                         var markerPos = transitsForUpdated.Where(x => x.Key == t.Transit.Id).ToArray();
-                        if (!markerPos.Any()) continue;
+                        if (!markerPos.Any() || t.Transit.IsInAccident) continue;
 
                         t.Marker.Position = t.Transit.CurrentPlace.Position = markerPos.First().Value;
                         t.Transit.CurrentPlace.Address = GetPlacemark(t.Marker.Position);
                         t.Marker.ToolTipText =
                             string.Format(
-                                "Перевозка #{0}\nОткуда: {1}\nКуда: {2}\nГруз: {3}\nВодитель: {4}\nНомер телефона: {5}\nАвтомобиль: {6}\nГРЗ: {7}\nТекущее местоположение: {8}",
+                                "Перевозка #{0}\nОткуда: {1}\nКуда: {2}\nГруз: {3}, {4} т.\nВодитель: {5}\nНомер телефона: {6}\nАвтомобиль: {7}\nГРЗ: {8}\nТекущее местоположение: {9}",
                                 t.Transit.Id, t.Transit.From.Address, t.Transit.To.Address,
-                                t.Transit.Consignment, t.Transit.Driver,
+                                t.Transit.Consignment, t.Transit.ConsignmentCapacity, t.Transit.Driver,
                                 t.Transit.DriverNumber, t.Transit.Car, t.Transit.Grz,
                                 t.Transit.CurrentPlace.Address);
                     }
@@ -699,5 +731,6 @@ namespace BachelorLibAPI.Map
         private Action _transitsDrawingAction;
 
         private CrashInfo _crashInfo;
+        const int Seg = 20; // 180/20 = 9 - градусов отступ
     }
 }
