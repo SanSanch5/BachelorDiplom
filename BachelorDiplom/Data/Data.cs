@@ -49,7 +49,9 @@ namespace BachelorLibAPI.Data
         /// Удалить перевозку
         /// </summary>
         /// <param name="transId"></param>
-        void DelTransit(int transId);
+        void DeleteTransit(int transId);
+
+        void DeleteMchsStaff(int staffId);
 
         /// <summary>
         /// 
@@ -157,7 +159,7 @@ namespace BachelorLibAPI.Data
         int GetDriverId(string name, string number);
 
         Tuple<PointLatLng, PointLatLng> GetStartAndEndPoints(int transit);
-
+        Dictionary<string, double> GetStaffAntiSubstances(int staffId);
         List<MchsPointInfo> GetMchsPointsInfo();
 
     }   

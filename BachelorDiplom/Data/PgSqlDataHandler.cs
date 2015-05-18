@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Globalization;
+using System.Linq;
 using System.Threading;
 using BachelorLibAPI.Program;
 using BachelorLibAPI.Properties;
@@ -102,6 +103,8 @@ namespace BachelorLibAPI.Data
                 var cmd = new NpgsqlCommand(query, _npgsqlConnection);
                 cmd.ExecuteNonQuery();
 
+                _npgsqlConnection.Close();
+
                 return GetDriverId(name, number);
             }
         }
@@ -142,7 +145,7 @@ namespace BachelorLibAPI.Data
             }
         }
 
-        public void DelTransit(int transId)
+        public void DeleteTransit(int transId)
         {
             lock (_lockObject)
             {
@@ -151,6 +154,22 @@ namespace BachelorLibAPI.Data
                 var cmd =
                     new NpgsqlCommand(
                         string.Format("DELETE FROM t_transit WHERE id = {0};", transId),
+                        _npgsqlConnection);
+                cmd.ExecuteNonQuery();
+
+                _npgsqlConnection.Close();
+            }
+        }
+
+        public void DeleteMchsStaff(int staffId)
+        {
+            lock (_lockObject)
+            {
+                _npgsqlConnection.Open();
+
+                var cmd =
+                    new NpgsqlCommand(
+                        string.Format("DELETE FROM mchs.staff WHERE id = {0};", staffId),
                         _npgsqlConnection);
                 cmd.ExecuteNonQuery();
 
@@ -524,6 +543,8 @@ namespace BachelorLibAPI.Data
         {
             lock (_lockObject)
             {
+                _npgsqlConnection.Open();
+
                 var res = -1;
                 try
                 {
@@ -606,6 +627,36 @@ namespace BachelorLibAPI.Data
             }
         }
 
+        public Dictionary<string, double> GetStaffAntiSubstances(int staffId)
+        {
+            lock(_lockObject)
+            {
+                _npgsqlConnection.Open();
+
+                var antiSubstances = new Dictionary<string, double>();
+
+                try
+                {
+                    var cmd = new NpgsqlCommand(string.Format("select * from mchs.f_as_for_staff({0});", staffId),
+                        _npgsqlConnection);
+                    var dr = cmd.ExecuteReader();
+                    while (dr.Read())
+                        antiSubstances[dr[0].ToString()] = (double) dr[1];
+                }
+                catch (Exception ex)
+                {
+                    Debug.WriteLine(ex.Message);
+                    antiSubstances = new Dictionary<string, double>();
+                }
+                finally
+                {
+                    _npgsqlConnection.Close();
+                }
+
+                return antiSubstances;
+            }
+        }
+
         public List<MchsPointInfo> GetMchsPointsInfo()
         {
             lock(_lockObject)
@@ -625,9 +676,9 @@ namespace BachelorLibAPI.Data
                         {
                             Id = (int)dr[0],
                             Place = new FullPointDescription{Position = new PointLatLng(pnt.X, pnt.Y)},
-                            CanSuggest = dr[2].ToString() == "" ? 0 : (int)dr[2],
-                            PeopleReady = dr[3].ToString() == "" ? 0 : (int)dr[3],
-                            PeopleCount = int.Parse(dr[4].ToString()),
+                            CanSuggest = dr[2].ToString() == "" ? 0 : double.Parse(dr[2].ToString()),
+                            PeopleReady = dr[3].ToString() == "" ? 0 : int.Parse(dr[3].ToString()),
+                            PeopleCount = (int)dr[4]
                         });
                     }
                 }

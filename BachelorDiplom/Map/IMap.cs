@@ -5,11 +5,16 @@ using GMap.NET;
 
 namespace BachelorLibAPI.Map
 {
-    public class TransitRemoveEventArgs : EventArgs
+    public enum MarkerType
     {
-        public int TransitId { get; set; }
+        Transit, Staff
     }
-    public delegate void ThresholdReachedEventHandler(object sender, TransitRemoveEventArgs e);
+    public class MarkerRemoveEventArgs : EventArgs
+    {
+        public MarkerType MarkerType;
+        public int Id { get; set; }
+    }
+    public delegate void MarkerRemovedEventHandler(object sender, MarkerRemoveEventArgs e);
 
     /// <summary>
     /// Интерфейс для карты. Классы-реализации должны предоставлять пользователю структуру карты, возможность её обновить
@@ -17,7 +22,7 @@ namespace BachelorLibAPI.Map
     /// </summary>
     public interface IMap
     {
-        event ThresholdReachedEventHandler TransitRemove;
+        event MarkerRemovedEventHandler MarkerRemove;
         /// <summary>
         /// Ключ записи словаря - положение промежуточной точки на карте, 
         /// значение записи словаря - время поездки из пункта отправления 

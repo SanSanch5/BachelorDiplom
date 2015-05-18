@@ -61,7 +61,7 @@ namespace BachelorLibAPI.Program
         public FullPointDescription Place;
         /// сколько вещества может перевезти (сумма вместительностей топлива всех доступных автомобилей)
         public Dictionary<string, double> AntiSubstances; /// название - имеющееся количество (в тоннах)
-        public int CanSuggest;
+        public double CanSuggest;
         /// сколько работников может быть доставлено
         public int PeopleReady;
         public int PeopleCount;
@@ -83,17 +83,5 @@ namespace BachelorLibAPI.Program
         public int StadiesCount;
         public bool IsFinshed;
         public bool IsInAccident;
-    }
-
-    public struct AnalyseReturnType
-    {
-        public string ConsName;
-        public int DangerDegree;
-        public string AfterCrash;
-        public string DriversName;
-        public string DriversSurname;
-        public List<string> DriversNumbers;
-        public string City;
-        public DateTime Location;
     }
 }

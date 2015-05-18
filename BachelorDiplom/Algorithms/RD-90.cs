@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
 using MathNet.Numerics;
 
 namespace BachelorLibAPI.Algorithms
@@ -103,8 +104,8 @@ namespace BachelorLibAPI.Algorithms
             {
                 var keys = Ahov.DepthAndAreaFree.Select(x => x.Key).ToList();
                 var values = Ahov.DepthAndAreaFree.Select(x => x.Value.Value).ToList();
-                var interp = Interpolate.Common(keys, values);
-                return interp.Interpolate(QEq);
+                var interp = Interpolate.CubicSpline(keys, values);
+                return interp.Interpolate(QEq); 
             }
         }
 

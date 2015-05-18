@@ -63,7 +63,7 @@ namespace BachelorLibAPI.Program
             set 
             { 
                 _map = value;
-                _map.TransitRemove += DelTransit;
+                _map.MarkerRemove += DeleteAdvanced;
             } }
 
         public static List<string> GetConsignmentsNames()
@@ -81,13 +81,22 @@ namespace BachelorLibAPI.Program
             return DataHandler.GetCarInformation(DataHandler.GetCarIdByGRZ(grz));
         }
 
-        private void DelTransit(object o, TransitRemoveEventArgs e)
+        private void DeleteAdvanced(object o, MarkerRemoveEventArgs e)
         {
-            DataHandler.DelTransit(e.TransitId);
-            if (File.Exists(TempFilesDir + string.Format("\\Transits\\{0}", e.TransitId))) 
-                File.Delete(TempFilesDir + string.Format("\\Transits\\{0}", e.TransitId));
+            if(e.MarkerType == MarkerType.Transit)
+            {
+                DataHandler.DeleteTransit(e.Id);
+                if (File.Exists(TempFilesDir + string.Format("\\Transits\\{0}", e.Id))) 
+                    File.Delete(TempFilesDir + string.Format("\\Transits\\{0}", e.Id));
 
-            MessageBox.Show(@"Перевозка удалена", @"Информация");
+                MessageBox.Show(@"Перевозка удалена", @"Информация");
+            }
+            else if (e.MarkerType == MarkerType.Staff)
+            {
+                DataHandler.DeleteMchsStaff(e.Id);
+
+                MessageBox.Show(@"Пункт удалён", @"Информация");
+            }
         }
 
         /// <summary>
@@ -121,7 +130,7 @@ namespace BachelorLibAPI.Program
             foreach (var t in semires)
             {
                 var pointInfo = t;
-                pointInfo.AntiSubstances = new Dictionary<string, double>();
+                pointInfo.AntiSubstances = DataHandler.GetStaffAntiSubstances(t.Id);
                 Map.AddMchsMarker(pointInfo);
             }
         }
@@ -305,12 +314,12 @@ namespace BachelorLibAPI.Program
                     DriverNumber = driverNum,
                     From = new FullPointDescription
                     {
-                        Address = from,
+                        Address = Map.GetPlacemark(detailedRoute.First().Key),
                         Position = detailedRoute.First().Key
                     },
                     To = new FullPointDescription
                     {
-                        Address = to,
+                        Address = Map.GetPlacemark(detailedRoute.Last().Key),
                         Position = detailedRoute.Last().Key
                     },
                     Grz = grz,
@@ -459,7 +468,7 @@ namespace BachelorLibAPI.Program
 
             var transInfo = GetTransitInfo(mostProbably.Value);
 
-            var calculation = new Rd90(transInfo.Consignment, transInfo.ConsignmentCapacity);
+            IChemicalEnvironmentCalculation calculation = new Rd90(transInfo.Consignment, transInfo.ConsignmentCapacity);
             var area = calculation.InfectionArea;
             var antiSubstanceCount = calculation.AntiSubstanceCount;
             var crashInfo = new CrashInfo

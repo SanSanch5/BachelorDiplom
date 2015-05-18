@@ -113,11 +113,11 @@ namespace BachelorLibAPI.Map
             menu.Show(Cursor.Position);
         }
 
-        public event ThresholdReachedEventHandler TransitRemove;
+        public event MarkerRemovedEventHandler MarkerRemove;
 
-        private void OnTransitRemove(TransitRemoveEventArgs e)
+        private void OnMarkerRemove(MarkerRemoveEventArgs e)
         {
-            var handler = TransitRemove;
+            var handler = MarkerRemove;
             if (handler != null)
                 handler(this, e);
         }
@@ -139,19 +139,42 @@ namespace BachelorLibAPI.Map
                 _middleMarkersOverlay.Markers.Remove(marker);
                 _middlePoints.Remove(marker.Position);
             }
-            else if (
-                MessageBox.Show(@"Вы уверены, что хотите удалить перевозку?", @"Внимание!", MessageBoxButtons.YesNo,
-                    MessageBoxIcon.Question) == DialogResult.Yes)
+            else
             {
-                TransitRemoveEventArgs args;
+                var isMchs = false;
+                var isTransit = false;
+                var args = new MarkerRemoveEventArgs();
+                lock (_mchsMarkers)
+                {
+                    var m = _mchsMarkers.Where(x => x.Marker == marker).ToList();
+                    if (m.Count != 0)
+                    {
+                        isMchs = true;
+                        if (MessageBox.Show(@"Вы уверены, что хотите удалить пункт реагирования?", @"Внимание!", MessageBoxButtons.YesNo,
+                            MessageBoxIcon.Question) != DialogResult.Yes) return;
+                        _mchsMarkers.Remove(m.First());
+                        args.MarkerType = MarkerType.Staff; 
+                        args.Id = m.First().MchsPoint.Id;
+                    }
+                }
                 lock (_transitMarkers)
                 {
-                    var m = _transitMarkers.Where(x => x.Marker == marker).ToList()[0];
-                    _transitMarkers.Remove(m);
-                    _markersOverlay.Markers.Remove(marker);
-                    args = new TransitRemoveEventArgs {TransitId = m.Transit.Id};
+                    var m = _transitMarkers.Where(x => x.Marker == marker).ToList();
+                    if (m.Count != 0)
+                    {
+                        isTransit = true;
+                        if (MessageBox.Show(@"Вы уверены, что хотите удалить перевозку?", @"Внимание!",
+                            MessageBoxButtons.YesNo,
+                            MessageBoxIcon.Question) != DialogResult.Yes) return;
+
+                        _transitMarkers.Remove(m.First());
+                        args.MarkerType = MarkerType.Transit; 
+                        args.Id = m.First().Transit.Id;
+                    }
                 }
-                OnTransitRemove(args);
+                if (!isTransit && !isMchs) return;
+                _markersOverlay.Markers.Remove(marker);
+                OnMarkerRemove(args);
             }
         }
 
@@ -197,9 +220,10 @@ namespace BachelorLibAPI.Map
             {
                 ToolTipText =
                     string.Format(
-                        "Пункт реагирования МЧС #{0}\nМожет перевезти обезвреживающиего вещества (всего): {1} т.\nМожет перевезти людей: {2}\nДоступные обезвреживающие вещества:\n{3}",
-                        m.MchsPoint.Id, m.MchsPoint.CanSuggest, m.MchsPoint.PeopleReady,
-                        m.MchsPoint.AntiSubstances.Select(x => string.Format("\t{0}\n", x.Key))
+                        "Пункт реагирования МЧС #{0}\nМожет перевезти обезвреживающиего вещества (всего): {1} т.\nМожет перевезти людей: {2}" +
+                        "\nДоступно людей: {3}\nДоступные обезвреживающие вещества:\n{4}",
+                        m.MchsPoint.Id, m.MchsPoint.CanSuggest, m.MchsPoint.PeopleReady, m.MchsPoint.PeopleCount,
+                        m.MchsPoint.AntiSubstances.Select(x => string.Format("\t{0} {1} т.\n", x.Key, x.Value))
                             .ToList()
                             .Aggregate("", (current, antiSubstance) => current + antiSubstance))
             };
@@ -356,7 +380,7 @@ namespace BachelorLibAPI.Map
             _stadiesGeneration.Wait();
             Cursor.Current = Cursors.Default;
 
-            var r = new GMapRoute(_detailedRoute.Select(x => x.Key).ToList(), "New route")
+            var r = new GMapRoute(_generatedRoutePoints, "New route")
             {
                 Stroke =
                 {
@@ -419,7 +443,7 @@ namespace BachelorLibAPI.Map
             if (EndPoint == null)
                 throw new Exception(@"Не задана конечная точка");
 
-            var routePoints = new List<PointLatLng>();
+            _generatedRoutePoints.Clear();
             var curStart = StartPoint.Value;
             _distance = 0;
             MapRoute route;
@@ -433,8 +457,8 @@ namespace BachelorLibAPI.Map
                     if (route == null || route.Points.Count == 0)
                         throw new Exception(Resources.CannotConstructShortTrack);
 
-                    routePoints.AddRange(route.Points);
-                    routePoints.RemoveAt(routePoints.Count - 1);
+                    _generatedRoutePoints.AddRange(route.Points);
+                    _generatedRoutePoints.RemoveAt(_generatedRoutePoints.Count - 1);
                     curStart = middlePoint;
                     _distance += route.Distance;
                 }
@@ -444,15 +468,15 @@ namespace BachelorLibAPI.Map
             if (route == null || route.Points.Count == 0)
                 throw new Exception(Resources.CannotConstructShortTrack);
 
-            routePoints.AddRange(route.Points);
+            _generatedRoutePoints.AddRange(route.Points);
             _distance += route.Distance;
 
             _stadiesGenerationCts = new CancellationTokenSource();
             var cancellationToken = _stadiesGenerationCts.Token;
-            var diff = (int) (routePoints.Count/_distance);
+            var diff = (int) (_generatedRoutePoints.Count/_distance);
             while (_distance < diff) diff /= 2;
             _stadiesGeneration = Task.Run(() =>
-                GenerateStadies(cancellationToken, routePoints, diff < 1 ? 2 : diff*2, 20), cancellationToken);
+                GenerateStadies(cancellationToken, _generatedRoutePoints, diff < 1 ? 2 : diff*2, 20), cancellationToken);
         }
 
         public List<KeyValuePair<PointLatLng, int>> GetShortTrack()
@@ -751,6 +775,8 @@ namespace BachelorLibAPI.Map
         private readonly GMapOverlay _routesOverlay = new GMapOverlay("routes");
         private readonly GMapOverlay _markersOverlay = new GMapOverlay("markers");
         private readonly GMapOverlay _polygonsOverlay = new GMapOverlay("polygons");
+
+        private readonly List<PointLatLng> _generatedRoutePoints = new List<PointLatLng>(); 
         private readonly List<KeyValuePair<PointLatLng, int>> _detailedRoute = new List<KeyValuePair<PointLatLng, int>>();
         private readonly List<PointLatLng> _middlePoints = new List<PointLatLng>(); 
 
