@@ -49,6 +49,7 @@ namespace BachelorLibAPI.Forms
 
             Cursor.Current = Cursors.WaitCursor;
             _queriesHandler.PutTransitsFromDbToMap();
+            _queriesHandler.PutMchsPointsFromDbToMap();
             Cursor.Current = Cursors.Default;
         }
 

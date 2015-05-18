@@ -188,6 +188,30 @@ namespace BachelorLibAPI.Map
             else _markersOverlay.Markers.Add(m.Marker);
         }
 
+        public void AddMchsMarker(MchsPointInfo mchsPoint)
+        {
+            var m = new MchsMarkers { MchsPoint = mchsPoint };
+            var pic = new Bitmap("..\\..\\Map\\Resources\\fireescape.png");
+
+            m.Marker = new GMarkerGoogle(mchsPoint.Place.Position, new Bitmap(pic, new Size(32, 32)))
+            {
+                ToolTipText =
+                    string.Format(
+                        "Пункт реагирования МЧС #{0}\nМожет перевезти обезвреживающиего вещества (всего): {1} т.\nМожет перевезти людей: {2}\nДоступные обезвреживающие вещества:\n{3}",
+                        m.MchsPoint.Id, m.MchsPoint.CanSuggest, m.MchsPoint.PeopleReady,
+                        m.MchsPoint.AntiSubstances.Select(x => string.Format("\t{0}\n", x.Key))
+                            .ToList()
+                            .Aggregate("", (current, antiSubstance) => current + antiSubstance))
+            };
+
+            lock (_mchsMarkers)
+                _mchsMarkers.Add(m);
+
+            if (_gmap.InvokeRequired)
+                _gmap.Invoke((MethodInvoker)delegate { _markersOverlay.Markers.Add(m.Marker); });
+            else _markersOverlay.Markers.Add(m.Marker);
+        }
+
         public void RemoveTransitMarker(int transitId)
         {
             GMapMarker m;
@@ -662,6 +686,12 @@ namespace BachelorLibAPI.Map
             public GMarkerGoogle Marker;
         }
 
+        public struct MchsMarkers
+        {
+            public MchsPointInfo MchsPoint;
+            public GMapMarker Marker;
+        }
+
         private const string TempFilesDir = @"..\..\TempStadiesFiles\";
 
         private void DrawTransits(object stateInfo)
@@ -725,6 +755,7 @@ namespace BachelorLibAPI.Map
         private readonly List<PointLatLng> _middlePoints = new List<PointLatLng>(); 
 
         private readonly List<TransitMarker> _transitMarkers = new List<TransitMarker>();
+        private readonly List<MchsMarkers> _mchsMarkers = new List<MchsMarkers>();
 
         private CancellationTokenSource _stadiesGenerationCts = new CancellationTokenSource();
         private Task _stadiesGeneration;

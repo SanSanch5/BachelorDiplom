@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Globalization;
 using System.Threading;
+using BachelorLibAPI.Program;
 using BachelorLibAPI.Properties;
 using GMap.NET;
 using Npgsql;
@@ -519,11 +520,6 @@ namespace BachelorLibAPI.Data
             }
         }
 
-        public void SubmitChanges() 
-        {
-
-        }
-
         public int GetDriverId(string name, string number)
         {
             lock (_lockObject)
@@ -600,6 +596,45 @@ namespace BachelorLibAPI.Data
                 catch (Exception)
                 {
                     res = new List<string>();
+                }
+                finally
+                {
+                    _npgsqlConnection.Close();
+                }
+
+                return res;
+            }
+        }
+
+        public List<MchsPointInfo> GetMchsPointsInfo()
+        {
+            lock(_lockObject)
+            {
+                _npgsqlConnection.Open();
+                var res = new List<MchsPointInfo>();
+
+                try
+                {
+                    var cmd = new NpgsqlCommand("select * from mchs.f_staff_info_for_client();", _npgsqlConnection);
+                    var dr = cmd.ExecuteReader();
+                    
+                    while (dr.Read())
+                    {
+                        var pnt = (NpgsqlPoint) dr[1];
+                        res.Add(new MchsPointInfo
+                        {
+                            Id = (int)dr[0],
+                            Place = new FullPointDescription{Position = new PointLatLng(pnt.X, pnt.Y)},
+                            CanSuggest = dr[2].ToString() == "" ? 0 : (int)dr[2],
+                            PeopleReady = dr[3].ToString() == "" ? 0 : (int)dr[3],
+                            PeopleCount = int.Parse(dr[4].ToString()),
+                        });
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Debug.WriteLine(ex.Message);
+                    res = new List<MchsPointInfo>();
                 }
                 finally
                 {

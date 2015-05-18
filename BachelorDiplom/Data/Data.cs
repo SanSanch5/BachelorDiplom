@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using BachelorLibAPI.Program;
 using GMap.NET;
 
 namespace BachelorLibAPI.Data
@@ -157,7 +158,7 @@ namespace BachelorLibAPI.Data
 
         Tuple<PointLatLng, PointLatLng> GetStartAndEndPoints(int transit);
 
-        void SubmitChanges();
+        List<MchsPointInfo> GetMchsPointsInfo();
 
     }   
 }

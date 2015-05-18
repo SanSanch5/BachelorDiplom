@@ -55,6 +55,18 @@ namespace BachelorLibAPI.Program
         public double ConsignmentCapacity;
     }
 
+    public struct MchsPointInfo
+    {
+        public int Id;
+        public FullPointDescription Place;
+        /// сколько вещества может перевезти (сумма вместительностей топлива всех доступных автомобилей)
+        public Dictionary<string, double> AntiSubstances; /// название - имеющееся количество (в тоннах)
+        public int CanSuggest;
+        /// сколько работников может быть доставлено
+        public int PeopleReady;
+        public int PeopleCount;
+    }
+
     public struct TransitInfo
     {
         public int Id;

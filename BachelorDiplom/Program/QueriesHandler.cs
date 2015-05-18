@@ -115,6 +115,17 @@ namespace BachelorLibAPI.Program
             });
         }
 
+        public void PutMchsPointsFromDbToMap()
+        {
+            var semires = DataHandler.GetMchsPointsInfo();
+            foreach (var t in semires)
+            {
+                var pointInfo = t;
+                pointInfo.AntiSubstances = new Dictionary<string, double>();
+                Map.AddMchsMarker(pointInfo);
+            }
+        }
+
         public TransitInfo GetTransitInfo(int id)
         {
             var carId = DataHandler.GetTransitCarId(id);

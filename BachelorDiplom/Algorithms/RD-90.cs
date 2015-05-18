@@ -53,21 +53,6 @@ namespace BachelorLibAPI.Algorithms
                 {500, new KeyValuePair<double, double>(35.9962,95.5892)}
             };
 
-//        public static readonly Dictionary<double, KeyValuePair<double, double>> DepthAndAreaTray =
-//            new Dictionary<double, KeyValuePair<double, double>>
-//            {
-//                {0.1, new KeyValuePair<double, double>(0.2244,0.0065)},
-//                {0.3, new KeyValuePair<double, double>(,)},
-//                {0.5, new KeyValuePair<double, double>(,)},
-//                {1,   new KeyValuePair<double, double>(,)},
-//                {5,   new KeyValuePair<double, double>(,)},
-//                {10,  new KeyValuePair<double, double>(,)},
-//                {30,  new KeyValuePair<double, double>(,)},
-//                {50,  new KeyValuePair<double, double>(,)}, 
-//                {100, new KeyValuePair<double, double>(,)},
-//                {500, new KeyValuePair<double, double>(,)}
-//            };
-
         /// <summary>
         /// Если нет показателя, то обезвреживающее в-во не нужно
         /// </summary>

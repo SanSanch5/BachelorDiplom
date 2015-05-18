@@ -47,6 +47,7 @@ namespace BachelorLibAPI.Map
         void SetEndPoint(string end);
         void ConstructShortTrack();
         void AddTransitMarker(TransitInfo transit);
+        void AddMchsMarker(MchsPointInfo mchsPoint);
         void RemoveTransitMarker(int transitId);
         bool CheckAdress(string adress);
         string GetCorrectAdress(string adress);
