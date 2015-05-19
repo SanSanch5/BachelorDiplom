@@ -131,6 +131,7 @@ namespace BachelorLibAPI.Program
             {
                 var pointInfo = t;
                 pointInfo.AntiSubstances = DataHandler.GetStaffAntiSubstances(t.Id);
+                _mchsPoints.Add(pointInfo);
                 Map.AddMchsMarker(pointInfo);
             }
         }
@@ -407,16 +408,9 @@ namespace BachelorLibAPI.Program
             _analyseProgress.Maximum = max;
         }
 
-        /// <summary>
-        /// Анализ опасности.
-        /// Производится выборка по по промежутку времени по каждой перевозке.
-        /// Точка ищется в радиусе километра, поправка времени - TimeCorrection
-        /// </summary>
-        /// <param name="targetTime">Начало временного интервала</param>
-        /// <param name="place">Место аварии</param>
-        public void AnalyseDanger(DateTime targetTime, FullPointDescription place)
+        private int? GetMostProbablyTransit(DateTime targetTime, FullPointDescription place)
         {
-            var targetingTransits = new HashSet<int>();
+            _probableCrashes[place.Position] = new HashSet<int>();
 
             int? mostProbably = null;
             var stady = int.MaxValue;
@@ -430,7 +424,7 @@ namespace BachelorLibAPI.Program
                 var date = time_date[1].Split('-');
                 var fileDate = new DateTime(int.Parse(date[2]), int.Parse(date[1]), int.Parse(date[0]),
                     int.Parse(time[0]), int.Parse(time[1]), 0);
-                return fileDate < targetTime.AddMinutes(TimeCorrection/2) && fileDate > targetTime.AddMinutes(-TimeCorrection/2);
+                return fileDate < targetTime.AddMinutes(TimeCorrection / 2) && fileDate > targetTime.AddMinutes(-TimeCorrection / 2);
             }))
             {
                 using (var sr = new StreamReader(new FileStream(TempFilesDir + file.Name, FileMode.Open)))
@@ -447,7 +441,7 @@ namespace BachelorLibAPI.Program
                         var id = int.Parse(splitted[0]);
                         if (!(LatLongWorker.DistanceFromLatLonInKm(place.Position, pnt) < KmCorrection)) continue;
 
-                        targetingTransits.Add(id);
+                        _probableCrashes[place.Position].Add(id);
                         if (!mostProbably.HasValue || stady > localStady)
                         {
                             stady = localStady;
@@ -457,7 +451,19 @@ namespace BachelorLibAPI.Program
                     }
                 }
             }
+            return mostProbably;
+        }
 
+        /// <summary>
+        /// Анализ опасности.
+        /// Производится выборка по по промежутку времени по каждой перевозке.
+        /// Точка ищется в радиусе километра, поправка времени - TimeCorrection
+        /// </summary>
+        /// <param name="targetTime">Начало временного интервала</param>
+        /// <param name="place">Место аварии</param>
+        public void AnalyseDanger(DateTime targetTime, FullPointDescription place)
+        {
+            var mostProbably = GetMostProbablyTransit(targetTime, place);
             if (!mostProbably.HasValue)
             {
                 MessageBox.Show(string.Format("В радиусе {0} км. от заданного места " +
@@ -483,6 +489,26 @@ namespace BachelorLibAPI.Program
             
             Map.SetDanger(mostProbably.Value, place.Position);
             Map.DrawDangerRegion(crashInfo);
+
+            var possibleMchsPoints = _mchsPoints;
+            if (antiSubstanceCount.Key != "")
+                possibleMchsPoints =
+                    _mchsPoints.Where(x => x.AntiSubstances.Select(y => y.Key).Contains(antiSubstanceCount.Key))
+                        .ToList();
+            var mchsPointsWithDistances =
+                possibleMchsPoints.Select(
+                    x =>
+                        new KeyValuePair<MchsPointInfo, double>(x,
+                            60 / Settings.Default.AvegareVelocity *
+                            LatLongWorker.DistanceFromLatLonInKm(x.Place.Position, place.Position))).ToList();
+            mchsPointsWithDistances.Sort((pair1, pair2) => pair1.Value.CompareTo(pair2.Value));
+
+            var have = 0;
+            for (var i = 0; i < mchsPointsWithDistances.Count && have < antiSubstanceCount.Value; ++i)
+            {
+                var pnt = mchsPointsWithDistances[i];
+                //if(pnt.Key.AntiSubstances.Where(x => x.Key == antiSubstanceCount.Key))
+            }
         }
 
         public List<string> GetNamesByNumber(string contact)
@@ -524,5 +550,7 @@ namespace BachelorLibAPI.Program
         }
 
         private readonly List<TransitInfo> _actualTransits = new List<TransitInfo>();
+        private readonly List<MchsPointInfo> _mchsPoints = new List<MchsPointInfo>();
+        private readonly Dictionary<PointLatLng, HashSet<int>> _probableCrashes = new Dictionary<PointLatLng, HashSet<int>>(); 
     }
 }

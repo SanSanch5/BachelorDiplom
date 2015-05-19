@@ -568,16 +568,21 @@ namespace BachelorLibAPI.Map
                 if (token.IsCancellationRequested)
                     return;
 
-                var r = ((OpenStreetMapProvider) _gmap.MapProvider).GetRoute(routePoints[i - diff], routePoints[i],
-                    false, false, 11);
+                MapRoute r;
+                var trying = 0;
+                do
+                {
+                    ++trying;
+                    r = ((OpenStreetMapProvider) _gmap.MapProvider).GetRoute(routePoints[i - diff], routePoints[i],
+                        false, false, 11);
+                } while (r == null && trying < 4);
 
-                var tmp = 1; // попытка избежать невозможность построения подмаршрута...
-                while (r == null)
-                    r = ((OpenStreetMapProvider) _gmap.MapProvider).GetRoute(routePoints[i - diff + diff/10*(tmp++)],
-                        routePoints[i], false, false, 11);
+                var distance = r == null 
+                    ? LatLongWorker.DistanceFromLatLonInKm(routePoints[i - diff], routePoints[i]) 
+                    : r.Distance;
 
                 res.Add(new KeyValuePair<PointLatLng, double>(routePoints[i],
-                    (60*r.Distance/Settings.Default.AvegareVelocity)));
+                    (60*distance/Settings.Default.AvegareVelocity)));
 
                 Debug.WriteLine("До промежуточной точки {0}:{1} из предыдущей ({2} назад) Время {3}",
                     res.Last().Key.Lat.ToString("G5"),
