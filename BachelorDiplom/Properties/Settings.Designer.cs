@@ -8,19 +8,14 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-using System.CodeDom.Compiler;
-using System.Configuration;
-using System.Diagnostics;
-using System.Runtime.CompilerServices;
-
 namespace BachelorLibAPI.Properties {
     
     
-    [CompilerGenerated()]
-    [GeneratedCode("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "12.0.0.0")]
-    internal sealed partial class Settings : ApplicationSettingsBase {
+    [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "12.0.0.0")]
+    internal sealed partial class Settings : global::System.Configuration.ApplicationSettingsBase {
         
-        private static Settings defaultInstance = ((Settings)(Synchronized(new Settings())));
+        private static Settings defaultInstance = ((Settings)(global::System.Configuration.ApplicationSettingsBase.Synchronized(new Settings())));
         
         public static Settings Default {
             get {
@@ -28,20 +23,20 @@ namespace BachelorLibAPI.Properties {
             }
         }
         
-        [ApplicationScopedSetting()]
-        [DebuggerNonUserCode()]
-        [SpecialSetting(SpecialSetting.ConnectionString)]
-        [DefaultSettingValue("Data Source=alex-pc\\alexsql;Initial Catalog=Course_DB;Integrated Security=True")]
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=alex-pc\\alexsql;Initial Catalog=Course_DB;Integrated Security=True")]
         public string Course_DBConnectionString {
             get {
                 return ((string)(this["Course_DBConnectionString"]));
             }
         }
         
-        [ApplicationScopedSetting()]
-        [DebuggerNonUserCode()]
-        [SpecialSetting(SpecialSetting.ConnectionString)]
-        [DefaultSettingValue("Data Source=alex-pc\\sqlexpress;Initial Catalog=Course_DB;Integrated Security=True" +
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=alex-pc\\sqlexpress;Initial Catalog=Course_DB;Integrated Security=True" +
             "")]
         public string Course_DBConnectionString1 {
             get {
@@ -49,10 +44,10 @@ namespace BachelorLibAPI.Properties {
             }
         }
         
-        [ApplicationScopedSetting()]
-        [DebuggerNonUserCode()]
-        [SpecialSetting(SpecialSetting.ConnectionString)]
-        [DefaultSettingValue("Data Source=ALEX-PC\\sqlexpress;Initial Catalog=Course_DB;Integrated Security=True" +
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=ALEX-PC\\sqlexpress;Initial Catalog=Course_DB;Integrated Security=True" +
             "")]
         public string Course_DBConnectionString2 {
             get {
@@ -60,22 +55,33 @@ namespace BachelorLibAPI.Properties {
             }
         }
         
-        [ApplicationScopedSetting()]
-        [DebuggerNonUserCode()]
-        [DefaultSettingValue("60")]
-        public double AvegareVelocity {
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("60")]
+        public double AverageVelocity {
             get {
-                return ((double)(this["AvegareVelocity"]));
+                return ((double)(this["AverageVelocity"]));
             }
         }
         
-        [ApplicationScopedSetting()]
-        [DebuggerNonUserCode()]
-        [SpecialSetting(SpecialSetting.ConnectionString)]
-        [DefaultSettingValue("Server=localhost;Port=5432;User=Alex;Database=cars_tracking;")]
-        public string CarsTrackingDBConnectionString {
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("70")]
+        public double Labor {
             get {
-                return ((string)(this["CarsTrackingDBConnectionString"]));
+                return ((double)(this["Labor"]));
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("100")]
+        public double MchsAverageVelocity {
+            get {
+                return ((double)(this["MchsAverageVelocity"]));
+            }
+            set {
+                this["MchsAverageVelocity"] = value;
             }
         }
     }

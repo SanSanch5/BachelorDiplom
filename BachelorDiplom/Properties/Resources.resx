@@ -122,15 +122,18 @@
   </data>
   <data name="CannotConstructShortTrack" xml:space="preserve">
     <value>Не удалось построить маршрут.</value>
-    <comment>Сообщение при невозможности построение</comment>
+    <comment>Сообщение при невозможности построение.</comment>
   </data>
   <data name="TimeFileFormat" xml:space="preserve">
     <value>HH-mm_dd-MM-yyyy</value>
+    <comment>Формат сохранения файлов, хранящих информацию о перевозках в текущий момент времени.</comment>
   </data>
   <data name="PgConnectionString" xml:space="preserve">
     <value>Server=localhost;Port=5432;User Id=alex;Password=4;Database=cars_tracking;</value>
+    <comment>Строка подключения к базе данных.</comment>
   </data>
   <data name="DateTimeFormat" xml:space="preserve">
     <value>yyyy-MM-dd HH:mm:ss</value>
+    <comment>Формат сохранения времени в файлах.</comment>
   </data>
 </root>

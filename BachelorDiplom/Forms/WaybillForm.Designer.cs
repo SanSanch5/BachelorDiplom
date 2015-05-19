@@ -56,8 +56,8 @@ namespace BachelorLibAPI.Forms
             this.label5 = new System.Windows.Forms.Label();
             this.edtConsCapacity = new System.Windows.Forms.TextBox();
             this.btnNewWaybill = new System.Windows.Forms.Button();
-            this.ttForOk = new System.Windows.Forms.ToolTip(this.components);
             this.cmbDriverName = new System.Windows.Forms.ComboBox();
+            this.ttForOk = new System.Windows.Forms.ToolTip(this.components);
             this.ltpNewDriver.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picFrom)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picTo)).BeginInit();
@@ -308,7 +308,7 @@ namespace BachelorLibAPI.Forms
             this.cmbGRZ.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
             this.cmbGRZ.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.cmbGRZ.FormattingEnabled = true;
-            this.cmbGRZ.Location = new System.Drawing.Point(279, 171);
+            this.cmbGRZ.Location = new System.Drawing.Point(279, 172);
             this.cmbGRZ.Name = "cmbGRZ";
             this.cmbGRZ.Size = new System.Drawing.Size(229, 27);
             this.cmbGRZ.TabIndex = 28;
@@ -372,7 +372,7 @@ namespace BachelorLibAPI.Forms
             this.cmbDriverName.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
             this.cmbDriverName.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.cmbDriverName.FormattingEnabled = true;
-            this.cmbDriverName.Location = new System.Drawing.Point(279, 139);
+            this.cmbDriverName.Location = new System.Drawing.Point(279, 138);
             this.cmbDriverName.Name = "cmbDriverName";
             this.cmbDriverName.Size = new System.Drawing.Size(229, 27);
             this.cmbDriverName.TabIndex = 33;

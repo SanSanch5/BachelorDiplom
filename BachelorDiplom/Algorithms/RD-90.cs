@@ -64,7 +64,7 @@ namespace BachelorLibAPI.Algorithms
             {"Водород фтористый",           new KeyValuePair<string, double>("вода", 38)},
             {"Окись этилена",               new KeyValuePair<string, double>("25 % р-р аммиака", 2)},
             {"Сероуглерод",                 new KeyValuePair<string, double>("гипохлорид кальция", 4)},
-            {"Соляная",                     new KeyValuePair<string, double>("кислота каустическая сода", 3.7)},
+            {"Соляная кислота",             new KeyValuePair<string, double>("кислота каустическая сода", 3.7)},
             {"Фосген",                      new KeyValuePair<string, double>("каустическая сода", 2)},
             {"Хлор",                        new KeyValuePair<string, double>("каустическая сода", 1.3)},
             {"Нитрил акриловой кислоты ",   new KeyValuePair<string, double>("каустическая сода", 0.8)},

@@ -490,25 +490,86 @@ namespace BachelorLibAPI.Program
             Map.SetDanger(mostProbably.Value, place.Position);
             Map.DrawDangerRegion(crashInfo);
 
-            var possibleMchsPoints = _mchsPoints;
-            if (antiSubstanceCount.Key != "")
-                possibleMchsPoints =
-                    _mchsPoints.Where(x => x.AntiSubstances.Select(y => y.Key).Contains(antiSubstanceCount.Key))
-                        .ToList();
-            var mchsPointsWithDistances =
-                possibleMchsPoints.Select(
-                    x =>
-                        new KeyValuePair<MchsPointInfo, double>(x,
-                            60 / Settings.Default.AvegareVelocity *
-                            LatLongWorker.DistanceFromLatLonInKm(x.Place.Position, place.Position))).ToList();
-            mchsPointsWithDistances.Sort((pair1, pair2) => pair1.Value.CompareTo(pair2.Value));
-
-            var have = 0;
-            for (var i = 0; i < mchsPointsWithDistances.Count && have < antiSubstanceCount.Value; ++i)
+            Task.Run(() =>
             {
-                var pnt = mchsPointsWithDistances[i];
-                //if(pnt.Key.AntiSubstances.Where(x => x.Key == antiSubstanceCount.Key))
-            }
+                var progressBar = new ProgressBarForm(@"Расчёт устранения аварии...", 10000);
+                var possibleMchsPoints = _mchsPoints;
+                if (antiSubstanceCount.Key != "")
+                    possibleMchsPoints =
+                        _mchsPoints.Where(x => x.AntiSubstances.Select(y => y.Key).Contains(antiSubstanceCount.Key)
+                                               && x.AntiSubstances[antiSubstanceCount.Key] > 0)
+                            .ToList();
+                progressBar.Progress(1000);
+
+                var mchsPointsWithDistancesArray = new KeyValuePair<MchsPointInfo, double>[possibleMchsPoints.Count];
+                var tasks =
+                    possibleMchsPoints.Select((t, i) => i)
+                        .Select(
+                            index =>
+                                Task.Run(() =>
+                                    {
+                                        mchsPointsWithDistancesArray[index] =
+                                            new KeyValuePair<MchsPointInfo, double>(possibleMchsPoints[index],
+                                                60/Settings.Default.MchsAverageVelocity*
+                                                Map.GetDistanceBetween(possibleMchsPoints[index].Place.Position,
+                                                    place.Position));
+                                    }))
+                        .ToList();
+                Task.WaitAll(tasks.ToArray());
+                var mchsPointsWithDistances = mchsPointsWithDistancesArray.ToList();
+
+                mchsPointsWithDistances.Sort((pair1, pair2) => pair1.Value.CompareTo(pair2.Value));
+                progressBar.Progress(1000);
+
+                int people;
+                var mchsStaffs = new List<int>();
+                var have = -1.0;
+                if (antiSubstanceCount.Key == "")
+                {
+                    people =
+                        mchsPointsWithDistances.Select(x => Math.Min(x.Key.PeopleCount, x.Key.PeopleReady))
+                            .First(x => x > 0);
+                    mchsStaffs.Clear();
+                    mchsStaffs.Add(mchsPointsWithDistances.Where(x => Math.Min(x.Key.PeopleCount, x.Key.PeopleReady) > 0)
+                        .Select(x => x.Key.Id)
+                        .First());
+                    progressBar.Progress(6000);
+                }
+                else
+                {
+                    have = 0;
+                    var count = 0;
+                    people = 0;
+                    mchsStaffs.Clear();
+                    while(count < mchsPointsWithDistances.Count && have < antiSubstanceCount.Value)
+                    {
+                        var pnt = mchsPointsWithDistances[count++];
+                        var having = pnt.Key.AntiSubstances.Where(x => x.Key == antiSubstanceCount.Key).ToList().First();
+                        have += having.Value;
+                        people += Math.Min(pnt.Key.PeopleCount, pnt.Key.PeopleReady);
+                        mchsStaffs.Add(pnt.Key.Id);
+                        progressBar.Progress(6000 / mchsPointsWithDistances.Count);
+                    }
+                }
+
+                var maxTravelTime = mchsPointsWithDistances.First(x => x.Key.Id == mchsStaffs.Last()).Value * 60 / Settings.Default.MchsAverageVelocity;
+                var minTravelTime = mchsPointsWithDistances.First(x => x.Key.Id == mchsStaffs.First()).Value * 60 / Settings.Default.MchsAverageVelocity;
+                var cleaningTime = area * 1000000 / (people * Settings.Default.Labor);
+                progressBar.Complete();
+                Debug.WriteLine("Задействованные пункты МЧС: {0}" +
+                                "\nКоличество антивещества предоставляется: {1}" +
+                                "\nКоличество работников для устранения предоставляется: {2}" +
+                                "\nВремя прибытия первого состава на точку: {3}" +
+                                "\nВремя прибытия последнего состава на точку: {4}" +
+                                "\nВремя устранения (после прибытия последнего состава): {5}", 
+                    mchsStaffs.Aggregate("", (current, x) => current + x + ";"),
+                    // ReSharper disable once SpecifyACultureInStringConversionExplicitly
+                    // ReSharper disable once CompareOfFloatsByEqualityOperator
+                    have == -1.0 ? "Не требуется" : have + "т.", people, minTravelTime, maxTravelTime, cleaningTime);
+
+                MessageBox.Show(@"Опасность проанализирована, отчёт сгенерирован.");
+                progressBar.Close();
+            });
         }
 
         public List<string> GetNamesByNumber(string contact)

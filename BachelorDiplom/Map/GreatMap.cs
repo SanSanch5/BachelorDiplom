@@ -548,7 +548,6 @@ namespace BachelorLibAPI.Map
                 var bearing = startAngle + delta * i;
                 if (bearing > 360) bearing -= 360;
                 polygon.Add(LatLongWorker.PointFromStartBearingDistance(_crashInfo.Center.Position, bearing, radius));
-                Debug.WriteLine("{0} - {1}", radius, LatLongWorker.DistanceFromLatLonInKm(_crashInfo.Center.Position, polygon.Last()));
             }
 
             var p = new GMapPolygon(polygon, "danger")
@@ -560,6 +559,22 @@ namespace BachelorLibAPI.Map
             _polygonsOverlay.Polygons.Add(p);
         }
 
+        public double GetDistanceBetween(PointLatLng x, PointLatLng y)
+        {
+            MapRoute r;
+            var trying = 0;
+            do
+            {
+                ++trying;
+                r = ((OpenStreetMapProvider)_gmap.MapProvider).GetRoute(x, y,
+                    false, false, 11);
+            } while (r == null && trying < 4);
+            Debug.WriteLine("Путь проложен!");
+            return r == null
+                ? LatLongWorker.DistanceFromLatLonInKm(x, y)
+                : r.Distance;
+        }
+
         private void GenerateStadiesPart(CancellationToken token, int start, int diff, int increment,
             IReadOnlyList<PointLatLng> routePoints, ICollection<KeyValuePair<PointLatLng, double>> res)
         {
@@ -568,21 +583,10 @@ namespace BachelorLibAPI.Map
                 if (token.IsCancellationRequested)
                     return;
 
-                MapRoute r;
-                var trying = 0;
-                do
-                {
-                    ++trying;
-                    r = ((OpenStreetMapProvider) _gmap.MapProvider).GetRoute(routePoints[i - diff], routePoints[i],
-                        false, false, 11);
-                } while (r == null && trying < 4);
-
-                var distance = r == null 
-                    ? LatLongWorker.DistanceFromLatLonInKm(routePoints[i - diff], routePoints[i]) 
-                    : r.Distance;
+                var distance = GetDistanceBetween(routePoints[i - diff], routePoints[i]);
 
                 res.Add(new KeyValuePair<PointLatLng, double>(routePoints[i],
-                    (60*distance/Settings.Default.AvegareVelocity)));
+                    (60*distance/Settings.Default.AverageVelocity)));
 
                 Debug.WriteLine("До промежуточной точки {0}:{1} из предыдущей ({2} назад) Время {3}",
                     res.Last().Key.Lat.ToString("G5"),
@@ -656,12 +660,12 @@ namespace BachelorLibAPI.Map
                 }
                 progressBar.Progress(1000);
                 var wholeTime = detailedRoute.Last().Value;
-                var shouldBe = (60 * _distance / Settings.Default.AvegareVelocity);
+                var shouldBe = (60 * _distance / Settings.Default.AverageVelocity);
                 if (ost != 0)
                 {
                     var r = ((OpenStreetMapProvider) _gmap.MapProvider).GetRoute(routePoints[lastHandledPoint],
                         routePoints.Last(), false, false, 11);
-                    wholeTime = detailedRoute.Last().Value + (60*r.Distance/Settings.Default.AvegareVelocity);
+                    wholeTime = detailedRoute.Last().Value + (60*r.Distance/Settings.Default.AverageVelocity);
                     detailedRoute.Add(new KeyValuePair<PointLatLng, double>(routePoints.Last(), wholeTime > shouldBe ? wholeTime : shouldBe));
                 }
                 else
