@@ -580,10 +580,10 @@ namespace BachelorLibAPI.Map
         {
             for (var i = diff*start + diff; i < routePoints.Count; i += increment)
             {
+                var distance = GetDistanceBetween(routePoints[i - diff], routePoints[i]);
+
                 if (token.IsCancellationRequested)
                     return;
-
-                var distance = GetDistanceBetween(routePoints[i - diff], routePoints[i]);
 
                 res.Add(new KeyValuePair<PointLatLng, double>(routePoints[i],
                     (60*distance/Settings.Default.AverageVelocity)));

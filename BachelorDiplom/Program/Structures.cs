@@ -64,6 +64,7 @@ namespace BachelorLibAPI.Program
         public double CanSuggest;
         /// сколько работников может быть доставлено
         public int PeopleReady;
+        public int SuperCarCount;
         public int PeopleCount;
     }
 

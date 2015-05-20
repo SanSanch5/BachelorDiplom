@@ -29,13 +29,6 @@ namespace BachelorLibAPI.Forms
             QueriesHandler.DeleteTransitStadiesOlderThenYesterday();
 
             FillMainForm();
-
-            var p1 = new PointLatLng(LatLongWorker.DegMinSecToDecimalDegree(new DegMinSec("53°19′14″N"), true), 
-                LatLongWorker.DegMinSecToDecimalDegree(new DegMinSec("001°43′47″W"), false));
-            var p2 = new PointLatLng(LatLongWorker.DegMinSecToDecimalDegree(new DegMinSec("53°11′18″N"), true), 
-                LatLongWorker.DegMinSecToDecimalDegree(new DegMinSec("000°08′00″E"), false));
-            //var p2 = LatLongWorker.PointFromStartBearingDistance(p1, 345, 125.8);
-            var dist = LatLongWorker.DistanceFromLatLonInKm(p1, p2);
         }
 
         private void FillMainForm()

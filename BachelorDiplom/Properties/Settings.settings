@@ -29,11 +29,14 @@
     <Setting Name="AverageVelocity" Type="System.Double" Scope="Application">
       <Value Profile="(Default)">60</Value>
     </Setting>
-    <Setting Name="Labor" Type="System.Double" Scope="Application">
+    <Setting Name="ManLabor" Type="System.Double" Scope="Application">
       <Value Profile="(Default)">70</Value>
     </Setting>
     <Setting Name="MchsAverageVelocity" Type="System.Double" Scope="User">
       <Value Profile="(Default)">100</Value>
+    </Setting>
+    <Setting Name="SpecialCarLabor" Type="System.Double" Scope="User">
+      <Value Profile="(Default)">600</Value>
     </Setting>
   </Settings>
 </SettingsFile>

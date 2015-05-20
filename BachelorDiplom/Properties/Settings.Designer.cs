@@ -67,9 +67,9 @@ namespace BachelorLibAPI.Properties {
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("70")]
-        public double Labor {
+        public double ManLabor {
             get {
-                return ((double)(this["Labor"]));
+                return ((double)(this["ManLabor"]));
             }
         }
         
@@ -82,6 +82,18 @@ namespace BachelorLibAPI.Properties {
             }
             set {
                 this["MchsAverageVelocity"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("600")]
+        public double SpecialCarLabor {
+            get {
+                return ((double)(this["SpecialCarLabor"]));
+            }
+            set {
+                this["SpecialCarLabor"] = value;
             }
         }
     }
