@@ -27,6 +27,7 @@ namespace BachelorLibAPI.Program
 
         private const int TimeCorrection = 30;
         private const int KmCorrection = 5;
+        private const int TimeOfCleaning = 24;
 
         /// <summary>
         /// Конструктор
@@ -467,7 +468,7 @@ namespace BachelorLibAPI.Program
         }
 
         private List<KeyValuePair<MchsPointInfo, double>> GetPointsWithDistances(
-            List<MchsPointInfo> possibleMchsPoints, PointLatLng crashPoint)
+            IReadOnlyList<MchsPointInfo> possibleMchsPoints, PointLatLng crashPoint)
         {
             var mchsPointsWithDistancesArray = new KeyValuePair<MchsPointInfo, double>[possibleMchsPoints.Count];
             var tasks =
@@ -479,7 +480,7 @@ namespace BachelorLibAPI.Program
                                 mchsPointsWithDistancesArray[index] =
                                     new KeyValuePair<MchsPointInfo, double>(possibleMchsPoints[index],
                                         60 / Settings.Default.MchsAverageVelocity *
-                                        Map.GetDistanceBetween(possibleMchsPoints[index].Place.Position,
+                                        Map.GetDistanceBetween/*LatLongWorker.DistanceFromLatLonInKm*/(possibleMchsPoints[index].Place.Position,
                                             crashPoint));
                             }))
                     .ToList();
@@ -491,14 +492,13 @@ namespace BachelorLibAPI.Program
              out List<KeyValuePair<MchsPointInfo, double>> res)
         {
             var possibleMchsPoints =
-                    _mchsPoints.Where(x => !x.AntiSubstances.Select(y => y.Key).Contains(antiSubstanceCount.Key)
-                                           && Math.Min(x.PeopleCount, x.PeopleReady) + x.SuperCarCount > 0)
+                    _mchsPoints.Where(x => /*!x.AntiSubstances.Select(y => y.Key).Contains(antiSubstanceCount.Key)
+                                           &&*/ Math.Min(x.PeopleCount, x.PeopleReady) + x.SuperCarCount > 0)
                         .ToList();
 
             res = GetPointsWithDistances(possibleMchsPoints, crashPoint);
             res.Sort((pair1, pair2) => pair1.Value.CompareTo(pair2.Value));
         }
-
 
         /// <summary>
         /// Анализ опасности.
@@ -539,90 +539,109 @@ namespace BachelorLibAPI.Program
             Task.Run(() =>
             {
                 var progressBar = new ProgressBarForm(@"Расчёт устранения аварии...", 10000);
+                progressBar.Progress(1000);
+                Cursor.Current = Cursors.WaitCursor;
 
-                List<KeyValuePair<MchsPointInfo, double>> staffsWithSubstances = null;
-                List<KeyValuePair<MchsPointInfo, double>> staffsWithResources = null;
+                _staffsWithSubstances = null;
+                _staffsWithResources = null;
                 var tarr = new Task[2];
                 tarr[0] =
                     Task.Run(
-                        () => GetStaffsWithSubstance(place.Position, antiSubstanceCount, out staffsWithSubstances));
+                        () => GetStaffsWithSubstance(place.Position, antiSubstanceCount, out _staffsWithSubstances));
                 tarr[1] =
                     Task.Run(
-                        () => GetStaffsWithResources(place.Position, antiSubstanceCount, out staffsWithResources));
-                Task.WaitAll(tarr);
+                        () => GetStaffsWithResources(place.Position, antiSubstanceCount, out _staffsWithResources));
+                //Task.WaitAll(tarr);
+                tarr[0].Wait();
 
-
-                var mchsPointsWithDistances = staffsWithSubstances.Concat(staffsWithResources).ToList();
-                progressBar.Progress(1000);
 
                 var people = 0;
                 var superCars = 0;
-                var mchsStaffs = new List<int>();
+                var mchsStaffsWithSubstance = new List<int>();
                 var have = 0.0;
                 var count = 0;
-                var minimumPowerIsNeeded = area*1000000/10; // - устранение последствий произойдёт не более, чем за 10 часов.
-                mchsStaffs.Clear();
                     // здесь считаю пункты с антивеществом - они едут в первую очередь
-                while (count < staffsWithSubstances.Count && have < antiSubstanceCount.Value)
+                while (count < _staffsWithSubstances.Count && have < antiSubstanceCount.Value)
                 {
-                    var pnt = staffsWithSubstances[count++];
+                    var pnt = _staffsWithSubstances[count++];
                     var having = pnt.Key.AntiSubstances.Where(x => x.Key == antiSubstanceCount.Key).ToList().First();
-                    have += having.Value;
+                    have += Math.Min(having.Value, pnt.Key.CanSuggest);
                     people += Math.Min(pnt.Key.PeopleCount, pnt.Key.PeopleReady);
                     superCars += pnt.Key.SuperCarCount;
-                    mchsStaffs.Add(pnt.Key.Id);
-                    progressBar.Progress(6000 / mchsPointsWithDistances.Count);
+                    mchsStaffsWithSubstance.Add(pnt.Key.Id);
                 }
                 if (have < antiSubstanceCount.Value)
                 {
+                    progressBar.Close();
                     Debug.WriteLine("Недостаточно обезвреживающего вещества.");
                     return;
                 }
+                tarr[1].Wait();
+
+                _staffsWithSubstances = _staffsWithSubstances.Where(x => mchsStaffsWithSubstance.Contains(x.Key.Id)).ToList();
+                _staffsWithResources = _staffsWithResources.Except(_staffsWithSubstances).ToList();
+                var pointsWithDistances = _staffsWithSubstances.Concat(_staffsWithResources).ToList();
+                pointsWithDistances.Sort((pair1, pair2) => pair1.Value.CompareTo(pair2.Value));
 
                         // необходимо искать минимальную сумму времени устранения и времени прибытия.
-                    // здесь считаю людей + суперкары
+                // здесь считаю людей + суперкары
                 count = 0;
-                var power = superCars*Settings.Default.SpecialCarLabor + people*Settings.Default.ManLabor;
-                while (count < staffsWithResources.Count && power < minimumPowerIsNeeded)
+                var minimum = TimeOfCleaning + 1.0;
+                while (++count < TimeOfCleaning)
                 {
-                    var pnt = mchsPointsWithDistances[count++];
-                    people += Math.Min(pnt.Key.PeopleCount, pnt.Key.PeopleReady);
-                    superCars += pnt.Key.SuperCarCount;
-                    power = superCars * Settings.Default.SpecialCarLabor + people * Settings.Default.ManLabor;
-                    mchsStaffs.Add(pnt.Key.Id);
-                    progressBar.Progress(6000 / mchsPointsWithDistances.Count);
+                    if (count > minimum) break;
+
+                    progressBar.Progress(8000/24);
+                    List<int> points;
+                    var constraint = area*1000000/count;
+                    if (!GetConstraintedPointsConfig(constraint, superCars, people, out points)) continue;
+
+                    var time = pointsWithDistances.Last(x => mchsStaffsWithSubstance.Concat(points).Contains(x.Key.Id)).Value / Settings.Default.MchsAverageVelocity;
+                    if (!(time+count < minimum)) continue;
+
+                    _requiredForces = points;
+                    minimum = time+count;
                 }
-                if (power < minimumPowerIsNeeded)
+
+                if (minimum > TimeOfCleaning)
                 {
+                    progressBar.Close();
                     Debug.WriteLine("Недостаточно людей/машин для устранения последствий аварии.");
                     return;
                 }
-
-                var maxTravelTime = mchsPointsWithDistances.First(x => x.Key.Id == mchsStaffs.Last()).Value / Settings.Default.MchsAverageVelocity;
-                if (maxTravelTime > 10) // чтобы общее время устранения аварии не превышало 24 часов
-                {
-                    Debug.WriteLine("Недостаточно людей/машин для устранения последствий аварии.");
-                    return;
-                }
-
-                var minTravelTime = mchsPointsWithDistances.First(x => x.Key.Id == mchsStaffs.First()).Value / Settings.Default.MchsAverageVelocity;
-                var cleaningTime = area * 1000000 / power;
+                
                 progressBar.Complete();
+                Cursor.Current = Cursors.Default;
                 Debug.WriteLine("Задействованные пункты МЧС: {0}" +
                                 "\nКоличество антивещества предоставляется: {1}" +
                                 "\nКоличество работников для устранения предоставляется: {2}" +
                                 "\nКоличество спец. машин для устранения предоставляется: {3}" +
-                                "\nВремя прибытия первого состава на точку: {4}" +
-                                "\nВремя прибытия последнего состава на точку: {5}" +
-                                "\nВремя устранения (после прибытия последнего состава): {6}", 
-                    mchsStaffs.Aggregate("", (current, x) => current + x + ";"),
+                                "\nВремя прибытия составов на точку: {4}" +
+                                "\nВремя устранения (после прибытия последнего состава): {5}", 
+                    mchsStaffsWithSubstance.Concat(_requiredForces).Aggregate("", (current, x) => current + x + ";"),
                     // ReSharper disable once SpecifyACultureInStringConversionExplicitly
                     // ReSharper disable once CompareOfFloatsByEqualityOperator
-                    have == -1.0 ? "Не требуется" : have + "т.", people, superCars, minTravelTime, maxTravelTime, cleaningTime);
+                    have == -1.0 ? "Не требуется" : have + "т.", people, superCars, minimum-count, count);
 
                 MessageBox.Show(@"Опасность проанализирована, отчёт сгенерирован.");
                 progressBar.Close();
             });
+        }
+
+        private bool GetConstraintedPointsConfig(double constraint, int superCars, int people, out List<int> res)
+        {
+            var count = 0;
+            res = new List<int>();
+            var power = superCars * Settings.Default.SpecialCarLabor + people * Settings.Default.ManLabor;
+            while (count < _staffsWithResources.Count && power < constraint)
+            {
+                var pnt = _staffsWithResources[count++];
+                people += Math.Min(pnt.Key.PeopleCount, pnt.Key.PeopleReady);
+                superCars += pnt.Key.SuperCarCount;
+                power = superCars * Settings.Default.SpecialCarLabor + people * Settings.Default.ManLabor;
+                res.Add(pnt.Key.Id);
+            }
+            return !(power < constraint);
         }
 
         public List<string> GetNamesByNumber(string contact)
@@ -665,6 +684,8 @@ namespace BachelorLibAPI.Program
 
         private readonly List<TransitInfo> _actualTransits = new List<TransitInfo>();
         private readonly List<MchsPointInfo> _mchsPoints = new List<MchsPointInfo>();
-        private readonly Dictionary<PointLatLng, HashSet<int>> _probableCrashes = new Dictionary<PointLatLng, HashSet<int>>(); 
+        private readonly Dictionary<PointLatLng, HashSet<int>> _probableCrashes = new Dictionary<PointLatLng, HashSet<int>>();
+        private List<KeyValuePair<MchsPointInfo, double>> _staffsWithSubstances, _staffsWithResources;
+        private List<int> _requiredForces;
     }
 }

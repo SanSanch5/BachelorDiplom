@@ -221,8 +221,8 @@ namespace BachelorLibAPI.Map
                 ToolTipText =
                     string.Format(
                         "Пункт реагирования МЧС #{0}\nМожет перевезти обезвреживающиего вещества (всего): {1} т.\nМожет перевезти людей: {2}" +
-                        "\nДоступно людей: {3}\nДоступные обезвреживающие вещества:\n{4}",
-                        m.MchsPoint.Id, m.MchsPoint.CanSuggest, m.MchsPoint.PeopleReady, m.MchsPoint.PeopleCount,
+                        "\nДоступно людей: {3}\nДоступно машин для устранения последствий: {4}\nДоступные обезвреживающие вещества:\n{5}",
+                        m.MchsPoint.Id, m.MchsPoint.CanSuggest, m.MchsPoint.PeopleReady, m.MchsPoint.PeopleCount, m.MchsPoint.SuperCarCount,
                         m.MchsPoint.AntiSubstances.Select(x => string.Format("\t{0} {1} т.\n", x.Key, x.Value))
                             .ToList()
                             .Aggregate("", (current, antiSubstance) => current + antiSubstance))
@@ -663,8 +663,12 @@ namespace BachelorLibAPI.Map
                 var shouldBe = (60 * _distance / Settings.Default.AverageVelocity);
                 if (ost != 0)
                 {
+                    if (token.IsCancellationRequested)
+                        token.ThrowIfCancellationRequested();
                     var r = ((OpenStreetMapProvider) _gmap.MapProvider).GetRoute(routePoints[lastHandledPoint],
-                        routePoints.Last(), false, false, 11);
+                        routePoints.Last(), false, false, 11); 
+                    if (token.IsCancellationRequested)
+                        token.ThrowIfCancellationRequested();
                     wholeTime = detailedRoute.Last().Value + (60*r.Distance/Settings.Default.AverageVelocity);
                     detailedRoute.Add(new KeyValuePair<PointLatLng, double>(routePoints.Last(), wholeTime > shouldBe ? wholeTime : shouldBe));
                 }

@@ -678,7 +678,8 @@ namespace BachelorLibAPI.Data
                             Place = new FullPointDescription{Position = new PointLatLng(pnt.X, pnt.Y)},
                             CanSuggest = dr[2].ToString() == "" ? 0 : double.Parse(dr[2].ToString()),
                             PeopleReady = dr[3].ToString() == "" ? 0 : int.Parse(dr[3].ToString()),
-                            PeopleCount = (int)dr[4]
+                            PeopleCount = (int)dr[4],
+                            SuperCarCount = dr[5].ToString() == "" ? 0 : int.Parse(dr[5].ToString())
                         });
                     }
                 }
