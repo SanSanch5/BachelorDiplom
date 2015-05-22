@@ -66,6 +66,7 @@ namespace BachelorLibAPI.Program
         public int PeopleReady;
         public int SuperCarCount;
         public int PeopleCount;
+        public bool IsAvailable;
     }
 
     public struct TransitInfo

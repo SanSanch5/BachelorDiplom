@@ -1,6 +1,7 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Drawing;
+using System.Globalization;
 using System.Windows.Forms;
 using System.Xml.XPath;
 using BachelorLibAPI.Algorithms;
@@ -64,6 +65,10 @@ namespace BachelorLibAPI.Forms
             try
             {
                 var pnt = _queriesHandler.Map.GetLatLong(e.X, e.Y);
+                //edtCrashPlace.Text = string.Format("({0}, {1})", 
+                //    pnt.Item1.ToString(new CultureInfo("en"){NumberFormat = new NumberFormatInfo{NumberDecimalSeparator = "."}}),
+                //    pnt.Item2.ToString(new CultureInfo("en") { NumberFormat = new NumberFormatInfo { NumberDecimalSeparator = "." } }));
+                //return;
                 var dmsLat = LatLongWorker.DecimalDegreeToDegMinSec(pnt.Item1, true);
                 var dmsLong = LatLongWorker.DecimalDegreeToDegMinSec(pnt.Item2, false);
                 edtLat.Text = dmsLat.ToString();
