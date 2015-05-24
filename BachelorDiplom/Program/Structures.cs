@@ -2,17 +2,19 @@
 using System.Collections.Generic;
 using System.Globalization;
 using System.Text.RegularExpressions;
-using BachelorLibAPI.Properties;
 using GMap.NET;
 
 namespace BachelorLibAPI.Program
 {
+    /// <summary>
+    /// Структура представляет собой тип данных, хранящий широту/долготу в 
+    /// формате: градус°минуты′секунды″положение
+    /// </summary>
     public struct DegMinSec
     {
         private const char D = '°';
         private const char M = '′';
         private const char S = '″';
-
 
         public int Degrees;
         public int Minutes;
@@ -41,12 +43,19 @@ namespace BachelorLibAPI.Program
             return deg + min + sec + Direction;
         }
     }
+
+    /// <summary>
+    /// Структура описывает точку ещё адресом + географическим положением.
+    /// </summary>
     public struct FullPointDescription
     {
         public string Address;
         public PointLatLng Position;
     }
 
+    /// <summary>
+    /// Структура хранит информацию об аварии.
+    /// </summary>
     public struct CrashInfo
     {
         public int Id;
@@ -57,6 +66,10 @@ namespace BachelorLibAPI.Program
         public string Consignment;
         public double ConsignmentCapacity;
 
+        /// <summary>
+        /// Метод генерирования информации об аварии в формате для отчёта.
+        /// </summary>
+        /// <returns></returns>
         public IEnumerable<List<string>> RecordsForReport()
         {
             return new List<List<string>>
@@ -78,6 +91,9 @@ namespace BachelorLibAPI.Program
         }
     }
 
+    /// <summary>
+    /// Структура хранит информацию о пункте реагирования сил МЧС.
+    /// </summary>
     public struct MchsPointInfo
     {
         public int Id;
@@ -92,6 +108,9 @@ namespace BachelorLibAPI.Program
         public bool IsAvailable;
     }
 
+    /// <summary>
+    /// Структура хранит информацию перевозках.
+    /// </summary>
     public struct TransitInfo
     {
         public int Id;
@@ -109,6 +128,10 @@ namespace BachelorLibAPI.Program
         public bool IsFinshed;
         public bool IsInAccident;
 
+        /// <summary>
+        /// Метод генерирования информации о перевозке в формате для отчёта.
+        /// </summary>
+        /// <returns></returns>
         public IEnumerable<List<string>> RecordsForReport()
         {
             return new List<List<string>>

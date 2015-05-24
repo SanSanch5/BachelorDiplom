@@ -259,6 +259,11 @@ namespace BachelorLibAPI.Program
             }
         }
 
+        /// <summary>
+        /// Метод удаляет все временные файлы, содержащие информацию о каждой перевозке, 
+        /// которые хранятся на диске, но не хранятся в базе данных.
+        /// </summary>
+        /// <param name="transitIds">Список актуальных перевозок</param>
         private static void RemoveDeletedTransitsFiles(ICollection<int> transitIds)
         {
             foreach (
@@ -273,7 +278,7 @@ namespace BachelorLibAPI.Program
 
         /// <summary>
         /// При начальной загрузке программы в фоновом режиме (пользователь может работать в это время)
-        /// Запрашивает данные из базы о зарегистрированных перевозках
+        /// запрашивает данные из базы о зарегистрированных перевозках
         /// и отдаёт в нужном карте формате для расстановки маркеров.
         /// </summary>
         public void PutTransitsFromDbToMap()
@@ -323,20 +328,17 @@ namespace BachelorLibAPI.Program
         private const string TempFilesDir = @"..\..\TempStadiesFiles\";
 
         /// <summary>
-        /// Добавление нового путевого листа
-        /// Не производится добавление водителя! 
-        /// Если водитель ранее не был зарегистрирован в базе, необходимо зарегистрировать его,
-        /// воспользовавшись формой добавления водителя.
-        /// Удаляются все стадии предыдущих перевозок, зарегистрированных на этого водителя, 
-        /// но сами перевозки не отмечаются, как завершённые. Для этого необходимо воспользоваться
-        /// специально предназначенной для этого формой.
+        /// Метод регистрации новой перевозки. Предполагается, что при начале работы метода
+        /// уже инициировано или завершено построение пути. Если пара водитель/номер телефона
+        /// отсутствует в базе, производится добавление. Если а базе не зарегистрирован автомобиль
+        /// с таким номерным знаком, возвращается исключение с соответствующим сообщением.
         /// </summary>
-        /// <param name="driverNum"></param>
-        /// <param name="grz"></param>
-        /// <param name="consName"></param>
-        /// <param name="consCapacity"></param>
-        /// <param name="start"></param>
-        /// <param name="driverName"></param>
+        /// <param name="driverName">Имя водителя</param>
+        /// <param name="driverNum">Телефон водителя</param>
+        /// <param name="grz">ГРЗ автомобиля</param>
+        /// <param name="consName">Наименование перевозимого АХОВ</param>
+        /// <param name="consCapacity">Количество перевозимого вещества в тоннах</param>
+        /// <param name="start">Время старта перевозки</param>
         public void AddNewWaybill(string driverName, string driverNum, string grz, string consName, double consCapacity, DateTime start)
         {
             var driverId = DataHandler.GetDriverId(driverName, driverNum);
@@ -412,12 +414,11 @@ namespace BachelorLibAPI.Program
             });
             Cursor.Current = Cursors.Default;
         }
+
         /// <summary>
         /// Иногда возвращается слишком длинный адрес, который потом невозможно преобразовать обратно в точку.
-        /// Метод необходим, чтобы провайдел искал на карте то, что сам же вернул ранее
+        /// Метод необходим, чтобы провайдер карты искал на длинный адрес, который сам же вернул ранее.
         /// </summary>
-        /// <param name="adress"></param>
-        /// <returns></returns>
         private static string CutAdress(string adress)
         {
             var elems = adress.Split(',').ToList();
@@ -426,54 +427,110 @@ namespace BachelorLibAPI.Program
             return adress;
         }
 
+        /// <summary>
+        /// Проверка, есть ли на карте точка, которой соответствует адрес.
+        /// </summary>
+        /// <param name="adress">Адрес для проверки.</param>
+        /// <returns>Истина - адрес корректен, ложь - не удалось найти такой адрес.</returns>
         public bool CheckAdress(string adress)
         {
             return Map.CheckAdress(CutAdress(adress));
         }
+
+        /// <summary>
+        /// Метод для получения полного адреса географиеского местоположения
+        /// по одному/нескольким набором ключевых слов.
+        /// </summary>
+        /// <param name="adress">Набор ключевых слов</param>
+        /// <returns>Полный адрес</returns>
         public string GetCorrectAdress(string adress)
         {
             return Map.GetCorrectAdress(adress);
         }
 
+        /// <summary>
+        /// Устанавливает на карте флажок, отражающий начальную точку маршрута.
+        /// </summary>
+        /// <param name="adress">Адрес</param>
         public void SetStartPoint(string adress)
         {
             Map.SetStartPoint(adress);
         }
 
+        /// <summary>
+        /// Получает адрес начальной точки моршрута.
+        /// </summary>
         public string GetStartPoint()
         {
             return Map.GetStartPoint();
         }
 
+        /// <summary>
+        /// Устанавливает промежуточную точку маршрута.
+        /// </summary>
+        /// <param name="adress"></param>
         public void SetMiddlePoint(string adress)
         {
             Map.SetMiddlePoint(adress);
         }
 
+        /// <summary>
+        /// Определяет, были ли в маршруте введены промежуточные точки.
+        /// </summary>
+        /// <returns></returns>
         public bool HasMiddlePoints()
         {
             return Map.HasMidPoints();
         }
+        /// <summary>
+        /// Устанавливает конечную точку маршрута.
+        /// </summary>
         public void SetEndPoint(string adress)
         {
             Map.SetEndPoint(adress);
         }
 
+        /// <summary>
+        /// Демонстрирует пользователю построенные маршру со всеми промежуточными точками.
+        /// Предоставляет возможность внести необходимые поправки перед добавлением перевозки.
+        /// </summary>
         public bool CheckBeforeAdding()
         {
             return Map.CheckBeforeAdding();
         }
 
+        /// <summary>
+        /// Получает адрес конечной точки маршрута.
+        /// </summary>
         public string GetEndPoint()
         {
             return Map.GetEndPoint();
         }
 
+        /// <summary>
+        /// При введенном минимуме необходимой для построения маршрута информации метод 
+        /// расчитывает промежуточные стадии маршрута. При этом необходимо быть готовым отменить
+        /// текущий расчёт и начать новый, а также предоставить пользователю возможность дополнять 
+        /// или изменять маршрут. Поэтому действия по конструированию промежуточных стадий
+        /// должны выполняться параллельно работе пользователя с графической оболочкой.
+        /// </summary>
         public void ConstructShortTrack()
         {
             Map.ConstructShortTrack();
         }
 
+        /// <summary>
+        /// При анализе аварии находит идентификатор наиболее вероятной перевозки,
+        /// которая могла участвовать в аварии. Также записывает в отчёт id всех
+        /// перевозок, которые могли участвовать в аварии с меньшей степенью вероятности.
+        /// Вероятность расчитывается из положения данной стадии перевозки в общем списке стадий
+        /// этой перевозки: чем раньше, тем меньше аддитивная погрешность, тем выше вероятность,
+        /// что это именно та перевозка, зарегистрированный автомобиль в которой участвовал
+        /// в текущей аварии.
+        /// </summary>
+        /// <param name="targetTime">Время аварии.</param>
+        /// <param name="place">Место аварии.</param>
+        /// <returns>Идентификатор найденной перевозки или null, если перевозок в области аварии не найдено.</returns>
         private int? GetMostProbablyTransit(DateTime targetTime, FullPointDescription place)
         {
             _probableCrashes[place.Position] = new HashSet<int>();
@@ -532,6 +589,13 @@ namespace BachelorLibAPI.Program
             return mostProbably;
         }
 
+        /// <summary>
+        /// Позволяет найти список пар информация о пункте реагирования/расстояние от него до аварии,
+        /// состоящий только из тех пунктов, у которых есть необходимое обезвреживающее вещество.
+        /// </summary>
+        /// <param name="crashPoint">Географическое положение аварии.</param>
+        /// <param name="antiSubstanceCount">Информация о необходимом обезвреживающем веществе.</param>
+        /// <param name="res">Переменная, в которую необходимо записать результат.</param>
         private void GetStaffsWithSubstance(PointLatLng crashPoint, KeyValuePair<string, double> antiSubstanceCount,
              out List<KeyValuePair<MchsPointInfo, double>> res)
         {
@@ -544,6 +608,14 @@ namespace BachelorLibAPI.Program
             res.Sort((pair1, pair2) => pair1.Value.CompareTo(pair2.Value));
         }
 
+        /// <summary>
+        /// Получает список пар информация о пункте реагирования/расстояние от него до аварии,
+        /// агрегируя информацию из переданного списка пунктов МЧС с использованием географического
+        /// положения места аварии.
+        /// </summary>
+        /// <param name="possibleMchsPoints"></param>
+        /// <param name="crashPoint"></param>
+        /// <returns></returns>
         private List<KeyValuePair<MchsPointInfo, double>> GetPointsWithDistances(
             IReadOnlyList<MchsPointInfo> possibleMchsPoints, PointLatLng crashPoint)
         {
@@ -569,7 +641,14 @@ namespace BachelorLibAPI.Program
             return mchsPointsWithDistancesArray.ToList().Where(x => Math.Abs(x.Value - (-1)) > 1e-6).ToList();
         }
 
-        private void GetStaffsWithResources(PointLatLng crashPoint,out List<KeyValuePair<MchsPointInfo, double>> res)
+        /// <summary>
+        /// Позволяет найти список пар информация о пункте реагирования/расстояние от него до аварии,
+        /// состоящий только из тех пунктов, у которых есть ресурсы, с помощью которых можно
+        /// устранять последствия аварии: работники и специализированные машины.
+        /// </summary>
+        /// <param name="crashPoint">Географическое положение аварии.</param>
+        /// <param name="res">Переменная, в которую необходимо записать результат.</param>
+        private void GetStaffsWithResources(PointLatLng crashPoint, out List<KeyValuePair<MchsPointInfo, double>> res)
         {
             var possibleMchsPoints =
                     _mchsPoints.Where(x => Math.Min(x.PeopleCount, x.PeopleReady) + x.SuperCarCount > 0)
@@ -579,6 +658,13 @@ namespace BachelorLibAPI.Program
             res.Sort((pair1, pair2) => pair1.Value.CompareTo(pair2.Value));
         }
 
+        /// <summary>
+        /// Расчёт параметров устранения последствий аварии.
+        /// </summary>
+        /// <param name="crashInfo">Информация об аварии.</param>
+        /// <param name="antiSubstanceCount">Информация о требуемом обезвреживающем веществе (наименование и количество).</param>
+        /// <param name="until">Время, к которому последствия аварии будут устранены.</param>
+        /// <returns></returns>
         private List<int> CrashCounting(CrashInfo crashInfo, KeyValuePair<string, double> antiSubstanceCount, out DateTime until)
         {
             var progressBar = new ProgressBarForm(@"Расчёт устранения аварии...", 10000);
@@ -707,12 +793,12 @@ namespace BachelorLibAPI.Program
 
         /// <summary>
         /// Анализ опасности.
-        /// Производится выборка по по промежутку времени по каждой перевозке.
-        /// Точка ищется в радиусе KmCorrection, поправка времени - TimeCorrection
+        /// Производится выборка по промежутку времени по каждой перевозке.
+        /// Точка ищется в радиусе KmCorrection, поправка времени - TimeCorrection.
         /// </summary>
-        /// <param name="targetTime">Начало временного интервала</param>
-        /// <param name="place">Место аварии</param>
-        /// <param name="windDirection"></param>
+        /// <param name="targetTime">Начало временного интервала.</param>
+        /// <param name="place">Место аварии.</param>
+        /// <param name="windDirection">Направление ветра.</param>
         public void AnalyseDanger(DateTime targetTime, FullPointDescription place, double windDirection)
         {
             var progressBar = new ProgressBarForm(@"Анализ опасности, генерация отчёта...", 7000);
@@ -807,6 +893,16 @@ namespace BachelorLibAPI.Program
             progressBar.Close();
         }
 
+        /// <summary>
+        /// В метод передаётся ограничение по количеству необходимых сил, а затем производится
+        /// попытка поиска необходимой конфигурации подключения сил МЧС для устранения последствий
+        /// аварии таким образом, чтобы их суммарные силы превзошли переданное ограничение.
+        /// </summary>
+        /// <param name="constraint">Нижнее ограничение количества требуемых сил.</param>
+        /// <param name="superCars">Имеющиеся от пунктов с обезвреживающим веществом специализированные машины.</param>
+        /// <param name="people">Имеющиеся от пунктов с обезвреживающим веществом работники.</param>
+        /// <param name="res">Переменная, в которую необходимо записать полученную конфигурацию.</param>
+        /// <returns></returns>
         private bool GetConstraintedPointsConfig(double constraint, int superCars, int people, out List<int> res)
         {
             var count = 0;
@@ -823,11 +919,20 @@ namespace BachelorLibAPI.Program
             return !(power < constraint);
         }
 
+        /// <summary>
+        /// Получает список имён водителей, которые были зарегистрированы на данный номер.
+        /// </summary>
+        /// <param name="contact">Номер телефона.</param>
         public IEnumerable<string> GetNamesByNumber(string contact)
         {
             return DataHandler.GetNamesByNumber(contact);
         }
 
+        /// <summary>
+        /// Устанавливает карту в необходимую позицию и масштабирует изображение относительно данной позиции.
+        /// </summary>
+        /// <param name="x">Широта</param>
+        /// <param name="y">Долгота</param>
         public void SetCurrentPointOfView(double x, double y)
         {
             Map.SetCurrentViewPoint(new PointLatLng(x, y));

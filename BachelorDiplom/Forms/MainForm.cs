@@ -1,10 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
-using System.Globalization;
 using System.Windows.Forms;
-using System.Xml.XPath;
 using BachelorLibAPI.Algorithms;
 using BachelorLibAPI.Data;
 using BachelorLibAPI.Map;

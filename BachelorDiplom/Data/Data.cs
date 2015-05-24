@@ -12,105 +12,62 @@ namespace BachelorLibAPI.Data
     public interface IDataHandler
     {
         /// <summary>
-        /// Удалить все контакты, записанные за водителя
+        /// Добавляет в базу информацию об аварии.
         /// </summary>
-        /// <param name="driverId">ID водителя</param>
-        void DelContacts(int driverId);
-
-        /// <summary>
-        /// Добавить нового водителя
-        /// </summary>
-        /// <param name="name">Имя</param>
-        /// <param name="number"></param>
-        /// <param name="middleName">Отчество, если есть</param>
-        /// <param name="lastName">Фамилия</param>
-        /// <returns>ID добавленного водителя</returns>
-        int AddNewDriver(string name, string number, string middleName = "", string lastName = "");
-
+        /// <param name="place">Место аварии.</param>
+        /// <param name="until">Время, к которому последствия аварии будут устранены.</param>
+        /// <param name="area">Площадь заражения в результате аварии.</param>
+        /// <param name="windDirection">Направление ветра при аварии.</param>
+        /// <param name="transitId">Идентификатор перевозки.</param>
+        /// <param name="mchsIds">Идентификатор пункта реагирования сил МЧС.</param>
+        /// <returns>Идентификатор добавленной аварии.</returns>
         int AddCrash(PointLatLng place, DateTime until, double area, double windDirection, int transitId, IEnumerable<int> mchsIds);
-        
-        /// <summary>
-        /// Удалить водителя
-        /// </summary>
-        /// <param name="driverId"></param>
-        void DelDriver(int driverId);
 
         /// <summary>
-        /// Добавить новую перевозку
+        /// Добавляет новую перевозку.
         /// </summary>
-        /// <param name="driverId"></param>
-        /// <param name="carId"></param>
-        /// <param name="consName"></param>
-        /// <param name="consCapacity"></param>
-        /// <param name="startTime"></param>
-        /// <param name="startPoint"></param>
-        /// <param name="endPoint"></param>
-        /// <returns>ID добавленной перевозки</returns>
+        /// <param name="driverId">id водителя</param>
+        /// <param name="carId">id автомобиля</param>
+        /// <param name="consName">Наименование опасного вещества.</param>
+        /// <param name="consCapacity">Количество опасного вещества в тоннах.</param>
+        /// <param name="startTime">Начало перевозки.</param>
+        /// <param name="startPoint">Начальная позиция маршрута.</param>
+        /// <param name="endPoint">Конечная позиция маршрута.</param>
+        /// <returns>ID добавленной перевозки.</returns>
         int AddNewTransit(int driverId, int carId, string consName, double consCapacity, DateTime startTime, PointLatLng startPoint, PointLatLng endPoint);
 
         /// <summary>
-        /// Удалить перевозку
+        /// Удаляет перевозку.
         /// </summary>
-        /// <param name="transId"></param>
+        /// <param name="transId">id перевозки.</param>
         void DeleteTransit(int transId);
 
+        /// <summary>
+        /// Удаляет пункт реагирования сил МЧС.
+        /// </summary>
+        /// <param name="staffId">id пункта..</param>
         void DeleteMchsStaff(int staffId);
 
+        /// <summary>
+        /// Удаляет информацию об аварии.
+        /// </summary>
+        /// <param name="crashId">id аварии.</param>
         void DeleteCrash(int crashId);
 
         /// <summary>
-        /// 
+        /// Получает список идентификаторов зарегистрированных перевозок.
         /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <returns>Количество записей в таблице</returns>
-        int GetTableLength<T>();
-
-        /// <summary>
-        /// Существует ли в базе данных такой номер телефона
-        /// </summary>
-        bool HasPhoneNumber(string contact);
-
-        /// <summary>
-        /// Возвращает массив идентификаторов водителей с заданными ФИО
-        /// </summary>
-        int[] FindDrivers(string lName, string name, string mName);
-
-        string GetDriversFullName(int driverId);
-
-        string GetCarInformation(int carId);
-        List<string> GetDriversFullNames();
-
-        /// <summary>
-        /// Найти ID перевозки по ID водителя и времени отправления
-        /// </summary>
-        /// <param name="driverId"></param>
-        /// <param name="start"></param>
-        /// <returns></returns>
-        int GetTransitId(int driverId, DateTime start);
-
-        /// <summary>
-        /// Найти ID всех первозок в заданный промежуток времени в заданном городе
-        /// </summary>
-        /// <returns></returns>
-        List<int> GetTransitIDs(DateTime start, DateTime until, int placeId);
         List<int> GetTransitIDs();
 
-        IEnumerable<int> GetTransitIDs(int driverId);
-
         /// <summary>
-        /// Получить список из ID первозок, зарегистрированных ранее указанного времени 
+        /// Получает регистрационный знак автомобиля по id автомобиля.
         /// </summary>
-        /// <param name="time">"Верхнее" время регистрации</param>
-        /// <returns></returns>
-        List<int> TransitsBefore(DateTime time);
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns>Список всех контактов</returns>
-        List<string> GetNumbers();
-
         string GetGrzByCarId(int carId);
+
+        /// <summary>
+        /// Получает полный спискок зарегистрированных ГРЗ.
+        /// </summary>
+        /// <returns></returns>
         List<string> GetGrzList(); 
 
         /// <summary>
@@ -121,53 +78,86 @@ namespace BachelorLibAPI.Data
         int GetDriverId(int transId);
 
         // ReSharper disable once InconsistentNaming
+        /// <summary>
+        /// Получает информацию об автомобиле по ГРЗ, который за ним закреплён.
+        /// </summary>
         int GetCarIdByGRZ(string grz);
 
+        /// <summary>
+        /// Получает id автомобиля.
+        /// </summary>
+        /// <param name="transitId">id перевозки, в которой этот автомобиль мог участвовать.</param>
+        /// <returns></returns>
         int GetTransitCarId(int transitId);
 
         /// <summary>
         /// Определить груз по номеру перевозки
         /// </summary>
-        /// <param name="transId"></param>
-        /// <returns></returns>
         string GetConsignmentName(int transId);
 
+        /// <summary>
+        /// Определить количество вещества в тоннах по номеру перевозки
+        /// </summary>
         double GetConsignmentCapacity(int transitId);
 
         /// <summary>
         /// Получить имя водителя
         /// </summary>
         /// <param name="driverId">ID водителя</param>
-        /// <returns></returns>
         string GetDriverName(int driverId);
-        
-        /// <summary>
-        /// Получить фамилию водителя
-        /// </summary>
-        /// <param name="driverId">ID водителя</param>
-        /// <returns></returns>
-        string GetDriverSurname(int driverId);
-
-        /// <summary>
-        /// Получить контактные номера водителей с таким именем
-        /// </summary>
-        /// <param name="driverName">Имя водителя</param>
-        /// <returns>Список номеров</returns>
-        List<string> GetNumbersByName(string driverName);
 
         /// <summary>
         /// Возвращает имена водителей с таким номером
         /// </summary>
-        List<string> GetNamesByNumber(string contact);
+        IEnumerable<string> GetNamesByNumber(string contact);
+
+        /// <summary>
+        /// Возвращает номер телефона, привязанного к водителю с идентификатором id
+        /// </summary>
+        /// <param name="driverId"></param>
+        /// <returns></returns>
         string GetDriverNumber(int driverId);
 
+        /// <summary>
+        /// Получает идентификатор водителя.
+        /// </summary>
+        /// <param name="name">Имя водителя.</param>
+        /// <param name="number">Телефон водителя.</param>
+        /// <returns></returns>
         int GetDriverId(string name, string number);
 
+        /// <summary>
+        /// Получает начальную и конечную точки маршрута.
+        /// </summary>
+        /// <param name="transit">id перевозки.</param>
+        /// <returns></returns>
         Tuple<PointLatLng, PointLatLng> GetStartAndEndPoints(int transit);
+
+        /// <summary>
+        /// Получает словарь, где ключом является название обезвреживающего вещества,
+        /// имеющегося во всех пунктов, а значением - сумма всех запасов обезвреживающих
+        /// ввеществ, сгруппированная по id.
+        /// </summary>
+        /// <param name="staffId">id пункта реагирования МЧС.</param>
+        /// <returns></returns>
         Dictionary<string, double> GetStaffAntiSubstances(int staffId);
+
+        /// <summary>
+        /// Получает полный список доступных и зарегистрированных на этот момент пунктов реагирования.
+        /// </summary>
+        /// <returns></returns>
         IEnumerable<MchsPointInfo> GetMchsPointsInfo();
+
+        /// <summary>
+        /// Получает информацию об аварии.
+        /// </summary>
+        /// <param name="transitId">id перевозки.</param>
         CrashInfo GetCrashInfo(int transitId);
 
+        /// <summary>
+        /// Проверяет, находится ли перевозка в аварии.
+        /// </summary>
+        /// <param name="transitId">id проверяемой перевозкию.</param>
         bool IsInAccident(int transitId);
     }   
 }

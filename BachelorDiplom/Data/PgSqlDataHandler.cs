@@ -621,7 +621,7 @@ namespace BachelorLibAPI.Data
             }
         }
 
-        public List<string> GetNamesByNumber(string contact)
+        public IEnumerable<string> GetNamesByNumber(string contact)
         {
             lock (_lockObject)
             {
