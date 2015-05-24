@@ -76,25 +76,24 @@ namespace BachelorLibAPI.Program
 
         private void DeleteAdvanced(object o, MarkerRemoveEventArgs e)
         {
-            if(e.MarkerType == MarkerType.Transit)
+            switch (e.MarkerType)
             {
-                DataHandler.DeleteTransit(e.Id);
-                if (File.Exists(TempFilesDir + string.Format("\\Transits\\{0}", e.Id))) 
-                    File.Delete(TempFilesDir + string.Format("\\Transits\\{0}", e.Id));
+                case MarkerType.Transit:
+                    DataHandler.DeleteTransit(e.Id);
+                    if (File.Exists(TempFilesDir + string.Format("\\Transits\\{0}", e.Id))) 
+                        File.Delete(TempFilesDir + string.Format("\\Transits\\{0}", e.Id));
 
-                MessageBox.Show(@"Перевозка удалена", @"Информация");
-            }
-            else if (e.MarkerType == MarkerType.Staff)
-            {
-                DataHandler.DeleteMchsStaff(e.Id);
-
-                MessageBox.Show(@"Пункт удалён", @"Информация");
-            }
-            else if (e.MarkerType == MarkerType.Crash)
-            {
-                DataHandler.DeleteCrash(e.Id);
-                Map.ClearMchsStaffs();
-                PutMchsPointsFromDbToMap();
+                    MessageBox.Show(@"Перевозка удалена", @"Информация");
+                    break;
+                case MarkerType.Staff:
+                    DataHandler.DeleteMchsStaff(e.Id);
+                    MessageBox.Show(@"Пункт удалён", @"Информация");
+                    break;
+                case MarkerType.Crash:
+                    DataHandler.DeleteCrash(e.Id);
+                    Map.ClearMchsStaffs();
+                    PutMchsPointsFromDbToMap();
+                    break;
             }
         }
 
@@ -229,6 +228,18 @@ namespace BachelorLibAPI.Program
             }
         }
 
+        private static void RemoveDeletedTransitsFiles(ICollection<int> transitIds)
+        {
+            foreach (
+                var fileName in
+                    new DirectoryInfo(TempFilesDir + @"\Transits").GetFiles()
+                        .Where(file => !transitIds.Contains(int.Parse(file.Name)))
+                        .Select(x => x.Name))
+            {
+                File.Delete(TempFilesDir + string.Format("\\Transits\\{0}", fileName));
+            }
+        }
+
         /// <summary>
         /// При начальной загрузке программы в фоновом режиме (пользователь может работать в это время)
         /// Запрашивает данные из базы о зарегистрированных перевозках
@@ -241,6 +252,8 @@ namespace BachelorLibAPI.Program
                 var transitTasks = new List<Task>();
                 var crashTasks = new List<Task>();
                 var transits = DataHandler.GetTransitIDs();
+                Task.Run(() => RemoveDeletedTransitsFiles(transits));
+                
                 var pbForm = new ProgressBarForm(@"Отображение перевозок на карте...", transits.Count*1000);
                 foreach (var transitId in transits)
                 {
