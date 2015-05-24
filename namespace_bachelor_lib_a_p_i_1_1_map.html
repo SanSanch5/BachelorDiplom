@@ -36,6 +36,7 @@
   <div id="navrow2" class="tabs2">
     <ul class="tablist">
       <li><a href="namespaces.html"><span>Пространства&#160;имен</span></a></li>
+      <li><a href="namespacemembers.html"><span>Члены&#160;пространств&#160;имен</span></a></li>
     </ul>
   </div>
 <div id="nav-path" class="navpath">
@@ -46,6 +47,7 @@
 <div class="header">
   <div class="summary">
 <a href="#nested-classes">Классы</a> &#124;
+<a href="#enum-members">Перечисления</a> &#124;
 <a href="#func-members">Функции</a>  </div>
   <div class="headertitle">
 <div class="title">Пакет BachelorLibAPI.Map</div>  </div>
@@ -57,21 +59,82 @@
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">interface &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interface_bachelor_lib_a_p_i_1_1_map_1_1_i_map.html">IMap</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Интерфейс для карты. Классы-реализации должны предоставлять пользователю структуру карты, возможность её обновить и возможность находить кратчайшие пути с возможным объездом множества населённых пунктов.  <a href="interface_bachelor_lib_a_p_i_1_1_map_1_1_i_map.html#details">Подробнее...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_bachelor_lib_a_p_i_1_1_map_1_1_marker_remove_event_args.html">MarkerRemoveEventArgs</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Аргументы события, инициируемого при удалении маркера с карты.  <a href="class_bachelor_lib_a_p_i_1_1_map_1_1_marker_remove_event_args.html#details">Подробнее...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_bachelor_lib_a_p_i_1_1_map_1_1_open_street_great_map.html">OpenStreetGreatMap</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_bachelor_lib_a_p_i_1_1_map_1_1_transit_remove_event_args.html">TransitRemoveEventArgs</a></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="enum-members"></a>
+Перечисления</h2></td></tr>
+<tr class="memitem:aa5681199648d8f4e92862aba7fe9d80e"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_bachelor_lib_a_p_i_1_1_map.html#aa5681199648d8f4e92862aba7fe9d80e">MarkerType</a> { <b>Transit</b>, 
+<b>Staff</b>, 
+<b>Crash</b>
+ }</td></tr>
+<tr class="memdesc:aa5681199648d8f4e92862aba7fe9d80e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Тип маркера. Необходим для различения реакции на событие, отправляемое при удалении маркера с карты.  <a href="namespace_bachelor_lib_a_p_i_1_1_map.html#aa5681199648d8f4e92862aba7fe9d80e">Подробнее...</a><br /></td></tr>
+<tr class="separator:aa5681199648d8f4e92862aba7fe9d80e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Функции</h2></td></tr>
-<tr class="memitem:a4b1f0c32af574b53f476589573ccb332"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a4b1f0c32af574b53f476589573ccb332"></a>
-delegate void&#160;</td><td class="memItemRight" valign="bottom"><b>ThresholdReachedEventHandler</b> (object sender, <a class="el" href="class_bachelor_lib_a_p_i_1_1_map_1_1_transit_remove_event_args.html">TransitRemoveEventArgs</a> e)</td></tr>
-<tr class="separator:a4b1f0c32af574b53f476589573ccb332"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ade066ad506e50dd897c51188cea4be2e"><td class="memItemLeft" align="right" valign="top">delegate void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_bachelor_lib_a_p_i_1_1_map.html#ade066ad506e50dd897c51188cea4be2e">MarkerRemovedEventHandler</a> (object sender, <a class="el" href="class_bachelor_lib_a_p_i_1_1_map_1_1_marker_remove_event_args.html">MarkerRemoveEventArgs</a> e)</td></tr>
+<tr class="memdesc:ade066ad506e50dd897c51188cea4be2e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Делегат, хранящий обработчики событий, отправляемого при удалении маркера с карты.  <a href="#ade066ad506e50dd897c51188cea4be2e">Подробнее...</a><br /></td></tr>
+<tr class="separator:ade066ad506e50dd897c51188cea4be2e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<h2 class="groupheader">Перечисления</h2>
+<a class="anchor" id="aa5681199648d8f4e92862aba7fe9d80e"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum <a class="el" href="namespace_bachelor_lib_a_p_i_1_1_map.html#aa5681199648d8f4e92862aba7fe9d80e">BachelorLibAPI.Map.MarkerType</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Тип маркера. Необходим для различения реакции на событие, отправляемое при удалении маркера с карты. </p>
+
+</div>
+</div>
+<h2 class="groupheader">Функции</h2>
+<a class="anchor" id="ade066ad506e50dd897c51188cea4be2e"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">delegate void BachelorLibAPI.Map.MarkerRemovedEventHandler </td>
+          <td>(</td>
+          <td class="paramtype">object&#160;</td>
+          <td class="paramname"><em>sender</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="class_bachelor_lib_a_p_i_1_1_map_1_1_marker_remove_event_args.html">MarkerRemoveEventArgs</a>&#160;</td>
+          <td class="paramname"><em>e</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Делегат, хранящий обработчики событий, отправляемого при удалении маркера с карты. </p>
+<dl class="params"><dt>Аргументы</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">sender</td><td>Объект-отправитель.</td></tr>
+    <tr><td class="paramname">e</td><td>Аргументы события.</td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Документация по АИС контроля перемещения ТС, перевозящих АХО грузы, в случае ЧП. Последние изменения: Вс 17 Май 2015 22:41:42. Создано системой &#160;<a href="http://www.doxygen.org/index.html">
+Документация по АИС контроля перемещения ТС, перевозящих АХО грузы, в случае ЧП. Последние изменения: Пн 25 Май 2015 02:51:45. Создано системой &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.9.1
 </small></address>

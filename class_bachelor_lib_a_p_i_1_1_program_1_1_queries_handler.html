@@ -72,74 +72,65 @@
 <tr class="memitem:a87802637e84e56c7770a80c7413c27ec"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_bachelor_lib_a_p_i_1_1_program_1_1_queries_handler.html#a87802637e84e56c7770a80c7413c27ec">QueriesHandler</a> (<a class="el" href="interface_bachelor_lib_a_p_i_1_1_data_1_1_i_data_handler.html">IDataHandler</a> dh, <a class="el" href="interface_bachelor_lib_a_p_i_1_1_map_1_1_i_map.html">IMap</a> m)</td></tr>
 <tr class="memdesc:a87802637e84e56c7770a80c7413c27ec"><td class="mdescLeft">&#160;</td><td class="mdescRight">Конструктор  <a href="#a87802637e84e56c7770a80c7413c27ec">Подробнее...</a><br /></td></tr>
 <tr class="separator:a87802637e84e56c7770a80c7413c27ec"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2a5f4763051c4520113c0352fb6698a3"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a2a5f4763051c4520113c0352fb6698a3"></a>
-List&lt; string &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>GetGrzList</b> ()</td></tr>
+<tr class="memitem:a2a5f4763051c4520113c0352fb6698a3"><td class="memItemLeft" align="right" valign="top">List&lt; string &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_bachelor_lib_a_p_i_1_1_program_1_1_queries_handler.html#a2a5f4763051c4520113c0352fb6698a3">GetGrzList</a> ()</td></tr>
+<tr class="memdesc:a2a5f4763051c4520113c0352fb6698a3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Метод позволяет получить полный список зарегистрированных в базе ГРЗ  <a href="#a2a5f4763051c4520113c0352fb6698a3">Подробнее...</a><br /></td></tr>
 <tr class="separator:a2a5f4763051c4520113c0352fb6698a3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a611a6f7cf99214c7536f5fb48cbe33a6"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a611a6f7cf99214c7536f5fb48cbe33a6"></a>
-string&#160;</td><td class="memItemRight" valign="bottom"><b>GetCarInfo</b> (string grz)</td></tr>
+<tr class="memitem:a611a6f7cf99214c7536f5fb48cbe33a6"><td class="memItemLeft" align="right" valign="top">string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_bachelor_lib_a_p_i_1_1_program_1_1_queries_handler.html#a611a6f7cf99214c7536f5fb48cbe33a6">GetCarInfo</a> (string grz)</td></tr>
+<tr class="memdesc:a611a6f7cf99214c7536f5fb48cbe33a6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Метод позволяет получить информацию об автомобиле  <a href="#a611a6f7cf99214c7536f5fb48cbe33a6">Подробнее...</a><br /></td></tr>
 <tr class="separator:a611a6f7cf99214c7536f5fb48cbe33a6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a14b0eb72b97d1522ca3f4109d65aa02b"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a14b0eb72b97d1522ca3f4109d65aa02b"></a>
-<a class="el" href="struct_bachelor_lib_a_p_i_1_1_program_1_1_transit_info.html">TransitInfo</a>&#160;</td><td class="memItemRight" valign="bottom"><b>GetTransitInfo</b> (int id)</td></tr>
-<tr class="separator:a14b0eb72b97d1522ca3f4109d65aa02b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abb3e975f0959f4381bd1385dce8bcf2a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_bachelor_lib_a_p_i_1_1_program_1_1_queries_handler.html#abb3e975f0959f4381bd1385dce8bcf2a">PutMchsPointsFromDbToMap</a> ()</td></tr>
+<tr class="memdesc:abb3e975f0959f4381bd1385dce8bcf2a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Метод получает из базы информацию о пунктах реагирования МЧС, сохраняет данные об имеющемся количестве обезвреживающего вещества и ресурсах для устранения последствий и инициирует обработчику карты отметить доступные пункты маркерами на карте.  <a href="#abb3e975f0959f4381bd1385dce8bcf2a">Подробнее...</a><br /></td></tr>
+<tr class="separator:abb3e975f0959f4381bd1385dce8bcf2a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a186f6b51efec54be265e1963fb47a807"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_bachelor_lib_a_p_i_1_1_program_1_1_queries_handler.html#a186f6b51efec54be265e1963fb47a807">PutTransitsFromDbToMap</a> ()</td></tr>
-<tr class="memdesc:a186f6b51efec54be265e1963fb47a807"><td class="mdescLeft">&#160;</td><td class="mdescRight">При начальной загрузке программы в фоновом режиме (пользователь может работать в это время) Запрашивает данные из базы о зарегистрированных перевозках и отдаёт в нужном карте формате для расстановки маркеров.  <a href="#a186f6b51efec54be265e1963fb47a807">Подробнее...</a><br /></td></tr>
+<tr class="memdesc:a186f6b51efec54be265e1963fb47a807"><td class="mdescLeft">&#160;</td><td class="mdescRight">При начальной загрузке программы в фоновом режиме (пользователь может работать в это время) запрашивает данные из базы о зарегистрированных перевозках и отдаёт в нужном карте формате для расстановки маркеров.  <a href="#a186f6b51efec54be265e1963fb47a807">Подробнее...</a><br /></td></tr>
 <tr class="separator:a186f6b51efec54be265e1963fb47a807"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8dc8aed7687d049b18b7f4b8509f94d6"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_bachelor_lib_a_p_i_1_1_program_1_1_queries_handler.html#a8dc8aed7687d049b18b7f4b8509f94d6">AddNewWaybill</a> (string driverName, string driverNum, string grz, string consName, double consCapacity, DateTime start, string from, string to)</td></tr>
-<tr class="memdesc:a8dc8aed7687d049b18b7f4b8509f94d6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Добавление нового путевого листа Не производится добавление водителя! Если водитель ранее не был зарегистрирован в базе, необходимо зарегистрировать его, воспользовавшись формой добавления водителя. Удаляются все стадии предыдущих перевозок, зарегистрированных на этого водителя, но сами перевозки не отмечаются, как завершённые. Для этого необходимо воспользоваться специально предназначенной для этого формой.  <a href="#a8dc8aed7687d049b18b7f4b8509f94d6">Подробнее...</a><br /></td></tr>
-<tr class="separator:a8dc8aed7687d049b18b7f4b8509f94d6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a97813c67ace870bc73adbba564c32138"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a97813c67ace870bc73adbba564c32138"></a>
-bool&#160;</td><td class="memItemRight" valign="bottom"><b>CheckAdress</b> (string adress)</td></tr>
+<tr class="memitem:ab04d6801ac9cbcb5908a13d86f411761"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_bachelor_lib_a_p_i_1_1_program_1_1_queries_handler.html#ab04d6801ac9cbcb5908a13d86f411761">AddNewWaybill</a> (string driverName, string driverNum, string grz, string consName, double consCapacity, DateTime start)</td></tr>
+<tr class="memdesc:ab04d6801ac9cbcb5908a13d86f411761"><td class="mdescLeft">&#160;</td><td class="mdescRight">Метод регистрации новой перевозки. Предполагается, что при начале работы метода уже инициировано или завершено построение пути. Если пара водитель/номер телефона отсутствует в базе, производится добавление. Если а базе не зарегистрирован автомобиль с таким номерным знаком, возвращается исключение с соответствующим сообщением.  <a href="#ab04d6801ac9cbcb5908a13d86f411761">Подробнее...</a><br /></td></tr>
+<tr class="separator:ab04d6801ac9cbcb5908a13d86f411761"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a97813c67ace870bc73adbba564c32138"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_bachelor_lib_a_p_i_1_1_program_1_1_queries_handler.html#a97813c67ace870bc73adbba564c32138">CheckAdress</a> (string adress)</td></tr>
+<tr class="memdesc:a97813c67ace870bc73adbba564c32138"><td class="mdescLeft">&#160;</td><td class="mdescRight">Проверка, есть ли на карте точка, которой соответствует адрес.  <a href="#a97813c67ace870bc73adbba564c32138">Подробнее...</a><br /></td></tr>
 <tr class="separator:a97813c67ace870bc73adbba564c32138"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7b51627510a6221e14fdf3c085c05e9a"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a7b51627510a6221e14fdf3c085c05e9a"></a>
-string&#160;</td><td class="memItemRight" valign="bottom"><b>GetCorrectAdress</b> (string adress)</td></tr>
+<tr class="memitem:a7b51627510a6221e14fdf3c085c05e9a"><td class="memItemLeft" align="right" valign="top">string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_bachelor_lib_a_p_i_1_1_program_1_1_queries_handler.html#a7b51627510a6221e14fdf3c085c05e9a">GetCorrectAdress</a> (string adress)</td></tr>
+<tr class="memdesc:a7b51627510a6221e14fdf3c085c05e9a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Метод для получения полного адреса географиеского местоположения по одному/нескольким набором ключевых слов.  <a href="#a7b51627510a6221e14fdf3c085c05e9a">Подробнее...</a><br /></td></tr>
 <tr class="separator:a7b51627510a6221e14fdf3c085c05e9a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6b1b551f59e8d0534005d6ad32184080"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a6b1b551f59e8d0534005d6ad32184080"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>SetStartPoint</b> (string adress)</td></tr>
+<tr class="memitem:a6b1b551f59e8d0534005d6ad32184080"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_bachelor_lib_a_p_i_1_1_program_1_1_queries_handler.html#a6b1b551f59e8d0534005d6ad32184080">SetStartPoint</a> (string adress)</td></tr>
+<tr class="memdesc:a6b1b551f59e8d0534005d6ad32184080"><td class="mdescLeft">&#160;</td><td class="mdescRight">Устанавливает на карте флажок, отражающий начальную точку маршрута.  <a href="#a6b1b551f59e8d0534005d6ad32184080">Подробнее...</a><br /></td></tr>
 <tr class="separator:a6b1b551f59e8d0534005d6ad32184080"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7e071d88d6fccefad4351d979b6ad532"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a7e071d88d6fccefad4351d979b6ad532"></a>
-string&#160;</td><td class="memItemRight" valign="bottom"><b>GetStartPoint</b> ()</td></tr>
+<tr class="memitem:a7e071d88d6fccefad4351d979b6ad532"><td class="memItemLeft" align="right" valign="top">string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_bachelor_lib_a_p_i_1_1_program_1_1_queries_handler.html#a7e071d88d6fccefad4351d979b6ad532">GetStartPoint</a> ()</td></tr>
+<tr class="memdesc:a7e071d88d6fccefad4351d979b6ad532"><td class="mdescLeft">&#160;</td><td class="mdescRight">Получает адрес начальной точки моршрута.  <a href="#a7e071d88d6fccefad4351d979b6ad532">Подробнее...</a><br /></td></tr>
 <tr class="separator:a7e071d88d6fccefad4351d979b6ad532"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1cd869c641b5ead476e2bf5c52fddabb"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a1cd869c641b5ead476e2bf5c52fddabb"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>SetMiddlePoint</b> (string adress)</td></tr>
+<tr class="memitem:a1cd869c641b5ead476e2bf5c52fddabb"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_bachelor_lib_a_p_i_1_1_program_1_1_queries_handler.html#a1cd869c641b5ead476e2bf5c52fddabb">SetMiddlePoint</a> (string adress)</td></tr>
+<tr class="memdesc:a1cd869c641b5ead476e2bf5c52fddabb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Устанавливает промежуточную точку маршрута.  <a href="#a1cd869c641b5ead476e2bf5c52fddabb">Подробнее...</a><br /></td></tr>
 <tr class="separator:a1cd869c641b5ead476e2bf5c52fddabb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa004be6452aead609d180501660c731f"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aa004be6452aead609d180501660c731f"></a>
-bool&#160;</td><td class="memItemRight" valign="bottom"><b>HasMiddlePoints</b> ()</td></tr>
+<tr class="memitem:aa004be6452aead609d180501660c731f"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_bachelor_lib_a_p_i_1_1_program_1_1_queries_handler.html#aa004be6452aead609d180501660c731f">HasMiddlePoints</a> ()</td></tr>
+<tr class="memdesc:aa004be6452aead609d180501660c731f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Определяет, были ли в маршруте введены промежуточные точки.  <a href="#aa004be6452aead609d180501660c731f">Подробнее...</a><br /></td></tr>
 <tr class="separator:aa004be6452aead609d180501660c731f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af84c31f2b349b70a2003254aa845cd8e"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="af84c31f2b349b70a2003254aa845cd8e"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>SetEndPoint</b> (string adress)</td></tr>
+<tr class="memitem:af84c31f2b349b70a2003254aa845cd8e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_bachelor_lib_a_p_i_1_1_program_1_1_queries_handler.html#af84c31f2b349b70a2003254aa845cd8e">SetEndPoint</a> (string adress)</td></tr>
+<tr class="memdesc:af84c31f2b349b70a2003254aa845cd8e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Устанавливает конечную точку маршрута.  <a href="#af84c31f2b349b70a2003254aa845cd8e">Подробнее...</a><br /></td></tr>
 <tr class="separator:af84c31f2b349b70a2003254aa845cd8e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a166840b7494a36b04f20164b650e51d8"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a166840b7494a36b04f20164b650e51d8"></a>
-bool&#160;</td><td class="memItemRight" valign="bottom"><b>CheckBeforeAdding</b> ()</td></tr>
+<tr class="memitem:a166840b7494a36b04f20164b650e51d8"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_bachelor_lib_a_p_i_1_1_program_1_1_queries_handler.html#a166840b7494a36b04f20164b650e51d8">CheckBeforeAdding</a> ()</td></tr>
+<tr class="memdesc:a166840b7494a36b04f20164b650e51d8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Демонстрирует пользователю построенные маршру со всеми промежуточными точками. Предоставляет возможность внести необходимые поправки перед добавлением перевозки.  <a href="#a166840b7494a36b04f20164b650e51d8">Подробнее...</a><br /></td></tr>
 <tr class="separator:a166840b7494a36b04f20164b650e51d8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac88d6b6a2950fa47ffac6bbc977b950a"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ac88d6b6a2950fa47ffac6bbc977b950a"></a>
-string&#160;</td><td class="memItemRight" valign="bottom"><b>GetEndPoint</b> ()</td></tr>
+<tr class="memitem:ac88d6b6a2950fa47ffac6bbc977b950a"><td class="memItemLeft" align="right" valign="top">string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_bachelor_lib_a_p_i_1_1_program_1_1_queries_handler.html#ac88d6b6a2950fa47ffac6bbc977b950a">GetEndPoint</a> ()</td></tr>
+<tr class="memdesc:ac88d6b6a2950fa47ffac6bbc977b950a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Получает адрес конечной точки маршрута.  <a href="#ac88d6b6a2950fa47ffac6bbc977b950a">Подробнее...</a><br /></td></tr>
 <tr class="separator:ac88d6b6a2950fa47ffac6bbc977b950a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8168111b66c91738421f876cc6daaa23"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a8168111b66c91738421f876cc6daaa23"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>ConstructShortTrack</b> ()</td></tr>
+<tr class="memitem:a8168111b66c91738421f876cc6daaa23"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_bachelor_lib_a_p_i_1_1_program_1_1_queries_handler.html#a8168111b66c91738421f876cc6daaa23">ConstructShortTrack</a> ()</td></tr>
+<tr class="memdesc:a8168111b66c91738421f876cc6daaa23"><td class="mdescLeft">&#160;</td><td class="mdescRight">При введенном минимуме необходимой для построения маршрута информации метод расчитывает промежуточные стадии маршрута. При этом необходимо быть готовым отменить текущий расчёт и начать новый, а также предоставить пользователю возможность дополнять или изменять маршрут. Поэтому действия по конструированию промежуточных стадий должны выполняться параллельно работе пользователя с графической оболочкой.  <a href="#a8168111b66c91738421f876cc6daaa23">Подробнее...</a><br /></td></tr>
 <tr class="separator:a8168111b66c91738421f876cc6daaa23"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a39af3645d46badf4f1286599052f57c3"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_bachelor_lib_a_p_i_1_1_program_1_1_queries_handler.html#a39af3645d46badf4f1286599052f57c3">AnalyseDanger</a> (DateTime targetTime, <a class="el" href="struct_bachelor_lib_a_p_i_1_1_program_1_1_full_point_description.html">FullPointDescription</a> place)</td></tr>
-<tr class="memdesc:a39af3645d46badf4f1286599052f57c3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Анализ опасности. Производится выборка по по промежутку времени по каждой перевозке. Точка ищется в радиусе километра, поправка времени - TimeCorrection  <a href="#a39af3645d46badf4f1286599052f57c3">Подробнее...</a><br /></td></tr>
-<tr class="separator:a39af3645d46badf4f1286599052f57c3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1eb5ff39818cfda485d44ed40b33b705"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a1eb5ff39818cfda485d44ed40b33b705"></a>
-List&lt; string &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>GetNamesByNumber</b> (string contact)</td></tr>
-<tr class="separator:a1eb5ff39818cfda485d44ed40b33b705"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa70b43a39fa547978887f7f3a31f9dc7"><td class="memItemLeft" align="right" valign="top">IEnumerable&lt; string &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_bachelor_lib_a_p_i_1_1_program_1_1_queries_handler.html#aa70b43a39fa547978887f7f3a31f9dc7">GetDriversFullNames</a> ()</td></tr>
-<tr class="memdesc:aa70b43a39fa547978887f7f3a31f9dc7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Получить полный список ФИО всех водителей  <a href="#aa70b43a39fa547978887f7f3a31f9dc7">Подробнее...</a><br /></td></tr>
-<tr class="separator:aa70b43a39fa547978887f7f3a31f9dc7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aef132c9f82399dd3711d9bcc2bab0919"><td class="memItemLeft" align="right" valign="top">List&lt; string &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_bachelor_lib_a_p_i_1_1_program_1_1_queries_handler.html#aef132c9f82399dd3711d9bcc2bab0919">GetNumbers</a> ()</td></tr>
-<tr class="memdesc:aef132c9f82399dd3711d9bcc2bab0919"><td class="mdescLeft">&#160;</td><td class="mdescRight">получить полный список всех имеющихся в базе контактных номеров  <a href="#aef132c9f82399dd3711d9bcc2bab0919">Подробнее...</a><br /></td></tr>
-<tr class="separator:aef132c9f82399dd3711d9bcc2bab0919"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1876893c23c65697197f38f4092f1fd4"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_bachelor_lib_a_p_i_1_1_program_1_1_queries_handler.html#a1876893c23c65697197f38f4092f1fd4">HasPhoneNumber</a> (string num)</td></tr>
-<tr class="memdesc:a1876893c23c65697197f38f4092f1fd4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Узнать, зарегистрирован ли на кого-либо номер  <a href="#a1876893c23c65697197f38f4092f1fd4">Подробнее...</a><br /></td></tr>
-<tr class="separator:a1876893c23c65697197f38f4092f1fd4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a784f055e033488a2f52417fb4b537e67"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a784f055e033488a2f52417fb4b537e67"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>SetCurrentPointOfView</b> (double x, double y)</td></tr>
+<tr class="memitem:a52a6f0854c63445be11f524de9283128"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_bachelor_lib_a_p_i_1_1_program_1_1_queries_handler.html#a52a6f0854c63445be11f524de9283128">AnalyseDanger</a> (DateTime targetTime, <a class="el" href="struct_bachelor_lib_a_p_i_1_1_program_1_1_full_point_description.html">FullPointDescription</a> place, double windDirection)</td></tr>
+<tr class="memdesc:a52a6f0854c63445be11f524de9283128"><td class="mdescLeft">&#160;</td><td class="mdescRight">Анализ опасности. Производится выборка по промежутку времени по каждой перевозке. Точка ищется в радиусе KmCorrection, поправка времени - TimeCorrection.  <a href="#a52a6f0854c63445be11f524de9283128">Подробнее...</a><br /></td></tr>
+<tr class="separator:a52a6f0854c63445be11f524de9283128"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a02f5cbed0bbcc1c248f1c9b865f18559"><td class="memItemLeft" align="right" valign="top">IEnumerable&lt; string &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_bachelor_lib_a_p_i_1_1_program_1_1_queries_handler.html#a02f5cbed0bbcc1c248f1c9b865f18559">GetNamesByNumber</a> (string contact)</td></tr>
+<tr class="memdesc:a02f5cbed0bbcc1c248f1c9b865f18559"><td class="mdescLeft">&#160;</td><td class="mdescRight">Получает список имён водителей, которые были зарегистрированы на данный номер.  <a href="#a02f5cbed0bbcc1c248f1c9b865f18559">Подробнее...</a><br /></td></tr>
+<tr class="separator:a02f5cbed0bbcc1c248f1c9b865f18559"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a784f055e033488a2f52417fb4b537e67"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_bachelor_lib_a_p_i_1_1_program_1_1_queries_handler.html#a784f055e033488a2f52417fb4b537e67">SetCurrentPointOfView</a> (double x, double y)</td></tr>
+<tr class="memdesc:a784f055e033488a2f52417fb4b537e67"><td class="mdescLeft">&#160;</td><td class="mdescRight">Устанавливает карту в необходимую позицию и масштабирует изображение относительно данной позиции.  <a href="#a784f055e033488a2f52417fb4b537e67">Подробнее...</a><br /></td></tr>
 <tr class="separator:a784f055e033488a2f52417fb4b537e67"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
 Открытые статические члены</h2></td></tr>
-<tr class="memitem:ac482ec305f0a1a5029401a33e4e0f6a4"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ac482ec305f0a1a5029401a33e4e0f6a4"></a>
-static List&lt; string &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>GetConsignmentsNames</b> ()</td></tr>
+<tr class="memitem:ac482ec305f0a1a5029401a33e4e0f6a4"><td class="memItemLeft" align="right" valign="top">static List&lt; string &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_bachelor_lib_a_p_i_1_1_program_1_1_queries_handler.html#ac482ec305f0a1a5029401a33e4e0f6a4">GetConsignmentsNames</a> ()</td></tr>
+<tr class="memdesc:ac482ec305f0a1a5029401a33e4e0f6a4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Метод позволяет получить полный перечень опасных химических грузов, поддерживаемых программой.  <a href="#ac482ec305f0a1a5029401a33e4e0f6a4">Подробнее...</a><br /></td></tr>
 <tr class="separator:ac482ec305f0a1a5029401a33e4e0f6a4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac38f480ae3e0fe556e56b35490050aa5"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_bachelor_lib_a_p_i_1_1_program_1_1_queries_handler.html#ac38f480ae3e0fe556e56b35490050aa5">DeleteTransitStadiesOlderThenYesterday</a> ()</td></tr>
 <tr class="memdesc:ac38f480ae3e0fe556e56b35490050aa5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Удалить все стадии перевозок, зарегистрированные ранее заданного времени  <a href="#ac38f480ae3e0fe556e56b35490050aa5">Подробнее...</a><br /></td></tr>
@@ -147,14 +138,11 @@ static List&lt; string &gt;&#160;</td><td class="memItemRight" valign="bottom"><
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="properties"></a>
 Свойства</h2></td></tr>
-<tr class="memitem:a5db14b2a6009899c8aab194c8f6b0f83"><td class="memItemLeft" align="right" valign="top">ProgressBar&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_bachelor_lib_a_p_i_1_1_program_1_1_queries_handler.html#a5db14b2a6009899c8aab194c8f6b0f83">AnalyseProgress</a><code> [set]</code></td></tr>
-<tr class="memdesc:a5db14b2a6009899c8aab194c8f6b0f83"><td class="mdescLeft">&#160;</td><td class="mdescRight">Свойство устанавливает, какую полосу загрузки использовать при анализе  <a href="#a5db14b2a6009899c8aab194c8f6b0f83">Подробнее...</a><br /></td></tr>
-<tr class="separator:a5db14b2a6009899c8aab194c8f6b0f83"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af132518e428222edf2f1435ff9b1ba87"><td class="memItemLeft" align="right" valign="top"><a class="el" href="interface_bachelor_lib_a_p_i_1_1_data_1_1_i_data_handler.html">IDataHandler</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_bachelor_lib_a_p_i_1_1_program_1_1_queries_handler.html#af132518e428222edf2f1435ff9b1ba87">DataHandler</a><code> [get, set]</code></td></tr>
 <tr class="memdesc:af132518e428222edf2f1435ff9b1ba87"><td class="mdescLeft">&#160;</td><td class="mdescRight">Свойство устанавливает новую реализацию интерфейса IDataHandler и возвращает текущуюю  <a href="#af132518e428222edf2f1435ff9b1ba87">Подробнее...</a><br /></td></tr>
 <tr class="separator:af132518e428222edf2f1435ff9b1ba87"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:afee0d24b521cf2e5d5b237ba0d390add"><td class="memItemLeft" align="right" valign="top"><a class="el" href="interface_bachelor_lib_a_p_i_1_1_map_1_1_i_map.html">IMap</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_bachelor_lib_a_p_i_1_1_program_1_1_queries_handler.html#afee0d24b521cf2e5d5b237ba0d390add">Map</a><code> [get, set]</code></td></tr>
-<tr class="memdesc:afee0d24b521cf2e5d5b237ba0d390add"><td class="mdescLeft">&#160;</td><td class="mdescRight">Свойство устанавливает новую реализацию интерфейса IMap и возвращает текущуюю  <a href="#afee0d24b521cf2e5d5b237ba0d390add">Подробнее...</a><br /></td></tr>
+<tr class="memdesc:afee0d24b521cf2e5d5b237ba0d390add"><td class="mdescLeft">&#160;</td><td class="mdescRight">Свойство устанавливает новую реализацию интерфейса IMap и возвращает текущую  <a href="#afee0d24b521cf2e5d5b237ba0d390add">Подробнее...</a><br /></td></tr>
 <tr class="separator:afee0d24b521cf2e5d5b237ba0d390add"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Подробное описание</h2>
@@ -204,6 +192,90 @@ static List&lt; string &gt;&#160;</td><td class="memItemRight" valign="bottom"><
 </div>
 </div>
 <h2 class="groupheader">Методы</h2>
+<a class="anchor" id="ac482ec305f0a1a5029401a33e4e0f6a4"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static List&lt;string&gt; BachelorLibAPI.Program.QueriesHandler.GetConsignmentsNames </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Метод позволяет получить полный перечень опасных химических грузов, поддерживаемых программой. </p>
+
+<p>Перекрестные ссылки <a class="el" href="class_bachelor_lib_a_p_i_1_1_algorithms_1_1_ahov.html#a797a2fb3e30a5159afe15b1aa58d6fe0">BachelorLibAPI.Algorithms.Ahov.Coefficient</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a2a5f4763051c4520113c0352fb6698a3"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">List&lt;string&gt; BachelorLibAPI.Program.QueriesHandler.GetGrzList </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Метод позволяет получить полный список зарегистрированных в базе ГРЗ </p>
+
+</div>
+</div>
+<a class="anchor" id="a611a6f7cf99214c7536f5fb48cbe33a6"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">string BachelorLibAPI.Program.QueriesHandler.GetCarInfo </td>
+          <td>(</td>
+          <td class="paramtype">string&#160;</td>
+          <td class="paramname"><em>grz</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Метод позволяет получить информацию об автомобиле </p>
+<dl class="params"><dt>Аргументы</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">grz</td><td>Номер автомобиля</td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
 <a class="anchor" id="ac38f480ae3e0fe556e56b35490050aa5"></a>
 <div class="memitem">
 <div class="memproto">
@@ -229,6 +301,31 @@ static List&lt; string &gt;&#160;</td><td class="memItemRight" valign="bottom"><
 
 </div>
 </div>
+<a class="anchor" id="abb3e975f0959f4381bd1385dce8bcf2a"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void BachelorLibAPI.Program.QueriesHandler.PutMchsPointsFromDbToMap </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Метод получает из базы информацию о пунктах реагирования МЧС, сохраняет данные об имеющемся количестве обезвреживающего вещества и ресурсах для устранения последствий и инициирует обработчику карты отметить доступные пункты маркерами на карте. </p>
+
+</div>
+</div>
 <a class="anchor" id="a186f6b51efec54be265e1963fb47a807"></a>
 <div class="memitem">
 <div class="memproto">
@@ -250,11 +347,11 @@ static List&lt; string &gt;&#160;</td><td class="memItemRight" valign="bottom"><
 </table>
 </div><div class="memdoc">
 
-<p>При начальной загрузке программы в фоновом режиме (пользователь может работать в это время) Запрашивает данные из базы о зарегистрированных перевозках и отдаёт в нужном карте формате для расстановки маркеров. </p>
+<p>При начальной загрузке программы в фоновом режиме (пользователь может работать в это время) запрашивает данные из базы о зарегистрированных перевозках и отдаёт в нужном карте формате для расстановки маркеров. </p>
 
 </div>
 </div>
-<a class="anchor" id="a8dc8aed7687d049b18b7f4b8509f94d6"></a>
+<a class="anchor" id="ab04d6801ac9cbcb5908a13d86f411761"></a>
 <div class="memitem">
 <div class="memproto">
 <table class="mlabels">
@@ -295,19 +392,7 @@ static List&lt; string &gt;&#160;</td><td class="memItemRight" valign="bottom"><
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">DateTime&#160;</td>
-          <td class="paramname"><em>start</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">string&#160;</td>
-          <td class="paramname"><em>from</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">string&#160;</td>
-          <td class="paramname"><em>to</em>&#160;</td>
+          <td class="paramname"><em>start</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -322,17 +407,15 @@ static List&lt; string &gt;&#160;</td><td class="memItemRight" valign="bottom"><
 </table>
 </div><div class="memdoc">
 
-<p>Добавление нового путевого листа Не производится добавление водителя! Если водитель ранее не был зарегистрирован в базе, необходимо зарегистрировать его, воспользовавшись формой добавления водителя. Удаляются все стадии предыдущих перевозок, зарегистрированных на этого водителя, но сами перевозки не отмечаются, как завершённые. Для этого необходимо воспользоваться специально предназначенной для этого формой. </p>
+<p>Метод регистрации новой перевозки. Предполагается, что при начале работы метода уже инициировано или завершено построение пути. Если пара водитель/номер телефона отсутствует в базе, производится добавление. Если а базе не зарегистрирован автомобиль с таким номерным знаком, возвращается исключение с соответствующим сообщением. </p>
 <dl class="params"><dt>Аргументы</dt><dd>
   <table class="params">
-    <tr><td class="paramname">driverNum</td><td></td></tr>
-    <tr><td class="paramname">grz</td><td></td></tr>
-    <tr><td class="paramname">consName</td><td></td></tr>
-    <tr><td class="paramname">consCapacity</td><td></td></tr>
-    <tr><td class="paramname">start</td><td></td></tr>
-    <tr><td class="paramname">driverName</td><td></td></tr>
-    <tr><td class="paramname">from</td><td></td></tr>
-    <tr><td class="paramname">to</td><td></td></tr>
+    <tr><td class="paramname">driverName</td><td>Имя водителя</td></tr>
+    <tr><td class="paramname">driverNum</td><td>Телефон водителя</td></tr>
+    <tr><td class="paramname">grz</td><td>ГРЗ автомобиля</td></tr>
+    <tr><td class="paramname">consName</td><td>Наименование перевозимого АХОВ</td></tr>
+    <tr><td class="paramname">consCapacity</td><td>Количество перевозимого вещества в тоннах</td></tr>
+    <tr><td class="paramname">start</td><td>Время старта перевозки</td></tr>
   </table>
   </dd>
 </dl>
@@ -341,7 +424,289 @@ static List&lt; string &gt;&#160;</td><td class="memItemRight" valign="bottom"><
 
 </div>
 </div>
-<a class="anchor" id="a39af3645d46badf4f1286599052f57c3"></a>
+<a class="anchor" id="a97813c67ace870bc73adbba564c32138"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool BachelorLibAPI.Program.QueriesHandler.CheckAdress </td>
+          <td>(</td>
+          <td class="paramtype">string&#160;</td>
+          <td class="paramname"><em>adress</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Проверка, есть ли на карте точка, которой соответствует адрес. </p>
+<dl class="params"><dt>Аргументы</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">adress</td><td>Адрес для проверки.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Возвращает</dt><dd>Истина - адрес корректен, ложь - не удалось найти такой адрес.</dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a7b51627510a6221e14fdf3c085c05e9a"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">string BachelorLibAPI.Program.QueriesHandler.GetCorrectAdress </td>
+          <td>(</td>
+          <td class="paramtype">string&#160;</td>
+          <td class="paramname"><em>adress</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Метод для получения полного адреса географиеского местоположения по одному/нескольким набором ключевых слов. </p>
+<dl class="params"><dt>Аргументы</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">adress</td><td>Набор ключевых слов</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Возвращает</dt><dd>Полный адрес</dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a6b1b551f59e8d0534005d6ad32184080"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void BachelorLibAPI.Program.QueriesHandler.SetStartPoint </td>
+          <td>(</td>
+          <td class="paramtype">string&#160;</td>
+          <td class="paramname"><em>adress</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Устанавливает на карте флажок, отражающий начальную точку маршрута. </p>
+<dl class="params"><dt>Аргументы</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">adress</td><td>Адрес</td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a class="anchor" id="a7e071d88d6fccefad4351d979b6ad532"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">string BachelorLibAPI.Program.QueriesHandler.GetStartPoint </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Получает адрес начальной точки моршрута. </p>
+
+</div>
+</div>
+<a class="anchor" id="a1cd869c641b5ead476e2bf5c52fddabb"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void BachelorLibAPI.Program.QueriesHandler.SetMiddlePoint </td>
+          <td>(</td>
+          <td class="paramtype">string&#160;</td>
+          <td class="paramname"><em>adress</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Устанавливает промежуточную точку маршрута. </p>
+<dl class="params"><dt>Аргументы</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">adress</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a class="anchor" id="aa004be6452aead609d180501660c731f"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool BachelorLibAPI.Program.QueriesHandler.HasMiddlePoints </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Определяет, были ли в маршруте введены промежуточные точки. </p>
+<dl class="section return"><dt>Возвращает</dt><dd></dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="af84c31f2b349b70a2003254aa845cd8e"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void BachelorLibAPI.Program.QueriesHandler.SetEndPoint </td>
+          <td>(</td>
+          <td class="paramtype">string&#160;</td>
+          <td class="paramname"><em>adress</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Устанавливает конечную точку маршрута. </p>
+
+</div>
+</div>
+<a class="anchor" id="a166840b7494a36b04f20164b650e51d8"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool BachelorLibAPI.Program.QueriesHandler.CheckBeforeAdding </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Демонстрирует пользователю построенные маршру со всеми промежуточными точками. Предоставляет возможность внести необходимые поправки перед добавлением перевозки. </p>
+
+</div>
+</div>
+<a class="anchor" id="ac88d6b6a2950fa47ffac6bbc977b950a"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">string BachelorLibAPI.Program.QueriesHandler.GetEndPoint </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Получает адрес конечной точки маршрута. </p>
+
+</div>
+</div>
+<a class="anchor" id="a8168111b66c91738421f876cc6daaa23"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void BachelorLibAPI.Program.QueriesHandler.ConstructShortTrack </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>При введенном минимуме необходимой для построения маршрута информации метод расчитывает промежуточные стадии маршрута. При этом необходимо быть готовым отменить текущий расчёт и начать новый, а также предоставить пользователю возможность дополнять или изменять маршрут. Поэтому действия по конструированию промежуточных стадий должны выполняться параллельно работе пользователя с графической оболочкой. </p>
+
+</div>
+</div>
+<a class="anchor" id="a52a6f0854c63445be11f524de9283128"></a>
 <div class="memitem">
 <div class="memproto">
 <table class="mlabels">
@@ -358,7 +723,13 @@ static List&lt; string &gt;&#160;</td><td class="memItemRight" valign="bottom"><
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype"><a class="el" href="struct_bachelor_lib_a_p_i_1_1_program_1_1_full_point_description.html">FullPointDescription</a>&#160;</td>
-          <td class="paramname"><em>place</em>&#160;</td>
+          <td class="paramname"><em>place</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double&#160;</td>
+          <td class="paramname"><em>windDirection</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -373,18 +744,21 @@ static List&lt; string &gt;&#160;</td><td class="memItemRight" valign="bottom"><
 </table>
 </div><div class="memdoc">
 
-<p>Анализ опасности. Производится выборка по по промежутку времени по каждой перевозке. Точка ищется в радиусе километра, поправка времени - TimeCorrection </p>
+<p>Анализ опасности. Производится выборка по промежутку времени по каждой перевозке. Точка ищется в радиусе KmCorrection, поправка времени - TimeCorrection. </p>
 <dl class="params"><dt>Аргументы</dt><dd>
   <table class="params">
-    <tr><td class="paramname">targetTime</td><td>Начало временного интервала</td></tr>
-    <tr><td class="paramname">place</td><td>Место аварии</td></tr>
+    <tr><td class="paramname">targetTime</td><td>Начало временного интервала.</td></tr>
+    <tr><td class="paramname">place</td><td>Место аварии.</td></tr>
+    <tr><td class="paramname">windDirection</td><td>Направление ветра.</td></tr>
   </table>
   </dd>
 </dl>
 
+<p>Перекрестные ссылки <a class="el" href="class_bachelor_lib_a_p_i_1_1_properties_1_1_resources.html#ad89af252b0236bdfcdd8282826660f10">BachelorLibAPI.Properties.Resources.DateTimeFormat</a>.</p>
+
 </div>
 </div>
-<a class="anchor" id="aa70b43a39fa547978887f7f3a31f9dc7"></a>
+<a class="anchor" id="a02f5cbed0bbcc1c248f1c9b865f18559"></a>
 <div class="memitem">
 <div class="memproto">
 <table class="mlabels">
@@ -392,62 +766,10 @@ static List&lt; string &gt;&#160;</td><td class="memItemRight" valign="bottom"><
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">IEnumerable&lt;string&gt; BachelorLibAPI.Program.QueriesHandler.GetDriversFullNames </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Получить полный список ФИО всех водителей </p>
-<dl class="section return"><dt>Возвращает</dt><dd></dd></dl>
-
-</div>
-</div>
-<a class="anchor" id="aef132c9f82399dd3711d9bcc2bab0919"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">List&lt;string&gt; BachelorLibAPI.Program.QueriesHandler.GetNumbers </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>получить полный список всех имеющихся в базе контактных номеров </p>
-<dl class="section return"><dt>Возвращает</dt><dd></dd></dl>
-
-</div>
-</div>
-<a class="anchor" id="a1876893c23c65697197f38f4092f1fd4"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool BachelorLibAPI.Program.QueriesHandler.HasPhoneNumber </td>
+          <td class="memname">IEnumerable&lt;string&gt; BachelorLibAPI.Program.QueriesHandler.GetNamesByNumber </td>
           <td>(</td>
           <td class="paramtype">string&#160;</td>
-          <td class="paramname"><em>num</em></td><td>)</td>
+          <td class="paramname"><em>contact</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -458,40 +780,60 @@ static List&lt; string &gt;&#160;</td><td class="memItemRight" valign="bottom"><
 </table>
 </div><div class="memdoc">
 
-<p>Узнать, зарегистрирован ли на кого-либо номер </p>
+<p>Получает список имён водителей, которые были зарегистрированы на данный номер. </p>
 <dl class="params"><dt>Аргументы</dt><dd>
   <table class="params">
-    <tr><td class="paramname">num</td><td>Проверяемый номер</td></tr>
+    <tr><td class="paramname">contact</td><td>Номер телефона.</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Возвращает</dt><dd></dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a784f055e033488a2f52417fb4b537e67"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void BachelorLibAPI.Program.QueriesHandler.SetCurrentPointOfView </td>
+          <td>(</td>
+          <td class="paramtype">double&#160;</td>
+          <td class="paramname"><em>x</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double&#160;</td>
+          <td class="paramname"><em>y</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Устанавливает карту в необходимую позицию и масштабирует изображение относительно данной позиции. </p>
+<dl class="params"><dt>Аргументы</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">x</td><td>Широта</td></tr>
+    <tr><td class="paramname">y</td><td>Долгота</td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
 <h2 class="groupheader">Полный список свойств</h2>
-<a class="anchor" id="a5db14b2a6009899c8aab194c8f6b0f83"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">ProgressBar BachelorLibAPI.Program.QueriesHandler.AnalyseProgress</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">set</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Свойство устанавливает, какую полосу загрузки использовать при анализе </p>
-
-</div>
-</div>
 <a class="anchor" id="af132518e428222edf2f1435ff9b1ba87"></a>
 <div class="memitem">
 <div class="memproto">
@@ -532,7 +874,7 @@ static List&lt; string &gt;&#160;</td><td class="memItemRight" valign="bottom"><
 </table>
 </div><div class="memdoc">
 
-<p>Свойство устанавливает новую реализацию интерфейса IMap и возвращает текущуюю </p>
+<p>Свойство устанавливает новую реализацию интерфейса IMap и возвращает текущую </p>
 
 </div>
 </div>
@@ -542,7 +884,7 @@ static List&lt; string &gt;&#160;</td><td class="memItemRight" valign="bottom"><
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Документация по АИС контроля перемещения ТС, перевозящих АХО грузы, в случае ЧП. Последние изменения: Вс 17 Май 2015 22:41:43. Создано системой &#160;<a href="http://www.doxygen.org/index.html">
+Документация по АИС контроля перемещения ТС, перевозящих АХО грузы, в случае ЧП. Последние изменения: Пн 25 Май 2015 02:51:46. Создано системой &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.9.1
 </small></address>

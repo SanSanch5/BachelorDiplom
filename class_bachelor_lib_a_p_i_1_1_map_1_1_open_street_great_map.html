@@ -61,14 +61,14 @@
 <div class="dyncontent">
 <div class="center"><img src="class_bachelor_lib_a_p_i_1_1_map_1_1_open_street_great_map__inherit__graph.png" border="0" usemap="#_bachelor_lib_a_p_i_8_map_8_open_street_great_map_inherit__map" alt="Inheritance graph"/></div>
 <map name="_bachelor_lib_a_p_i_8_map_8_open_street_great_map_inherit__map" id="_bachelor_lib_a_p_i_8_map_8_open_street_great_map_inherit__map">
-<area shape="rect" id="node2" href="interface_bachelor_lib_a_p_i_1_1_map_1_1_i_map.html" title="Интерфейс для карты. Классы&#45;реализации должны предоставлять пользователю структуру карты..." alt="" coords="27,5,194,391"/></map>
+<area shape="rect" id="node2" href="interface_bachelor_lib_a_p_i_1_1_map_1_1_i_map.html" title="Интерфейс для карты. Классы&#45;реализации должны предоставлять пользователю структуру карты..." alt="" coords="5,5,172,435"/></map>
 </div>
 <div class="dynheader">
 Граф связей класса BachelorLibAPI.Map.OpenStreetGreatMap:</div>
 <div class="dyncontent">
 <div class="center"><img src="class_bachelor_lib_a_p_i_1_1_map_1_1_open_street_great_map__coll__graph.png" border="0" usemap="#_bachelor_lib_a_p_i_8_map_8_open_street_great_map_coll__map" alt="Collaboration graph"/></div>
 <map name="_bachelor_lib_a_p_i_8_map_8_open_street_great_map_coll__map" id="_bachelor_lib_a_p_i_8_map_8_open_street_great_map_coll__map">
-<area shape="rect" id="node2" href="interface_bachelor_lib_a_p_i_1_1_map_1_1_i_map.html" title="Интерфейс для карты. Классы&#45;реализации должны предоставлять пользователю структуру карты..." alt="" coords="27,5,194,391"/></map>
+<area shape="rect" id="node2" href="interface_bachelor_lib_a_p_i_1_1_map_1_1_i_map.html" title="Интерфейс для карты. Классы&#45;реализации должны предоставлять пользователю структуру карты..." alt="" coords="5,5,172,435"/></map>
 </div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
@@ -76,8 +76,8 @@
 <tr class="memitem:a23368190795c50092b095d4f7613e602"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a23368190795c50092b095d4f7613e602"></a>
 &#160;</td><td class="memItemRight" valign="bottom"><b>OpenStreetGreatMap</b> (ref GMapControl gmap)</td></tr>
 <tr class="separator:a23368190795c50092b095d4f7613e602"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6193d09b87953768191ac3ece0f56902"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a6193d09b87953768191ac3ece0f56902"></a>
-bool&#160;</td><td class="memItemRight" valign="bottom"><b>CheckAdress</b> (string adress)</td></tr>
+<tr class="memitem:a6193d09b87953768191ac3ece0f56902"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_bachelor_lib_a_p_i_1_1_map_1_1_open_street_great_map.html#a6193d09b87953768191ac3ece0f56902">CheckAdress</a> (string adress)</td></tr>
+<tr class="memdesc:a6193d09b87953768191ac3ece0f56902"><td class="mdescLeft">&#160;</td><td class="mdescRight">Проверяет, если ли географическая точка, соответствующая такому адресу.  <a href="#a6193d09b87953768191ac3ece0f56902">Подробнее...</a><br /></td></tr>
 <tr class="separator:a6193d09b87953768191ac3ece0f56902"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a33a5490370b99a287a311fdbb5d378e1"><td class="memItemLeft" align="right" valign="top">string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_bachelor_lib_a_p_i_1_1_map_1_1_open_street_great_map.html#a33a5490370b99a287a311fdbb5d378e1">GetCorrectAdress</a> (string adress)</td></tr>
 <tr class="memdesc:a33a5490370b99a287a311fdbb5d378e1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Использовать желательно после использования CheckAdress Иначе ловите исключение типа UnknownPlacemark  <a href="#a33a5490370b99a287a311fdbb5d378e1">Подробнее...</a><br /></td></tr>
@@ -85,41 +85,47 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>CheckAdress</b> (stri
 <tr class="memitem:a4e0b7c52f9560c246f412186aa5d3d08"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_bachelor_lib_a_p_i_1_1_map_1_1_open_street_great_map.html#a4e0b7c52f9560c246f412186aa5d3d08">AddTransitMarker</a> (<a class="el" href="struct_bachelor_lib_a_p_i_1_1_program_1_1_transit_info.html">TransitInfo</a> transit)</td></tr>
 <tr class="memdesc:a4e0b7c52f9560c246f412186aa5d3d08"><td class="mdescLeft">&#160;</td><td class="mdescRight">Заполняю данные о перевозки, которые будут в дальнейшем отображаться при наведении указателя на значок перевозки Если местоположение не удалось определить, то маркер будет добавле как только его текущее местоположение определится Перевозки, которые в стадии завершения (основываясь на моём приближении), отображаются чёрным "разгруженным" грузовиком Находящиеся в пути - жёлтым "загруженным"  <a href="#a4e0b7c52f9560c246f412186aa5d3d08">Подробнее...</a><br /></td></tr>
 <tr class="separator:a4e0b7c52f9560c246f412186aa5d3d08"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7c4b2f1ad12219b3f64db36a558752b2"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a7c4b2f1ad12219b3f64db36a558752b2"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>RemoveTransitMarker</b> (int transitId)</td></tr>
+<tr class="memitem:a6e52532cf062dc57aebef10e9646f868"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_bachelor_lib_a_p_i_1_1_map_1_1_open_street_great_map.html#a6e52532cf062dc57aebef10e9646f868">AddMchsMarker</a> (<a class="el" href="struct_bachelor_lib_a_p_i_1_1_program_1_1_mchs_point_info.html">MchsPointInfo</a> mchsPoint)</td></tr>
+<tr class="memdesc:a6e52532cf062dc57aebef10e9646f868"><td class="mdescLeft">&#160;</td><td class="mdescRight">Добавляет на карту маркер пункта реагирования.  <a href="#a6e52532cf062dc57aebef10e9646f868">Подробнее...</a><br /></td></tr>
+<tr class="separator:a6e52532cf062dc57aebef10e9646f868"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7c4b2f1ad12219b3f64db36a558752b2"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_bachelor_lib_a_p_i_1_1_map_1_1_open_street_great_map.html#a7c4b2f1ad12219b3f64db36a558752b2">RemoveTransitMarker</a> (int transitId)</td></tr>
+<tr class="memdesc:a7c4b2f1ad12219b3f64db36a558752b2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Удаляет с карты маркер перевозки.  <a href="#a7c4b2f1ad12219b3f64db36a558752b2">Подробнее...</a><br /></td></tr>
 <tr class="separator:a7c4b2f1ad12219b3f64db36a558752b2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a43d79c828f9506d2f9ae472bab120cd0"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a43d79c828f9506d2f9ae472bab120cd0"></a>
-string&#160;</td><td class="memItemRight" valign="bottom"><b>GetPlacemark</b> (int x, int y)</td></tr>
+<tr class="memitem:a43d79c828f9506d2f9ae472bab120cd0"><td class="memItemLeft" align="right" valign="top">string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_bachelor_lib_a_p_i_1_1_map_1_1_open_street_great_map.html#a43d79c828f9506d2f9ae472bab120cd0">GetPlacemark</a> (int x, int y)</td></tr>
+<tr class="memdesc:a43d79c828f9506d2f9ae472bab120cd0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Определяет адрес в точке, которую пользователь определил посредством клика по карте.  <a href="#a43d79c828f9506d2f9ae472bab120cd0">Подробнее...</a><br /></td></tr>
 <tr class="separator:a43d79c828f9506d2f9ae472bab120cd0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4d7acd60defce2f3c833df749d8d3765"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a4d7acd60defce2f3c833df749d8d3765"></a>
-Tuple&lt; double, double &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>GetLatLong</b> (int x, int y)</td></tr>
+<tr class="memitem:a4d7acd60defce2f3c833df749d8d3765"><td class="memItemLeft" align="right" valign="top">Tuple&lt; double, double &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_bachelor_lib_a_p_i_1_1_map_1_1_open_street_great_map.html#a4d7acd60defce2f3c833df749d8d3765">GetLatLong</a> (int x, int y)</td></tr>
+<tr class="memdesc:a4d7acd60defce2f3c833df749d8d3765"><td class="mdescLeft">&#160;</td><td class="mdescRight">Определяет точку типа широта/долгота, которую пользователь определил посредством клика по карте.  <a href="#a4d7acd60defce2f3c833df749d8d3765">Подробнее...</a><br /></td></tr>
 <tr class="separator:a4d7acd60defce2f3c833df749d8d3765"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a650172f863ad9ee24d29e7dea2deaddd"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a650172f863ad9ee24d29e7dea2deaddd"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>SetCurrentViewPoint</b> (PointLatLng pnt)</td></tr>
+<tr class="memitem:a6250c66440b1b834254d14298e387f1f"><td class="memItemLeft" align="right" valign="top">Tuple&lt; double, double &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_bachelor_lib_a_p_i_1_1_map_1_1_open_street_great_map.html#a6250c66440b1b834254d14298e387f1f">GetPoint</a> (string address)</td></tr>
+<tr class="memdesc:a6250c66440b1b834254d14298e387f1f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Определяет точку типа широта/долгота, которую пользователь определил посредством ввода адреса.  <a href="#a6250c66440b1b834254d14298e387f1f">Подробнее...</a><br /></td></tr>
+<tr class="separator:a6250c66440b1b834254d14298e387f1f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a650172f863ad9ee24d29e7dea2deaddd"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_bachelor_lib_a_p_i_1_1_map_1_1_open_street_great_map.html#a650172f863ad9ee24d29e7dea2deaddd">SetCurrentViewPoint</a> (PointLatLng pnt)</td></tr>
+<tr class="memdesc:a650172f863ad9ee24d29e7dea2deaddd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Устанавливает карту в такое положение, в котором точка pnt является центром карты.  <a href="#a650172f863ad9ee24d29e7dea2deaddd">Подробнее...</a><br /></td></tr>
 <tr class="separator:a650172f863ad9ee24d29e7dea2deaddd"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a81fb5c2f6243b7d9f7ba599be1f69d80"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a81fb5c2f6243b7d9f7ba599be1f69d80"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>SetDanger</b> (int transitId, PointLatLng pnt)</td></tr>
-<tr class="separator:a81fb5c2f6243b7d9f7ba599be1f69d80"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aeca423496aecce29e015b0c343e28046"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aeca423496aecce29e015b0c343e28046"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>SetStartPoint</b> (PointLatLng start)</td></tr>
+<tr class="memitem:a8353ac761e009a766060639678a60b2f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_bachelor_lib_a_p_i_1_1_map_1_1_open_street_great_map.html#a8353ac761e009a766060639678a60b2f">AddCrashMarker</a> (<a class="el" href="struct_bachelor_lib_a_p_i_1_1_program_1_1_crash_info.html">CrashInfo</a> crashInfo)</td></tr>
+<tr class="memdesc:a8353ac761e009a766060639678a60b2f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Добавляет на карту маркер аварии.  <a href="#a8353ac761e009a766060639678a60b2f">Подробнее...</a><br /></td></tr>
+<tr class="separator:a8353ac761e009a766060639678a60b2f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aeca423496aecce29e015b0c343e28046"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_bachelor_lib_a_p_i_1_1_map_1_1_open_street_great_map.html#aeca423496aecce29e015b0c343e28046">SetStartPoint</a> (PointLatLng start)</td></tr>
+<tr class="memdesc:aeca423496aecce29e015b0c343e28046"><td class="mdescLeft">&#160;</td><td class="mdescRight">Устанавливает начальную точку маршрута.  <a href="#aeca423496aecce29e015b0c343e28046">Подробнее...</a><br /></td></tr>
 <tr class="separator:aeca423496aecce29e015b0c343e28046"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0e74c8278667811c58a5a0bca7681917"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a0e74c8278667811c58a5a0bca7681917"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>SetStartPoint</b> (string start)</td></tr>
+<tr class="memitem:a0e74c8278667811c58a5a0bca7681917"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_bachelor_lib_a_p_i_1_1_map_1_1_open_street_great_map.html#a0e74c8278667811c58a5a0bca7681917">SetStartPoint</a> (string start)</td></tr>
+<tr class="memdesc:a0e74c8278667811c58a5a0bca7681917"><td class="mdescLeft">&#160;</td><td class="mdescRight">Устанавливает начальную точку.  <a href="#a0e74c8278667811c58a5a0bca7681917">Подробнее...</a><br /></td></tr>
 <tr class="separator:a0e74c8278667811c58a5a0bca7681917"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad0e39d714f150711fc16968ffe8ca486"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ad0e39d714f150711fc16968ffe8ca486"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>SetMiddlePoint</b> (PointLatLng mid)</td></tr>
+<tr class="memitem:ad0e39d714f150711fc16968ffe8ca486"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_bachelor_lib_a_p_i_1_1_map_1_1_open_street_great_map.html#ad0e39d714f150711fc16968ffe8ca486">SetMiddlePoint</a> (PointLatLng mid)</td></tr>
+<tr class="memdesc:ad0e39d714f150711fc16968ffe8ca486"><td class="mdescLeft">&#160;</td><td class="mdescRight">Добавляет промежуточную точку.  <a href="#ad0e39d714f150711fc16968ffe8ca486">Подробнее...</a><br /></td></tr>
 <tr class="separator:ad0e39d714f150711fc16968ffe8ca486"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a85cba0924075a7e7972e1bb120a11300"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a85cba0924075a7e7972e1bb120a11300"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>SetMiddlePoint</b> (string mid)</td></tr>
+<tr class="memitem:a85cba0924075a7e7972e1bb120a11300"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_bachelor_lib_a_p_i_1_1_map_1_1_open_street_great_map.html#a85cba0924075a7e7972e1bb120a11300">SetMiddlePoint</a> (string mid)</td></tr>
+<tr class="memdesc:a85cba0924075a7e7972e1bb120a11300"><td class="mdescLeft">&#160;</td><td class="mdescRight">Устанавливает промежуточную точку.  <a href="#a85cba0924075a7e7972e1bb120a11300">Подробнее...</a><br /></td></tr>
 <tr class="separator:a85cba0924075a7e7972e1bb120a11300"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a81463688a970404ad3d61b1b05e0fa69"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a81463688a970404ad3d61b1b05e0fa69"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>SetEndPoint</b> (PointLatLng end)</td></tr>
+<tr class="memitem:a81463688a970404ad3d61b1b05e0fa69"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_bachelor_lib_a_p_i_1_1_map_1_1_open_street_great_map.html#a81463688a970404ad3d61b1b05e0fa69">SetEndPoint</a> (PointLatLng end)</td></tr>
+<tr class="memdesc:a81463688a970404ad3d61b1b05e0fa69"><td class="mdescLeft">&#160;</td><td class="mdescRight">Устанавливает конечную точку.  <a href="#a81463688a970404ad3d61b1b05e0fa69">Подробнее...</a><br /></td></tr>
 <tr class="separator:a81463688a970404ad3d61b1b05e0fa69"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8c57e685626ef3cab60d994ae787ca63"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a8c57e685626ef3cab60d994ae787ca63"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>SetEndPoint</b> (string end)</td></tr>
+<tr class="memitem:a8c57e685626ef3cab60d994ae787ca63"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_bachelor_lib_a_p_i_1_1_map_1_1_open_street_great_map.html#a8c57e685626ef3cab60d994ae787ca63">SetEndPoint</a> (string end)</td></tr>
+<tr class="memdesc:a8c57e685626ef3cab60d994ae787ca63"><td class="mdescLeft">&#160;</td><td class="mdescRight">Устанавливает конечную точку.  <a href="#a8c57e685626ef3cab60d994ae787ca63">Подробнее...</a><br /></td></tr>
 <tr class="separator:a8c57e685626ef3cab60d994ae787ca63"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1e38534cf344743d085bc5f0790f33d8"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a1e38534cf344743d085bc5f0790f33d8"></a>
-bool&#160;</td><td class="memItemRight" valign="bottom"><b>CheckBeforeAdding</b> ()</td></tr>
+<tr class="memitem:a1e38534cf344743d085bc5f0790f33d8"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_bachelor_lib_a_p_i_1_1_map_1_1_open_street_great_map.html#a1e38534cf344743d085bc5f0790f33d8">CheckBeforeAdding</a> ()</td></tr>
+<tr class="memdesc:a1e38534cf344743d085bc5f0790f33d8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Демонстрирует пользователю построенные маршру со всеми промежуточными точками. Предоставляет возможность внести необходимые поправки перед добавлением перевозки.  <a href="#a1e38534cf344743d085bc5f0790f33d8">Подробнее...</a><br /></td></tr>
 <tr class="separator:a1e38534cf344743d085bc5f0790f33d8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3e8505ab7a7f3c9c562c592da5acedd6"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_bachelor_lib_a_p_i_1_1_map_1_1_open_street_great_map.html#a3e8505ab7a7f3c9c562c592da5acedd6">ConstructShortTrack</a> ()</td></tr>
 <tr class="memdesc:a3e8505ab7a7f3c9c562c592da5acedd6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Собирает точки из подмаршрутов в один маршрут, инициирует фоновую задачу расчёта времени пребывания автомобиля в каждой промежуточной стадии стадии фиксируются в идеале через 1 минуту  <a href="#a3e8505ab7a7f3c9c562c592da5acedd6">Подробнее...</a><br /></td></tr>
@@ -127,11 +133,11 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>CheckBeforeAdding</b>
 <tr class="memitem:a62162a95fd4c58a16ab52dd3e7fb137d"><td class="memItemLeft" align="right" valign="top">List&lt; KeyValuePair&lt; PointLatLng, int &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_bachelor_lib_a_p_i_1_1_map_1_1_open_street_great_map.html#a62162a95fd4c58a16ab52dd3e7fb137d">GetShortTrack</a> ()</td></tr>
 <tr class="memdesc:a62162a95fd4c58a16ab52dd3e7fb137d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ключ записи словаря - положение промежуточной точки на карте, значение записи словаря - время поездки из пункта отправления  <a href="#a62162a95fd4c58a16ab52dd3e7fb137d">Подробнее...</a><br /></td></tr>
 <tr class="separator:a62162a95fd4c58a16ab52dd3e7fb137d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa3608642a88f0b02dcc2774b3e9d1f4c"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aa3608642a88f0b02dcc2774b3e9d1f4c"></a>
-string&#160;</td><td class="memItemRight" valign="bottom"><b>GetStartPoint</b> ()</td></tr>
+<tr class="memitem:aa3608642a88f0b02dcc2774b3e9d1f4c"><td class="memItemLeft" align="right" valign="top">string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_bachelor_lib_a_p_i_1_1_map_1_1_open_street_great_map.html#aa3608642a88f0b02dcc2774b3e9d1f4c">GetStartPoint</a> ()</td></tr>
+<tr class="memdesc:aa3608642a88f0b02dcc2774b3e9d1f4c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Получает начальную точку маршрута.  <a href="#aa3608642a88f0b02dcc2774b3e9d1f4c">Подробнее...</a><br /></td></tr>
 <tr class="separator:aa3608642a88f0b02dcc2774b3e9d1f4c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afbae6d601002abf102ad8a8adf31ed07"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="afbae6d601002abf102ad8a8adf31ed07"></a>
-string&#160;</td><td class="memItemRight" valign="bottom"><b>GetEndPoint</b> ()</td></tr>
+<tr class="memitem:afbae6d601002abf102ad8a8adf31ed07"><td class="memItemLeft" align="right" valign="top">string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_bachelor_lib_a_p_i_1_1_map_1_1_open_street_great_map.html#afbae6d601002abf102ad8a8adf31ed07">GetEndPoint</a> ()</td></tr>
+<tr class="memdesc:afbae6d601002abf102ad8a8adf31ed07"><td class="mdescLeft">&#160;</td><td class="mdescRight">Получает конечную точку.  <a href="#afbae6d601002abf102ad8a8adf31ed07">Подробнее...</a><br /></td></tr>
 <tr class="separator:afbae6d601002abf102ad8a8adf31ed07"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8b2c5320284b7f3f778b2dbcdf663f39"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a8b2c5320284b7f3f778b2dbcdf663f39"></a>
 bool&#160;</td><td class="memItemRight" valign="bottom"><b>HasMidPoints</b> ()</td></tr>
@@ -139,21 +145,55 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>HasMidPoints</b> ()</
 <tr class="memitem:ad83d284ec386d30012200d4c2a72a299"><td class="memItemLeft" align="right" valign="top">string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_bachelor_lib_a_p_i_1_1_map_1_1_open_street_great_map.html#ad83d284ec386d30012200d4c2a72a299">GetPlacemark</a> (PointLatLng pnt)</td></tr>
 <tr class="memdesc:ad83d284ec386d30012200d4c2a72a299"><td class="mdescLeft">&#160;</td><td class="mdescRight">Попытка получить адрес по длине/широте  <a href="#ad83d284ec386d30012200d4c2a72a299">Подробнее...</a><br /></td></tr>
 <tr class="separator:ad83d284ec386d30012200d4c2a72a299"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a14c072054e1afe6ae2078d70b4905c69"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_bachelor_lib_a_p_i_1_1_map_1_1_open_street_great_map.html#a14c072054e1afe6ae2078d70b4905c69">DrawDangerRegion</a> (<a class="el" href="struct_bachelor_lib_a_p_i_1_1_program_1_1_crash_info.html">CrashInfo</a> crashInfo)</td></tr>
-<tr class="memdesc:a14c072054e1afe6ae2078d70b4905c69"><td class="mdescLeft">&#160;</td><td class="mdescRight">Инициирует динамическое изменение полигона, отражающего состояние загрязнения со временем  <a href="#a14c072054e1afe6ae2078d70b4905c69">Подробнее...</a><br /></td></tr>
-<tr class="separator:a14c072054e1afe6ae2078d70b4905c69"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0af6fc117d734df6897eb4896b00d542"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_bachelor_lib_a_p_i_1_1_map_1_1_open_street_great_map.html#a0af6fc117d734df6897eb4896b00d542">GetDistanceBetween</a> (PointLatLng x, PointLatLng y)</td></tr>
+<tr class="memdesc:a0af6fc117d734df6897eb4896b00d542"><td class="mdescLeft">&#160;</td><td class="mdescRight">Находит расстояние между двумя точками типа широта/долгота.  <a href="#a0af6fc117d734df6897eb4896b00d542">Подробнее...</a><br /></td></tr>
+<tr class="separator:a0af6fc117d734df6897eb4896b00d542"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a59ecf044da00ee503b40c28e6fc2f6c6"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a59ecf044da00ee503b40c28e6fc2f6c6"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>ClearMchsStaffs</b> ()</td></tr>
+<tr class="separator:a59ecf044da00ee503b40c28e6fc2f6c6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad9a2dda2e779dbb2798138dae3c5d824"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ad9a2dda2e779dbb2798138dae3c5d824"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>Dispose</b> ()</td></tr>
+<tr class="separator:ad9a2dda2e779dbb2798138dae3c5d824"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="events"></a>
 События</h2></td></tr>
-<tr class="memitem:aed5a826112f8c6ba453d427ff4cc44b0"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aed5a826112f8c6ba453d427ff4cc44b0"></a>
-ThresholdReachedEventHandler&#160;</td><td class="memItemRight" valign="bottom"><b>TransitRemove</b> Удалить&quot;Приблизить&quot;</td></tr>
-<tr class="separator:aed5a826112f8c6ba453d427ff4cc44b0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a487e68777e78719943b6db26831c8da6"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a487e68777e78719943b6db26831c8da6"></a>
+<a class="el" href="namespace_bachelor_lib_a_p_i_1_1_map.html#ade066ad506e50dd897c51188cea4be2e">MarkerRemovedEventHandler</a>&#160;</td><td class="memItemRight" valign="bottom"><b>MarkerRemove</b> Удалить&quot;Приблизить&quot;</td></tr>
+<tr class="separator:a487e68777e78719943b6db26831c8da6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header events_interface_bachelor_lib_a_p_i_1_1_map_1_1_i_map"><td colspan="2" onclick="javascript:toggleInherit('events_interface_bachelor_lib_a_p_i_1_1_map_1_1_i_map')"><img src="closed.png" alt="-"/>&#160;События унаследованные от <a class="el" href="interface_bachelor_lib_a_p_i_1_1_map_1_1_i_map.html">BachelorLibAPI.Map.IMap</a></td></tr>
-<tr class="memitem:afb0ed5e204de8dad3fa107274594717f inherit events_interface_bachelor_lib_a_p_i_1_1_map_1_1_i_map"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="afb0ed5e204de8dad3fa107274594717f"></a>
-ThresholdReachedEventHandler&#160;</td><td class="memItemRight" valign="bottom"><b>TransitRemove</b></td></tr>
-<tr class="separator:afb0ed5e204de8dad3fa107274594717f inherit events_interface_bachelor_lib_a_p_i_1_1_map_1_1_i_map"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a15799ae55458dd9ef244d2c3a3f03f61 inherit events_interface_bachelor_lib_a_p_i_1_1_map_1_1_i_map"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a15799ae55458dd9ef244d2c3a3f03f61"></a>
+<a class="el" href="namespace_bachelor_lib_a_p_i_1_1_map.html#ade066ad506e50dd897c51188cea4be2e">MarkerRemovedEventHandler</a>&#160;</td><td class="memItemRight" valign="bottom"><b>MarkerRemove</b></td></tr>
+<tr class="separator:a15799ae55458dd9ef244d2c3a3f03f61 inherit events_interface_bachelor_lib_a_p_i_1_1_map_1_1_i_map"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Методы</h2>
+<a class="anchor" id="a6193d09b87953768191ac3ece0f56902"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool BachelorLibAPI.Map.OpenStreetGreatMap.CheckAdress </td>
+          <td>(</td>
+          <td class="paramtype">string&#160;</td>
+          <td class="paramname"><em>adress</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Проверяет, если ли географическая точка, соответствующая такому адресу. </p>
+
+<p>Замещает <a class="el" href="interface_bachelor_lib_a_p_i_1_1_map_1_1_i_map.html#a3708710bf8073911bcbeaac02995502a">BachelorLibAPI.Map.IMap</a>.</p>
+
+</div>
+</div>
 <a class="anchor" id="a33a5490370b99a287a311fdbb5d378e1"></a>
 <div class="memitem">
 <div class="memproto">
@@ -178,7 +218,7 @@ ThresholdReachedEventHandler&#160;</td><td class="memItemRight" valign="bottom">
 
 <p>Использовать желательно после использования CheckAdress Иначе ловите исключение типа UnknownPlacemark </p>
 
-<p>Замещает <a class="el" href="interface_bachelor_lib_a_p_i_1_1_map_1_1_i_map.html">BachelorLibAPI.Map.IMap</a>.</p>
+<p>Замещает <a class="el" href="interface_bachelor_lib_a_p_i_1_1_map_1_1_i_map.html#adfc18f45e4908e6d5677b79258600a11">BachelorLibAPI.Map.IMap</a>.</p>
 
 </div>
 </div>
@@ -212,7 +252,495 @@ ThresholdReachedEventHandler&#160;</td><td class="memItemRight" valign="bottom">
   </dd>
 </dl>
 
-<p>Замещает <a class="el" href="interface_bachelor_lib_a_p_i_1_1_map_1_1_i_map.html">BachelorLibAPI.Map.IMap</a>.</p>
+<p>Замещает <a class="el" href="interface_bachelor_lib_a_p_i_1_1_map_1_1_i_map.html#a34f66106bf63bdc650ef7a8ae4b85c45">BachelorLibAPI.Map.IMap</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a6e52532cf062dc57aebef10e9646f868"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void BachelorLibAPI.Map.OpenStreetGreatMap.AddMchsMarker </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_bachelor_lib_a_p_i_1_1_program_1_1_mchs_point_info.html">MchsPointInfo</a>&#160;</td>
+          <td class="paramname"><em>mchsPoint</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Добавляет на карту маркер пункта реагирования. </p>
+<dl class="params"><dt>Аргументы</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">mchsPoint</td><td>Информация о пункте расположения сил МЧС.</td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Замещает <a class="el" href="interface_bachelor_lib_a_p_i_1_1_map_1_1_i_map.html#ac3a41e0021e6f46208cd8dd40d46cdad">BachelorLibAPI.Map.IMap</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a7c4b2f1ad12219b3f64db36a558752b2"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void BachelorLibAPI.Map.OpenStreetGreatMap.RemoveTransitMarker </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>transitId</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Удаляет с карты маркер перевозки. </p>
+<dl class="params"><dt>Аргументы</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">transitId</td><td>Идентификатор перевозки, которую необходимо удалить.</td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Замещает <a class="el" href="interface_bachelor_lib_a_p_i_1_1_map_1_1_i_map.html#a7c07a6f80bf1b7a143f3cf743147e075">BachelorLibAPI.Map.IMap</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a43d79c828f9506d2f9ae472bab120cd0"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">string BachelorLibAPI.Map.OpenStreetGreatMap.GetPlacemark </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>x</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>y</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Определяет адрес в точке, которую пользователь определил посредством клика по карте. </p>
+<dl class="params"><dt>Аргументы</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">x</td><td>Отступ от левого края карты.</td></tr>
+    <tr><td class="paramname">y</td><td>Отступ от верхнего края карты.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Возвращает</dt><dd>Адрес.</dd></dl>
+
+<p>Замещает <a class="el" href="interface_bachelor_lib_a_p_i_1_1_map_1_1_i_map.html#a0b4562a0cf46d5548042e54cf7dfbe4f">BachelorLibAPI.Map.IMap</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a4d7acd60defce2f3c833df749d8d3765"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">Tuple&lt;double, double&gt; BachelorLibAPI.Map.OpenStreetGreatMap.GetLatLong </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>x</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>y</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Определяет точку типа широта/долгота, которую пользователь определил посредством клика по карте. </p>
+<dl class="params"><dt>Аргументы</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">x</td><td>Отступ от левого края карты.</td></tr>
+    <tr><td class="paramname">y</td><td>Отступ от верхнего края карты.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Возвращает</dt><dd>Пару значений широта/долгота.</dd></dl>
+
+<p>Замещает <a class="el" href="interface_bachelor_lib_a_p_i_1_1_map_1_1_i_map.html#a2c2206df580a6f2b2fd59fc7d478530b">BachelorLibAPI.Map.IMap</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a6250c66440b1b834254d14298e387f1f"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">Tuple&lt;double, double&gt; BachelorLibAPI.Map.OpenStreetGreatMap.GetPoint </td>
+          <td>(</td>
+          <td class="paramtype">string&#160;</td>
+          <td class="paramname"><em>address</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Определяет точку типа широта/долгота, которую пользователь определил посредством ввода адреса. </p>
+<dl class="section return"><dt>Возвращает</dt><dd>Пару значений широта/долгота.</dd></dl>
+
+<p>Замещает <a class="el" href="interface_bachelor_lib_a_p_i_1_1_map_1_1_i_map.html#aac5121e52f6e8217396cc2db7335c348">BachelorLibAPI.Map.IMap</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a650172f863ad9ee24d29e7dea2deaddd"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void BachelorLibAPI.Map.OpenStreetGreatMap.SetCurrentViewPoint </td>
+          <td>(</td>
+          <td class="paramtype">PointLatLng&#160;</td>
+          <td class="paramname"><em>pnt</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Устанавливает карту в такое положение, в котором точка pnt является центром карты. </p>
+<dl class="params"><dt>Аргументы</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">pnt</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Замещает <a class="el" href="interface_bachelor_lib_a_p_i_1_1_map_1_1_i_map.html#a617068b38cd587222b4071cb794b020e">BachelorLibAPI.Map.IMap</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a8353ac761e009a766060639678a60b2f"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void BachelorLibAPI.Map.OpenStreetGreatMap.AddCrashMarker </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_bachelor_lib_a_p_i_1_1_program_1_1_crash_info.html">CrashInfo</a>&#160;</td>
+          <td class="paramname"><em>crashInfo</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Добавляет на карту маркер аварии. </p>
+<dl class="params"><dt>Аргументы</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">crashInfo</td><td>Информация об аварии.</td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Замещает <a class="el" href="interface_bachelor_lib_a_p_i_1_1_map_1_1_i_map.html#afc10eaa31e01f1328d67865849e04010">BachelorLibAPI.Map.IMap</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="aeca423496aecce29e015b0c343e28046"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void BachelorLibAPI.Map.OpenStreetGreatMap.SetStartPoint </td>
+          <td>(</td>
+          <td class="paramtype">PointLatLng&#160;</td>
+          <td class="paramname"><em>start</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Устанавливает начальную точку маршрута. </p>
+<dl class="params"><dt>Аргументы</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">start</td><td>Точка типа широта/долгота.</td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Замещает <a class="el" href="interface_bachelor_lib_a_p_i_1_1_map_1_1_i_map.html#a15fc8c01e15d73e2a109ae9216ccee26">BachelorLibAPI.Map.IMap</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a0e74c8278667811c58a5a0bca7681917"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void BachelorLibAPI.Map.OpenStreetGreatMap.SetStartPoint </td>
+          <td>(</td>
+          <td class="paramtype">string&#160;</td>
+          <td class="paramname"><em>start</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Устанавливает начальную точку. </p>
+<dl class="params"><dt>Аргументы</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">start</td><td>Адрес места.</td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Замещает <a class="el" href="interface_bachelor_lib_a_p_i_1_1_map_1_1_i_map.html#a8bb0508ac86e30dc4d5ada3a97bc43bf">BachelorLibAPI.Map.IMap</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="ad0e39d714f150711fc16968ffe8ca486"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void BachelorLibAPI.Map.OpenStreetGreatMap.SetMiddlePoint </td>
+          <td>(</td>
+          <td class="paramtype">PointLatLng&#160;</td>
+          <td class="paramname"><em>mid</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Добавляет промежуточную точку. </p>
+<dl class="params"><dt>Аргументы</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">mid</td><td>Точка типа широта/долгота.</td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Замещает <a class="el" href="interface_bachelor_lib_a_p_i_1_1_map_1_1_i_map.html#ae97ded19ef9f0c3b52f9064d2d3be0dd">BachelorLibAPI.Map.IMap</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a85cba0924075a7e7972e1bb120a11300"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void BachelorLibAPI.Map.OpenStreetGreatMap.SetMiddlePoint </td>
+          <td>(</td>
+          <td class="paramtype">string&#160;</td>
+          <td class="paramname"><em>mid</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Устанавливает промежуточную точку. </p>
+<dl class="params"><dt>Аргументы</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">mid</td><td>Адрес места.</td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Замещает <a class="el" href="interface_bachelor_lib_a_p_i_1_1_map_1_1_i_map.html#ad6a55f9d184d4c4628eea6c62d5ad863">BachelorLibAPI.Map.IMap</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a81463688a970404ad3d61b1b05e0fa69"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void BachelorLibAPI.Map.OpenStreetGreatMap.SetEndPoint </td>
+          <td>(</td>
+          <td class="paramtype">PointLatLng&#160;</td>
+          <td class="paramname"><em>end</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Устанавливает конечную точку. </p>
+<dl class="params"><dt>Аргументы</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">end</td><td>Точка типа широта/долгота.</td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Замещает <a class="el" href="interface_bachelor_lib_a_p_i_1_1_map_1_1_i_map.html#a559105411484238b28b72596d34ec0c6">BachelorLibAPI.Map.IMap</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a8c57e685626ef3cab60d994ae787ca63"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void BachelorLibAPI.Map.OpenStreetGreatMap.SetEndPoint </td>
+          <td>(</td>
+          <td class="paramtype">string&#160;</td>
+          <td class="paramname"><em>end</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Устанавливает конечную точку. </p>
+<dl class="params"><dt>Аргументы</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">end</td><td>Адрес места.</td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Замещает <a class="el" href="interface_bachelor_lib_a_p_i_1_1_map_1_1_i_map.html#a854825bc74ca754642cc4f59a53cb6fa">BachelorLibAPI.Map.IMap</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a1e38534cf344743d085bc5f0790f33d8"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool BachelorLibAPI.Map.OpenStreetGreatMap.CheckBeforeAdding </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Демонстрирует пользователю построенные маршру со всеми промежуточными точками. Предоставляет возможность внести необходимые поправки перед добавлением перевозки. </p>
+
+<p>Замещает <a class="el" href="interface_bachelor_lib_a_p_i_1_1_map_1_1_i_map.html#a6d1e0652282de59164ed6a7aa0f5892d">BachelorLibAPI.Map.IMap</a>.</p>
 
 </div>
 </div>
@@ -239,7 +767,7 @@ ThresholdReachedEventHandler&#160;</td><td class="memItemRight" valign="bottom">
 
 <p>Собирает точки из подмаршрутов в один маршрут, инициирует фоновую задачу расчёта времени пребывания автомобиля в каждой промежуточной стадии стадии фиксируются в идеале через 1 минуту </p>
 
-<p>Замещает <a class="el" href="interface_bachelor_lib_a_p_i_1_1_map_1_1_i_map.html">BachelorLibAPI.Map.IMap</a>.</p>
+<p>Замещает <a class="el" href="interface_bachelor_lib_a_p_i_1_1_map_1_1_i_map.html#ada21d1f1363e1ca482d0307e94758b4a">BachelorLibAPI.Map.IMap</a>.</p>
 
 <p>Перекрестные ссылки <a class="el" href="class_bachelor_lib_a_p_i_1_1_properties_1_1_resources.html#a69fb0368f6b50bf190f950b4f693d05d">BachelorLibAPI.Properties.Resources.CannotConstructShortTrack</a>.</p>
 
@@ -270,6 +798,61 @@ ThresholdReachedEventHandler&#160;</td><td class="memItemRight" valign="bottom">
 <dl class="section return"><dt>Возвращает</dt><dd></dd></dl>
 
 <p>Замещает <a class="el" href="interface_bachelor_lib_a_p_i_1_1_map_1_1_i_map.html#af92070358511e7ab2cf79db00dcb53be">BachelorLibAPI.Map.IMap</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="aa3608642a88f0b02dcc2774b3e9d1f4c"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">string BachelorLibAPI.Map.OpenStreetGreatMap.GetStartPoint </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Получает начальную точку маршрута. </p>
+<dl class="section return"><dt>Возвращает</dt><dd></dd></dl>
+
+<p>Замещает <a class="el" href="interface_bachelor_lib_a_p_i_1_1_map_1_1_i_map.html#a3025a9971bc7190e17de5fb6e96e804e">BachelorLibAPI.Map.IMap</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="afbae6d601002abf102ad8a8adf31ed07"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">string BachelorLibAPI.Map.OpenStreetGreatMap.GetEndPoint </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Получает конечную точку. </p>
+
+<p>Замещает <a class="el" href="interface_bachelor_lib_a_p_i_1_1_map_1_1_i_map.html#a0e383655e73278d28f8b285b62fb94d8">BachelorLibAPI.Map.IMap</a>.</p>
 
 </div>
 </div>
@@ -308,7 +891,7 @@ ThresholdReachedEventHandler&#160;</td><td class="memItemRight" valign="bottom">
 
 </div>
 </div>
-<a class="anchor" id="a14c072054e1afe6ae2078d70b4905c69"></a>
+<a class="anchor" id="a0af6fc117d734df6897eb4896b00d542"></a>
 <div class="memitem">
 <div class="memproto">
 <table class="mlabels">
@@ -316,11 +899,21 @@ ThresholdReachedEventHandler&#160;</td><td class="memItemRight" valign="bottom">
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void BachelorLibAPI.Map.OpenStreetGreatMap.DrawDangerRegion </td>
+          <td class="memname">double BachelorLibAPI.Map.OpenStreetGreatMap.GetDistanceBetween </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="struct_bachelor_lib_a_p_i_1_1_program_1_1_crash_info.html">CrashInfo</a>&#160;</td>
-          <td class="paramname"><em>crashInfo</em></td><td>)</td>
+          <td class="paramtype">PointLatLng&#160;</td>
+          <td class="paramname"><em>x</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype">PointLatLng&#160;</td>
+          <td class="paramname"><em>y</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
         </tr>
       </table>
   </td>
@@ -330,15 +923,17 @@ ThresholdReachedEventHandler&#160;</td><td class="memItemRight" valign="bottom">
 </table>
 </div><div class="memdoc">
 
-<p>Инициирует динамическое изменение полигона, отражающего состояние загрязнения со временем </p>
+<p>Находит расстояние между двумя точками типа широта/долгота. </p>
 <dl class="params"><dt>Аргументы</dt><dd>
   <table class="params">
-    <tr><td class="paramname">crashInfo</td><td></td></tr>
+    <tr><td class="paramname">x</td><td></td></tr>
+    <tr><td class="paramname">y</td><td></td></tr>
   </table>
   </dd>
 </dl>
+<dl class="section return"><dt>Возвращает</dt><dd></dd></dl>
 
-<p>Замещает <a class="el" href="interface_bachelor_lib_a_p_i_1_1_map_1_1_i_map.html">BachelorLibAPI.Map.IMap</a>.</p>
+<p>Замещает <a class="el" href="interface_bachelor_lib_a_p_i_1_1_map_1_1_i_map.html#a4ee6f01be3cd1fb7c70cf3216bcfa500">BachelorLibAPI.Map.IMap</a>.</p>
 
 </div>
 </div>
@@ -348,7 +943,7 @@ ThresholdReachedEventHandler&#160;</td><td class="memItemRight" valign="bottom">
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Документация по АИС контроля перемещения ТС, перевозящих АХО грузы, в случае ЧП. Последние изменения: Вс 17 Май 2015 22:41:42. Создано системой &#160;<a href="http://www.doxygen.org/index.html">
+Документация по АИС контроля перемещения ТС, перевозящих АХО грузы, в случае ЧП. Последние изменения: Пн 25 Май 2015 02:51:46. Создано системой &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.9.1
 </small></address>
