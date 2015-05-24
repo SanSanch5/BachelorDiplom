@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Text.RegularExpressions;
+using BachelorLibAPI.Properties;
 using GMap.NET;
 
 namespace BachelorLibAPI.Program
@@ -54,6 +56,26 @@ namespace BachelorLibAPI.Program
         public double WindDirection;
         public string Consignment;
         public double ConsignmentCapacity;
+
+        public IEnumerable<List<string>> RecordsForReport()
+        {
+            return new List<List<string>>
+            {
+                new List<string>{"Информация об аварии:"},
+                new List<string>
+                {
+                    "Груз:", Consignment, ConsignmentCapacity.ToString(CultureInfo.CurrentCulture), "тонн"
+                },
+                new List<string>
+                {
+                    "Площадь заражения:", Area.ToString(CultureInfo.CurrentCulture) + " км.", 
+                },
+                new List<string>
+                {
+                    "Направление ветра:", WindDirection.ToString(CultureInfo.CurrentCulture), "град."
+                }
+            };
+        }
     }
 
     public struct MchsPointInfo
@@ -82,9 +104,43 @@ namespace BachelorLibAPI.Program
         public string DriverNumber;
         public string Car;
         public string Grz;
-        public FullPointDescription CurrentPlace;
         public int StadiesCount;
+        public FullPointDescription CurrentPlace;
         public bool IsFinshed;
         public bool IsInAccident;
+
+        public IEnumerable<List<string>> RecordsForReport()
+        {
+            return new List<List<string>>
+            {
+                new List<string> {"Информация о перевозке:"},
+                new List<string>
+                {
+                    "Откуда:", From.Address
+                },
+                new List<string>
+                {
+                    "", "Координаты:", string.Format("({0}; {1})", From.Position.Lat, From.Position.Lng)
+                },
+                new List<string>(),
+                new List<string>
+                {
+                    "Куда:", To.Address
+                },
+                new List<string>
+                {
+                    "", "Координаты:", string.Format("({0}; {1})", To.Position.Lat, To.Position.Lng)
+                },
+                new List<string>(),
+                new List<string>
+                {
+                    "Водитель:", Driver, "Контактный телефон:", DriverNumber
+                },
+                new List<string>
+                {
+                    "Автомобиль:", Car, "ГРЗ:", Grz
+                }
+            };
+        }
     }
 }
