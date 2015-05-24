@@ -26,6 +26,8 @@ namespace BachelorLibAPI.Data
         /// <param name="lastName">Фамилия</param>
         /// <returns>ID добавленного водителя</returns>
         int AddNewDriver(string name, string number, string middleName = "", string lastName = "");
+
+        int AddCrash(PointLatLng place, DateTime until, double area, double windDirection, int transitId, IEnumerable<int> mchsIds);
         
         /// <summary>
         /// Удалить водителя
@@ -39,6 +41,7 @@ namespace BachelorLibAPI.Data
         /// <param name="driverId"></param>
         /// <param name="carId"></param>
         /// <param name="consName"></param>
+        /// <param name="consCapacity"></param>
         /// <param name="startTime"></param>
         /// <param name="startPoint"></param>
         /// <param name="endPoint"></param>
@@ -52,6 +55,8 @@ namespace BachelorLibAPI.Data
         void DeleteTransit(int transId);
 
         void DeleteMchsStaff(int staffId);
+
+        void DeleteCrash(int crashId);
 
         /// <summary>
         /// 
@@ -160,7 +165,9 @@ namespace BachelorLibAPI.Data
 
         Tuple<PointLatLng, PointLatLng> GetStartAndEndPoints(int transit);
         Dictionary<string, double> GetStaffAntiSubstances(int staffId);
-        List<MchsPointInfo> GetMchsPointsInfo();
+        IEnumerable<MchsPointInfo> GetMchsPointsInfo();
+        CrashInfo GetCrashInfo(int transitId);
 
+        bool IsInAccident(int transitId);
     }   
 }

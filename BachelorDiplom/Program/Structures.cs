@@ -19,13 +19,14 @@ namespace BachelorLibAPI.Program
 
         public DegMinSec(string value)
         {
-            var deg = value.Split(D);
-            Degrees = int.Parse(Regex.Replace(deg[0], " ", ""));
+            var val = Regex.Replace(value, " ", "");
+            var deg = val.Split(D);
+            Degrees = deg[0] == "" ? 0 : int.Parse(deg[0]);
             var min = deg[1].Split(M);
-            Minutes = int.Parse(Regex.Replace(min[0], " ", ""));
+            Minutes = min[0] == "" ? 0 : int.Parse(min[0]);
             var sec = min[1].Split(S);
-            Seconds = int.Parse(Regex.Replace(sec[0], " ", ""));
-            Direction = sec[1][0];
+            Seconds = sec[0] == "" ? 0 : int.Parse(sec[0]);
+            Direction = sec[1] == "" ? ' ' : sec[1][0];
         }
         public override string ToString()
         {
@@ -46,10 +47,10 @@ namespace BachelorLibAPI.Program
 
     public struct CrashInfo
     {
+        public int Id;
         public FullPointDescription Center;
         public double Area;
-        public DateTime StartTime;
-        public DateTime SpreadingTime;
+        public DateTime UntilTime;
         public double WindDirection;
         public string Consignment;
         public double ConsignmentCapacity;

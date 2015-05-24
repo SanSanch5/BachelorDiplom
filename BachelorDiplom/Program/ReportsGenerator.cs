@@ -28,11 +28,11 @@ namespace BachelorLibAPI.Program
                 ReleaseObject(xlWorkBook);
                 ReleaseObject(xlApp);
             }
-            catch(Exception ex)
+            catch(Exception)
             {
                 ReleaseObject(xlWorkBook);
                 ReleaseObject(xlApp);
-                throw ex;
+                throw;
             }
         }
 

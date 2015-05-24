@@ -22,9 +22,24 @@ namespace BachelorLibAPI.Forms
         private static readonly Bitmap PicOk = new Bitmap(@"..\..\Resources\Pictures\ok.png");
         private static readonly Bitmap PicNotOk = new Bitmap(@"..\..\Resources\Pictures\not_ok.png");
 
+        private const string TtOk = "Адрес корректен. Нажмите кнопку \"Установить\"," +
+                                    "\nчтобы переместиться к этому месту" +
+                                    "\nи получить возможность проанализировать опасность.";
+
+        private const string TtNotOk = "Некорректный адрес. Возможны пролбемы с подключением.";
+
         public MainForm()
         {
             InitializeComponent();
+            var angleSelector = new AngleSelector 
+            {
+                Anchor = AnchorStyles.Right | AnchorStyles.Left | AnchorStyles.Top | AnchorStyles.Bottom,
+                Dock = DockStyle.Fill
+            };
+            ltMainOptions.Controls.Add(angleSelector, 22, 0);
+            ltMainOptions.SetColumnSpan(angleSelector, 2);
+            ltMainOptions.SetRowSpan(angleSelector, 2);
+            toolTip.SetToolTip(angleSelector, @"Задайте направление ветра");
 
             _queriesHandler = new QueriesHandler(PgSqlDataHandler.Instance, new OpenStreetGreatMap(ref gmap));
             QueriesHandler.DeleteTransitStadiesOlderThenYesterday();
@@ -65,16 +80,13 @@ namespace BachelorLibAPI.Forms
             try
             {
                 var pnt = _queriesHandler.Map.GetLatLong(e.X, e.Y);
-                //edtCrashPlace.Text = string.Format("({0}, {1})", 
-                //    pnt.Item1.ToString(new CultureInfo("en"){NumberFormat = new NumberFormatInfo{NumberDecimalSeparator = "."}}),
-                //    pnt.Item2.ToString(new CultureInfo("en") { NumberFormat = new NumberFormatInfo { NumberDecimalSeparator = "." } }));
-                //return;
                 var dmsLat = LatLongWorker.DecimalDegreeToDegMinSec(pnt.Item1, true);
                 var dmsLong = LatLongWorker.DecimalDegreeToDegMinSec(pnt.Item2, false);
                 edtLat.Text = dmsLat.ToString();
                 edtLong.Text = dmsLong.ToString();
                 edtCrashPlace.Text = _queriesHandler.Map.GetPlacemark(e.X, e.Y);
                 picCheck.Image = new Bitmap(PicOk, new Size(16, 16));
+                btnSetCrashPlace.Enabled = true;
             }
             catch (PlacemarkGettingException ex)
             {
@@ -120,7 +132,63 @@ namespace BachelorLibAPI.Forms
                 {
                     Address = edtCrashPlace.Text,
                     Position = pnt
-                });
+                }, 90-((AngleSelector)ltMainOptions.GetControlFromPosition(22, 0)).Angle);
+        }
+
+        private void edtCrashPlace_Leave(object sender, EventArgs e)
+        {
+            if (edtCrashPlace.Text == "")
+            {
+                picCheck.Image = null;
+                btnSetCrashPlace.Enabled = false;
+                return;
+            }
+
+            if (_queriesHandler.CheckAdress(edtCrashPlace.Text))
+            {
+                var point = _queriesHandler.Map.GetPoint(edtCrashPlace.Text);
+                edtLat.Text = LatLongWorker.DecimalDegreeToDegMinSec(point.Item1, true).ToString();
+                edtLong.Text = LatLongWorker.DecimalDegreeToDegMinSec(point.Item2, false).ToString();
+                picCheck.Image = new Bitmap(PicOk, new Size(16, 16));
+                toolTip.SetToolTip(picCheck, TtOk);
+
+                btnSetCrashPlace.Enabled = true;
+            }
+            else
+            {
+                picCheck.Image = new Bitmap(PicNotOk, new Size(16, 16));
+                toolTip.SetToolTip(picCheck, TtNotOk);
+                btnSetCrashPlace.Enabled = false;
+            }
+        }
+
+        private void edtLat_Leave(object sender, EventArgs e)
+        {
+            if (edtLong.Text == "" || edtLong.Text == "")
+            {
+                picCheck.Image = null;
+                btnSetCrashPlace.Enabled = false;
+                return;
+            }
+
+            var pnt = new PointLatLng
+            {
+                Lat = LatLongWorker.DegMinSecToDecimalDegree(new DegMinSec(edtLat.Text), true),
+                Lng = LatLongWorker.DegMinSecToDecimalDegree(new DegMinSec(edtLong.Text), false)
+            };
+            edtCrashPlace.Text = _queriesHandler.Map.GetPlacemark(pnt);
+            if (edtCrashPlace.Text == @"Меcтоположение не определено")
+            {
+                picCheck.Image = new Bitmap(PicNotOk, new Size(16, 16));
+                toolTip.SetToolTip(picCheck, TtNotOk);
+                btnSetCrashPlace.Enabled = false;
+            }
+            else
+            {
+                picCheck.Image = new Bitmap(PicOk, new Size(16, 16));
+                toolTip.SetToolTip(picCheck, TtOk);
+                btnSetCrashPlace.Enabled = true;
+            }
         }
     }
 }

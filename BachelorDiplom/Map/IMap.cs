@@ -7,7 +7,7 @@ namespace BachelorLibAPI.Map
 {
     public enum MarkerType
     {
-        Transit, Staff
+        Transit, Staff, Crash
     }
     public class MarkerRemoveEventArgs : EventArgs
     {
@@ -23,6 +23,9 @@ namespace BachelorLibAPI.Map
     public interface IMap
     {
         event MarkerRemovedEventHandler MarkerRemove;
+
+        void ClearMchsStaffs();
+
         /// <summary>
         /// Ключ записи словаря - положение промежуточной точки на карте, 
         /// значение записи словаря - время поездки из пункта отправления 
@@ -31,6 +34,7 @@ namespace BachelorLibAPI.Map
         List<KeyValuePair<PointLatLng, int>> GetShortTrack();
         string GetPlacemark(int x, int y);
         Tuple<double, double> GetLatLong(int x, int y);
+        Tuple<double, double> GetPoint(string address); 
         double GetDistanceBetween(PointLatLng x, PointLatLng y);
 
         /// <summary>
@@ -41,7 +45,6 @@ namespace BachelorLibAPI.Map
         string GetPlacemark(PointLatLng pnt);
         void SetStartPoint(PointLatLng start);
         string GetStartPoint();
-        void SetDanger(int transitId, PointLatLng pnt);
 
         void SetCurrentViewPoint(PointLatLng pnt);
         void SetMiddlePoint(PointLatLng mid);
@@ -54,10 +57,10 @@ namespace BachelorLibAPI.Map
         void ConstructShortTrack();
         void AddTransitMarker(TransitInfo transit);
         void AddMchsMarker(MchsPointInfo mchsPoint);
+        void AddCrashMarker(CrashInfo crashInfo);
         void RemoveTransitMarker(int transitId);
         bool CheckAdress(string adress);
         string GetCorrectAdress(string adress);
         bool CheckBeforeAdding();
-        void DrawDangerRegion(CrashInfo crashInfo);
     }
 }

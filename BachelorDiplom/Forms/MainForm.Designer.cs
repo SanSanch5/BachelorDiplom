@@ -60,6 +60,7 @@ namespace BachelorLibAPI.Forms
             this.toolStripMenuItem5 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem4 = new System.Windows.Forms.ToolStripMenuItem();
             this.ltMapPanel = new System.Windows.Forms.TableLayoutPanel();
+            this.toolTip = new System.Windows.Forms.ToolTip(this.components);
             this.menuMain.SuspendLayout();
             this.ltMainOptions.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picCheck)).BeginInit();
@@ -113,29 +114,31 @@ namespace BachelorLibAPI.Forms
             // 
             this.ltMainOptions.BackColor = System.Drawing.Color.WhiteSmoke;
             this.ltMainOptions.CellBorderStyle = System.Windows.Forms.TableLayoutPanelCellBorderStyle.InsetDouble;
-            this.ltMainOptions.ColumnCount = 22;
-            this.ltMainOptions.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 4.545455F));
-            this.ltMainOptions.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 4.545455F));
-            this.ltMainOptions.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 4.545455F));
-            this.ltMainOptions.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 4.545455F));
-            this.ltMainOptions.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 4.545455F));
-            this.ltMainOptions.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 4.545455F));
-            this.ltMainOptions.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 4.545455F));
-            this.ltMainOptions.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 4.545455F));
-            this.ltMainOptions.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 4.545455F));
-            this.ltMainOptions.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 4.545455F));
-            this.ltMainOptions.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 4.545455F));
-            this.ltMainOptions.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 4.545455F));
-            this.ltMainOptions.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 4.545455F));
-            this.ltMainOptions.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 4.545455F));
-            this.ltMainOptions.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 4.545455F));
-            this.ltMainOptions.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 4.545455F));
-            this.ltMainOptions.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 4.545455F));
-            this.ltMainOptions.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 4.545455F));
-            this.ltMainOptions.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 4.545455F));
-            this.ltMainOptions.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 4.545455F));
-            this.ltMainOptions.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 4.545455F));
-            this.ltMainOptions.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 4.545455F));
+            this.ltMainOptions.ColumnCount = 24;
+            this.ltMainOptions.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 4.248088F));
+            this.ltMainOptions.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 4.248088F));
+            this.ltMainOptions.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 4.248088F));
+            this.ltMainOptions.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 4.248088F));
+            this.ltMainOptions.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 4.248088F));
+            this.ltMainOptions.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 4.248088F));
+            this.ltMainOptions.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 4.248088F));
+            this.ltMainOptions.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 4.248088F));
+            this.ltMainOptions.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 4.248088F));
+            this.ltMainOptions.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 4.248088F));
+            this.ltMainOptions.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 4.248088F));
+            this.ltMainOptions.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 4.248088F));
+            this.ltMainOptions.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 4.248088F));
+            this.ltMainOptions.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 4.248088F));
+            this.ltMainOptions.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 4.248088F));
+            this.ltMainOptions.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 4.248088F));
+            this.ltMainOptions.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 4.248088F));
+            this.ltMainOptions.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 4.248088F));
+            this.ltMainOptions.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 4.248088F));
+            this.ltMainOptions.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 4.248088F));
+            this.ltMainOptions.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 4.248088F));
+            this.ltMainOptions.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 4.248088F));
+            this.ltMainOptions.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 3.271027F));
+            this.ltMainOptions.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 3.271027F));
             this.ltMainOptions.Controls.Add(this.label1, 0, 0);
             this.ltMainOptions.Controls.Add(this.dtpPrecTime, 2, 0);
             this.ltMainOptions.Controls.Add(this.btnSetCrashPlace, 18, 1);
@@ -150,14 +153,13 @@ namespace BachelorLibAPI.Forms
             this.ltMainOptions.Dock = System.Windows.Forms.DockStyle.Top;
             this.ltMainOptions.Location = new System.Drawing.Point(0, 25);
             this.ltMainOptions.Margin = new System.Windows.Forms.Padding(4);
-            this.ltMainOptions.MaximumSize = new System.Drawing.Size(890, 76);
-            this.ltMainOptions.MinimumSize = new System.Drawing.Size(890, 76);
+            this.ltMainOptions.MaximumSize = new System.Drawing.Size(960, 76);
+            this.ltMainOptions.MinimumSize = new System.Drawing.Size(960, 76);
             this.ltMainOptions.Name = "ltMainOptions";
             this.ltMainOptions.RowCount = 2;
-            this.ltMainOptions.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50.00001F));
-            this.ltMainOptions.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 49.99999F));
-            this.ltMainOptions.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.ltMainOptions.Size = new System.Drawing.Size(890, 76);
+            this.ltMainOptions.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50.68493F));
+            this.ltMainOptions.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 49.31507F));
+            this.ltMainOptions.Size = new System.Drawing.Size(960, 76);
             this.ltMainOptions.TabIndex = 20;
             // 
             // label1
@@ -190,11 +192,12 @@ namespace BachelorLibAPI.Forms
             // 
             this.btnSetCrashPlace.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.ltMainOptions.SetColumnSpan(this.btnSetCrashPlace, 3);
+            this.btnSetCrashPlace.Enabled = false;
             this.btnSetCrashPlace.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.btnSetCrashPlace.Location = new System.Drawing.Point(767, 43);
             this.btnSetCrashPlace.Margin = new System.Windows.Forms.Padding(4);
             this.btnSetCrashPlace.Name = "btnSetCrashPlace";
-            this.btnSetCrashPlace.Size = new System.Drawing.Size(116, 26);
+            this.btnSetCrashPlace.Size = new System.Drawing.Size(109, 26);
             this.btnSetCrashPlace.TabIndex = 25;
             this.btnSetCrashPlace.Text = "Установить";
             this.btnSetCrashPlace.UseVisualStyleBackColor = true;
@@ -233,6 +236,7 @@ namespace BachelorLibAPI.Forms
             this.edtCrashPlace.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.edtCrashPlace.Size = new System.Drawing.Size(629, 26);
             this.edtCrashPlace.TabIndex = 26;
+            this.edtCrashPlace.Leave += new System.EventHandler(this.edtCrashPlace_Leave);
             // 
             // edtLong
             // 
@@ -241,8 +245,9 @@ namespace BachelorLibAPI.Forms
             this.edtLong.Location = new System.Drawing.Point(766, 6);
             this.edtLong.Mask = "000°00′00″?";
             this.edtLong.Name = "edtLong";
-            this.edtLong.Size = new System.Drawing.Size(118, 26);
+            this.edtLong.Size = new System.Drawing.Size(111, 26);
             this.edtLong.TabIndex = 32;
+            this.edtLong.Leave += new System.EventHandler(this.edtLat_Leave);
             // 
             // label5
             // 
@@ -292,6 +297,7 @@ namespace BachelorLibAPI.Forms
             this.edtLat.Name = "edtLat";
             this.edtLat.Size = new System.Drawing.Size(111, 26);
             this.edtLat.TabIndex = 31;
+            this.edtLat.Leave += new System.EventHandler(this.edtLat_Leave);
             // 
             // gmap
             // 
@@ -438,5 +444,6 @@ namespace BachelorLibAPI.Forms
         private Label label4;
         private MaskedTextBox edtLat;
         private Label label5;
+        private ToolTip toolTip;
     }
 }

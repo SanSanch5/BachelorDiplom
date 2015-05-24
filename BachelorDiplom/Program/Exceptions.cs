@@ -2,6 +2,7 @@
 
 namespace BachelorLibAPI.Program
 {
+    [Serializable]
     class PlacemarkGettingException : Exception
     {
         public override string Message
@@ -12,6 +13,8 @@ namespace BachelorLibAPI.Program
             }
         }
     }
+
+    [Serializable]
     class UnknownPlacemark : Exception
     {
         public override string Message
@@ -22,6 +25,8 @@ namespace BachelorLibAPI.Program
             }
         }
     }
+
+    [Serializable]
     class RouteBuilderLogicException : Exception
     {
         public override string Message

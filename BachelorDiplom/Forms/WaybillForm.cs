@@ -67,8 +67,7 @@ namespace BachelorLibAPI.Forms
 
                 WindowState = FormWindowState.Minimized;
                 if (!QueriesHandler.CheckBeforeAdding()) return;
-                QueriesHandler.AddNewWaybill(driverName, num, grz, consName, double.Parse(cap), dtpStart.Value, ttForOk.GetToolTip(edtFrom),
-                    ttForOk.GetToolTip(edtTo));
+                QueriesHandler.AddNewWaybill(driverName, num, grz, consName, double.Parse(cap), dtpStart.Value);
                 MessageBox.Show(@"Новая перевозка зарегистрирована.", @"Информация");
             }
             catch (FormatException ex)

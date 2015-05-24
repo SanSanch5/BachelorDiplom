@@ -24,7 +24,7 @@ namespace BachelorLibAPI.Forms
             progressBar.Value = progressBar.Maximum-1;
         }
 
-        public ProgressBarForm(string processName, int count)
+        public ProgressBarForm(string processName, int count, ProgressBarStyle style = ProgressBarStyle.Blocks)
         {
             InitializeComponent();
             Text = processName;
@@ -32,10 +32,15 @@ namespace BachelorLibAPI.Forms
             var screen = Screen.PrimaryScreen;
             Left = screen.WorkingArea.Right - Width;
             Top = screen.WorkingArea.Top + 50;
-
-            progressBar.Maximum = count;
-            progressBar.Minimum = 0;
-            progressBar.Value = 0;
+            progressBar.Style = style;
+            if (style == ProgressBarStyle.Blocks)
+            {
+                progressBar.Maximum = count;
+                progressBar.Minimum = 0;
+                progressBar.Value = 0;
+            }
+            else
+                progressBar.MarqueeAnimationSpeed = 30;
         }
 
         public override sealed string Text

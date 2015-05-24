@@ -12,7 +12,7 @@ using NpgsqlTypes;
 
 namespace BachelorLibAPI.Data
 {
-    public sealed class PgSqlDataHandler : IDataHandler
+    public sealed class PgSqlDataHandler : IDataHandler, IDisposable
     {
         private static readonly Lazy<PgSqlDataHandler> Lazy =
         new Lazy<PgSqlDataHandler>(() => new PgSqlDataHandler());
@@ -109,6 +109,46 @@ namespace BachelorLibAPI.Data
             }
         }
 
+        public int AddCrash(PointLatLng place, DateTime until, double area, double windDirection, int transitId, IEnumerable<int> mchsIds)
+        {
+            lock (_lockObject)
+            {
+                _npgsqlConnection.Open();
+                var customCulture = (CultureInfo)Thread.CurrentThread.CurrentCulture.Clone();
+                customCulture.NumberFormat.NumberDecimalSeparator = ".";
+                Thread.CurrentThread.CurrentCulture = customCulture;
+
+                string mini = null;
+                var enumerable = mchsIds as int[] ?? mchsIds.ToArray();
+                if (enumerable.Count() != 0)
+                {
+                    var ids = enumerable.Aggregate("array[", (cur, x) => cur + x + ",");
+                    ids = ids.Remove(ids.Length - 1) + "]";
+                    mini = string.Format("foreach m in array {0}  loop " +
+                                         "update mchs.staff set crash_id = new_crash where id = m; " +
+                                         "end loop;", ids);
+                }
+
+                var cmd =
+                    new NpgsqlCommand(
+                        string.Format(
+                            "DO $do$ declare new_crash integer;  declare m integer; begin " +
+                            "insert into t_crash(place, until, area, wind_direction) values ('({0}, {1})', '{2}', {5}, {6}); " +
+                            "select into new_crash id from t_crash where place ~= '({0}, {1})' and until = '{2}'; " +
+                            "update t_transit set crash_id = new_crash where id = {3}; " +
+                            "drop table if exists tt_new_crash; create temporary table tt_new_crash as select new_crash; {4}" +
+                            "end; $do$; select * from tt_new_crash;", place.Lat, place.Lng, until.ToString(Resources.DateTimeFormat),
+                            transitId, mini ?? "", area, windDirection), _npgsqlConnection);
+                var res = (int)cmd.ExecuteScalar();
+
+                customCulture.NumberFormat.NumberDecimalSeparator = ",";
+                Thread.CurrentThread.CurrentCulture = customCulture;
+
+                _npgsqlConnection.Close();
+                return res;
+            }
+        }
+
         public void DelDriver(int driverId)
         {
 
@@ -170,6 +210,22 @@ namespace BachelorLibAPI.Data
                 var cmd =
                     new NpgsqlCommand(
                         string.Format("DELETE FROM mchs.staff WHERE id = {0};", staffId),
+                        _npgsqlConnection);
+                cmd.ExecuteNonQuery();
+
+                _npgsqlConnection.Close();
+            }
+        }
+
+        public void DeleteCrash(int crashId)
+        {
+            lock (_lockObject)
+            {
+                _npgsqlConnection.Open();
+
+                var cmd =
+                    new NpgsqlCommand(
+                        string.Format("DELETE FROM t_crash WHERE id = {0};", crashId),
                         _npgsqlConnection);
                 cmd.ExecuteNonQuery();
 
@@ -384,7 +440,7 @@ namespace BachelorLibAPI.Data
                 var cmd =
                     new NpgsqlCommand(string.Format("SELECT consignment_capacity FROM t_transit where id = {0};", transitId),
                         _npgsqlConnection);
-                double res = -1;
+                double res;
 
                 try
                 {
@@ -545,7 +601,7 @@ namespace BachelorLibAPI.Data
             {
                 _npgsqlConnection.Open();
 
-                var res = -1;
+                int res;
                 try
                 {
                     res = (int)(new NpgsqlCommand(
@@ -657,7 +713,7 @@ namespace BachelorLibAPI.Data
             }
         }
 
-        public List<MchsPointInfo> GetMchsPointsInfo()
+        public IEnumerable<MchsPointInfo> GetMchsPointsInfo()
         {
             lock(_lockObject)
             {
@@ -668,10 +724,10 @@ namespace BachelorLibAPI.Data
                 {
                     var cmd = new NpgsqlCommand("select * from mchs.f_staff_info_for_client();", _npgsqlConnection);
                     var dr = cmd.ExecuteReader();
-                    
+
                     while (dr.Read())
                     {
-                        var pnt = (NpgsqlPoint) dr[1];
+                        var pnt = (NpgsqlPoint)dr[1];
                         res.Add(new MchsPointInfo
                         {
                             Id = (int)dr[0],
@@ -680,7 +736,7 @@ namespace BachelorLibAPI.Data
                             PeopleReady = dr[3].ToString() == "" ? 0 : int.Parse(dr[3].ToString()),
                             PeopleCount = (int)dr[4],
                             SuperCarCount = dr[5].ToString() == "" ? 0 : int.Parse(dr[5].ToString()),
-                            IsAvailable = true // \todo добавить поле с id аварии в таблицу базы 
+                            IsAvailable = dr[6].ToString() == ""
                         });
                     }
                 }
@@ -698,6 +754,78 @@ namespace BachelorLibAPI.Data
             }
         }
 
+        public CrashInfo GetCrashInfo(int transitId)
+        {
+            lock (_lockObject)
+            {
+                _npgsqlConnection.Open();
+                var res = new CrashInfo();
+
+                try
+                {
+                    var cmd = new NpgsqlCommand(string.Format("select * from f_crash_info_for_client({0});", transitId), _npgsqlConnection);
+                    var dr = cmd.ExecuteReader();
+
+                    while (dr.Read())
+                    {
+                        var pnt = (NpgsqlPoint)dr[1];
+                        res = new CrashInfo
+                        {
+                            Id = (int)dr[0],
+                            Center = new FullPointDescription{ Position = new PointLatLng(pnt.X, pnt.Y)},
+                            UntilTime = DateTime.Parse(dr[2].ToString()),
+                            Consignment = dr[3].ToString(),
+                            ConsignmentCapacity = (double)dr[4],
+                            Area = (double)dr[5],
+                            WindDirection = (double)dr[6]
+                        };
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Debug.WriteLine(ex.Message);
+                    res = new CrashInfo();
+                }
+                finally
+                {
+                    _npgsqlConnection.Close();
+                }
+
+                return res;
+            }
+        }
+
+        public bool IsInAccident(int transitId)
+        {
+            lock (_lockObject)
+            {
+                _npgsqlConnection.Open();
+                bool res;
+
+                try
+                {
+                    var cmd = new NpgsqlCommand(string.Format("select crash_id from t_transit where id = {0};", transitId), _npgsqlConnection);
+                    var str = cmd.ExecuteScalar().ToString();
+                    res = str != "";
+                }
+                catch (Exception ex)
+                {
+                    Debug.WriteLine(ex.Message);
+                    res = false;
+                }
+                finally
+                {
+                    _npgsqlConnection.Close();
+                }
+
+                return res;
+            }
+        }
+
         private readonly object _lockObject = new object();
+        public void Dispose()
+        {
+            _npgsqlConnection.Dispose();
+        }
     }
 }
