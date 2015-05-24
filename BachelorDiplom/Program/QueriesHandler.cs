@@ -259,8 +259,13 @@ namespace BachelorLibAPI.Program
                     else
                     {
                         var crashInfo = DataHandler.GetCrashInfo(id);
-                        crashInfo.Center.Address = Map.GetPlacemark(crashInfo.Center.Position);
-                        crashTasks.Add(Task.Run(() => Map.AddCrashMarker(crashInfo)));
+                        if (crashInfo.UntilTime < DateTime.Now)
+                            DataHandler.DeleteCrash(crashInfo.Id);
+                        else
+                        {
+                            crashInfo.Center.Address = Map.GetPlacemark(crashInfo.Center.Position);
+                            crashTasks.Add(Task.Run(() => Map.AddCrashMarker(crashInfo)));
+                        }
                     }
                 }
                 Task.WaitAll(transitTasks.Where(x => x != null).ToArray());

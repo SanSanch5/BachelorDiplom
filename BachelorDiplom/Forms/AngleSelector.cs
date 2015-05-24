@@ -2,6 +2,10 @@ using System;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Windows.Forms;
+using Microsoft.Office.Interop.Excel;
+using Font = System.Drawing.Font;
+using Point = System.Drawing.Point;
+using Rectangle = System.Drawing.Rectangle;
 
 namespace BachelorLibAPI.Forms
 {
@@ -32,12 +36,12 @@ namespace BachelorLibAPI.Forms
         private void SetDrawRegion()
         {
             _drawRegion = new Rectangle(0, 0, Width, Height);
-            _drawRegion.X += 2;
-            _drawRegion.Y += 2;
-            _drawRegion.Width -= 4;
-            _drawRegion.Height -= 4;
+            //_drawRegion.X += 2;
+            //_drawRegion.Y += 2;
+            //_drawRegion.Width -= 4;
+            //_drawRegion.Height -= 4;
 
-            const int offset = 2;
+            const int offset = 0;
             _origin = new Point(_drawRegion.Width / 2 + offset, _drawRegion.Height / 2 + offset);
 
             Refresh();
@@ -117,17 +121,29 @@ namespace BachelorLibAPI.Forms
             var outline = new Pen(Color.FromArgb(86, 103, 141), 2.0f);
             var fill = new SolidBrush(Color.FromArgb(90, 255, 255, 255));
 
-            PointF anglePoint = DegreesToXy(_angle, _origin.X - 2, _origin);
-            Rectangle originSquare = new Rectangle(_origin.X - 1, _origin.Y - 1, 3, 3);
+            var anglePoint = DegreesToXy(_angle, _origin.X - 2, _origin);
+            var originSquare = new RectangleF(_origin.X - 1, _origin.Y - 1, 3, 3);
 
-            //Draw
             g.SmoothingMode = SmoothingMode.AntiAlias;
-            g.DrawEllipse(outline, _drawRegion);
-            g.FillEllipse(fill, _drawRegion);
-            g.DrawLine(Pens.DarkRed, _origin, anglePoint);
+            var arrowPen = new Pen(Color.DarkBlue, 1);
+            g.DrawLine(arrowPen, _origin, anglePoint);
+            g.FillPolygon(new SolidBrush(Color.DarkBlue), 
+                new[] { anglePoint, DegreesToXy(_angle - 8, _origin.X - 8, _origin), DegreesToXy(_angle + 8, _origin.X - 8, _origin) });
 
-            g.SmoothingMode = SmoothingMode.HighSpeed; //Make the square edges sharp
+            g.SmoothingMode = SmoothingMode.HighSpeed; 
+
             g.FillRectangle(Brushes.Black, originSquare);
+            var textFont = new Font("Times New Roman", 8);
+            g.DrawString("Направ\n  ление\n  ветра", textFont,
+                new SolidBrush(Color.Black), _drawRegion.X + 13, _drawRegion.Y + 13);
+            g.DrawString("W", textFont, new SolidBrush(Color.Black), _drawRegion.Left - 2,
+                _drawRegion.Top + _drawRegion.Height/2 - 9);
+            g.DrawString("N", textFont, new SolidBrush(Color.Black), _drawRegion.X + _drawRegion.Width/2 - 6,
+                _drawRegion.Y - 3);
+            g.DrawString("E", textFont, new SolidBrush(Color.Black), _drawRegion.Right - 8,
+                _drawRegion.Bottom - _drawRegion.Height/2 - 10);
+            g.DrawString("S", textFont, new SolidBrush(Color.Black), _drawRegion.X + _drawRegion.Width / 2 - 6,
+                _drawRegion.Bottom - 13);
 
             fill.Dispose();
             outline.Dispose();

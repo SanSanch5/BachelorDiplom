@@ -37,7 +37,7 @@ namespace BachelorLibAPI.Forms
                 Dock = DockStyle.Fill
             };
             ltMainOptions.Controls.Add(angleSelector, 22, 0);
-            ltMainOptions.SetColumnSpan(angleSelector, 2);
+            ltMainOptions.SetColumnSpan(angleSelector, 1);
             ltMainOptions.SetRowSpan(angleSelector, 2);
             toolTip.SetToolTip(angleSelector, @"Задайте направление ветра");
 
