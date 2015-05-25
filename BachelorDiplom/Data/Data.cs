@@ -159,5 +159,8 @@ namespace BachelorLibAPI.Data
         /// </summary>
         /// <param name="transitId">id проверяемой перевозкию.</param>
         bool IsInAccident(int transitId);
+
+        string GetCarInformation(int carId);
+        int AddNewDriver(string driverName, string driverNum, string middleName = "", string lastName = "");
     }   
 }

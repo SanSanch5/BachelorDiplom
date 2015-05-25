@@ -843,7 +843,7 @@ namespace BachelorLibAPI.Program
                 Center = place,
                 Consignment = transInfo.Consignment,
                 ConsignmentCapacity = transInfo.ConsignmentCapacity,
-                UntilTime = targetTime.AddHours(24),
+                UntilTime = targetTime.AddHours(TimeOfCleaning),
                 WindDirection = windDirection
             };
             var mchsStaffs = new List<int>();
@@ -860,7 +860,14 @@ namespace BachelorLibAPI.Program
             Cursor.Current = Cursors.WaitCursor;
             // сгенерить данные об аварии в отчёт
             _cleaningTime = TimeOfCleaning - (int) ((DateTime.Now.Ticks - targetTime.Ticks)/TimeSpan.TicksPerHour);
-            if (area*1000000/(_cleaningTime - 1) > _availableForces)
+            if (_cleaningTime < 0)
+            {
+                _reportInfo.Add(new List<string>
+                {
+                    "Последствия аварии уже поздно устранять."
+                }); _reportInfo.Add(new List<string>());
+            }
+            else if (area*1000000/(_cleaningTime - 1) > _availableForces)
             {
                 _reportInfo.Add(new List<string>
                 {
@@ -868,7 +875,7 @@ namespace BachelorLibAPI.Program
                         "\n в течении {0} часов с момента происшествия.", TimeOfCleaning)
                 }); _reportInfo.Add(new List<string>());
             }
-            else if (antiSubstanceCount.Value > _availableSubstances[antiSubstanceCount.Key])
+            else if (antiSubstanceCount.Value > 0 && antiSubstanceCount.Value > _availableSubstances[antiSubstanceCount.Key])
             {
                 _reportInfo.Add(new List<string>
                 {
