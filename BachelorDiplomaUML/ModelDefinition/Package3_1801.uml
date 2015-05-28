@@ -1,0 +1,174 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" xmlns:dm1="http://schemas.microsoft.com/dsltools/Kernel" xmlns:dm2="http://schemas.microsoft.com/dsltools/Component" xmlns:dm3="http://schemas.microsoft.com/dsltools/UseCase" xmlns:dm4="http://schemas.microsoft.com/dsltools/Activity" xmlns:dm5="http://schemas.microsoft.com/dsltools/Interaction" xmlns:dm6="http://schemas.microsoft.com/dsltools/UmlModelLibrary" xmlns:dm7="http://schemas.microsoft.com/dsltools/UmlDiagrams" xmlns:dm8="http://schemas.microsoft.com/dsltools/LogicalClassDesigner"
+  dslVersion="1.0.0.0"
+  Id="7e4e4ef2-1a60-41bd-aff3-72e9ff7346fd"
+  name="NET"
+  visibility="Private" xmlns="http://schemas.microsoft.com/dsltools/ModelStore">
+  <referencesInternal>
+    <reference
+      Id="4663fca1-ff9c-4a19-9f0b-f6651199cab1"
+      handle="viewcode://./CodeSchema_Namespace?Namespace%3DGMap.NET"
+      tag="ViewCode" />
+  </referencesInternal>
+  <profileInstances>
+    <packageHasProfileInstances
+      Id="651d2a07-fb5a-401c-815b-969c114ce2ae">
+      <profileInstance
+        Id="7422a8cc-1d15-4755-81c2-f645250e7b8e"
+        name="CSharpProfile" />
+    </packageHasProfileInstances>
+  </profileInstances>
+  <packagedElements>
+    <packageHasNamedElement>
+      <class
+        Id="a2e4f348-5d57-450d-bc9b-e145777ab64b"
+        name="PointLatLng"
+        isAbstract="false"
+        isLeaf="false"
+        isActiveClass="false">
+        <referencesInternal>
+          <reference
+            Id="3a3b3d74-00ad-4043-a435-195d83bfaf08"
+            handle="viewcode://./CodeSchema_Struct?Assembly%3Dfile:%2F%2F%2FP:%2FStudy%2Fsem8%2Fdiploma%2Fproject%2FBachelorDiplom%2FBachelorDiplom%2FMap%2FNETv4.0%2FGMap.NET.Core.dll Namespace%3DGMap.NET Type%3DPointLatLng"
+            tag="ViewCode" />
+        </referencesInternal>
+        <appliedStereotypesInternal>
+          <stereotypeInstance
+            Id="a5c9c56d-44c7-48eb-8d61-a262db69e56a"
+            name="struct"
+            profile="CSharpProfile">
+            <propertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="e583a10c-4d48-4370-b5d6-a464405e4de3">
+                <propertyInstance
+                  Id="8c890345-4115-4e66-b9c3-d1da792def95"
+                  name="ClrAttributes" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="98fcfb57-16c0-4df9-a78e-d998c171a9d7">
+                <propertyInstance
+                  Id="6b5a08c6-22d6-4781-b018-49e9a6f1cb20"
+                  name="IsPartial"
+                  value="false" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="d727191a-4f4f-45b8-809d-24c954535fd8">
+                <propertyInstance
+                  Id="3844647d-d7cf-4546-bdc3-f01eb5783871"
+                  name="IsUnsafe"
+                  value="false" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="aa994395-6a78-4d58-961a-38924c73844c">
+                <propertyInstance
+                  Id="cbc9338f-13a3-4964-955d-d4857391087b"
+                  name="PackageVisibility"
+                  value="internal" />
+              </stereotypeInstanceHasPropertyInstances>
+            </propertyInstances>
+          </stereotypeInstance>
+        </appliedStereotypesInternal>
+      </class>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <packageMoniker
+        Id="a0e7a211-b2c0-486a-8a81-a032eb9dfe25"
+        LastKnownName="WindowsForms"
+        LastKnownLocation="Package_1805.uml" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <class
+        Id="42ff7a79-90d2-4629-a686-73eefde31871"
+        name="Placemark"
+        isAbstract="false"
+        isLeaf="false"
+        isActiveClass="false">
+        <referencesInternal>
+          <reference
+            Id="5b24fccc-1b8e-42d1-8894-f679019c3b14"
+            handle="viewcode://./CodeSchema_Struct?Assembly%3Dfile:%2F%2F%2FP:%2FStudy%2Fsem8%2Fdiploma%2Fproject%2FBachelorDiplom%2FBachelorDiplom%2FMap%2FNETv4.0%2FGMap.NET.Core.dll Namespace%3DGMap.NET Type%3DPlacemark"
+            tag="ViewCode" />
+        </referencesInternal>
+        <appliedStereotypesInternal>
+          <stereotypeInstance
+            Id="dc60e873-8e0e-4644-96d0-bd2030556413"
+            name="struct"
+            profile="CSharpProfile">
+            <propertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="bc112319-f752-47d0-9783-8a6762f5e30f">
+                <propertyInstance
+                  Id="8c6303d6-02b3-48f7-adda-03a90cc76950"
+                  name="ClrAttributes" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="c0317460-e50e-4e79-9a44-3458d4583618">
+                <propertyInstance
+                  Id="9f714218-23b9-4c8f-9b03-d85d83f9d2ca"
+                  name="IsPartial"
+                  value="false" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="d83ec36d-b5dc-42c2-9d82-b061039629b3">
+                <propertyInstance
+                  Id="62955a75-3c96-4a77-9924-3975a494b002"
+                  name="IsUnsafe"
+                  value="false" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="1356045e-b864-4374-9e6a-569d50a601f7">
+                <propertyInstance
+                  Id="3daae7ef-b054-4485-86e4-13ba96e7e490"
+                  name="PackageVisibility"
+                  value="internal" />
+              </stereotypeInstanceHasPropertyInstances>
+            </propertyInstances>
+          </stereotypeInstance>
+        </appliedStereotypesInternal>
+      </class>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <enumeration
+        Id="b294e477-f959-4acd-b960-ee4e1903024a"
+        name="GeoCoderStatusCode"
+        isAbstract="false"
+        isLeaf="false">
+        <referencesInternal>
+          <reference
+            Id="077a554f-af21-43e8-9b3e-34576d5ad942"
+            handle="viewcode://./CodeSchema_Enum?Assembly%3Dfile:%2F%2F%2FP:%2FStudy%2Fsem8%2Fdiploma%2Fproject%2FBachelorDiplom%2FBachelorDiplom%2FMap%2FNETv4.0%2FGMap.NET.Core.dll Namespace%3DGMap.NET Type%3DGeoCoderStatusCode"
+            tag="ViewCode" />
+        </referencesInternal>
+        <appliedStereotypesInternal>
+          <stereotypeInstance
+            Id="ed1d5b13-3ecd-4121-8a46-c2e3e17cc414"
+            name="enum"
+            profile="CSharpProfile">
+            <propertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="72b7c0ec-9b4b-4d3b-9d8b-99cffd819813">
+                <propertyInstance
+                  Id="65457f07-54c3-4975-9421-8623d0261aa1"
+                  name="ClrAttributes" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="2e8dc170-8c5b-4349-bdea-b1eeb365cc1d">
+                <propertyInstance
+                  Id="2cabc4a5-3337-4c9a-b946-f7239ee4074e"
+                  name="BaseType"
+                  value="int" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="686825b0-95ab-4f26-baae-2df17d4815c7">
+                <propertyInstance
+                  Id="83462913-511b-499e-b697-d5f271387bb5"
+                  name="PackageVisibility"
+                  value="internal" />
+              </stereotypeInstanceHasPropertyInstances>
+            </propertyInstances>
+          </stereotypeInstance>
+        </appliedStereotypesInternal>
+      </enumeration>
+    </packageHasNamedElement>
+  </packagedElements>
+</package>

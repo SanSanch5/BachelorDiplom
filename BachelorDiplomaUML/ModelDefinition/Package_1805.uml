@@ -1,0 +1,284 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" xmlns:dm1="http://schemas.microsoft.com/dsltools/Kernel" xmlns:dm2="http://schemas.microsoft.com/dsltools/Component" xmlns:dm3="http://schemas.microsoft.com/dsltools/UseCase" xmlns:dm4="http://schemas.microsoft.com/dsltools/Activity" xmlns:dm5="http://schemas.microsoft.com/dsltools/Interaction" xmlns:dm6="http://schemas.microsoft.com/dsltools/UmlModelLibrary" xmlns:dm7="http://schemas.microsoft.com/dsltools/UmlDiagrams" xmlns:dm8="http://schemas.microsoft.com/dsltools/LogicalClassDesigner"
+  dslVersion="1.0.0.0"
+  Id="a0e7a211-b2c0-486a-8a81-a032eb9dfe25"
+  name="WindowsForms"
+  visibility="Private" xmlns="http://schemas.microsoft.com/dsltools/ModelStore">
+  <referencesInternal>
+    <reference
+      Id="ab00289f-733d-4a51-a53e-720c39220567"
+      handle="viewcode://./CodeSchema_Namespace?Namespace%3DGMap.NET.WindowsForms"
+      tag="ViewCode" />
+  </referencesInternal>
+  <packagedElements>
+    <packageHasNamedElement>
+      <class
+        Id="2071acab-681f-48a0-9e12-720475ede317"
+        name="GMapControl"
+        isAbstract="false"
+        isLeaf="false"
+        isActiveClass="false">
+        <referencesInternal>
+          <reference
+            Id="9376e4ba-ab15-4f73-baae-f7c6b4d003fe"
+            handle="viewcode://./CodeSchema_Class?Assembly%3Dfile:%2F%2F%2FP:%2FStudy%2Fsem8%2Fdiploma%2Fproject%2FBachelorDiplom%2FBachelorDiplom%2FMap%2FNETv4.0%2FGMap.NET.WindowsForms.dll Namespace%3DGMap.NET.WindowsForms Type%3DGMapControl"
+            tag="ViewCode" />
+        </referencesInternal>
+        <appliedStereotypesInternal>
+          <stereotypeInstance
+            Id="d7bdffa0-02db-4a40-a651-61a2f19c71e9"
+            name="class"
+            profile="CSharpProfile">
+            <propertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="fbbeb899-b16a-44f4-b0a1-a2e37b6e670a">
+                <propertyInstance
+                  Id="0ccd744f-fab4-4792-9fb3-e5d15d6a6b53"
+                  name="ClrAttributes" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="d10b1d2f-a4d4-4ac1-a1a5-4aa9881738e5">
+                <propertyInstance
+                  Id="166237d1-5116-4582-ad58-b3528afad0ff"
+                  name="IsPartial"
+                  value="false" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="70e1cf90-a0d5-40cd-9b19-abcf73fa69ea">
+                <propertyInstance
+                  Id="268b25e8-eb1c-4905-8a4e-663046b2bea6"
+                  name="IsStatic"
+                  value="False" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="bcb60c12-d8fb-4d85-88a5-30202225f433">
+                <propertyInstance
+                  Id="40f50de1-05a6-4a08-8a61-61585b18d29b"
+                  name="IsUnsafe"
+                  value="false" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="e37315ba-d704-4879-9a56-f4abb2d9e8b4">
+                <propertyInstance
+                  Id="a5b91a9a-f7cb-4454-ad55-0fec7473a865"
+                  name="PackageVisibility"
+                  value="internal" />
+              </stereotypeInstanceHasPropertyInstances>
+            </propertyInstances>
+          </stereotypeInstance>
+        </appliedStereotypesInternal>
+        <generalsInternal>
+          <generalization
+            Id="f65ed250-98ed-4cf3-acab-13eb629c06f7"
+            isSubstitutable="false">
+            <classMoniker
+              Id="42337008-9edb-4e70-bff5-4b99c22708db"
+              LastKnownName="UserControl"
+              LastKnownLocation="Package3_1803.uml" />
+          </generalization>
+        </generalsInternal>
+      </class>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <class
+        Id="9ca1e4f7-f81a-4514-9511-ca755d982bc4"
+        name="GMapMarker"
+        isAbstract="true"
+        isLeaf="false"
+        isActiveClass="false">
+        <referencesInternal>
+          <reference
+            Id="9daff159-86f8-476b-8473-47fad6531574"
+            handle="viewcode://./CodeSchema_Class?Assembly%3Dfile:%2F%2F%2FP:%2FStudy%2Fsem8%2Fdiploma%2Fproject%2FBachelorDiplom%2FBachelorDiplom%2FMap%2FNETv4.0%2FGMap.NET.WindowsForms.dll Namespace%3DGMap.NET.WindowsForms Type%3DGMapMarker"
+            tag="ViewCode" />
+        </referencesInternal>
+        <appliedStereotypesInternal>
+          <stereotypeInstance
+            Id="bc210bf9-25b0-4ea2-9189-3683e61d9fa6"
+            name="class"
+            profile="CSharpProfile">
+            <propertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="e9df88cb-97dd-4e72-a120-7753d943b9e4">
+                <propertyInstance
+                  Id="bf6627e8-5c3c-41b9-a876-61e3abc3865d"
+                  name="ClrAttributes" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="cdc16ad0-2ff4-40ac-866f-fe662dd757e5">
+                <propertyInstance
+                  Id="1030eaa0-0ceb-4df7-ac26-6e728caac860"
+                  name="IsPartial"
+                  value="false" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="86efc279-8ef1-4fcf-b709-23451163db3a">
+                <propertyInstance
+                  Id="5d84df7f-8188-4c81-864f-d910635b7f25"
+                  name="IsStatic"
+                  value="False" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="7df8da13-684e-474a-b668-e7864a689129">
+                <propertyInstance
+                  Id="70244ce0-2545-43ec-9cf9-4cc2124e7491"
+                  name="IsUnsafe"
+                  value="false" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="145deddd-fd90-4466-b455-3a20e399193b">
+                <propertyInstance
+                  Id="f0e8750c-5167-4e59-80a1-71356ac682cd"
+                  name="PackageVisibility"
+                  value="internal" />
+              </stereotypeInstanceHasPropertyInstances>
+            </propertyInstances>
+          </stereotypeInstance>
+        </appliedStereotypesInternal>
+        <suppliersInternal>
+          <interfaceRealization
+            Id="ee9f789d-8d9d-44dc-a7d2-22ea805c3cfb">
+            <interfaceMoniker
+              Id="bbf1c808-d4c6-4911-a83c-ee9fb9336dbf"
+              LastKnownName="IDisposable"
+              LastKnownLocation="Package4_1801.uml" />
+          </interfaceRealization>
+        </suppliersInternal>
+      </class>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <class
+        Id="c3122073-0f3f-4eed-b405-707df47203ef"
+        name="GMapPolygon"
+        isAbstract="false"
+        isLeaf="false"
+        isActiveClass="false">
+        <referencesInternal>
+          <reference
+            Id="449e664f-263c-4bc5-bffe-34f23374ee73"
+            handle="viewcode://./CodeSchema_Class?Assembly%3Dfile:%2F%2F%2FP:%2FStudy%2Fsem8%2Fdiploma%2Fproject%2FBachelorDiplom%2FBachelorDiplom%2FMap%2FNETv4.0%2FGMap.NET.WindowsForms.dll Namespace%3DGMap.NET.WindowsForms Type%3DGMapPolygon"
+            tag="ViewCode" />
+        </referencesInternal>
+        <appliedStereotypesInternal>
+          <stereotypeInstance
+            Id="5b7979d4-19c4-41d0-8108-bdff12b81597"
+            name="class"
+            profile="CSharpProfile">
+            <propertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="464f7881-977e-44f8-84e2-a1bdc5f7409b">
+                <propertyInstance
+                  Id="6f3d196c-cc58-4941-b608-a93fa0a46e60"
+                  name="ClrAttributes" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="8d4620b2-4818-449e-836a-2dfda457d9f5">
+                <propertyInstance
+                  Id="89fbc3da-d6a2-401b-81a2-06e6d7cba79d"
+                  name="IsPartial"
+                  value="false" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="4e18fff2-c7bc-4ff3-9471-13fd3346e58d">
+                <propertyInstance
+                  Id="4bbbd316-af26-4a64-b89e-09e7b176a356"
+                  name="IsStatic"
+                  value="False" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="7718fd72-802e-4a8b-acd0-e1567020b0c9">
+                <propertyInstance
+                  Id="3450224d-af63-4880-bd72-ee5768d5d4c5"
+                  name="IsUnsafe"
+                  value="false" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="46b78d4d-e9e3-4d00-a763-ada66bd88f12">
+                <propertyInstance
+                  Id="cd395713-344e-4a54-ba96-4237508561e4"
+                  name="PackageVisibility"
+                  value="internal" />
+              </stereotypeInstanceHasPropertyInstances>
+            </propertyInstances>
+          </stereotypeInstance>
+        </appliedStereotypesInternal>
+        <suppliersInternal>
+          <interfaceRealization
+            Id="d4f8ef77-9080-416f-9b41-e412c31f6ca4">
+            <interfaceMoniker
+              Id="bbf1c808-d4c6-4911-a83c-ee9fb9336dbf"
+              LastKnownName="IDisposable"
+              LastKnownLocation="Package4_1801.uml" />
+          </interfaceRealization>
+        </suppliersInternal>
+      </class>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <class
+        Id="1f4175ca-e033-4335-8cb8-d1cd6102b3dd"
+        name="GMapOverlay"
+        isAbstract="false"
+        isLeaf="false"
+        isActiveClass="false">
+        <referencesInternal>
+          <reference
+            Id="f4b2bac0-48fc-424c-9d56-b88825191173"
+            handle="viewcode://./CodeSchema_Class?Assembly%3Dfile:%2F%2F%2FP:%2FStudy%2Fsem8%2Fdiploma%2Fproject%2FBachelorDiplom%2FBachelorDiplom%2FMap%2FNETv4.0%2FGMap.NET.WindowsForms.dll Namespace%3DGMap.NET.WindowsForms Type%3DGMapOverlay"
+            tag="ViewCode" />
+        </referencesInternal>
+        <appliedStereotypesInternal>
+          <stereotypeInstance
+            Id="b17db631-ae15-4084-8b30-e33202522664"
+            name="class"
+            profile="CSharpProfile">
+            <propertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="425711bf-6b52-4b38-b573-86c989742d57">
+                <propertyInstance
+                  Id="827eab38-9a8d-4dd5-9bc2-d43174c31802"
+                  name="ClrAttributes" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="1099f1ed-3cd7-41b5-9a91-eda7e4af1057">
+                <propertyInstance
+                  Id="006ed7e6-6b20-40a1-b752-bc55ca3da894"
+                  name="IsPartial"
+                  value="false" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="5f2a8d3d-21e8-4eba-9056-b27a6d507fdb">
+                <propertyInstance
+                  Id="45c8fdef-5450-498e-b296-5c85101074de"
+                  name="IsStatic"
+                  value="False" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="d289c438-9af3-4084-bd07-1868b8724de9">
+                <propertyInstance
+                  Id="cdbbaae7-36a2-4853-88da-e2b1b934f598"
+                  name="IsUnsafe"
+                  value="false" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="b24c5853-f032-430c-9698-f3b03486a3b4">
+                <propertyInstance
+                  Id="3fca36b3-7334-4d62-a9fa-f5e3f414110b"
+                  name="PackageVisibility"
+                  value="internal" />
+              </stereotypeInstanceHasPropertyInstances>
+            </propertyInstances>
+          </stereotypeInstance>
+        </appliedStereotypesInternal>
+        <suppliersInternal>
+          <interfaceRealization
+            Id="52055cb7-f746-4079-be07-08a7b237024d">
+            <interfaceMoniker
+              Id="bbf1c808-d4c6-4911-a83c-ee9fb9336dbf"
+              LastKnownName="IDisposable"
+              LastKnownLocation="Package4_1801.uml" />
+          </interfaceRealization>
+        </suppliersInternal>
+      </class>
+    </packageHasNamedElement>
+  </packagedElements>
+</package>

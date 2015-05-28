@@ -1,0 +1,2277 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" xmlns:dm1="http://schemas.microsoft.com/dsltools/Kernel" xmlns:dm2="http://schemas.microsoft.com/dsltools/Component" xmlns:dm3="http://schemas.microsoft.com/dsltools/UseCase" xmlns:dm4="http://schemas.microsoft.com/dsltools/Activity" xmlns:dm5="http://schemas.microsoft.com/dsltools/Interaction" xmlns:dm6="http://schemas.microsoft.com/dsltools/UmlModelLibrary" xmlns:dm7="http://schemas.microsoft.com/dsltools/UmlDiagrams" xmlns:dm8="http://schemas.microsoft.com/dsltools/LogicalClassDesigner"
+  dslVersion="1.0.0.0"
+  Id="afc03300-eb24-4b1c-b138-999cfaa93fab"
+  name="Algorithms"
+  visibility="Private" xmlns="http://schemas.microsoft.com/dsltools/ModelStore">
+  <referencesInternal>
+    <reference
+      Id="4e483ba0-1ab3-4ce9-ae5c-42ad2e0ad59e"
+      handle="viewcode://./CodeSchema_Namespace?Namespace%3DBachelorLibAPI.Algorithms"
+      tag="ViewCode" />
+  </referencesInternal>
+  <profileInstances>
+    <packageHasProfileInstances
+      Id="e77c5d07-c484-41c6-8d72-4799afc3d76b">
+      <profileInstance
+        Id="701341df-bf76-457b-bb1f-5e7de7482963"
+        name="CSharpProfile" />
+    </packageHasProfileInstances>
+  </profileInstances>
+  <packagedElements>
+    <packageHasNamedElement>
+      <class
+        Id="de3f3bb8-69e1-403c-b1e9-ea034dbc99f2"
+        name="LatLongWorker"
+        isAbstract="false"
+        isLeaf="false"
+        isActiveClass="false">
+        <referencesInternal>
+          <reference
+            Id="32358967-119e-465a-b958-f5ab112ff00c"
+            handle="viewcode://./CodeSchema_Class?Assembly%3Dfile:%2F%2F%2FP:%2FStudy%2Fsem8%2Fdiploma%2Fproject%2FBachelorDiplom%2FBachelorDiplom%2Fbin%2FDebug%2FBachelorLibAPI.exe Namespace%3DBachelorLibAPI.Algorithms Type%3DLatLongWorker"
+            tag="ViewCode" />
+        </referencesInternal>
+        <appliedStereotypesInternal>
+          <stereotypeInstance
+            Id="796bfcc6-1af9-4a04-81c1-8f65c5019d3e"
+            name="class"
+            profile="CSharpProfile">
+            <propertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="74411d0d-c4a3-4892-b0b3-56cd73b6af6f">
+                <propertyInstance
+                  Id="48eacae8-d167-48f8-8176-dee44777c012"
+                  name="ClrAttributes" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="76662408-f718-471d-b324-c55ed7657c69">
+                <propertyInstance
+                  Id="dbbeffdc-7cbb-4774-8afc-3dc55010fbb4"
+                  name="IsPartial"
+                  value="false" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="ba917aaf-44ae-49bf-bce7-2ebed8d79f2f">
+                <propertyInstance
+                  Id="efb7b941-d40d-4722-8198-815bd9b46634"
+                  name="IsStatic"
+                  value="True" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="963e3238-93b8-405c-9fa2-ba1dea56a3d7">
+                <propertyInstance
+                  Id="812305c6-ead5-4675-8bf3-aaa43ac133d3"
+                  name="IsUnsafe"
+                  value="false" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="324377c7-0181-4cbe-88d5-c9b32662077f">
+                <propertyInstance
+                  Id="76851bbb-96f5-432b-9a0a-fdda07a3778c"
+                  name="PackageVisibility"
+                  value="internal" />
+              </stereotypeInstanceHasPropertyInstances>
+            </propertyInstances>
+          </stereotypeInstance>
+        </appliedStereotypesInternal>
+        <ownedAttributesInternal>
+          <property
+            Id="a3b415f9-63e2-443f-afe8-576cc56bfaa2"
+            name="R"
+            visibility="Private"
+            isLeaf="false"
+            isStatic="true"
+            isReadOnly="false"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="None"
+            isComposite="false">
+            <referencesInternal>
+              <reference
+                Id="392f9431-fd13-456f-ab36-2342464e431f"
+                handle="viewcode://./CodeSchema_Field?Assembly%3Dfile:%2F%2F%2FP:%2FStudy%2Fsem8%2Fdiploma%2Fproject%2FBachelorDiplom%2FBachelorDiplom%2Fbin%2FDebug%2FBachelorLibAPI.exe Namespace%3DBachelorLibAPI.Algorithms Type%3DLatLongWorker Member%3DR"
+                tag="ViewCode" />
+            </referencesInternal>
+            <appliedStereotypesInternal>
+              <stereotypeInstance
+                Id="6ddba295-2726-48d4-84cd-52b90a8f82a5"
+                name="field"
+                profile="CSharpProfile">
+                <propertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="f41e1ffc-5c8f-410a-8790-57a318be0184">
+                    <propertyInstance
+                      Id="fea67834-3db6-4366-8ba8-b6067482b1ad"
+                      name="ClrAttributes" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="7b5c6339-083e-4003-a759-4cd13fd61c01">
+                    <propertyInstance
+                      Id="8c1982ad-3946-4ddb-bb86-12a16e8f978f"
+                      name="IsConst"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="c35fb0bd-16f2-434d-9853-dda5b0063ed7">
+                    <propertyInstance
+                      Id="c7733ccf-239e-4f92-854c-179e1cf11b11"
+                      name="IsNullable"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="401c9a38-4f42-428c-99bf-b831a9ec4b12">
+                    <propertyInstance
+                      Id="472dca30-45f5-4d9d-8bfe-572372acc70c"
+                      name="IsVolatile"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="f0b0a76d-7168-4159-b215-9acb94775836">
+                    <propertyInstance
+                      Id="84be0d01-25c8-495e-b5b8-30baded786f9"
+                      name="PackageVisibility"
+                      value="internal" />
+                  </stereotypeInstanceHasPropertyInstances>
+                </propertyInstances>
+              </stereotypeInstance>
+            </appliedStereotypesInternal>
+          </property>
+        </ownedAttributesInternal>
+        <ownedOperationsInternal>
+          <operation
+            Id="b9e53482-71be-4296-91ac-c5715a86cb38"
+            name="PointFromStartBearingDistance"
+            isLeaf="false"
+            isStatic="true"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false">
+            <referencesInternal>
+              <reference
+                Id="c5f47958-a46a-43b6-8b0e-5df2f7894502"
+                handle="viewcode://./CodeSchema_Method?Assembly%3Dfile:%2F%2F%2FP:%2FStudy%2Fsem8%2Fdiploma%2Fproject%2FBachelorDiplom%2FBachelorDiplom%2Fbin%2FDebug%2FBachelorLibAPI.exe Namespace%3DBachelorLibAPI.Algorithms Type%3DLatLongWorker Member%3D(Name%3DPointFromStartBearingDistance OverloadingParameters%3D[(Assembly%3Dfile:%2F%2F%2FP:%2FStudy%2Fsem8%2Fdiploma%2Fproject%2FBachelorDiplom%2FBachelorDiplom%2FMap%2FNETv4.0%2FGMap.NET.Core.dll Namespace%3DGMap.NET Type%3DPointLatLng)%2C(Assembly%3D&quot;file:%2F%2F%2FC:%2FProgram Files (x86)%2FReference Assemblies%2FMicrosoft%2FFramework%2F.NETFramework%2Fv4.5.1%2Fmscorlib.dll&quot; Namespace%3DSystem Type%3DDouble)%2C(Assembly%3D&quot;file:%2F%2F%2FC:%2FProgram Files (x86)%2FReference Assemblies%2FMicrosoft%2FFramework%2F.NETFramework%2Fv4.5.1%2Fmscorlib.dll&quot; Namespace%3DSystem Type%3DDouble)])"
+                tag="ViewCode" />
+            </referencesInternal>
+            <appliedStereotypesInternal>
+              <stereotypeInstance
+                Id="f69878b4-4e01-4b7c-b49d-ee7c1ae4d37a"
+                name="method"
+                profile="CSharpProfile">
+                <propertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="ea8c0ed1-d8a3-4b37-bd6c-c7273ba827a0">
+                    <propertyInstance
+                      Id="976d934f-fc5e-45d1-896c-42969010ccce"
+                      name="ClrAttributes" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="1e0daeef-44dd-46f5-ae92-15c7c400d57a">
+                    <propertyInstance
+                      Id="0625e235-61fa-4399-b94e-3e293ba6e2ea"
+                      name="IsPartial"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="841c3d42-6c9c-4cda-90cb-ef23b27f9a1e">
+                    <propertyInstance
+                      Id="bbfed2e7-0eec-46e0-9a5f-a1c7a24f354b"
+                      name="IsUnsafe"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="c53c331c-770c-492d-a671-70b656da35cc">
+                    <propertyInstance
+                      Id="3f8b7bdc-0329-42ec-a63c-4646220cd482"
+                      name="Inheritance"
+                      value="none" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="9809f6e9-a876-4784-b65a-be66b76ef8bf">
+                    <propertyInstance
+                      Id="a51883c3-6019-4f02-9662-846e754c4be2"
+                      name="PackageVisibility"
+                      value="internal" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="d0c4e6d8-9402-443d-ab5a-81bfcee7bdf9">
+                    <propertyInstance
+                      Id="e7efa5f2-98cf-41ab-a0c0-fb384d00998a"
+                      name="params"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                </propertyInstances>
+              </stereotypeInstance>
+            </appliedStereotypesInternal>
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="4c5ac099-bba8-45e8-8011-61359505c43f"
+                  direction="Return">
+                  <type_NamedElement>
+                    <classMoniker
+                      Id="a2e4f348-5d57-450d-bc9b-e145777ab64b"
+                      LastKnownName="PointLatLng"
+                      LastKnownLocation="Package3_1801.uml" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="e309b7c0-a3d6-48cb-937a-56d83ea42b5b"
+                  name="start"
+                  direction="In">
+                  <referencesInternal>
+                    <reference
+                      Id="832414b6-dba3-4660-9dbc-6e6152c7a91d"
+                      handle="viewcode://./CodeSchema_Parameter?Assembly%3Dfile:%2F%2F%2FP:%2FStudy%2Fsem8%2Fdiploma%2Fproject%2FBachelorDiplom%2FBachelorDiplom%2Fbin%2FDebug%2FBachelorLibAPI.exe Namespace%3DBachelorLibAPI.Algorithms Type%3DLatLongWorker Member%3D(Name%3DPointFromStartBearingDistance OverloadingParameters%3D[(Assembly%3Dfile:%2F%2F%2FP:%2FStudy%2Fsem8%2Fdiploma%2Fproject%2FBachelorDiplom%2FBachelorDiplom%2FMap%2FNETv4.0%2FGMap.NET.Core.dll Namespace%3DGMap.NET Type%3DPointLatLng)%2C(Assembly%3D&quot;file:%2F%2F%2FC:%2FProgram Files (x86)%2FReference Assemblies%2FMicrosoft%2FFramework%2F.NETFramework%2Fv4.5.1%2Fmscorlib.dll&quot; Namespace%3DSystem Type%3DDouble)%2C(Assembly%3D&quot;file:%2F%2F%2FC:%2FProgram Files (x86)%2FReference Assemblies%2FMicrosoft%2FFramework%2F.NETFramework%2Fv4.5.1%2Fmscorlib.dll&quot; Namespace%3DSystem Type%3DDouble)]) ParameterIdentifier%3Dstart"
+                      tag="ViewCode" />
+                  </referencesInternal>
+                  <type_NamedElement>
+                    <classMoniker
+                      Id="a2e4f348-5d57-450d-bc9b-e145777ab64b"
+                      LastKnownName="PointLatLng"
+                      LastKnownLocation="Package3_1801.uml" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="dae55a48-c01e-43db-a214-b33951a31559"
+                  name="bearing"
+                  direction="In">
+                  <referencesInternal>
+                    <reference
+                      Id="a2c6b89b-3cfc-44b2-97af-8b7ded8b1353"
+                      handle="viewcode://./CodeSchema_Parameter?Assembly%3Dfile:%2F%2F%2FP:%2FStudy%2Fsem8%2Fdiploma%2Fproject%2FBachelorDiplom%2FBachelorDiplom%2Fbin%2FDebug%2FBachelorLibAPI.exe Namespace%3DBachelorLibAPI.Algorithms Type%3DLatLongWorker Member%3D(Name%3DPointFromStartBearingDistance OverloadingParameters%3D[(Assembly%3Dfile:%2F%2F%2FP:%2FStudy%2Fsem8%2Fdiploma%2Fproject%2FBachelorDiplom%2FBachelorDiplom%2FMap%2FNETv4.0%2FGMap.NET.Core.dll Namespace%3DGMap.NET Type%3DPointLatLng)%2C(Assembly%3D&quot;file:%2F%2F%2FC:%2FProgram Files (x86)%2FReference Assemblies%2FMicrosoft%2FFramework%2F.NETFramework%2Fv4.5.1%2Fmscorlib.dll&quot; Namespace%3DSystem Type%3DDouble)%2C(Assembly%3D&quot;file:%2F%2F%2FC:%2FProgram Files (x86)%2FReference Assemblies%2FMicrosoft%2FFramework%2F.NETFramework%2Fv4.5.1%2Fmscorlib.dll&quot; Namespace%3DSystem Type%3DDouble)]) ParameterIdentifier%3Dbearing"
+                      tag="ViewCode" />
+                  </referencesInternal>
+                  <type_NamedElement>
+                    <classMoniker
+                      Id="3141a0b4-2935-4f91-9d77-8d6d17dfefdc"
+                      LastKnownName="Double"
+                      LastKnownLocation="Package4_1801.uml" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="90f511d8-5abd-40c4-a544-fc139be4680d"
+                  name="distance"
+                  direction="In">
+                  <referencesInternal>
+                    <reference
+                      Id="b322ae37-5130-44a9-9260-2399e9a9e930"
+                      handle="viewcode://./CodeSchema_Parameter?Assembly%3Dfile:%2F%2F%2FP:%2FStudy%2Fsem8%2Fdiploma%2Fproject%2FBachelorDiplom%2FBachelorDiplom%2Fbin%2FDebug%2FBachelorLibAPI.exe Namespace%3DBachelorLibAPI.Algorithms Type%3DLatLongWorker Member%3D(Name%3DPointFromStartBearingDistance OverloadingParameters%3D[(Assembly%3Dfile:%2F%2F%2FP:%2FStudy%2Fsem8%2Fdiploma%2Fproject%2FBachelorDiplom%2FBachelorDiplom%2FMap%2FNETv4.0%2FGMap.NET.Core.dll Namespace%3DGMap.NET Type%3DPointLatLng)%2C(Assembly%3D&quot;file:%2F%2F%2FC:%2FProgram Files (x86)%2FReference Assemblies%2FMicrosoft%2FFramework%2F.NETFramework%2Fv4.5.1%2Fmscorlib.dll&quot; Namespace%3DSystem Type%3DDouble)%2C(Assembly%3D&quot;file:%2F%2F%2FC:%2FProgram Files (x86)%2FReference Assemblies%2FMicrosoft%2FFramework%2F.NETFramework%2Fv4.5.1%2Fmscorlib.dll&quot; Namespace%3DSystem Type%3DDouble)]) ParameterIdentifier%3Ddistance"
+                      tag="ViewCode" />
+                  </referencesInternal>
+                  <type_NamedElement>
+                    <classMoniker
+                      Id="3141a0b4-2935-4f91-9d77-8d6d17dfefdc"
+                      LastKnownName="Double"
+                      LastKnownLocation="Package4_1801.uml" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+          <operation
+            Id="fe4b4a4f-eff7-4725-880f-6589a8cdb1e5"
+            name="DistanceFromLatLonInKm"
+            visibility="Private"
+            isLeaf="false"
+            isStatic="true"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false">
+            <referencesInternal>
+              <reference
+                Id="1b8c7d90-9ed3-4254-a1f3-8a8f1b9c8dbe"
+                handle="viewcode://./CodeSchema_Method?Assembly%3Dfile:%2F%2F%2FP:%2FStudy%2Fsem8%2Fdiploma%2Fproject%2FBachelorDiplom%2FBachelorDiplom%2Fbin%2FDebug%2FBachelorLibAPI.exe Namespace%3DBachelorLibAPI.Algorithms Type%3DLatLongWorker Member%3D(Name%3DDistanceFromLatLonInKm OverloadingParameters%3D[(Assembly%3D&quot;file:%2F%2F%2FC:%2FProgram Files (x86)%2FReference Assemblies%2FMicrosoft%2FFramework%2F.NETFramework%2Fv4.5.1%2Fmscorlib.dll&quot; Namespace%3DSystem Type%3DDouble)%2C(Assembly%3D&quot;file:%2F%2F%2FC:%2FProgram Files (x86)%2FReference Assemblies%2FMicrosoft%2FFramework%2F.NETFramework%2Fv4.5.1%2Fmscorlib.dll&quot; Namespace%3DSystem Type%3DDouble)%2C(Assembly%3D&quot;file:%2F%2F%2FC:%2FProgram Files (x86)%2FReference Assemblies%2FMicrosoft%2FFramework%2F.NETFramework%2Fv4.5.1%2Fmscorlib.dll&quot; Namespace%3DSystem Type%3DDouble)%2C(Assembly%3D&quot;file:%2F%2F%2FC:%2FProgram Files (x86)%2FReference Assemblies%2FMicrosoft%2FFramework%2F.NETFramework%2Fv4.5.1%2Fmscorlib.dll&quot; Namespace%3DSystem Type%3DDouble)])"
+                tag="ViewCode" />
+            </referencesInternal>
+            <appliedStereotypesInternal>
+              <stereotypeInstance
+                Id="fcb54896-7291-4e87-bac8-8efa18850287"
+                name="method"
+                profile="CSharpProfile">
+                <propertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="b458967c-8a5d-474a-9723-12ac2ede50ae">
+                    <propertyInstance
+                      Id="b894f2df-06a5-4355-a08e-6757f361fae1"
+                      name="ClrAttributes" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="89f45ddb-6a00-422c-81ec-9956ff17cb36">
+                    <propertyInstance
+                      Id="ce1501bc-ec4b-472e-9e24-c3fb5ef4e675"
+                      name="IsPartial"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="0284d062-b175-4c26-a020-dd8d64ee0e9d">
+                    <propertyInstance
+                      Id="17ac14fb-7382-48be-bf17-9101e428d1a5"
+                      name="IsUnsafe"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="4e50036c-f0c3-4450-b2c3-8128d1ec1159">
+                    <propertyInstance
+                      Id="cfdecede-556c-4bf6-a4cf-e1715445d7ce"
+                      name="Inheritance"
+                      value="none" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="43aec851-05bb-46a3-b9f9-d9ae59c2952a">
+                    <propertyInstance
+                      Id="b4d9ea4f-7a68-4f33-b4a9-c1c9c9d3e805"
+                      name="PackageVisibility"
+                      value="internal" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="62f47848-bcf0-4c89-ab93-e595995faede">
+                    <propertyInstance
+                      Id="731f239e-2dc3-46bb-91e5-95b1d6818be8"
+                      name="params"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                </propertyInstances>
+              </stereotypeInstance>
+            </appliedStereotypesInternal>
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="611716b4-23d1-44ed-b981-a485ca4da41c"
+                  direction="Return">
+                  <type_NamedElement>
+                    <classMoniker
+                      Id="3141a0b4-2935-4f91-9d77-8d6d17dfefdc"
+                      LastKnownName="Double"
+                      LastKnownLocation="Package4_1801.uml" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="485d85df-3c85-4565-9ca4-90dfd19b62e7"
+                  name="lat1"
+                  direction="In">
+                  <referencesInternal>
+                    <reference
+                      Id="58c5202a-e8d2-446c-9482-05f4a9d57497"
+                      handle="viewcode://./CodeSchema_Parameter?Assembly%3Dfile:%2F%2F%2FP:%2FStudy%2Fsem8%2Fdiploma%2Fproject%2FBachelorDiplom%2FBachelorDiplom%2Fbin%2FDebug%2FBachelorLibAPI.exe Namespace%3DBachelorLibAPI.Algorithms Type%3DLatLongWorker Member%3D(Name%3DDistanceFromLatLonInKm OverloadingParameters%3D[(Assembly%3D&quot;file:%2F%2F%2FC:%2FProgram Files (x86)%2FReference Assemblies%2FMicrosoft%2FFramework%2F.NETFramework%2Fv4.5.1%2Fmscorlib.dll&quot; Namespace%3DSystem Type%3DDouble)%2C(Assembly%3D&quot;file:%2F%2F%2FC:%2FProgram Files (x86)%2FReference Assemblies%2FMicrosoft%2FFramework%2F.NETFramework%2Fv4.5.1%2Fmscorlib.dll&quot; Namespace%3DSystem Type%3DDouble)%2C(Assembly%3D&quot;file:%2F%2F%2FC:%2FProgram Files (x86)%2FReference Assemblies%2FMicrosoft%2FFramework%2F.NETFramework%2Fv4.5.1%2Fmscorlib.dll&quot; Namespace%3DSystem Type%3DDouble)%2C(Assembly%3D&quot;file:%2F%2F%2FC:%2FProgram Files (x86)%2FReference Assemblies%2FMicrosoft%2FFramework%2F.NETFramework%2Fv4.5.1%2Fmscorlib.dll&quot; Namespace%3DSystem Type%3DDouble)]) ParameterIdentifier%3Dlat1"
+                      tag="ViewCode" />
+                  </referencesInternal>
+                  <type_NamedElement>
+                    <classMoniker
+                      Id="3141a0b4-2935-4f91-9d77-8d6d17dfefdc"
+                      LastKnownName="Double"
+                      LastKnownLocation="Package4_1801.uml" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="893ccef2-1c79-475d-be1a-ac6eba96632e"
+                  name="lon1"
+                  direction="In">
+                  <referencesInternal>
+                    <reference
+                      Id="13d43c47-b782-489d-8617-e14590d58c9f"
+                      handle="viewcode://./CodeSchema_Parameter?Assembly%3Dfile:%2F%2F%2FP:%2FStudy%2Fsem8%2Fdiploma%2Fproject%2FBachelorDiplom%2FBachelorDiplom%2Fbin%2FDebug%2FBachelorLibAPI.exe Namespace%3DBachelorLibAPI.Algorithms Type%3DLatLongWorker Member%3D(Name%3DDistanceFromLatLonInKm OverloadingParameters%3D[(Assembly%3D&quot;file:%2F%2F%2FC:%2FProgram Files (x86)%2FReference Assemblies%2FMicrosoft%2FFramework%2F.NETFramework%2Fv4.5.1%2Fmscorlib.dll&quot; Namespace%3DSystem Type%3DDouble)%2C(Assembly%3D&quot;file:%2F%2F%2FC:%2FProgram Files (x86)%2FReference Assemblies%2FMicrosoft%2FFramework%2F.NETFramework%2Fv4.5.1%2Fmscorlib.dll&quot; Namespace%3DSystem Type%3DDouble)%2C(Assembly%3D&quot;file:%2F%2F%2FC:%2FProgram Files (x86)%2FReference Assemblies%2FMicrosoft%2FFramework%2F.NETFramework%2Fv4.5.1%2Fmscorlib.dll&quot; Namespace%3DSystem Type%3DDouble)%2C(Assembly%3D&quot;file:%2F%2F%2FC:%2FProgram Files (x86)%2FReference Assemblies%2FMicrosoft%2FFramework%2F.NETFramework%2Fv4.5.1%2Fmscorlib.dll&quot; Namespace%3DSystem Type%3DDouble)]) ParameterIdentifier%3Dlon1"
+                      tag="ViewCode" />
+                  </referencesInternal>
+                  <type_NamedElement>
+                    <classMoniker
+                      Id="3141a0b4-2935-4f91-9d77-8d6d17dfefdc"
+                      LastKnownName="Double"
+                      LastKnownLocation="Package4_1801.uml" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="20885c45-e514-4cdd-a7c0-bfc36aad259c"
+                  name="lat2"
+                  direction="In">
+                  <referencesInternal>
+                    <reference
+                      Id="565b06a4-2a56-4121-8c8f-f78fe4560a38"
+                      handle="viewcode://./CodeSchema_Parameter?Assembly%3Dfile:%2F%2F%2FP:%2FStudy%2Fsem8%2Fdiploma%2Fproject%2FBachelorDiplom%2FBachelorDiplom%2Fbin%2FDebug%2FBachelorLibAPI.exe Namespace%3DBachelorLibAPI.Algorithms Type%3DLatLongWorker Member%3D(Name%3DDistanceFromLatLonInKm OverloadingParameters%3D[(Assembly%3D&quot;file:%2F%2F%2FC:%2FProgram Files (x86)%2FReference Assemblies%2FMicrosoft%2FFramework%2F.NETFramework%2Fv4.5.1%2Fmscorlib.dll&quot; Namespace%3DSystem Type%3DDouble)%2C(Assembly%3D&quot;file:%2F%2F%2FC:%2FProgram Files (x86)%2FReference Assemblies%2FMicrosoft%2FFramework%2F.NETFramework%2Fv4.5.1%2Fmscorlib.dll&quot; Namespace%3DSystem Type%3DDouble)%2C(Assembly%3D&quot;file:%2F%2F%2FC:%2FProgram Files (x86)%2FReference Assemblies%2FMicrosoft%2FFramework%2F.NETFramework%2Fv4.5.1%2Fmscorlib.dll&quot; Namespace%3DSystem Type%3DDouble)%2C(Assembly%3D&quot;file:%2F%2F%2FC:%2FProgram Files (x86)%2FReference Assemblies%2FMicrosoft%2FFramework%2F.NETFramework%2Fv4.5.1%2Fmscorlib.dll&quot; Namespace%3DSystem Type%3DDouble)]) ParameterIdentifier%3Dlat2"
+                      tag="ViewCode" />
+                  </referencesInternal>
+                  <type_NamedElement>
+                    <classMoniker
+                      Id="3141a0b4-2935-4f91-9d77-8d6d17dfefdc"
+                      LastKnownName="Double"
+                      LastKnownLocation="Package4_1801.uml" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="97d1a936-d119-41c1-95d7-e15e533fa780"
+                  name="lon2"
+                  direction="In">
+                  <referencesInternal>
+                    <reference
+                      Id="6fd447a7-a573-44ac-accb-b74e1ee1f5eb"
+                      handle="viewcode://./CodeSchema_Parameter?Assembly%3Dfile:%2F%2F%2FP:%2FStudy%2Fsem8%2Fdiploma%2Fproject%2FBachelorDiplom%2FBachelorDiplom%2Fbin%2FDebug%2FBachelorLibAPI.exe Namespace%3DBachelorLibAPI.Algorithms Type%3DLatLongWorker Member%3D(Name%3DDistanceFromLatLonInKm OverloadingParameters%3D[(Assembly%3D&quot;file:%2F%2F%2FC:%2FProgram Files (x86)%2FReference Assemblies%2FMicrosoft%2FFramework%2F.NETFramework%2Fv4.5.1%2Fmscorlib.dll&quot; Namespace%3DSystem Type%3DDouble)%2C(Assembly%3D&quot;file:%2F%2F%2FC:%2FProgram Files (x86)%2FReference Assemblies%2FMicrosoft%2FFramework%2F.NETFramework%2Fv4.5.1%2Fmscorlib.dll&quot; Namespace%3DSystem Type%3DDouble)%2C(Assembly%3D&quot;file:%2F%2F%2FC:%2FProgram Files (x86)%2FReference Assemblies%2FMicrosoft%2FFramework%2F.NETFramework%2Fv4.5.1%2Fmscorlib.dll&quot; Namespace%3DSystem Type%3DDouble)%2C(Assembly%3D&quot;file:%2F%2F%2FC:%2FProgram Files (x86)%2FReference Assemblies%2FMicrosoft%2FFramework%2F.NETFramework%2Fv4.5.1%2Fmscorlib.dll&quot; Namespace%3DSystem Type%3DDouble)]) ParameterIdentifier%3Dlon2"
+                      tag="ViewCode" />
+                  </referencesInternal>
+                  <type_NamedElement>
+                    <classMoniker
+                      Id="3141a0b4-2935-4f91-9d77-8d6d17dfefdc"
+                      LastKnownName="Double"
+                      LastKnownLocation="Package4_1801.uml" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+          <operation
+            Id="055335a0-782f-40e7-a446-5635f494d63e"
+            name="DistanceFromLatLonInKm"
+            isLeaf="false"
+            isStatic="true"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false">
+            <referencesInternal>
+              <reference
+                Id="a2b442e8-4cae-4110-9a9c-20f13738afa0"
+                handle="viewcode://./CodeSchema_Method?Assembly%3Dfile:%2F%2F%2FP:%2FStudy%2Fsem8%2Fdiploma%2Fproject%2FBachelorDiplom%2FBachelorDiplom%2Fbin%2FDebug%2FBachelorLibAPI.exe Namespace%3DBachelorLibAPI.Algorithms Type%3DLatLongWorker Member%3D(Name%3DDistanceFromLatLonInKm OverloadingParameters%3D[(Assembly%3Dfile:%2F%2F%2FP:%2FStudy%2Fsem8%2Fdiploma%2Fproject%2FBachelorDiplom%2FBachelorDiplom%2FMap%2FNETv4.0%2FGMap.NET.Core.dll Namespace%3DGMap.NET Type%3DPointLatLng)%2C(Assembly%3Dfile:%2F%2F%2FP:%2FStudy%2Fsem8%2Fdiploma%2Fproject%2FBachelorDiplom%2FBachelorDiplom%2FMap%2FNETv4.0%2FGMap.NET.Core.dll Namespace%3DGMap.NET Type%3DPointLatLng)])"
+                tag="ViewCode" />
+            </referencesInternal>
+            <appliedStereotypesInternal>
+              <stereotypeInstance
+                Id="45f951f1-0cd6-4ed9-a76a-6bdd74e553af"
+                name="method"
+                profile="CSharpProfile">
+                <propertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="d1f14402-c8a7-4c2c-861d-dd3a80a95424">
+                    <propertyInstance
+                      Id="ee6f9864-9584-4ccf-b035-8a6f3f5ebe2b"
+                      name="ClrAttributes" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="210dbf02-2ba8-429f-81f3-7b4854d3623c">
+                    <propertyInstance
+                      Id="e1dc93bc-e9a2-4071-bae5-d91729e1cd07"
+                      name="IsPartial"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="8ca8e397-4ee6-49ba-b30a-887e6dcc952b">
+                    <propertyInstance
+                      Id="560fc636-a25c-4fd3-b0dd-dbaad45a29fb"
+                      name="IsUnsafe"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="f82d5e5d-d76c-450c-8e7a-511a5498df61">
+                    <propertyInstance
+                      Id="d114f041-89d7-42a5-942d-4ffdbdb43dea"
+                      name="Inheritance"
+                      value="none" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="b2f8cb2d-06d4-4496-b85b-f646aa97287f">
+                    <propertyInstance
+                      Id="b9488dca-f072-40a4-9ef5-da5da079ffd1"
+                      name="PackageVisibility"
+                      value="internal" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="83bba106-1b7f-4ed0-aca1-8caa830ea77a">
+                    <propertyInstance
+                      Id="d5a59cdd-37c4-4a32-8dc7-f1f0ca1ebc1d"
+                      name="params"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                </propertyInstances>
+              </stereotypeInstance>
+            </appliedStereotypesInternal>
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="1c545184-2d3d-4732-a318-61e2151a10a4"
+                  direction="Return">
+                  <type_NamedElement>
+                    <classMoniker
+                      Id="3141a0b4-2935-4f91-9d77-8d6d17dfefdc"
+                      LastKnownName="Double"
+                      LastKnownLocation="Package4_1801.uml" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="5b7b87ac-a8ef-4af9-bc0a-d13e22cae260"
+                  name="p1"
+                  direction="In">
+                  <referencesInternal>
+                    <reference
+                      Id="038d9a2c-85d6-45d2-ab88-d2442310fe99"
+                      handle="viewcode://./CodeSchema_Parameter?Assembly%3Dfile:%2F%2F%2FP:%2FStudy%2Fsem8%2Fdiploma%2Fproject%2FBachelorDiplom%2FBachelorDiplom%2Fbin%2FDebug%2FBachelorLibAPI.exe Namespace%3DBachelorLibAPI.Algorithms Type%3DLatLongWorker Member%3D(Name%3DDistanceFromLatLonInKm OverloadingParameters%3D[(Assembly%3Dfile:%2F%2F%2FP:%2FStudy%2Fsem8%2Fdiploma%2Fproject%2FBachelorDiplom%2FBachelorDiplom%2FMap%2FNETv4.0%2FGMap.NET.Core.dll Namespace%3DGMap.NET Type%3DPointLatLng)%2C(Assembly%3Dfile:%2F%2F%2FP:%2FStudy%2Fsem8%2Fdiploma%2Fproject%2FBachelorDiplom%2FBachelorDiplom%2FMap%2FNETv4.0%2FGMap.NET.Core.dll Namespace%3DGMap.NET Type%3DPointLatLng)]) ParameterIdentifier%3Dp1"
+                      tag="ViewCode" />
+                  </referencesInternal>
+                  <type_NamedElement>
+                    <classMoniker
+                      Id="a2e4f348-5d57-450d-bc9b-e145777ab64b"
+                      LastKnownName="PointLatLng"
+                      LastKnownLocation="Package3_1801.uml" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="2ee432ce-4789-440d-a022-2d9c9942b02c"
+                  name="p2"
+                  direction="In">
+                  <referencesInternal>
+                    <reference
+                      Id="76620138-8ac5-4e0d-8331-241f670d9615"
+                      handle="viewcode://./CodeSchema_Parameter?Assembly%3Dfile:%2F%2F%2FP:%2FStudy%2Fsem8%2Fdiploma%2Fproject%2FBachelorDiplom%2FBachelorDiplom%2Fbin%2FDebug%2FBachelorLibAPI.exe Namespace%3DBachelorLibAPI.Algorithms Type%3DLatLongWorker Member%3D(Name%3DDistanceFromLatLonInKm OverloadingParameters%3D[(Assembly%3Dfile:%2F%2F%2FP:%2FStudy%2Fsem8%2Fdiploma%2Fproject%2FBachelorDiplom%2FBachelorDiplom%2FMap%2FNETv4.0%2FGMap.NET.Core.dll Namespace%3DGMap.NET Type%3DPointLatLng)%2C(Assembly%3Dfile:%2F%2F%2FP:%2FStudy%2Fsem8%2Fdiploma%2Fproject%2FBachelorDiplom%2FBachelorDiplom%2FMap%2FNETv4.0%2FGMap.NET.Core.dll Namespace%3DGMap.NET Type%3DPointLatLng)]) ParameterIdentifier%3Dp2"
+                      tag="ViewCode" />
+                  </referencesInternal>
+                  <type_NamedElement>
+                    <classMoniker
+                      Id="a2e4f348-5d57-450d-bc9b-e145777ab64b"
+                      LastKnownName="PointLatLng"
+                      LastKnownLocation="Package3_1801.uml" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+          <operation
+            Id="e016ff05-0ea2-4f76-adf1-315add4a7d74"
+            name="DecimalDegreeToDegMinSec"
+            isLeaf="false"
+            isStatic="true"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false">
+            <referencesInternal>
+              <reference
+                Id="dcd2d471-bb3f-4e38-8586-21394e5418bb"
+                handle="viewcode://./CodeSchema_Method?Assembly%3Dfile:%2F%2F%2FP:%2FStudy%2Fsem8%2Fdiploma%2Fproject%2FBachelorDiplom%2FBachelorDiplom%2Fbin%2FDebug%2FBachelorLibAPI.exe Namespace%3DBachelorLibAPI.Algorithms Type%3DLatLongWorker Member%3D(Name%3DDecimalDegreeToDegMinSec OverloadingParameters%3D[(Assembly%3D&quot;file:%2F%2F%2FC:%2FProgram Files (x86)%2FReference Assemblies%2FMicrosoft%2FFramework%2F.NETFramework%2Fv4.5.1%2Fmscorlib.dll&quot; Namespace%3DSystem Type%3DDouble)%2C(Assembly%3D&quot;file:%2F%2F%2FC:%2FProgram Files (x86)%2FReference Assemblies%2FMicrosoft%2FFramework%2F.NETFramework%2Fv4.5.1%2Fmscorlib.dll&quot; Namespace%3DSystem Type%3DBoolean)])"
+                tag="ViewCode" />
+            </referencesInternal>
+            <appliedStereotypesInternal>
+              <stereotypeInstance
+                Id="81e3c388-414a-4863-83e2-c1e2a11e2a3f"
+                name="method"
+                profile="CSharpProfile">
+                <propertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="17298335-836f-4647-af69-5493403a7155">
+                    <propertyInstance
+                      Id="3fed0b25-32d8-46ae-813a-2b91fee37ee6"
+                      name="ClrAttributes" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="7448dfab-53e1-45a9-b4d0-5887cb862d7f">
+                    <propertyInstance
+                      Id="0dd83172-46dd-402b-9bd0-524c1c105de5"
+                      name="IsPartial"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="33a58b3a-36b7-4b74-a737-e7d9f654fa22">
+                    <propertyInstance
+                      Id="b0c0968b-0975-4d5e-981b-b1a627b78f28"
+                      name="IsUnsafe"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="3d90290b-a4d0-4555-89e2-841aa601460b">
+                    <propertyInstance
+                      Id="3046dde0-9b09-4a1a-9dc2-85eee51eb357"
+                      name="Inheritance"
+                      value="none" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="5e69ee07-1bee-4866-b0e1-0f0c895dd815">
+                    <propertyInstance
+                      Id="2ea6b355-eac7-40c4-8b32-e90155c842d9"
+                      name="PackageVisibility"
+                      value="internal" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="24201f0e-e27a-4683-995f-df41995eb25a">
+                    <propertyInstance
+                      Id="dd0c735f-040d-4d96-bf6c-bb8a92ea678c"
+                      name="params"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                </propertyInstances>
+              </stereotypeInstance>
+            </appliedStereotypesInternal>
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="afeddc42-eb74-43a6-b5fc-9be7e3dffb30"
+                  direction="Return">
+                  <type_NamedElement>
+                    <classMoniker
+                      Id="48e5bda5-d2d8-4b3f-9d69-dcb819f1ba1d"
+                      LastKnownName="DegMinSec"
+                      LastKnownLocation="Package5_1801.uml" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="46a37940-d17a-41e3-8788-21930c753071"
+                  name="degree"
+                  direction="In">
+                  <referencesInternal>
+                    <reference
+                      Id="a0f0f95d-1767-464f-8dbe-0331bf40b19f"
+                      handle="viewcode://./CodeSchema_Parameter?Assembly%3Dfile:%2F%2F%2FP:%2FStudy%2Fsem8%2Fdiploma%2Fproject%2FBachelorDiplom%2FBachelorDiplom%2Fbin%2FDebug%2FBachelorLibAPI.exe Namespace%3DBachelorLibAPI.Algorithms Type%3DLatLongWorker Member%3D(Name%3DDecimalDegreeToDegMinSec OverloadingParameters%3D[(Assembly%3D&quot;file:%2F%2F%2FC:%2FProgram Files (x86)%2FReference Assemblies%2FMicrosoft%2FFramework%2F.NETFramework%2Fv4.5.1%2Fmscorlib.dll&quot; Namespace%3DSystem Type%3DDouble)%2C(Assembly%3D&quot;file:%2F%2F%2FC:%2FProgram Files (x86)%2FReference Assemblies%2FMicrosoft%2FFramework%2F.NETFramework%2Fv4.5.1%2Fmscorlib.dll&quot; Namespace%3DSystem Type%3DBoolean)]) ParameterIdentifier%3Ddegree"
+                      tag="ViewCode" />
+                  </referencesInternal>
+                  <type_NamedElement>
+                    <classMoniker
+                      Id="3141a0b4-2935-4f91-9d77-8d6d17dfefdc"
+                      LastKnownName="Double"
+                      LastKnownLocation="Package4_1801.uml" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="1b444252-bd21-429b-98fc-53ee028650c4"
+                  name="isLatitude"
+                  direction="In">
+                  <referencesInternal>
+                    <reference
+                      Id="12557a91-86c6-49b4-8f95-ffc4cebe7c2a"
+                      handle="viewcode://./CodeSchema_Parameter?Assembly%3Dfile:%2F%2F%2FP:%2FStudy%2Fsem8%2Fdiploma%2Fproject%2FBachelorDiplom%2FBachelorDiplom%2Fbin%2FDebug%2FBachelorLibAPI.exe Namespace%3DBachelorLibAPI.Algorithms Type%3DLatLongWorker Member%3D(Name%3DDecimalDegreeToDegMinSec OverloadingParameters%3D[(Assembly%3D&quot;file:%2F%2F%2FC:%2FProgram Files (x86)%2FReference Assemblies%2FMicrosoft%2FFramework%2F.NETFramework%2Fv4.5.1%2Fmscorlib.dll&quot; Namespace%3DSystem Type%3DDouble)%2C(Assembly%3D&quot;file:%2F%2F%2FC:%2FProgram Files (x86)%2FReference Assemblies%2FMicrosoft%2FFramework%2F.NETFramework%2Fv4.5.1%2Fmscorlib.dll&quot; Namespace%3DSystem Type%3DBoolean)]) ParameterIdentifier%3DisLatitude"
+                      tag="ViewCode" />
+                  </referencesInternal>
+                  <type_NamedElement>
+                    <primitiveTypeMoniker
+                      Id="8943dc84-709e-4f62-b15a-a3273aa6f165"
+                      LastKnownName="Boolean"
+                      LastKnownLocation="BachelorDiplomaUML.uml" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+          <operation
+            Id="bda12b7f-a2f3-451a-919a-aa33fb499910"
+            name="DegMinSecToDecimalDegree"
+            isLeaf="false"
+            isStatic="true"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false">
+            <referencesInternal>
+              <reference
+                Id="1b2b4370-ae0c-4534-8591-caa2a45b0999"
+                handle="viewcode://./CodeSchema_Method?Assembly%3Dfile:%2F%2F%2FP:%2FStudy%2Fsem8%2Fdiploma%2Fproject%2FBachelorDiplom%2FBachelorDiplom%2Fbin%2FDebug%2FBachelorLibAPI.exe Namespace%3DBachelorLibAPI.Algorithms Type%3DLatLongWorker Member%3D(Name%3DDegMinSecToDecimalDegree OverloadingParameters%3D[(Assembly%3Dfile:%2F%2F%2FP:%2FStudy%2Fsem8%2Fdiploma%2Fproject%2FBachelorDiplom%2FBachelorDiplom%2Fbin%2FDebug%2FBachelorLibAPI.exe Namespace%3DBachelorLibAPI.Program Type%3DDegMinSec)%2C(Assembly%3D&quot;file:%2F%2F%2FC:%2FProgram Files (x86)%2FReference Assemblies%2FMicrosoft%2FFramework%2F.NETFramework%2Fv4.5.1%2Fmscorlib.dll&quot; Namespace%3DSystem Type%3DBoolean)])"
+                tag="ViewCode" />
+            </referencesInternal>
+            <appliedStereotypesInternal>
+              <stereotypeInstance
+                Id="789ff6a2-5fcb-4b6f-b42a-34e23fcc1ae1"
+                name="method"
+                profile="CSharpProfile">
+                <propertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="b9584600-9a41-43aa-be27-134732f16940">
+                    <propertyInstance
+                      Id="9f819fe2-827e-4ac1-8229-10b9723943f3"
+                      name="ClrAttributes" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="dcf48e35-c9b5-4576-9ca9-de91d49d0f9e">
+                    <propertyInstance
+                      Id="75070eaa-0563-4a56-903b-b9b137f4f4d4"
+                      name="IsPartial"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="e216659e-4320-46a3-a8fc-1a97b6793526">
+                    <propertyInstance
+                      Id="30e7ee56-b9c5-470c-80b5-22f89f870281"
+                      name="IsUnsafe"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="e8ff5082-427d-440c-b00b-05b8b7018e10">
+                    <propertyInstance
+                      Id="44e1dbce-ca40-44e9-bd07-7f87c663ec70"
+                      name="Inheritance"
+                      value="none" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="6c49c374-1b29-41b3-8e00-c00d7fb655c6">
+                    <propertyInstance
+                      Id="b7e1d107-5890-4bc6-8fc2-b095baea8b15"
+                      name="PackageVisibility"
+                      value="internal" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="28ab698e-b64b-45dc-9730-da69b3dfeb38">
+                    <propertyInstance
+                      Id="fd40f880-0e4b-48ab-bb7e-c7b73ae46529"
+                      name="params"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                </propertyInstances>
+              </stereotypeInstance>
+            </appliedStereotypesInternal>
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="ed68a82d-059b-4793-8a03-d02bc0b3f51f"
+                  direction="Return">
+                  <type_NamedElement>
+                    <classMoniker
+                      Id="3141a0b4-2935-4f91-9d77-8d6d17dfefdc"
+                      LastKnownName="Double"
+                      LastKnownLocation="Package4_1801.uml" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="5c7689a5-7140-4331-8105-5c768a0b394c"
+                  name="deg"
+                  direction="In">
+                  <referencesInternal>
+                    <reference
+                      Id="6b9e2346-f537-454a-bbcc-0d42958970f9"
+                      handle="viewcode://./CodeSchema_Parameter?Assembly%3Dfile:%2F%2F%2FP:%2FStudy%2Fsem8%2Fdiploma%2Fproject%2FBachelorDiplom%2FBachelorDiplom%2Fbin%2FDebug%2FBachelorLibAPI.exe Namespace%3DBachelorLibAPI.Algorithms Type%3DLatLongWorker Member%3D(Name%3DDegMinSecToDecimalDegree OverloadingParameters%3D[(Assembly%3Dfile:%2F%2F%2FP:%2FStudy%2Fsem8%2Fdiploma%2Fproject%2FBachelorDiplom%2FBachelorDiplom%2Fbin%2FDebug%2FBachelorLibAPI.exe Namespace%3DBachelorLibAPI.Program Type%3DDegMinSec)%2C(Assembly%3D&quot;file:%2F%2F%2FC:%2FProgram Files (x86)%2FReference Assemblies%2FMicrosoft%2FFramework%2F.NETFramework%2Fv4.5.1%2Fmscorlib.dll&quot; Namespace%3DSystem Type%3DBoolean)]) ParameterIdentifier%3Ddeg"
+                      tag="ViewCode" />
+                  </referencesInternal>
+                  <type_NamedElement>
+                    <classMoniker
+                      Id="48e5bda5-d2d8-4b3f-9d69-dcb819f1ba1d"
+                      LastKnownName="DegMinSec"
+                      LastKnownLocation="Package5_1801.uml" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="6be75cc3-19ef-4992-b04d-4135c63c86d4"
+                  name="isLatitude"
+                  direction="In">
+                  <referencesInternal>
+                    <reference
+                      Id="65dd749f-e245-4a3c-bd87-95ea5da224c0"
+                      handle="viewcode://./CodeSchema_Parameter?Assembly%3Dfile:%2F%2F%2FP:%2FStudy%2Fsem8%2Fdiploma%2Fproject%2FBachelorDiplom%2FBachelorDiplom%2Fbin%2FDebug%2FBachelorLibAPI.exe Namespace%3DBachelorLibAPI.Algorithms Type%3DLatLongWorker Member%3D(Name%3DDegMinSecToDecimalDegree OverloadingParameters%3D[(Assembly%3Dfile:%2F%2F%2FP:%2FStudy%2Fsem8%2Fdiploma%2Fproject%2FBachelorDiplom%2FBachelorDiplom%2Fbin%2FDebug%2FBachelorLibAPI.exe Namespace%3DBachelorLibAPI.Program Type%3DDegMinSec)%2C(Assembly%3D&quot;file:%2F%2F%2FC:%2FProgram Files (x86)%2FReference Assemblies%2FMicrosoft%2FFramework%2F.NETFramework%2Fv4.5.1%2Fmscorlib.dll&quot; Namespace%3DSystem Type%3DBoolean)]) ParameterIdentifier%3DisLatitude"
+                      tag="ViewCode" />
+                  </referencesInternal>
+                  <type_NamedElement>
+                    <primitiveTypeMoniker
+                      Id="8943dc84-709e-4f62-b15a-a3273aa6f165"
+                      LastKnownName="Boolean"
+                      LastKnownLocation="BachelorDiplomaUML.uml" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+          <operation
+            Id="fea2830c-f4c0-4016-a6a0-91723d141940"
+            name="Rad2Deg"
+            visibility="Private"
+            isLeaf="false"
+            isStatic="true"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false">
+            <referencesInternal>
+              <reference
+                Id="34077948-b4e1-4200-8f5c-229e68447c48"
+                handle="viewcode://./CodeSchema_Method?Assembly%3Dfile:%2F%2F%2FP:%2FStudy%2Fsem8%2Fdiploma%2Fproject%2FBachelorDiplom%2FBachelorDiplom%2Fbin%2FDebug%2FBachelorLibAPI.exe Namespace%3DBachelorLibAPI.Algorithms Type%3DLatLongWorker Member%3D(Name%3DRad2Deg OverloadingParameters%3D[(Assembly%3D&quot;file:%2F%2F%2FC:%2FProgram Files (x86)%2FReference Assemblies%2FMicrosoft%2FFramework%2F.NETFramework%2Fv4.5.1%2Fmscorlib.dll&quot; Namespace%3DSystem Type%3DDouble)])"
+                tag="ViewCode" />
+            </referencesInternal>
+            <appliedStereotypesInternal>
+              <stereotypeInstance
+                Id="092fe7a2-a717-4c5b-ae17-1cc1399ad80f"
+                name="method"
+                profile="CSharpProfile">
+                <propertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="d6df9d1a-82e2-422b-a94a-3aff7e49d331">
+                    <propertyInstance
+                      Id="e9047732-f1b6-4c34-ae79-317c404e6d30"
+                      name="ClrAttributes" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="bcae4aca-ea34-4b49-8235-d1e934ed94f7">
+                    <propertyInstance
+                      Id="9fcb71d2-4812-4510-804d-44ea9acfd210"
+                      name="IsPartial"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="e7a9d3fe-f096-4240-84bc-62b099e969ac">
+                    <propertyInstance
+                      Id="202eb1d9-569d-46fa-be90-6e85fc595e3f"
+                      name="IsUnsafe"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="3d469175-6677-4e17-9d8b-3492dc14b8c7">
+                    <propertyInstance
+                      Id="24efc0d5-e3bc-40e6-8196-5069b60b85c4"
+                      name="Inheritance"
+                      value="none" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="0080107a-3161-4530-873f-a863e786118d">
+                    <propertyInstance
+                      Id="3e7abc6d-86c7-4edb-9bbc-a8a89089c0e0"
+                      name="PackageVisibility"
+                      value="internal" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="49854d04-3f28-45df-b59e-6820581802b5">
+                    <propertyInstance
+                      Id="3365076f-b46f-413a-a0af-ebe425d0c842"
+                      name="params"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                </propertyInstances>
+              </stereotypeInstance>
+            </appliedStereotypesInternal>
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="f2ed8ebc-2e89-4ce3-ba7c-66d3f2e48924"
+                  direction="Return">
+                  <type_NamedElement>
+                    <classMoniker
+                      Id="3141a0b4-2935-4f91-9d77-8d6d17dfefdc"
+                      LastKnownName="Double"
+                      LastKnownLocation="Package4_1801.uml" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="f848a5ba-78ec-42e9-a76a-cc3962502555"
+                  name="rad"
+                  direction="In">
+                  <referencesInternal>
+                    <reference
+                      Id="ee9a0052-8533-4b68-a2ba-74b834b67389"
+                      handle="viewcode://./CodeSchema_Parameter?Assembly%3Dfile:%2F%2F%2FP:%2FStudy%2Fsem8%2Fdiploma%2Fproject%2FBachelorDiplom%2FBachelorDiplom%2Fbin%2FDebug%2FBachelorLibAPI.exe Namespace%3DBachelorLibAPI.Algorithms Type%3DLatLongWorker Member%3D(Name%3DRad2Deg OverloadingParameters%3D[(Assembly%3D&quot;file:%2F%2F%2FC:%2FProgram Files (x86)%2FReference Assemblies%2FMicrosoft%2FFramework%2F.NETFramework%2Fv4.5.1%2Fmscorlib.dll&quot; Namespace%3DSystem Type%3DDouble)]) ParameterIdentifier%3Drad"
+                      tag="ViewCode" />
+                  </referencesInternal>
+                  <type_NamedElement>
+                    <classMoniker
+                      Id="3141a0b4-2935-4f91-9d77-8d6d17dfefdc"
+                      LastKnownName="Double"
+                      LastKnownLocation="Package4_1801.uml" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+          <operation
+            Id="4b1239de-3a1e-4d7b-aea9-96a65141f1ba"
+            name="Deg2Rad"
+            visibility="Private"
+            isLeaf="false"
+            isStatic="true"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false">
+            <referencesInternal>
+              <reference
+                Id="018cafb9-6a82-4519-ac69-0ce510c6ffbd"
+                handle="viewcode://./CodeSchema_Method?Assembly%3Dfile:%2F%2F%2FP:%2FStudy%2Fsem8%2Fdiploma%2Fproject%2FBachelorDiplom%2FBachelorDiplom%2Fbin%2FDebug%2FBachelorLibAPI.exe Namespace%3DBachelorLibAPI.Algorithms Type%3DLatLongWorker Member%3D(Name%3DDeg2Rad OverloadingParameters%3D[(Assembly%3D&quot;file:%2F%2F%2FC:%2FProgram Files (x86)%2FReference Assemblies%2FMicrosoft%2FFramework%2F.NETFramework%2Fv4.5.1%2Fmscorlib.dll&quot; Namespace%3DSystem Type%3DDouble)])"
+                tag="ViewCode" />
+            </referencesInternal>
+            <appliedStereotypesInternal>
+              <stereotypeInstance
+                Id="addbe1f2-9f72-48b0-be56-236490bca4e6"
+                name="method"
+                profile="CSharpProfile">
+                <propertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="61b16291-ab20-40a5-9006-13fecde9897e">
+                    <propertyInstance
+                      Id="18284295-8f80-417a-8ea9-6eede9de3dfc"
+                      name="ClrAttributes" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="e1aea482-242f-4249-aff4-81cbe9e5edab">
+                    <propertyInstance
+                      Id="1c20dee3-8c9d-4dda-91d7-d8120a09f370"
+                      name="IsPartial"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="73cda80e-c82c-4bec-9313-47c994657c40">
+                    <propertyInstance
+                      Id="92beebe0-4f4b-4a80-8a53-2756bf04b9b8"
+                      name="IsUnsafe"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="4860cb9e-c4f9-401e-b23b-c750a64de44e">
+                    <propertyInstance
+                      Id="f2171bb3-5197-46d4-9a9f-402b435d7602"
+                      name="Inheritance"
+                      value="none" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="03fdd4f5-3914-4e43-a7ae-004f0527e512">
+                    <propertyInstance
+                      Id="4df5abf0-9fa1-49a4-8f7f-56a7a5458b76"
+                      name="PackageVisibility"
+                      value="internal" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="492ad3c9-b49b-4d56-badc-8eed29db094f">
+                    <propertyInstance
+                      Id="31f66514-01fc-4cc4-a29f-5258e61fd87d"
+                      name="params"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                </propertyInstances>
+              </stereotypeInstance>
+            </appliedStereotypesInternal>
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="341fe12c-5c23-48a7-9409-4a693677da4b"
+                  direction="Return">
+                  <type_NamedElement>
+                    <classMoniker
+                      Id="3141a0b4-2935-4f91-9d77-8d6d17dfefdc"
+                      LastKnownName="Double"
+                      LastKnownLocation="Package4_1801.uml" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="6771f7f5-ead9-4515-b53b-a5c6afb66ad0"
+                  name="deg"
+                  direction="In">
+                  <referencesInternal>
+                    <reference
+                      Id="92a8349b-4d20-44db-872d-af03c6297b3d"
+                      handle="viewcode://./CodeSchema_Parameter?Assembly%3Dfile:%2F%2F%2FP:%2FStudy%2Fsem8%2Fdiploma%2Fproject%2FBachelorDiplom%2FBachelorDiplom%2Fbin%2FDebug%2FBachelorLibAPI.exe Namespace%3DBachelorLibAPI.Algorithms Type%3DLatLongWorker Member%3D(Name%3DDeg2Rad OverloadingParameters%3D[(Assembly%3D&quot;file:%2F%2F%2FC:%2FProgram Files (x86)%2FReference Assemblies%2FMicrosoft%2FFramework%2F.NETFramework%2Fv4.5.1%2Fmscorlib.dll&quot; Namespace%3DSystem Type%3DDouble)]) ParameterIdentifier%3Ddeg"
+                      tag="ViewCode" />
+                  </referencesInternal>
+                  <type_NamedElement>
+                    <classMoniker
+                      Id="3141a0b4-2935-4f91-9d77-8d6d17dfefdc"
+                      LastKnownName="Double"
+                      LastKnownLocation="Package4_1801.uml" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+        </ownedOperationsInternal>
+      </class>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <class
+        Id="fc4eda17-179a-4aea-8ae7-f1e7f46584e8"
+        name="Rd90"
+        visibility="Package"
+        isAbstract="false"
+        isLeaf="false"
+        isActiveClass="false">
+        <referencesInternal>
+          <reference
+            Id="6dc9ddfe-ec57-4bee-a236-16d23a647065"
+            handle="viewcode://./CodeSchema_Class?Assembly%3Dfile:%2F%2F%2FP:%2FStudy%2Fsem8%2Fdiploma%2Fproject%2FBachelorDiplom%2FBachelorDiplom%2Fbin%2FDebug%2FBachelorLibAPI.exe Namespace%3DBachelorLibAPI.Algorithms Type%3DRd90"
+            tag="ViewCode" />
+        </referencesInternal>
+        <appliedStereotypesInternal>
+          <stereotypeInstance
+            Id="d90dee8e-e639-4e71-a6cc-d89322ff79a3"
+            name="class"
+            profile="CSharpProfile">
+            <propertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="50256fdc-232e-4574-82ad-d5d5653e314e">
+                <propertyInstance
+                  Id="a0715787-ac20-403a-b3aa-635c2f8c37fc"
+                  name="ClrAttributes" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="82da511f-235a-4217-8f59-27adc294f041">
+                <propertyInstance
+                  Id="88de2d31-3a21-4c99-8d7a-1a3d44f6efca"
+                  name="IsPartial"
+                  value="false" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="0bfe8871-a61b-4598-8af8-c51660caa393">
+                <propertyInstance
+                  Id="302a4294-bd76-4370-8daa-949521108c69"
+                  name="IsStatic"
+                  value="False" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="6d8c0223-5cf7-4495-8b4f-8f4fb109ea1c">
+                <propertyInstance
+                  Id="f3ae6786-fd24-4395-b91c-81e46ec6c307"
+                  name="IsUnsafe"
+                  value="false" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="19e5e7b5-df8f-4b6a-ac65-efcd012965a7">
+                <propertyInstance
+                  Id="78f140f0-36de-4ac6-9703-f33ad5e769d5"
+                  name="PackageVisibility"
+                  value="internal" />
+              </stereotypeInstanceHasPropertyInstances>
+            </propertyInstances>
+          </stereotypeInstance>
+        </appliedStereotypesInternal>
+        <suppliersInternal>
+          <interfaceRealization
+            Id="90389a58-540b-41a8-a55b-6fc9f3e68fd5">
+            <interfaceMoniker
+              Id="fc5caf49-dcea-4c8b-aea1-146cb79c79bc"
+              LastKnownName="IChemicalEnvironmentCalculation"
+              LastKnownLocation="Package1_1801.uml" />
+          </interfaceRealization>
+        </suppliersInternal>
+        <targetEnds>
+          <association
+            Id="a9f9a48a-7c66-4f97-a122-90243a5171ae"
+            isDerived="false"
+            sourceEndRoleName="Rd90"
+            targetEndRoleName="InfectionArea"
+            isLeaf="false"
+            isAbstract="false">
+            <classMoniker
+              Id="3141a0b4-2935-4f91-9d77-8d6d17dfefdc"
+              LastKnownName="Double"
+              LastKnownLocation="Package4_1801.uml" />
+            <description>Свойство InfectionArea ссылается на тип Double.</description>
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="71e4cb57-5d80-4781-8f8b-0f1979421710"
+                  name="Rd90"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false"
+                  isNavigableOwned="false">
+                  <lowerValueInternal>
+                    <literalString
+                      Id="5f4cce79-666d-40e9-9293-bfe4fcafbbf8"
+                      name="Lower"
+                      value="*" />
+                  </lowerValueInternal>
+                  <upperValueInternal>
+                    <literalString
+                      Id="d4221b79-1a34-4aab-b1b4-7c962501cb1f"
+                      name="Upper"
+                      value="*" />
+                  </upperValueInternal>
+                </memberEnd>
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="b15b4d1a-06f9-4754-97c6-f8deb880ba5f"
+                  name="InfectionArea"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false">
+                  <lowerValueInternal>
+                    <literalString
+                      Id="91ee2b28-0723-4edf-b99a-ef598342b64a"
+                      name="Lower"
+                      value="1" />
+                  </lowerValueInternal>
+                  <upperValueInternal>
+                    <literalString
+                      Id="60752f16-6621-44f1-b618-51e0b63da9a3"
+                      name="Upper"
+                      value="1" />
+                  </upperValueInternal>
+                </memberEnd>
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+          </association>
+          <association
+            Id="49470591-bd7e-4196-b23a-d445c117e771"
+            isDerived="false"
+            sourceEndRoleName="Rd90"
+            targetEndRoleName="AntiSubstanceCount"
+            isLeaf="false"
+            isAbstract="false">
+            <classMoniker
+              Id="be37c1ad-2096-40d7-a9ae-4345c8d9422b"
+              LastKnownName="KeyValuePair&lt;String‎, Double‎&gt;"
+              LastKnownLocation="Package7_1801.uml" />
+            <description>Свойство AntiSubstanceCount ссылается на тип KeyValuePair&lt;String‎, Double‎&gt;.</description>
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="4251f335-bfba-4e09-8ae5-07e560d362eb"
+                  name="Rd90"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false"
+                  isNavigableOwned="false">
+                  <lowerValueInternal>
+                    <literalString
+                      Id="69f56483-1533-4dd3-a96d-29c777083009"
+                      name="Lower"
+                      value="*" />
+                  </lowerValueInternal>
+                  <upperValueInternal>
+                    <literalString
+                      Id="00ca7a8f-124d-4624-b860-4bb8c091937b"
+                      name="Upper"
+                      value="*" />
+                  </upperValueInternal>
+                </memberEnd>
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="d11dc711-8c86-401a-a617-9a02aa3ae1b2"
+                  name="AntiSubstanceCount"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false">
+                  <lowerValueInternal>
+                    <literalString
+                      Id="a7dae59a-cd19-4eec-b562-87161f9d2458"
+                      name="Lower"
+                      value="1" />
+                  </lowerValueInternal>
+                  <upperValueInternal>
+                    <literalString
+                      Id="4e2289f7-5518-4f5e-99e5-33fefa269520"
+                      name="Upper"
+                      value="1" />
+                  </upperValueInternal>
+                </memberEnd>
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+          </association>
+        </targetEnds>
+        <ownedAttributesInternal>
+          <property
+            Id="4e1af2f0-b6bd-4973-9c1f-fbd94f3eea6c"
+            name="QEq"
+            visibility="Private"
+            isLeaf="false"
+            isStatic="false"
+            isReadOnly="false"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="None"
+            isComposite="false">
+            <referencesInternal>
+              <reference
+                Id="ea038471-8edc-44b7-8297-2730afc73a44"
+                handle="viewcode://./CodeSchema_Property?Assembly%3Dfile:%2F%2F%2FP:%2FStudy%2Fsem8%2Fdiploma%2Fproject%2FBachelorDiplom%2FBachelorDiplom%2Fbin%2FDebug%2FBachelorLibAPI.exe Namespace%3DBachelorLibAPI.Algorithms Type%3DRd90 Member%3DQEq"
+                tag="ViewCode" />
+            </referencesInternal>
+            <appliedStereotypesInternal>
+              <stereotypeInstance
+                Id="0a725c99-1dd2-4a30-8a8e-382b681fd088"
+                name="property"
+                profile="CSharpProfile">
+                <propertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="a23a3310-8595-4f64-9543-af56bb4d925b">
+                    <propertyInstance
+                      Id="8c8b9d86-72a0-4fb1-be64-a11353c27297"
+                      name="ClrAttributes" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="f06afe49-b6dc-4288-b356-b93d2b2aff6e">
+                    <propertyInstance
+                      Id="2e19b6e5-bb84-4419-8319-fa1eabfdb827"
+                      name="Get"
+                      value="private" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="927ab1b0-b7c2-46e2-827e-83be1f4730c4">
+                    <propertyInstance
+                      Id="885638aa-b4c3-49f4-95b8-b7b97f4b2578"
+                      name="HasBody"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="8c1f975a-9903-44f2-a5a6-57806a39987a">
+                    <propertyInstance
+                      Id="ee137973-d5fc-492b-b43f-f7cd442ef6af"
+                      name="IsUnsafe"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="0bc8668a-9eaa-44c6-9e30-ee9fe8185345">
+                    <propertyInstance
+                      Id="bdc8132e-ebaa-427e-86a2-349fdba161c7"
+                      name="Inheritance"
+                      value="none" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="9df1d827-c7fe-46e3-82e3-80e5dd1ea977">
+                    <propertyInstance
+                      Id="3707c8db-5544-4b86-ae78-426dd9e54e05"
+                      name="PackageVisibility"
+                      value="internal" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="f751f8ce-5a3a-4aa4-9b09-23f63341f817">
+                    <propertyInstance
+                      Id="d3f8a64d-46aa-4afb-a677-b050e20623ca"
+                      name="Set"
+                      value="private" />
+                  </stereotypeInstanceHasPropertyInstances>
+                </propertyInstances>
+              </stereotypeInstance>
+            </appliedStereotypesInternal>
+            <type_NamedElement>
+              <classMoniker
+                Id="3141a0b4-2935-4f91-9d77-8d6d17dfefdc"
+                LastKnownName="Double"
+                LastKnownLocation="Package4_1801.uml" />
+            </type_NamedElement>
+          </property>
+          <property
+            Id="df751311-9e27-478c-bd91-c7ba8a241069"
+            name="InfectionArea"
+            isLeaf="false"
+            isStatic="false"
+            isReadOnly="true"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="None"
+            isComposite="false">
+            <referencesInternal>
+              <reference
+                Id="ec109c99-de06-43f2-afdd-2722a00940a4"
+                handle="viewcode://./CodeSchema_Property?Assembly%3Dfile:%2F%2F%2FP:%2FStudy%2Fsem8%2Fdiploma%2Fproject%2FBachelorDiplom%2FBachelorDiplom%2Fbin%2FDebug%2FBachelorLibAPI.exe Namespace%3DBachelorLibAPI.Algorithms Type%3DRd90 Member%3DInfectionArea"
+                tag="ViewCode" />
+            </referencesInternal>
+            <appliedStereotypesInternal>
+              <stereotypeInstance
+                Id="c78078cb-27aa-42a0-a36e-69dedfaf88d3"
+                name="property"
+                profile="CSharpProfile">
+                <propertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="e535be7e-f625-40a0-a469-9908df9da8e7">
+                    <propertyInstance
+                      Id="fbfd10cc-2cfe-4b1a-bf7b-9ba73d0c892e"
+                      name="ClrAttributes" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="d0e50b56-e2ca-4bb4-9c74-e1b7daa60697">
+                    <propertyInstance
+                      Id="5f4542cc-2b01-4c97-bc3f-0e4d4cf336b8"
+                      name="Get"
+                      value="public" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="a090ccbc-8e81-4ec4-ae43-0354d36e8561">
+                    <propertyInstance
+                      Id="e588e8d2-0b68-4aa4-a429-b8bbfa383049"
+                      name="HasBody"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="5d055193-fc72-4b80-8d00-0d4fe2e07024">
+                    <propertyInstance
+                      Id="7e18d347-f64c-4d35-85a6-a6c61b0a7d26"
+                      name="IsUnsafe"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="88e850b7-c886-45db-a7cf-8e79428a2c17">
+                    <propertyInstance
+                      Id="853bbe84-1748-4afc-9aff-2263840e0a82"
+                      name="Inheritance"
+                      value="none" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="2e7bf772-9bce-4e80-8186-ce6e6694ddad">
+                    <propertyInstance
+                      Id="64856ca6-9aaf-423d-8614-f1801426478d"
+                      name="PackageVisibility"
+                      value="internal" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="f42b38d7-cde2-480d-ba38-a3caf082f7fd">
+                    <propertyInstance
+                      Id="4781fd43-4f63-4c97-b876-96f1bce10dd6"
+                      name="Set"
+                      value="none" />
+                  </stereotypeInstanceHasPropertyInstances>
+                </propertyInstances>
+              </stereotypeInstance>
+            </appliedStereotypesInternal>
+            <type_NamedElement>
+              <classMoniker
+                Id="3141a0b4-2935-4f91-9d77-8d6d17dfefdc"
+                LastKnownName="Double"
+                LastKnownLocation="Package4_1801.uml" />
+            </type_NamedElement>
+          </property>
+          <property
+            Id="f4e20027-9701-4430-96df-8b4995e028ee"
+            name="AntiSubstanceCount"
+            isLeaf="false"
+            isStatic="false"
+            isReadOnly="true"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="None"
+            isComposite="false">
+            <referencesInternal>
+              <reference
+                Id="53fc2087-becd-4faf-88c2-d35291534776"
+                handle="viewcode://./CodeSchema_Property?Assembly%3Dfile:%2F%2F%2FP:%2FStudy%2Fsem8%2Fdiploma%2Fproject%2FBachelorDiplom%2FBachelorDiplom%2Fbin%2FDebug%2FBachelorLibAPI.exe Namespace%3DBachelorLibAPI.Algorithms Type%3DRd90 Member%3DAntiSubstanceCount"
+                tag="ViewCode" />
+            </referencesInternal>
+            <appliedStereotypesInternal>
+              <stereotypeInstance
+                Id="590c8790-70b8-4da2-99bb-6603d5116481"
+                name="property"
+                profile="CSharpProfile">
+                <propertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="ee284b1d-fc59-4afb-a368-73a8be6dbfc7">
+                    <propertyInstance
+                      Id="5929e1f8-6dc0-4cdd-a1a2-80b76d5262ad"
+                      name="ClrAttributes" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="fb474288-a91b-405e-abde-71be4a5f9041">
+                    <propertyInstance
+                      Id="976caaba-ae55-40a4-af7e-db00953d0294"
+                      name="Get"
+                      value="public" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="ab4eefcb-9544-4377-9b5a-e9932a9b2ba5">
+                    <propertyInstance
+                      Id="d04c88e1-15d9-40a4-b3c9-fbb37eca73e9"
+                      name="HasBody"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="f37d5953-7d2b-4d77-b3c3-e5ccf64546ac">
+                    <propertyInstance
+                      Id="b0790f34-28be-4622-a649-9a226087c6f4"
+                      name="IsUnsafe"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="ebd68f51-d5ab-4902-ac75-6c4bbcaca357">
+                    <propertyInstance
+                      Id="d50b776c-ba2c-4ea6-8937-656239a9dfbd"
+                      name="Inheritance"
+                      value="none" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="d93a5d05-56c7-4492-ab44-99f0e5b84a3d">
+                    <propertyInstance
+                      Id="7b80541b-15f8-4257-a018-0ebf82a863dd"
+                      name="PackageVisibility"
+                      value="internal" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="2af2c447-26f1-4783-acd3-5e1856b20f1d">
+                    <propertyInstance
+                      Id="b55d7157-265a-4385-afd8-db321ca6d650"
+                      name="Set"
+                      value="none" />
+                  </stereotypeInstanceHasPropertyInstances>
+                </propertyInstances>
+              </stereotypeInstance>
+            </appliedStereotypesInternal>
+            <type_NamedElement>
+              <classMoniker
+                Id="be37c1ad-2096-40d7-a9ae-4345c8d9422b"
+                LastKnownName="KeyValuePair&lt;String‎, Double‎&gt;"
+                LastKnownLocation="Package7_1801.uml" />
+            </type_NamedElement>
+          </property>
+          <property
+            Id="57aa7ff1-7a8c-43b9-8434-11d069934457"
+            name="_substance"
+            visibility="Private"
+            isLeaf="false"
+            isStatic="false"
+            isReadOnly="false"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="None"
+            isComposite="false">
+            <referencesInternal>
+              <reference
+                Id="d4b767e3-ae53-48d1-ae62-ed4084a33712"
+                handle="viewcode://./CodeSchema_Field?Assembly%3Dfile:%2F%2F%2FP:%2FStudy%2Fsem8%2Fdiploma%2Fproject%2FBachelorDiplom%2FBachelorDiplom%2Fbin%2FDebug%2FBachelorLibAPI.exe Namespace%3DBachelorLibAPI.Algorithms Type%3DRd90 Member%3D_substance"
+                tag="ViewCode" />
+            </referencesInternal>
+            <appliedStereotypesInternal>
+              <stereotypeInstance
+                Id="043d1ca0-9efa-4487-afcf-937b78293de4"
+                name="field"
+                profile="CSharpProfile">
+                <propertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="8981d986-faef-402e-8188-e200cff651ab">
+                    <propertyInstance
+                      Id="fb60e858-3231-4fb0-a5a4-5d602d02b642"
+                      name="ClrAttributes" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="33dee161-5893-4fb4-b0dd-0c6a3a2e7ed4">
+                    <propertyInstance
+                      Id="0bf67965-899d-4bbd-8874-9261c4dd5cb1"
+                      name="IsConst"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="8629828c-4bce-43ed-8d99-e7ee71aa93c2">
+                    <propertyInstance
+                      Id="586ffcd2-3e1b-47ce-a642-5435eeac3d26"
+                      name="IsNullable"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="d4b00c07-59d5-4f7a-a9ed-abe503700547">
+                    <propertyInstance
+                      Id="76e96f76-c4ae-4b2d-b731-eb7f7db8b9c7"
+                      name="IsVolatile"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="961df066-cfdc-4ce0-8414-cb0592bb01d4">
+                    <propertyInstance
+                      Id="51b31fba-5641-4c2f-b09c-7d13bd5c5e29"
+                      name="PackageVisibility"
+                      value="internal" />
+                  </stereotypeInstanceHasPropertyInstances>
+                </propertyInstances>
+              </stereotypeInstance>
+            </appliedStereotypesInternal>
+            <type_NamedElement>
+              <primitiveTypeMoniker
+                Id="59259974-6d55-42c6-b7bd-763d77ac8ef9"
+                LastKnownName="String"
+                LastKnownLocation="BachelorDiplomaUML.uml" />
+            </type_NamedElement>
+          </property>
+          <property
+            Id="b91173f4-8860-4e90-9095-b8335935d468"
+            name="_substanceCount"
+            visibility="Private"
+            isLeaf="false"
+            isStatic="false"
+            isReadOnly="false"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="None"
+            isComposite="false">
+            <referencesInternal>
+              <reference
+                Id="35664096-d742-42d9-b52c-9d77f77bae22"
+                handle="viewcode://./CodeSchema_Field?Assembly%3Dfile:%2F%2F%2FP:%2FStudy%2Fsem8%2Fdiploma%2Fproject%2FBachelorDiplom%2FBachelorDiplom%2Fbin%2FDebug%2FBachelorLibAPI.exe Namespace%3DBachelorLibAPI.Algorithms Type%3DRd90 Member%3D_substanceCount"
+                tag="ViewCode" />
+            </referencesInternal>
+            <appliedStereotypesInternal>
+              <stereotypeInstance
+                Id="376842bb-d546-4ba9-980e-09d9f6e3bfe3"
+                name="field"
+                profile="CSharpProfile">
+                <propertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="700d8472-24f4-4745-a139-9a91f1fd8c28">
+                    <propertyInstance
+                      Id="4d74e910-464f-40db-aede-97218e6974f8"
+                      name="ClrAttributes" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="c8509583-91b2-43b0-b972-21d6e1c98543">
+                    <propertyInstance
+                      Id="35a8ea30-a30e-4da6-b1ce-0b1cc37a7412"
+                      name="IsConst"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="5a2c2e54-e8c8-46f5-ad86-719f85dfc179">
+                    <propertyInstance
+                      Id="1ffd1256-bc2d-4995-8f0c-f87153f13556"
+                      name="IsNullable"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="296a0812-c6cd-4885-af99-cef62bed4fcf">
+                    <propertyInstance
+                      Id="2bb9cde6-89d9-4557-83de-16149a7ea755"
+                      name="IsVolatile"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="b32418f1-2f6f-4def-b2e9-d73b6d7f911f">
+                    <propertyInstance
+                      Id="23a10323-d4a2-41b6-98e5-212c49e3fb7c"
+                      name="PackageVisibility"
+                      value="internal" />
+                  </stereotypeInstanceHasPropertyInstances>
+                </propertyInstances>
+              </stereotypeInstance>
+            </appliedStereotypesInternal>
+            <type_NamedElement>
+              <classMoniker
+                Id="3141a0b4-2935-4f91-9d77-8d6d17dfefdc"
+                LastKnownName="Double"
+                LastKnownLocation="Package4_1801.uml" />
+            </type_NamedElement>
+          </property>
+        </ownedAttributesInternal>
+        <ownedOperationsInternal>
+          <operation
+            Id="0c8b96c2-5151-48ba-96ad-665fc3367d5f"
+            name="Rd90"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false">
+            <referencesInternal>
+              <reference
+                Id="9e199d9b-e4db-4edc-99ce-f69aa682721a"
+                handle="viewcode://./CodeSchema_Method?Assembly%3Dfile:%2F%2F%2FP:%2FStudy%2Fsem8%2Fdiploma%2Fproject%2FBachelorDiplom%2FBachelorDiplom%2Fbin%2FDebug%2FBachelorLibAPI.exe Namespace%3DBachelorLibAPI.Algorithms Type%3DRd90 Member%3D(Name%3D.ctor OverloadingParameters%3D[(Assembly%3D&quot;file:%2F%2F%2FC:%2FProgram Files (x86)%2FReference Assemblies%2FMicrosoft%2FFramework%2F.NETFramework%2Fv4.5.1%2Fmscorlib.dll&quot; Namespace%3DSystem Type%3DString)%2C(Assembly%3D&quot;file:%2F%2F%2FC:%2FProgram Files (x86)%2FReference Assemblies%2FMicrosoft%2FFramework%2F.NETFramework%2Fv4.5.1%2Fmscorlib.dll&quot; Namespace%3DSystem Type%3DDouble)])"
+                tag="ViewCode" />
+            </referencesInternal>
+            <appliedStereotypesInternal>
+              <stereotypeInstance
+                Id="12a7c764-40f7-4787-8d7c-b2691d951c22"
+                name="method"
+                profile="CSharpProfile">
+                <propertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="1cd06b62-2f2e-4fbb-af1b-f1f34e6d4a15">
+                    <propertyInstance
+                      Id="139fb002-9b9d-4040-a56d-ebe9b6e355fd"
+                      name="ClrAttributes" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="398c7d6f-12e9-4f26-aecd-b0fc77ddf100">
+                    <propertyInstance
+                      Id="ab0d1676-d995-40a2-8bea-6aa56a6a4202"
+                      name="IsPartial"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="0a4a3e7d-5eb8-461b-ab26-269582627293">
+                    <propertyInstance
+                      Id="50d8d2a7-af52-41ae-900b-d42730151182"
+                      name="IsUnsafe"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="1717e655-7f10-4d0a-94a0-67009779d230">
+                    <propertyInstance
+                      Id="7bca69bd-23c0-4cf6-b4c0-1b1a2ba3c21e"
+                      name="Inheritance"
+                      value="none" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="cd966abe-c550-4467-8588-5d326dc1604c">
+                    <propertyInstance
+                      Id="8e4bb7a3-0d82-4ec4-92e6-97851905d209"
+                      name="PackageVisibility"
+                      value="internal" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="4d45e9e2-096e-4593-9f08-53ce7c171664">
+                    <propertyInstance
+                      Id="a2500b26-33f2-4aef-aa09-44ef4f11e386"
+                      name="params"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                </propertyInstances>
+              </stereotypeInstance>
+            </appliedStereotypesInternal>
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="877237dd-d1c4-44eb-9a12-dc51cf8239ab"
+                  name="substance"
+                  direction="In">
+                  <referencesInternal>
+                    <reference
+                      Id="28d7509c-78ec-43fb-b26e-08c4646624d1"
+                      handle="viewcode://./CodeSchema_Parameter?Assembly%3Dfile:%2F%2F%2FP:%2FStudy%2Fsem8%2Fdiploma%2Fproject%2FBachelorDiplom%2FBachelorDiplom%2Fbin%2FDebug%2FBachelorLibAPI.exe Namespace%3DBachelorLibAPI.Algorithms Type%3DRd90 Member%3D(Name%3D.ctor OverloadingParameters%3D[(Assembly%3D&quot;file:%2F%2F%2FC:%2FProgram Files (x86)%2FReference Assemblies%2FMicrosoft%2FFramework%2F.NETFramework%2Fv4.5.1%2Fmscorlib.dll&quot; Namespace%3DSystem Type%3DString)%2C(Assembly%3D&quot;file:%2F%2F%2FC:%2FProgram Files (x86)%2FReference Assemblies%2FMicrosoft%2FFramework%2F.NETFramework%2Fv4.5.1%2Fmscorlib.dll&quot; Namespace%3DSystem Type%3DDouble)]) ParameterIdentifier%3Dsubstance"
+                      tag="ViewCode" />
+                  </referencesInternal>
+                  <type_NamedElement>
+                    <primitiveTypeMoniker
+                      Id="59259974-6d55-42c6-b7bd-763d77ac8ef9"
+                      LastKnownName="String"
+                      LastKnownLocation="BachelorDiplomaUML.uml" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="05faa59f-1320-41ab-80d0-d9f48cf97adb"
+                  name="substanceCount"
+                  direction="In">
+                  <referencesInternal>
+                    <reference
+                      Id="833bbcba-6ba5-4eca-a72a-d3e874ad4b1f"
+                      handle="viewcode://./CodeSchema_Parameter?Assembly%3Dfile:%2F%2F%2FP:%2FStudy%2Fsem8%2Fdiploma%2Fproject%2FBachelorDiplom%2FBachelorDiplom%2Fbin%2FDebug%2FBachelorLibAPI.exe Namespace%3DBachelorLibAPI.Algorithms Type%3DRd90 Member%3D(Name%3D.ctor OverloadingParameters%3D[(Assembly%3D&quot;file:%2F%2F%2FC:%2FProgram Files (x86)%2FReference Assemblies%2FMicrosoft%2FFramework%2F.NETFramework%2Fv4.5.1%2Fmscorlib.dll&quot; Namespace%3DSystem Type%3DString)%2C(Assembly%3D&quot;file:%2F%2F%2FC:%2FProgram Files (x86)%2FReference Assemblies%2FMicrosoft%2FFramework%2F.NETFramework%2Fv4.5.1%2Fmscorlib.dll&quot; Namespace%3DSystem Type%3DDouble)]) ParameterIdentifier%3DsubstanceCount"
+                      tag="ViewCode" />
+                  </referencesInternal>
+                  <type_NamedElement>
+                    <classMoniker
+                      Id="3141a0b4-2935-4f91-9d77-8d6d17dfefdc"
+                      LastKnownName="Double"
+                      LastKnownLocation="Package4_1801.uml" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+        </ownedOperationsInternal>
+      </class>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <Interface
+        Id="fc5caf49-dcea-4c8b-aea1-146cb79c79bc"
+        name="IChemicalEnvironmentCalculation"
+        isAbstract="false"
+        isLeaf="false">
+        <referencesInternal>
+          <reference
+            Id="f02f9b4d-8234-4639-a889-3ac3e05c7f6e"
+            handle="viewcode://./CodeSchema_Interface?Assembly%3Dfile:%2F%2F%2FP:%2FStudy%2Fsem8%2Fdiploma%2Fproject%2FBachelorDiplom%2FBachelorDiplom%2Fbin%2FDebug%2FBachelorLibAPI.exe Namespace%3DBachelorLibAPI.Algorithms Type%3DIChemicalEnvironmentCalculation"
+            tag="ViewCode" />
+        </referencesInternal>
+        <appliedStereotypesInternal>
+          <stereotypeInstance
+            Id="0bc8fa19-2bb0-4e1e-91c3-787954849916"
+            name="interface"
+            profile="CSharpProfile">
+            <propertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="eceecfff-510a-4cbb-b294-ca3279159410">
+                <propertyInstance
+                  Id="5b17adcf-54e9-4bdb-898b-61d303cd1a8f"
+                  name="ClrAttributes" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="44767fe4-bba4-4d1f-bf7d-07eff8d65805">
+                <propertyInstance
+                  Id="39e6ede3-bb7e-4814-9923-6ab903cde8ee"
+                  name="IsPartial"
+                  value="false" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="9103295a-bf39-4144-a499-9256488aa2de">
+                <propertyInstance
+                  Id="a6ac0340-ab94-4e5a-ace4-160eaa5fe9ec"
+                  name="IsUnsafe"
+                  value="false" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="2b03e58b-7bbd-4776-8acd-8cffdedf1c45">
+                <propertyInstance
+                  Id="2d20f2d0-a9e0-4cd1-83bb-3422503de11d"
+                  name="PackageVisibility"
+                  value="internal" />
+              </stereotypeInstanceHasPropertyInstances>
+            </propertyInstances>
+          </stereotypeInstance>
+        </appliedStereotypesInternal>
+        <targetEnds>
+          <association
+            Id="c5bcf623-1062-4177-994b-36057aae9256"
+            isDerived="false"
+            sourceEndRoleName="IChemicalEnvironmentCalculation"
+            targetEndRoleName="InfectionArea"
+            isLeaf="false"
+            isAbstract="false">
+            <classMoniker
+              Id="3141a0b4-2935-4f91-9d77-8d6d17dfefdc"
+              LastKnownName="Double"
+              LastKnownLocation="Package4_1801.uml" />
+            <description>Свойство InfectionArea ссылается на тип Double.</description>
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="2cff252a-1f60-460b-b9bb-e88abf201fb8"
+                  name="IChemicalEnvironmentCalculation"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false"
+                  isNavigableOwned="false">
+                  <lowerValueInternal>
+                    <literalString
+                      Id="f4b9ed4e-43a5-4eb7-8050-992b5fff34bb"
+                      name="Lower"
+                      value="*" />
+                  </lowerValueInternal>
+                  <upperValueInternal>
+                    <literalString
+                      Id="28e25f40-532a-4597-ae9c-eb2e5e933f1d"
+                      name="Upper"
+                      value="*" />
+                  </upperValueInternal>
+                </memberEnd>
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="3622f27b-afb8-4cd8-9e0a-d4411eab787f"
+                  name="InfectionArea"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false">
+                  <lowerValueInternal>
+                    <literalString
+                      Id="84340514-0571-4f76-98dd-28caecbbe3c2"
+                      name="Lower"
+                      value="1" />
+                  </lowerValueInternal>
+                  <upperValueInternal>
+                    <literalString
+                      Id="9e6d8a76-3a35-45a3-9a74-aed0637ab106"
+                      name="Upper"
+                      value="1" />
+                  </upperValueInternal>
+                </memberEnd>
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+          </association>
+          <association
+            Id="36c4a82a-aa4b-4ad8-85cd-3061089cc8e1"
+            isDerived="false"
+            sourceEndRoleName="IChemicalEnvironmentCalculation"
+            targetEndRoleName="AntiSubstanceCount"
+            isLeaf="false"
+            isAbstract="false">
+            <classMoniker
+              Id="be37c1ad-2096-40d7-a9ae-4345c8d9422b"
+              LastKnownName="KeyValuePair&lt;String‎, Double‎&gt;"
+              LastKnownLocation="Package7_1801.uml" />
+            <description>Свойство AntiSubstanceCount ссылается на тип KeyValuePair&lt;String‎, Double‎&gt;.</description>
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="0e990a73-e8ca-45ee-aede-7079abb9f104"
+                  name="IChemicalEnvironmentCalculation"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false"
+                  isNavigableOwned="false">
+                  <lowerValueInternal>
+                    <literalString
+                      Id="e7d74a38-7ae3-4af4-aac3-caa531b1f2f6"
+                      name="Lower"
+                      value="*" />
+                  </lowerValueInternal>
+                  <upperValueInternal>
+                    <literalString
+                      Id="4dd7dba3-3c1b-4ea2-acc6-6e0363d7b0fc"
+                      name="Upper"
+                      value="*" />
+                  </upperValueInternal>
+                </memberEnd>
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="12af90cb-63c6-4ef4-9913-5fa88de1f57d"
+                  name="AntiSubstanceCount"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false">
+                  <lowerValueInternal>
+                    <literalString
+                      Id="4e801d91-5acf-496a-afe8-01d7eae1a221"
+                      name="Lower"
+                      value="1" />
+                  </lowerValueInternal>
+                  <upperValueInternal>
+                    <literalString
+                      Id="96bf433e-3295-4a16-93a2-95288f820dd2"
+                      name="Upper"
+                      value="1" />
+                  </upperValueInternal>
+                </memberEnd>
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+          </association>
+        </targetEnds>
+        <ownedAttributes>
+          <property
+            Id="ece10662-0f6b-4550-95e8-5285d4809900"
+            name="InfectionArea"
+            isLeaf="false"
+            isStatic="false"
+            isReadOnly="true"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="None"
+            isComposite="false">
+            <referencesInternal>
+              <reference
+                Id="3d658004-a090-4d66-aa69-7608e6505200"
+                handle="viewcode://./CodeSchema_Property?Assembly%3Dfile:%2F%2F%2FP:%2FStudy%2Fsem8%2Fdiploma%2Fproject%2FBachelorDiplom%2FBachelorDiplom%2Fbin%2FDebug%2FBachelorLibAPI.exe Namespace%3DBachelorLibAPI.Algorithms Type%3DIChemicalEnvironmentCalculation Member%3DInfectionArea"
+                tag="ViewCode" />
+            </referencesInternal>
+            <appliedStereotypesInternal>
+              <stereotypeInstance
+                Id="f186fbf4-17d5-40ab-a814-34b69bb21f26"
+                name="property"
+                profile="CSharpProfile">
+                <propertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="25ff44ea-9f68-439d-a3ff-6df5f665f921">
+                    <propertyInstance
+                      Id="c6f829ac-68a2-4964-ada5-62805546d438"
+                      name="ClrAttributes" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="57919491-1a59-4014-aa0c-70d1602d2d44">
+                    <propertyInstance
+                      Id="87567856-b59a-4dd6-a831-ace6b334d0f0"
+                      name="Get"
+                      value="public" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="c0cdd15a-5c45-4336-a37d-872eb4b6ec1b">
+                    <propertyInstance
+                      Id="ecefb5ed-cd0b-49c3-bb0a-1002cac28ac6"
+                      name="HasBody"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="f3c78c5c-b1da-4db9-817d-b3b54173d6ca">
+                    <propertyInstance
+                      Id="360b43e8-133b-4aea-98a9-d23cc38d2391"
+                      name="IsUnsafe"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="257db49d-3a9d-4447-8145-f52088aab594">
+                    <propertyInstance
+                      Id="e5d3ea78-24f5-4157-9792-cb0e75f9ef5b"
+                      name="Inheritance"
+                      value="none" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="73cfc1c2-dc92-4dc6-90d2-81bde7ef8ccf">
+                    <propertyInstance
+                      Id="02d9ea50-8788-4a51-ac90-101b6b4e2ac0"
+                      name="PackageVisibility"
+                      value="internal" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="3863ffad-9c30-488c-a48b-6802a85dd319">
+                    <propertyInstance
+                      Id="48c91180-3f00-4c61-99a8-4e0b5dd86588"
+                      name="Set"
+                      value="none" />
+                  </stereotypeInstanceHasPropertyInstances>
+                </propertyInstances>
+              </stereotypeInstance>
+            </appliedStereotypesInternal>
+            <type_NamedElement>
+              <classMoniker
+                Id="3141a0b4-2935-4f91-9d77-8d6d17dfefdc"
+                LastKnownName="Double"
+                LastKnownLocation="Package4_1801.uml" />
+            </type_NamedElement>
+          </property>
+          <property
+            Id="f16fd17d-681d-4b43-8d4d-40d40d64cab3"
+            name="AntiSubstanceCount"
+            isLeaf="false"
+            isStatic="false"
+            isReadOnly="true"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="None"
+            isComposite="false">
+            <referencesInternal>
+              <reference
+                Id="669325f4-5578-4046-9c01-c8df9ce6c281"
+                handle="viewcode://./CodeSchema_Property?Assembly%3Dfile:%2F%2F%2FP:%2FStudy%2Fsem8%2Fdiploma%2Fproject%2FBachelorDiplom%2FBachelorDiplom%2Fbin%2FDebug%2FBachelorLibAPI.exe Namespace%3DBachelorLibAPI.Algorithms Type%3DIChemicalEnvironmentCalculation Member%3DAntiSubstanceCount"
+                tag="ViewCode" />
+            </referencesInternal>
+            <appliedStereotypesInternal>
+              <stereotypeInstance
+                Id="5683d19e-1498-4cb5-9022-e9784e7944b3"
+                name="property"
+                profile="CSharpProfile">
+                <propertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="f71d8931-d1e6-4132-96e6-1ff236aa3b04">
+                    <propertyInstance
+                      Id="9ff445e4-150e-4314-9d7e-815478ee0913"
+                      name="ClrAttributes" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="a798242d-3d29-47ef-8d55-9543bdc8390e">
+                    <propertyInstance
+                      Id="c92dad4e-70fc-4b48-92d8-49a9e3b69e72"
+                      name="Get"
+                      value="public" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="875a6ba1-af48-41eb-ba02-49fe466a7e21">
+                    <propertyInstance
+                      Id="d995a405-23d2-4299-8c84-2dddbfb3762b"
+                      name="HasBody"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="9208a57f-b0d6-4819-b4fd-374f2c392cfc">
+                    <propertyInstance
+                      Id="275ab54d-e0bd-44cd-8c28-522d7acd7795"
+                      name="IsUnsafe"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="20d477d7-8895-4b11-93e5-d8706820df52">
+                    <propertyInstance
+                      Id="9f47cf19-95f9-4edd-a996-d10e3685ec28"
+                      name="Inheritance"
+                      value="none" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="9b88d1dd-b66e-4ec5-83fc-a8e2418ada42">
+                    <propertyInstance
+                      Id="43d0942a-5659-4a02-83ec-454ebe494ce7"
+                      name="PackageVisibility"
+                      value="internal" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="fa48be79-1a2d-45cd-891e-81e7de8b8632">
+                    <propertyInstance
+                      Id="88dddcd7-961d-4086-8188-8f7146164aa3"
+                      name="Set"
+                      value="none" />
+                  </stereotypeInstanceHasPropertyInstances>
+                </propertyInstances>
+              </stereotypeInstance>
+            </appliedStereotypesInternal>
+            <type_NamedElement>
+              <classMoniker
+                Id="be37c1ad-2096-40d7-a9ae-4345c8d9422b"
+                LastKnownName="KeyValuePair&lt;String‎, Double‎&gt;"
+                LastKnownLocation="Package7_1801.uml" />
+            </type_NamedElement>
+          </property>
+        </ownedAttributes>
+      </Interface>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <class
+        Id="ac6b742f-a061-47d5-9fa7-3f8934cd620b"
+        name="Ahov"
+        isAbstract="false"
+        isLeaf="false"
+        isActiveClass="false">
+        <referencesInternal>
+          <reference
+            Id="3b9dbfde-fc1e-452e-9435-f72b7e010d35"
+            handle="viewcode://./CodeSchema_Class?Assembly%3Dfile:%2F%2F%2FP:%2FStudy%2Fsem8%2Fdiploma%2Fproject%2FBachelorDiplom%2FBachelorDiplom%2Fbin%2FDebug%2FBachelorLibAPI.exe Namespace%3DBachelorLibAPI.Algorithms Type%3DAhov"
+            tag="ViewCode" />
+        </referencesInternal>
+        <appliedStereotypesInternal>
+          <stereotypeInstance
+            Id="531c6041-74ac-43ae-b9e2-403ce852c9f1"
+            name="class"
+            profile="CSharpProfile">
+            <propertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="ea917819-ccd6-4a77-8129-ef0e43413b6f">
+                <propertyInstance
+                  Id="77836a86-e14f-4fe7-b005-b1eaee8d6937"
+                  name="ClrAttributes" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="faaf754e-9fbf-4490-849f-3e5e39eddbc0">
+                <propertyInstance
+                  Id="ea506a6a-acaa-4114-b63d-b649917b91a4"
+                  name="IsPartial"
+                  value="false" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="e222bba6-6add-48f4-a70d-0b717b603b11">
+                <propertyInstance
+                  Id="8754b89a-94cc-44f9-94be-d87dc09b68e2"
+                  name="IsStatic"
+                  value="True" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="659ac1c2-8ab5-4ce9-9fe5-096990d8702d">
+                <propertyInstance
+                  Id="9b1d96d6-c123-4265-b06a-21ba4f011fee"
+                  name="IsUnsafe"
+                  value="false" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="65a7e57a-9bab-49fe-8525-9beca66fa5c6">
+                <propertyInstance
+                  Id="8fb302ba-863d-4fdb-827a-da53ec2bbf4d"
+                  name="PackageVisibility"
+                  value="internal" />
+              </stereotypeInstanceHasPropertyInstances>
+            </propertyInstances>
+          </stereotypeInstance>
+        </appliedStereotypesInternal>
+        <ownedAttributesInternal>
+          <property
+            Id="07794bd2-79a0-4f1c-9266-eb740817a881"
+            name="Coefficient"
+            isLeaf="false"
+            isStatic="true"
+            isReadOnly="false"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="None"
+            isComposite="false">
+            <referencesInternal>
+              <reference
+                Id="14e9d041-8354-4692-a9f8-3003a4b8f5d2"
+                handle="viewcode://./CodeSchema_Field?Assembly%3Dfile:%2F%2F%2FP:%2FStudy%2Fsem8%2Fdiploma%2Fproject%2FBachelorDiplom%2FBachelorDiplom%2Fbin%2FDebug%2FBachelorLibAPI.exe Namespace%3DBachelorLibAPI.Algorithms Type%3DAhov Member%3DCoefficient"
+                tag="ViewCode" />
+            </referencesInternal>
+            <appliedStereotypesInternal>
+              <stereotypeInstance
+                Id="f68bdeda-38ce-41cb-85e4-fafca9292228"
+                name="field"
+                profile="CSharpProfile">
+                <propertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="d05537c5-9acb-4a10-b4e4-7b0ca8ab5202">
+                    <propertyInstance
+                      Id="da9dfe72-bab0-49a9-a455-0f978c24b4b8"
+                      name="ClrAttributes" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="92668150-43be-47ed-ae1a-d24604ec0977">
+                    <propertyInstance
+                      Id="8b783715-641a-4f98-9a53-9701fdc17949"
+                      name="IsConst"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="34e1b4ce-ae4b-4cbf-9966-4a835116c796">
+                    <propertyInstance
+                      Id="244ce685-e5ef-4768-84eb-5c9abe338df4"
+                      name="IsNullable"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="4b6e2661-06a4-45c7-abb4-8b3c6aa00bb8">
+                    <propertyInstance
+                      Id="b93799b8-26ba-48e6-8912-7b3aa259e519"
+                      name="IsVolatile"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="f333da7a-1a16-461c-aac0-aa77fc534da0">
+                    <propertyInstance
+                      Id="c26347ac-c436-4cae-9b3d-a138fd816f39"
+                      name="PackageVisibility"
+                      value="internal" />
+                  </stereotypeInstanceHasPropertyInstances>
+                </propertyInstances>
+              </stereotypeInstance>
+            </appliedStereotypesInternal>
+            <type_NamedElement>
+              <classMoniker
+                Id="1ab57d4e-2266-4181-8284-40ca62124835"
+                LastKnownName="Dictionary&lt;String‎, Double‎&gt;"
+                LastKnownLocation="Package7_1801.uml" />
+            </type_NamedElement>
+          </property>
+          <property
+            Id="6eb11a60-7db5-4831-9841-bb7827e24b66"
+            name="DepthAndAreaFree"
+            isLeaf="false"
+            isStatic="true"
+            isReadOnly="false"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="None"
+            isComposite="false">
+            <referencesInternal>
+              <reference
+                Id="0a148a27-f0f0-434d-b1aa-c1d5fb9c69c1"
+                handle="viewcode://./CodeSchema_Field?Assembly%3Dfile:%2F%2F%2FP:%2FStudy%2Fsem8%2Fdiploma%2Fproject%2FBachelorDiplom%2FBachelorDiplom%2Fbin%2FDebug%2FBachelorLibAPI.exe Namespace%3DBachelorLibAPI.Algorithms Type%3DAhov Member%3DDepthAndAreaFree"
+                tag="ViewCode" />
+            </referencesInternal>
+            <appliedStereotypesInternal>
+              <stereotypeInstance
+                Id="0baeae09-3083-4ab9-ab9a-a92795c64719"
+                name="field"
+                profile="CSharpProfile">
+                <propertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="5ce8ca64-fd60-4c8a-a703-45e064f3990f">
+                    <propertyInstance
+                      Id="cebcd729-00ba-4f14-b7c6-b5c96ca95491"
+                      name="ClrAttributes" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="ac84a6e3-5d87-43ce-8647-0c03c118279a">
+                    <propertyInstance
+                      Id="e1155519-4e14-4f87-8bd7-48156a02b379"
+                      name="IsConst"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="5dab1d13-5c06-4cf1-84f5-19aed5b7aa5d">
+                    <propertyInstance
+                      Id="5a6bab56-e85f-4b61-a5d0-9f9db67bd4b0"
+                      name="IsNullable"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="6fd30842-4379-425c-8257-7e7de53dd604">
+                    <propertyInstance
+                      Id="20ce6ee3-6f94-4e37-9950-e086af3f983a"
+                      name="IsVolatile"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="5ced8309-e9e8-46fa-908e-0453ea00e632">
+                    <propertyInstance
+                      Id="4206d594-a930-4fda-ba28-b636df717ddb"
+                      name="PackageVisibility"
+                      value="internal" />
+                  </stereotypeInstanceHasPropertyInstances>
+                </propertyInstances>
+              </stereotypeInstance>
+            </appliedStereotypesInternal>
+            <type_NamedElement>
+              <classMoniker
+                Id="a2ac59c1-cd56-42ea-a1cb-986bb77d000b"
+                LastKnownName="Dictionary&lt;Double‎, KeyValuePair‎&lt;Double‎, Double‎&gt;‎&gt;"
+                LastKnownLocation="Package7_1801.uml" />
+            </type_NamedElement>
+          </property>
+          <property
+            Id="400d74d0-c00d-42a4-945a-4f5517a4cc6f"
+            name="AntiSubstance"
+            isLeaf="false"
+            isStatic="true"
+            isReadOnly="false"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="None"
+            isComposite="false">
+            <referencesInternal>
+              <reference
+                Id="f97547a8-2015-4e42-86e5-a46ca52a235d"
+                handle="viewcode://./CodeSchema_Field?Assembly%3Dfile:%2F%2F%2FP:%2FStudy%2Fsem8%2Fdiploma%2Fproject%2FBachelorDiplom%2FBachelorDiplom%2Fbin%2FDebug%2FBachelorLibAPI.exe Namespace%3DBachelorLibAPI.Algorithms Type%3DAhov Member%3DAntiSubstance"
+                tag="ViewCode" />
+            </referencesInternal>
+            <appliedStereotypesInternal>
+              <stereotypeInstance
+                Id="db64038f-5564-44a0-9498-cb2ebfae3262"
+                name="field"
+                profile="CSharpProfile">
+                <propertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="e9e03e9a-a222-49a9-8630-aed06582ad6c">
+                    <propertyInstance
+                      Id="b652e0d2-a791-4cfb-9e39-c9851c48e94d"
+                      name="ClrAttributes" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="9a6d6d8f-3559-42e0-8caa-516568193087">
+                    <propertyInstance
+                      Id="86c435c9-92af-47f7-94bb-beea38b62a8b"
+                      name="IsConst"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="8dfc2422-0ba7-4622-b825-2379bb67f514">
+                    <propertyInstance
+                      Id="2d00396b-014e-4c63-a9c2-ac317f3665cf"
+                      name="IsNullable"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="da21eb35-42e7-4edc-a807-4a24bcb7159c">
+                    <propertyInstance
+                      Id="a544e244-35e1-427d-a96f-8d87ae4d931e"
+                      name="IsVolatile"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="5d533f75-d5ef-4fda-8517-0a75b623bb17">
+                    <propertyInstance
+                      Id="e47de65e-b54b-4e54-adf3-b1c71c4608d9"
+                      name="PackageVisibility"
+                      value="internal" />
+                  </stereotypeInstanceHasPropertyInstances>
+                </propertyInstances>
+              </stereotypeInstance>
+            </appliedStereotypesInternal>
+            <type_NamedElement>
+              <classMoniker
+                Id="842e8133-76a6-4f8e-81ea-2389fe8b0d28"
+                LastKnownName="Dictionary&lt;String‎, KeyValuePair‎&lt;String‎, Double‎&gt;‎&gt;"
+                LastKnownLocation="Package7_1801.uml" />
+            </type_NamedElement>
+          </property>
+        </ownedAttributesInternal>
+      </class>
+    </packageHasNamedElement>
+  </packagedElements>
+</package>

@@ -1,0 +1,45 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" xmlns:dm1="http://schemas.microsoft.com/dsltools/Kernel" xmlns:dm2="http://schemas.microsoft.com/dsltools/Component" xmlns:dm3="http://schemas.microsoft.com/dsltools/UseCase" xmlns:dm4="http://schemas.microsoft.com/dsltools/Activity" xmlns:dm5="http://schemas.microsoft.com/dsltools/Interaction" xmlns:dm6="http://schemas.microsoft.com/dsltools/UmlModelLibrary" xmlns:dm7="http://schemas.microsoft.com/dsltools/UmlDiagrams" xmlns:dm8="http://schemas.microsoft.com/dsltools/LogicalClassDesigner"
+  dslVersion="1.0.0.0"
+  Id="62f19430-189a-4806-99f1-0aec7f511737"
+  name="BachelorLibAPI"
+  visibility="Private" xmlns="http://schemas.microsoft.com/dsltools/ModelStore">
+  <referencesInternal>
+    <reference
+      Id="559c26ef-3fcb-4ce5-8ea0-f21b370c4968"
+      handle="viewcode://./CodeSchema_Namespace?Namespace%3DBachelorLibAPI"
+      tag="ViewCode" />
+  </referencesInternal>
+  <packagedElements>
+    <packageHasNamedElement>
+      <packageMoniker
+        Id="afc03300-eb24-4b1c-b138-999cfaa93fab"
+        LastKnownName="Algorithms"
+        LastKnownLocation="Package1_1801.uml" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <packageMoniker
+        Id="3ebfd5b4-28ed-4059-be49-78d3cf538e8a"
+        LastKnownName="Program"
+        LastKnownLocation="Package5_1801.uml" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <packageMoniker
+        Id="6bf1662d-c511-43fe-b368-f4ff868dfd4f"
+        LastKnownName="Data"
+        LastKnownLocation="Package_1802.uml" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <packageMoniker
+        Id="e80ec01c-94cf-46a0-b383-b1eea32499e3"
+        LastKnownName="Forms"
+        LastKnownLocation="Package_1803.uml" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <packageMoniker
+        Id="2eadc814-91b7-4e24-95a6-731af36f95de"
+        LastKnownName="Map"
+        LastKnownLocation="Package5_1803.uml" />
+    </packageHasNamedElement>
+  </packagedElements>
+</package>

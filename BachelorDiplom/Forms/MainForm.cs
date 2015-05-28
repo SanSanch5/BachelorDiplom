@@ -188,5 +188,10 @@ namespace BachelorLibAPI.Forms
                 btnSetCrashPlace.Enabled = true;
             }
         }
+
+        private void MainForm_Activated(object sender, EventArgs e)
+        {
+            dtpPrecTime.Value = DateTime.Now;
+        }
     }
 }

@@ -137,7 +137,7 @@ namespace BachelorLibAPI.Forms
             this.ltMainOptions.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 4.545454F));
             this.ltMainOptions.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 4.545454F));
             this.ltMainOptions.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 4.545454F));
-            this.ltMainOptions.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 77F));
+            this.ltMainOptions.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 70F));
             this.ltMainOptions.Controls.Add(this.label1, 0, 0);
             this.ltMainOptions.Controls.Add(this.dtpPrecTime, 2, 0);
             this.ltMainOptions.Controls.Add(this.btnSetCrashPlace, 18, 1);
@@ -167,7 +167,7 @@ namespace BachelorLibAPI.Forms
             this.label1.AutoSize = true;
             this.ltMainOptions.SetColumnSpan(this.label1, 3);
             this.label1.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label1.Location = new System.Drawing.Point(7, 10);
+            this.label1.Location = new System.Drawing.Point(10, 10);
             this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(106, 19);
@@ -181,10 +181,10 @@ namespace BachelorLibAPI.Forms
             this.dtpPrecTime.CustomFormat = "dd.MM.yyyy HH:mm";
             this.dtpPrecTime.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.dtpPrecTime.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.dtpPrecTime.Location = new System.Drawing.Point(124, 7);
+            this.dtpPrecTime.Location = new System.Drawing.Point(127, 7);
             this.dtpPrecTime.Margin = new System.Windows.Forms.Padding(4);
             this.dtpPrecTime.Name = "dtpPrecTime";
-            this.dtpPrecTime.Size = new System.Drawing.Size(145, 26);
+            this.dtpPrecTime.Size = new System.Drawing.Size(149, 26);
             this.dtpPrecTime.TabIndex = 1;
             // 
             // btnSetCrashPlace
@@ -193,10 +193,10 @@ namespace BachelorLibAPI.Forms
             this.ltMainOptions.SetColumnSpan(this.btnSetCrashPlace, 3);
             this.btnSetCrashPlace.Enabled = false;
             this.btnSetCrashPlace.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.btnSetCrashPlace.Location = new System.Drawing.Point(748, 43);
+            this.btnSetCrashPlace.Location = new System.Drawing.Point(767, 43);
             this.btnSetCrashPlace.Margin = new System.Windows.Forms.Padding(4);
             this.btnSetCrashPlace.Name = "btnSetCrashPlace";
-            this.btnSetCrashPlace.Size = new System.Drawing.Size(106, 26);
+            this.btnSetCrashPlace.Size = new System.Drawing.Size(109, 26);
             this.btnSetCrashPlace.TabIndex = 25;
             this.btnSetCrashPlace.Text = "Установить";
             this.btnSetCrashPlace.UseVisualStyleBackColor = true;
@@ -205,7 +205,7 @@ namespace BachelorLibAPI.Forms
             // picCheck
             // 
             this.picCheck.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.picCheck.Location = new System.Drawing.Point(709, 44);
+            this.picCheck.Location = new System.Drawing.Point(727, 44);
             this.picCheck.Margin = new System.Windows.Forms.Padding(4);
             this.picCheck.Name = "picCheck";
             this.picCheck.Size = new System.Drawing.Size(24, 23);
@@ -218,7 +218,7 @@ namespace BachelorLibAPI.Forms
             this.label2.AutoSize = true;
             this.ltMainOptions.SetColumnSpan(this.label2, 2);
             this.label2.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label2.Location = new System.Drawing.Point(17, 46);
+            this.label2.Location = new System.Drawing.Point(19, 46);
             this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(57, 19);
@@ -229,11 +229,11 @@ namespace BachelorLibAPI.Forms
             // 
             this.edtCrashPlace.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.ltMainOptions.SetColumnSpan(this.edtCrashPlace, 16);
-            this.edtCrashPlace.Location = new System.Drawing.Point(85, 43);
+            this.edtCrashPlace.Location = new System.Drawing.Point(87, 43);
             this.edtCrashPlace.Margin = new System.Windows.Forms.Padding(4);
             this.edtCrashPlace.Name = "edtCrashPlace";
             this.edtCrashPlace.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.edtCrashPlace.Size = new System.Drawing.Size(613, 26);
+            this.edtCrashPlace.Size = new System.Drawing.Size(629, 26);
             this.edtCrashPlace.TabIndex = 26;
             this.edtCrashPlace.Leave += new System.EventHandler(this.edtCrashPlace_Leave);
             // 
@@ -241,10 +241,10 @@ namespace BachelorLibAPI.Forms
             // 
             this.edtLong.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.ltMainOptions.SetColumnSpan(this.edtLong, 3);
-            this.edtLong.Location = new System.Drawing.Point(747, 6);
+            this.edtLong.Location = new System.Drawing.Point(766, 6);
             this.edtLong.Mask = "000°00′00″?";
             this.edtLong.Name = "edtLong";
-            this.edtLong.Size = new System.Drawing.Size(108, 26);
+            this.edtLong.Size = new System.Drawing.Size(111, 26);
             this.edtLong.TabIndex = 32;
             this.edtLong.Leave += new System.EventHandler(this.edtLat_Leave);
             // 
@@ -254,7 +254,7 @@ namespace BachelorLibAPI.Forms
             this.label5.AutoSize = true;
             this.ltMainOptions.SetColumnSpan(this.label5, 2);
             this.label5.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label5.Location = new System.Drawing.Point(671, 10);
+            this.label5.Location = new System.Drawing.Point(690, 10);
             this.label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(66, 19);
@@ -267,10 +267,10 @@ namespace BachelorLibAPI.Forms
             this.label3.AutoSize = true;
             this.ltMainOptions.SetColumnSpan(this.label3, 4);
             this.label3.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label3.Location = new System.Drawing.Point(366, 3);
+            this.label3.Location = new System.Drawing.Point(327, 10);
             this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(98, 33);
+            this.label3.Size = new System.Drawing.Size(149, 19);
             this.label3.TabIndex = 28;
             this.label3.Text = "Координаты аварии: ";
             // 
@@ -280,7 +280,7 @@ namespace BachelorLibAPI.Forms
             this.label4.AutoSize = true;
             this.ltMainOptions.SetColumnSpan(this.label4, 2);
             this.label4.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label4.Location = new System.Drawing.Point(477, 10);
+            this.label4.Location = new System.Drawing.Point(491, 10);
             this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(65, 19);
@@ -291,10 +291,10 @@ namespace BachelorLibAPI.Forms
             // 
             this.edtLat.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.ltMainOptions.SetColumnSpan(this.edtLat, 3);
-            this.edtLat.Location = new System.Drawing.Point(552, 6);
+            this.edtLat.Location = new System.Drawing.Point(566, 6);
             this.edtLat.Mask = "000°00′00″?";
             this.edtLat.Name = "edtLat";
-            this.edtLat.Size = new System.Drawing.Size(108, 26);
+            this.edtLat.Size = new System.Drawing.Size(111, 26);
             this.edtLat.TabIndex = 31;
             this.edtLat.Leave += new System.EventHandler(this.edtLat_Leave);
             // 
@@ -402,6 +402,7 @@ namespace BachelorLibAPI.Forms
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Анализ опасности при ЧП";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
+            this.Activated += new System.EventHandler(this.MainForm_Activated);
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.MainForm_FormClosed);
             this.menuMain.ResumeLayout(false);
             this.menuMain.PerformLayout();
