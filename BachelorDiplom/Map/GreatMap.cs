@@ -151,7 +151,7 @@ namespace BachelorLibAPI.Map
                     if (m.Count != 0)
                     {
                         isMchs = true;
-                        if (MessageBox.Show(@"Вы уверены, что хотите удалить пункт реагирования?", @"Внимание!", MessageBoxButtons.YesNo,
+                        if (MessageBox.Show(@"Вы уверены, что хотите удалить подразделение ФПС МЧС России?", @"Внимание!", MessageBoxButtons.YesNo,
                             MessageBoxIcon.Question) != DialogResult.Yes) return;
                         _mchsMarkers.Remove(m.First());
                         args.MarkerType = MarkerType.Staff; 
@@ -221,7 +221,7 @@ namespace BachelorLibAPI.Map
             {
                 ToolTipText =
                     string.Format(
-                        "Пункт реагирования МЧС #{0}\nМожет перевезти обезвреживающиего вещества (всего): {1} т.\nМожет перевезти людей: {2}" +
+                        "Подразделение ФПС МЧС России #{0}\nМожет перевезти обезвреживающиего вещества (всего): {1} т.\nМожет перевезти людей: {2}" +
                         "\nДоступно людей: {3}\nДоступно машин для устранения последствий: {4}\nДоступные обезвреживающие вещества:\n{5}",
                         m.MchsPoint.Id, m.MchsPoint.CanSuggest, m.MchsPoint.PeopleReady, m.MchsPoint.PeopleCount, m.MchsPoint.SuperCarCount,
                         m.MchsPoint.AntiSubstances.Select(x => string.Format("\t{0} {1} т.\n", x.Key, x.Value))
@@ -287,10 +287,10 @@ namespace BachelorLibAPI.Map
             {
                 ToolTipText =
                     string.Format(
-                        "!!!АВАРИЯ!!!\nВещество {0}: {1} т.\nПлощадь заражения: {2}" +
+                        "Авария #{5}\nВещество {0}: {1} т.\nПлощадь заражения: {2}" +
                         "\nПредположительное время устранения последствий: {3}\nМесто: {4}",
                         crashInfo.Consignment, crashInfo.ConsignmentCapacity, crashInfo.Area, 
-                        crashInfo.UntilTime, crashInfo.Center.Address)
+                        crashInfo.UntilTime, crashInfo.Center.Address, crashInfo.Id)
             };
 
             var radius = Math.Sqrt(2 * crashInfo.Area / Math.PI);
@@ -502,7 +502,8 @@ namespace BachelorLibAPI.Map
 
         public List<KeyValuePair<PointLatLng, int>> GetShortTrack()
         {
-            _stadiesGeneration.Wait();
+            if(_stadiesGeneration != null) 
+                _stadiesGeneration.Wait();
             return _detailedRoute;
         }
 
@@ -606,15 +607,21 @@ namespace BachelorLibAPI.Map
             }
         }
 
-        private void GenerateStadies(CancellationToken token, IReadOnlyList<PointLatLng> routePoints, int diff,
+        public void GenerateStadies(CancellationToken token, IReadOnlyList<PointLatLng> routePoints, int diff,
             int threadsCount = 4)
         {
+            _detailedRoute.Clear();
+            if (routePoints.Count == 0) return;
+            while (!(diff > routePoints.Count) && routePoints.Count <= diff*threadsCount) 
+                threadsCount /= 2;
+            threadsCount = threadsCount == 0 ? 1 : threadsCount;
+
             var st = DateTime.Now.Ticks;
             Debug.WriteLine("Добавлено: {0} - {1}", routePoints[0], 0);
 
             var results = new List<List<KeyValuePair<PointLatLng, double>>>();
             var tasks = new List<Task>();
-            var progressBar = new ProgressBarForm("Расчёт промежуточных стадий...", (routePoints.Count - 1) / diff * 1000 + 1000);
+            var progressBar = new ProgressBarForm("Расчёт промежуточных стадий...", (threadsCount + (routePoints.Count - 1) / diff) * 1000 + 1000);
 
             try
             {
@@ -637,7 +644,7 @@ namespace BachelorLibAPI.Map
                     new KeyValuePair<PointLatLng, double>(routePoints[0], 0)
                 };
                 // жёсткая логика для вытаскивания данных из другого потока
-                while (counter < (routePoints.Count - 1)/(diff*threadsCount))
+                while (counter < (routePoints.Count - 1)/(diff*threadsCount) + 1)
                 {
                     for (var i = 0; i < results.Count; i++)
                     {

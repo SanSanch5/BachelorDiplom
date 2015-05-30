@@ -68,7 +68,15 @@ namespace BachelorLibAPI.Forms
 
         private void DangerAnalyseClick(object sender, EventArgs e)
         {
-            
+            var pnt = new PointLatLng(LatLongWorker.DegMinSecToDecimalDegree(new DegMinSec(edtLat.Text), true),
+                LatLongWorker.DegMinSecToDecimalDegree(new DegMinSec(edtLong.Text), false));
+            _queriesHandler.SetCurrentPointOfView(pnt.Lat, pnt.Lng);
+
+            _queriesHandler.AnalyseDanger(dtpPrecTime.Value, new FullPointDescription
+            {
+                Address = edtCrashPlace.Text,
+                Position = pnt
+            }, 90 - ((AngleSelector)ltMainOptions.GetControlFromPosition(22, 0)).Angle);
         }
 
         private Point _menuClickPos;

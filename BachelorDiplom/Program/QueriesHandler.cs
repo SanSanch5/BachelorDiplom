@@ -22,8 +22,8 @@ namespace BachelorLibAPI.Program
     /// </summary>
     public class QueriesHandler
     {
-        private const int TimeCorrection = 30;
-        private const int KmCorrection = 5;
+        private const int TimeCorrection = 20;
+        private const int KmCorrection = 1;
         private const int TimeOfCleaning = 24; // общее время на устранение последствий
         private int _cleaningTime; // сколько времени будет у МЧС на устранение с учётом времени аварии и текущего времени
 
@@ -577,7 +577,7 @@ namespace BachelorLibAPI.Program
             }
             _reportInfo.Add(new List<string>
             {
-                "Возможные первозки, задействованные в аварии: ",
+                "Возможные перевозки, задействованные в аварии: ",
                 _probableCrashes[place.Position].Aggregate("", (c, s) => c + s + "; ")
             });
             _reportInfo.Add(new List<string>
@@ -755,7 +755,7 @@ namespace BachelorLibAPI.Program
                 {
                     new List<string>
                     {
-                        "Задействованные пункты МЧС:", res.Aggregate("", (current, x) => current + x + ";")
+                        "Задействованные подразделения ФПС МЧС России:", res.Aggregate("", (current, x) => current + x + ";")
                     },
                     new List<string>
                     {
@@ -825,6 +825,7 @@ namespace BachelorLibAPI.Program
                                               "с {1}-ти минутной поправкой заданного времени " +
                                               "перевозок опасных грузов не было обнаружено", KmCorrection,
                     TimeCorrection), @"Информация");
+                progressBar.Close();
                 return;
             }
             progressBar.Progress(1000);
