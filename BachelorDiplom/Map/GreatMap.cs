@@ -28,7 +28,7 @@ namespace BachelorLibAPI.Map
         {
             _gmap = gmap;
             _gmap.MapProvider = OpenStreetMapProvider.Instance;
-            GMaps.Instance.Mode = AccessMode.ServerAndCache;
+            GMaps.Instance.Mode = AccessMode.ServerOnly;
             _gmap.Zoom = 7;
             
             _gmap.SetPositionByKeywords("МГТУ им. Баумана");
@@ -580,7 +580,7 @@ namespace BachelorLibAPI.Map
                 r = ((OpenStreetMapProvider)_gmap.MapProvider).GetRoute(x, y,
                     false, false, 11);
             } while (r == null && trying < 4);
-            Debug.WriteLine("Путь проложен!");
+            //Debug.WriteLine("Путь проложен!");
             return r == null
                 ? LatLongWorker.DistanceFromLatLonInKm(x, y)
                 : r.Distance;
@@ -599,11 +599,11 @@ namespace BachelorLibAPI.Map
                 res.Add(new KeyValuePair<PointLatLng, double>(routePoints[i],
                     (60*distance/Settings.Default.AverageVelocity)));
 
-                Debug.WriteLine("До промежуточной точки {0}:{1} из предыдущей ({2} назад) Время {3}",
-                    res.Last().Key.Lat.ToString("G5"),
-                    res.Last().Key.Lng.ToString("G5"),
-                    diff,
-                    res.Last().Value);
+                //Debug.WriteLine("До промежуточной точки {0}:{1} из предыдущей ({2} назад) Время {3}",
+                //    res.Last().Key.Lat.ToString("G5"),
+                //    res.Last().Key.Lng.ToString("G5"),
+                //    diff,
+                //    res.Last().Value);
             }
         }
 

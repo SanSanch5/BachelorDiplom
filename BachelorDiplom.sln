@@ -9,6 +9,8 @@ Project("{F088123C-0E9E-452A-89E6-6BA2F21D5CAC}") = "BachelorDiplomaUML", "Bache
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BachelorDiplomaTests", "BachelorDiplomaTests\BachelorDiplomaTests.csproj", "{FEE74E31-6BBC-4BF7-871A-5263975D7E2F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ThreadsExperiment", "ThreadsExperiment\ThreadsExperiment.csproj", "{2D6A6CC5-328F-4377-984F-F1C763730557}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -51,6 +53,17 @@ Global
 		{FEE74E31-6BBC-4BF7-871A-5263975D7E2F}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{FEE74E31-6BBC-4BF7-871A-5263975D7E2F}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{FEE74E31-6BBC-4BF7-871A-5263975D7E2F}.Release|x86.ActiveCfg = Release|Any CPU
+		{2D6A6CC5-328F-4377-984F-F1C763730557}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2D6A6CC5-328F-4377-984F-F1C763730557}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2D6A6CC5-328F-4377-984F-F1C763730557}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{2D6A6CC5-328F-4377-984F-F1C763730557}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{2D6A6CC5-328F-4377-984F-F1C763730557}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{2D6A6CC5-328F-4377-984F-F1C763730557}.Debug|x86.Build.0 = Debug|Any CPU
+		{2D6A6CC5-328F-4377-984F-F1C763730557}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2D6A6CC5-328F-4377-984F-F1C763730557}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2D6A6CC5-328F-4377-984F-F1C763730557}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{2D6A6CC5-328F-4377-984F-F1C763730557}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{2D6A6CC5-328F-4377-984F-F1C763730557}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

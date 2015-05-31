@@ -308,7 +308,7 @@ namespace BachelorLibAPI.Forms
             this.cmbGRZ.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
             this.cmbGRZ.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.cmbGRZ.FormattingEnabled = true;
-            this.cmbGRZ.Location = new System.Drawing.Point(279, 172);
+            this.cmbGRZ.Location = new System.Drawing.Point(279, 171);
             this.cmbGRZ.Name = "cmbGRZ";
             this.cmbGRZ.Size = new System.Drawing.Size(229, 27);
             this.cmbGRZ.TabIndex = 28;
@@ -372,7 +372,7 @@ namespace BachelorLibAPI.Forms
             this.cmbDriverName.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
             this.cmbDriverName.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.cmbDriverName.FormattingEnabled = true;
-            this.cmbDriverName.Location = new System.Drawing.Point(279, 138);
+            this.cmbDriverName.Location = new System.Drawing.Point(279, 139);
             this.cmbDriverName.Name = "cmbDriverName";
             this.cmbDriverName.Size = new System.Drawing.Size(229, 27);
             this.cmbDriverName.TabIndex = 33;
